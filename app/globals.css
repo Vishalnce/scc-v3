@@ -1,5 +1,36 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
+:root {
+  --font-default: var(--font-lato);
+  --font-secondary: var(--font-montserrat);
+  
+}
+
+body {
+  font-family: var(--font-default), sans-serif;
+}
+
+
+
+@theme {
+  --font-lato: var(--font-lato), sans-serif; 
+  --font-montserrat: var(--font-montserrat), sans-serif; 
+  
+  --color-active-background: var(--active-background);
+}
+
+@layer base {
+  :root {
+ 
+    --active-background: white;
+  }
+  .dark {
+    
+    --active-background: rgba(100, 41, 236, 1);
+    
+  }
+}
 
 p[style*="text-align"] > img {
   display: inline-block !important;

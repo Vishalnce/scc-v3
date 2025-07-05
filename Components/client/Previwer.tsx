@@ -19,11 +19,7 @@ function Page() {
 
   return (
     <>
-
-    <p className="font-montserrat ">English inside layout</p>
-  
-
-      {/* <div className=" max-w-none p-8">
+      <div className=" max-w-none p-8">
         <div dangerouslySetInnerHTML={{ __html: html }} />
       </div>
 
@@ -31,7 +27,7 @@ function Page() {
         <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded">
           Go to /hi
         </button>
-      </Link> */}
+      </Link>
     </>
   );
 }

@@ -1,40 +1,47 @@
 "use client";
-// app/page.tsx (Server Component - default)
 
 import LexicalEditorClientWrapper from "@/Components/editor/LexicalEditorClientWrapper";
-import { useState, useRef } from "react";
-import "./globals.css";
+import { useEffect, useRef, useState } from "react";
 import { extractTocFromHtml } from "@/Components/admin/toc";
+import type { TocItem } from "@/Components/admin/toc";
 
-export default function Home() {
-  const editorContentRef = useRef<string>("");
+import "./globals.css";
 
-  const [value, setValue] = useState("");
-  const [toc, setToc] = useState([]);
+type EditorProps = {
+  value?: string; // NEW: make value optional for initial content
+  onSync: (data: { html: string; toc: TocItem[] }) => void;
+};
+
+export default function Editor({ value = "", onSync }: EditorProps) {
+  const editorContentRef = useRef<string>(value); // store current content
+
+  const [editorValue, setEditorValue] = useState(value); // local state
+
+  useEffect(() => {
+    // If value changes (e.g. on blog fetch), update local state and ref
+    setEditorValue(value);
+    editorContentRef.current = value;
+  }, [value]);
 
   const tocAndHtml = () => {
     const rawHtml = editorContentRef.current;
-
-    console.log("Raw HTML:\n", rawHtml);
-
     const { toc, html: updatedHtml } = extractTocFromHtml(rawHtml);
-
-    console.log("Extracted TOC:\n", toc);
-    console.log("Extracted HTML:\n", updatedHtml);
+    onSync({ html: updatedHtml, toc });
+    console.log("TOC:", toc);
+    console.log("HTML:", updatedHtml);
   };
 
-  console.log(editorContentRef.current);
   return (
-    <div className="flex flex-col items-center justify-center ">
+    <div className="flex flex-col items-center justify-center">
       <div className="w-full max-w-4xl">
         <LexicalEditorClientWrapper
-          value={value}
+          value={editorValue} // pass prefilled value
           onChange={(newValue) => {
             editorContentRef.current = newValue;
           }}
         />
       </div>
-      <button className="p-1" onClick={tocAndHtml}>
+      <button type="button" className="p-1 mt-2 bg-blue-500 text-white px-4 py-2 rounded" onClick={tocAndHtml}>
         Sync Now
       </button>
     </div>
