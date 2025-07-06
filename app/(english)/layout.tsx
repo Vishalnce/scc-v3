@@ -32,7 +32,8 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div>
-            <ThemeToggle/>
+            {/* <ThemeToggle/> */}
+            <EnglishNav />
             {children}
           </div>
         </ThemeProvider>

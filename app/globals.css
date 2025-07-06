@@ -9,6 +9,9 @@
 
 body {
   font-family: var(--font-default), sans-serif;
+  max-width:1400px;
+  margin-left: auto; 
+  margin-right: auto; 
 }
 
 
@@ -18,6 +21,11 @@ body {
   --font-montserrat: var(--font-montserrat), sans-serif; 
   
   --color-active-background: var(--active-background);
+
+  --color-my-green: #007076;
+
+  --color-my-text-color: #6C6C6C;
+
 }
 
 @layer base {
