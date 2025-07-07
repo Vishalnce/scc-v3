@@ -31,11 +31,11 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-          <div>
+          
             {/* <ThemeToggle/> */}
             <EnglishNav />
             {children}
-          </div>
+          
         </ThemeProvider>
       </body>
     </html>

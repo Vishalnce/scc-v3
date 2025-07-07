@@ -9,6 +9,8 @@ import { IoIosArrowDown } from "react-icons/io";
 import Link from "next/link";
 
 import { MdKeyboardArrowRight } from "react-icons/md";
+import ThemeProvider from "@/utils/theme/ThemeProvider";
+import ThemeToggle from "@/utils/theme/ThemeToggle";
 function Nav() {
   const [activeTag, setActiveTag] = useState<string | null>(null);
 
@@ -18,8 +20,8 @@ function Nav() {
 
   return (
     <>
-      <div className="relative">
-        <nav className="border-4 flex flex-row justify-between items-center z-50 sticky top-0 bg-[linear-gradient(to_right,_#FAFCFC,_#E6F1F1)]">
+      <div className="relative ">
+        <nav className=" flex flex-row justify-between items-center z-50 sticky top-0  bg-[image:var(--color-my-gradient)] ">
           {/* logo */}
           <div className="m-2">
             <Image
@@ -32,7 +34,7 @@ function Nav() {
           </div>
 
           {/* links */}
-          <div className="flex flex-row items-center space-x-8">
+          <div className="flex flex-row items-center space-x-8 max-lg:hidden ">
             <Link href="/" onClick={() => handleClick("curren-affairs")}>
               <div className="flex flex-row items-center justify-center text-my-text-color text-sm hover:text-my-green">
                 <p className="">Current Affairs</p> <IoIosArrowDown />
@@ -76,16 +78,27 @@ function Nav() {
           {/* button and login */}
 
           <div className="flex flex-row justify-around items-center space-x-2 mx-2">
+            
+            <Link href="/hi">
+              
             <CiGlobe className="size-5 " />
+            </Link>
+          
 
             <FaBell className="size-5 " />
 
-            <button className="p-0.5 px-4 border-1 rounded-lg ">Login</button>
-            <button className="p-0.5 px-4 border-1 rounded-lg bg-my-green text-white ">
+            <ThemeToggle/>
+
+            <button className="p-0.5 px-4 border-1 rounded-lg max-lg:text-sm max-sm:px-2 max-lg:hidden">Login</button>
+            <button className="p-0.5 px-4 border-1 rounded-lg bg-my-green text-white max-lg:text-sm max-sm:px-2  ">
               Signup
             </button>
           </div>
+
+
         </nav>
+
+
 
         {/* DropDown for current affaris */}
         {activeTag === "curren-affairs" && (
@@ -192,6 +205,8 @@ function Nav() {
             </div>
           </div>
         )}
+
+
 
 
       </div>

@@ -1,19 +1,24 @@
 "use client";
 
 import { useTheme } from "next-themes";
-
+import { FaMoon } from "react-icons/fa";
+import { IoSunnyOutline } from "react-icons/io5";
 export default function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
   return (
     <button
       type="button"
-      className="cursor-pointer bg-white dark:bg-[#191919] text-[#37352f] dark:text-[#ffffffcf] hover:bg-hover-background active:bg-active-background rounded-md border border-button-border-color p-1.5 [transition:background_20ms_ease-in,_color_0.15s]"
+      className="cursor-pointer   p-1.5 [transition:background_20ms_ease-in,_color_0.15s]"
       title="Toggle theme"
       aria-label="Toggle theme"
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
     >
-      <svg
+
+
+      <FaMoon className="block dark:hidden "/>
+
+      {/* <svg
         role="graphics-symbol"
         viewBox="0 0 15 15"
         width="15"
@@ -27,8 +32,10 @@ export default function ThemeToggle() {
           fillRule="evenodd"
           clipRule="evenodd"
         ></path>
-      </svg>
-      <svg
+      </svg> */}
+
+      <IoSunnyOutline  className= "size-5 hidden dark:block "/>
+      {/* <svg
         role="graphics-symbol"
         viewBox="0 0 15 15"
         width="15"
@@ -42,7 +49,7 @@ export default function ThemeToggle() {
           fillRule="evenodd"
           clipRule="evenodd"
         ></path>
-      </svg>
+      </svg> */}
     </button>
   );
 }

@@ -26,16 +26,23 @@ body {
 
   --color-my-text-color: #6C6C6C;
 
+ 
 }
 
 @layer base {
   :root {
  
     --active-background: white;
+    --color-my-text-color: #6C6C6C;
+    --color-my-gradient: linear-gradient(to right, #FAFCFC, #E6F1F1);
+
+
   }
   .dark {
     
-    --active-background: rgba(100, 41, 236, 1);
+    --active-background: #313131;
+    --color-my-text-color: white;
+     --color-my-gradient: linear-gradient(to right, #313131, #313131);
     
   }
 }
