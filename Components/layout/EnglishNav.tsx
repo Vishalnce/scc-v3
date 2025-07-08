@@ -32,8 +32,8 @@ function Nav() {
 
   return (
     <>
-      <div className="relative">
-        <nav className="bg-[image:var(--color-my-gradient)]  w-full fixed z-50  top-0 ">
+     
+        <nav className="bg-[image:var(--color-my-gradient)]  w-full sticky z-50  top-0 ">
           <div className="  flex flex-row justify-between items-center mx-auto   max-w-[1400px]  ">
             {/* small screen toggle menu button */}
 
@@ -635,7 +635,7 @@ function Nav() {
             </div>
           </div>
         </div>
-      </div>
+      
     </>
   );
 }

@@ -20,7 +20,12 @@ function Page() {
   return (
     <>
 
-    <p className="font-montserrat bg-cyan-500 h-[1400px]  ">English inside layout</p>
+    <p className="font-montserrat bg-cyan-500 h-[1400px] text-4xl   ">dd
+      ddddddddddddddddddddddddddddddddddddddddddddd inside layout</p>
+      dddddddddddddddddddddddddddddddddddddddddddddEnglis
+      dddddddddddddddddddddddddddddddddddddddddddddEnglis
+      dddddddddddddddddddddddddddddddddddddddddddddEnglis
+      dddddddddddddddddddddddddddddddddddddddddddddEnglis
   
 
       {/* <div className=" max-w-none p-8">
