@@ -19,15 +19,13 @@ function Page() {
 
   return (
     <>
-
-    <p className="font-montserrat bg-cyan-500 h-[1400px] text-4xl   ">dd
-      ddddddddddddddddddddddddddddddddddddddddddddd inside layout</p>
-      dddddddddddddddddddddddddddddddddddddddddddddEnglis
-      dddddddddddddddddddddddddddddddddddddddddddddEnglis
-      dddddddddddddddddddddddddddddddddddddddddddddEnglis
-      dddddddddddddddddddddddddddddddddddddddddddddEnglis
-  
-
+    
+      {/* Added 'break-words' to allow long strings to wrap */}
+      <p className="font-montserrat bg-cyan-500 break-words p-4">
+        ddddddddddddddddddddddddddddddddddddddddddddxxxxxxxxxxx inside layout
+      </p>
+      
+      {/* The commented out section from your original code */}
       {/* <div className=" max-w-none p-8">
         <div dangerouslySetInnerHTML={{ __html: html }} />
       </div>

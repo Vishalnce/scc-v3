@@ -49,7 +49,7 @@ function Nav() {
                   <IoClose className="size-8" />
                 )}
               </div>
-
+                <Link href="/">
               <Image
                 src="/layout/logo1.svg"
                 alt="Logo"
@@ -57,11 +57,12 @@ function Nav() {
                 height={35}
                 className=""
               />
+              </Link>
             </div>
 
             {/* links */}
             <div className="flex flex-row items-center space-x-8 max-lg:hidden ">
-              <Link href="/" onClick={() => handleClick("curren-affairs")}>
+              <Link href="/current-affaris" onClick={() => handleClick("current-affairs")}>
                 <div className="flex flex-row items-center justify-center text-my-text-color text-sm hover:text-my-green">
                   <p className="">Current Affairs</p> <IoIosArrowDown />
                 </div>

@@ -23,7 +23,7 @@ body {
   --color-my-green: #007076;
 
   --color-my-text-color: #6C6C6C;
-
+  --color-my-yellow-alert: linear-gradient(to right, #FFF095, #FFE332);
  
 }
 
@@ -43,6 +43,17 @@ body {
      --color-my-gradient: linear-gradient(to right, #313131, #313131);
     
   }
+}
+
+/* .react-datepicker__input-container input {
+  padding: 8px 32px !important;
+  border-radius: 9999px;
+   margin: 0 auto;
+} */
+
+.css-hlgwow {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
 }
 
 p[style*="text-align"] > img {
