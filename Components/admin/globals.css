@@ -23,16 +23,13 @@ ol {
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, '.SFNSText-Regular',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background: #eee;
-  padding: 0 20px;
+
+  
+
 }
 
 header {
-  max-width: 580px;
+  
   margin: auto;
   position: relative;
   display: flex;

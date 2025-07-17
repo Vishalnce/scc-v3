@@ -7,7 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
+
   },
+  "prisma": {
+    "schema": "prisma/schema"
+  },
+  
   "dependencies": {
     "@excalidraw/excalidraw": "^0.18.0",
     "@lexical/clipboard": "^0.32.1",

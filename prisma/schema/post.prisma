@@ -1,0 +1,5 @@
+model Post {
+  id          Int    @unique
+  title       String
+  description String
+}

@@ -24,7 +24,7 @@ export default function RootLayout({
       className={`${lato.variable} ${montserrat.variable}`}
       suppressHydrationWarning
     >
-      <body className="bg-active-background text-[#37352f] dark:text-[#ffffffcf]" >
+      <body className="bg-active-background " >
         <ThemeProvider
           attribute="class"
           defaultTheme="light"

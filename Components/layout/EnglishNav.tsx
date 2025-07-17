@@ -55,7 +55,7 @@ function Nav() {
                 alt="Logo"
                 width={123}
                 height={35}
-                className=""
+                className="h-auto w-auto"
               />
               </Link>
             </div>
@@ -571,7 +571,7 @@ function Nav() {
               <div>
                 <Image
                   alt="News"
-                  src="\layout\mobile\news.svg"
+                  src="/layout/mobile/news.svg"
                   width={30}
                   height={30}
                 />
@@ -585,7 +585,7 @@ function Nav() {
               <div>
                 <Image
                   alt="test"
-                  src="\layout\mobile\bulb.svg"
+                  src="/layout/mobile/bulb.svg"
                   width={30}
                   height={30}
                 />
@@ -599,7 +599,7 @@ function Nav() {
               <div className="-m-4 ">
                 <Image
                   alt="home"
-                  src="\layout\mobile\home.svg"
+                  src="/layout/mobile/home.svg"
                   width={40}
                   height={40}
                 />
@@ -612,9 +612,10 @@ function Nav() {
               <div>
                 <Image
                   alt="task"
-                  src="\layout\mobile\task.svg"
+                  src="/layout/mobile/task.svg"
                   width={30}
                   height={30}
+                  className="h-auto w-auto"
                 />
                 <p className="text-my-text-color text-[12px] text-center">
                   Test
@@ -625,9 +626,10 @@ function Nav() {
               <div>
                 <Image
                   alt="menu"
-                  src="\layout\mobile\menu.svg"
+                  src="/layout/mobile/menu.svg"
                   width={30}
                   height={30}
+                  className="h-auto w-auto"
                 />
                 <p className="text-my-text-color text-[12px] text-center">
                   More
