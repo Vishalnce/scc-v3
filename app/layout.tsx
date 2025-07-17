@@ -1,17 +1,25 @@
-
-import type { Metadata } from 'next'
-import "./globals.css"
-
-
-export const metadata: Metadata = {
-  title: 'Your Website',
-  description: 'English-Hindi bilingual site',
-}
+import "./globals.css";
+import { lato, montserrat } from "@/lib/fonts/fonts";
+import  ThemeProvider  from "@/utils/theme/ThemeProvider";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html
+      lang="en"
+      className={`${lato.variable} ${montserrat.variable}`}
+       suppressHydrationWarning
+    >
+      <body>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem={false}
+          disableTransitionOnChange
+          enableColorScheme={false} // ✅ prevents color-scheme mismatch
+        >
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
-  )
+  );
 }

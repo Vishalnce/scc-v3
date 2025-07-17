@@ -1,7 +1,6 @@
 import EnglishNav from "@/Components/layout/EnglishNav";
 import { Lato, Montserrat } from "next/font/google";
 import ThemeProvider from "@/utils/theme/ThemeProvider";
-import ThemeToggle from "@/utils/theme/ThemeToggle";
 
 export const lato = Lato({
   subsets: ["latin"],
@@ -19,25 +18,9 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="en"
-      className={`${lato.variable} ${montserrat.variable}`}
-      suppressHydrationWarning
-    >
-      <body className="bg-active-background " >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem={false}
-          disableTransitionOnChange
-        >
-          
-            {/* <ThemeToggle/> */}
-            <EnglishNav />
-            {children}
-          
-        </ThemeProvider>
-      </body>
-    </html>
+    <>
+      <EnglishNav />
+      {children}
+    </>
   );
 }
