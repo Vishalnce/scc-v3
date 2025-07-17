@@ -115,9 +115,10 @@ export default function Page() {
   };
 
   // for editor
-  useEffect(() => {
+useEffect(() => {
   setValue("editorHtml", editorData.html);
-}, [editorData.html, setValue]);
+  setValue("toc", JSON.stringify(editorData.toc)); // <-- add this!
+}, [editorData, setValue]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-6">
@@ -200,6 +201,7 @@ export default function Page() {
 
       <input type="hidden" {...register("editorHtml")} />
 
+      <input type="hidden" {...register("toc")} />
       <button
         type="submit"
         className="bg-green-600 text-white px-4 py-2 rounded"
