@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -298,6 +299,7 @@ export class CommentStore {
         provider.disconnect();
       } catch (e) {
         // Do nothing
+        console.log(e)
       }
     };
 
@@ -308,11 +310,11 @@ export class CommentStore {
           const shouldConnect = payload;
 
           if (shouldConnect) {
-            // eslint-disable-next-line no-console
+            
             console.log('Comments connected!');
             connect();
           } else {
-            // eslint-disable-next-line no-console
+           
             console.log('Comments disconnected!');
             disconnect();
           }

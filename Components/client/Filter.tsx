@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 
 import { FiCalendar } from "react-icons/fi";
@@ -98,7 +98,7 @@ const Filter = () => {
           options={options}
           placeholder="Select a topic"
           styles={{
-            control: (base, state) => ({
+            control: (base) => ({
               ...base,
               border: theme === "dark" ? "2px solid white" : "2px solid black",
               borderRadius: "9999px",

@@ -173,16 +173,16 @@ export default function Editor({value, onChange}:EditorProps): JSX.Element {
         <AutoFocusPlugin />
         {selectionAlwaysOnDisplay && <SelectionAlwaysOnDisplay />}
         <ClearEditorPlugin />
-        <ComponentPickerPlugin />
-        <EmojiPickerPlugin />
-        <AutoEmbedPlugin />
+        {/* <ComponentPickerPlugin /> */}
+        {/* <EmojiPickerPlugin /> */}
+        {/* <AutoEmbedPlugin /> */}
         <CustomOnChangePlugin value= {value} onChange={onChange}/>
         <MentionsPlugin />
-        <EmojisPlugin />
+        {/* <EmojisPlugin /> */}
         <HashtagPlugin />
         <KeywordsPlugin />
-        <SpeechToTextPlugin />
-        <AutoLinkPlugin />
+        {/* <SpeechToTextPlugin /> */}
+        {/* <AutoLinkPlugin /> */}
         {/* <CommentPlugin
           providerFactory={isCollab ? createWebsocketProvider : undefined}
         /> */}
@@ -220,18 +220,18 @@ export default function Editor({value, onChange}:EditorProps): JSX.Element {
             <ImagesPlugin />
             <InlineImagePlugin />
             <LinkPlugin hasLinkAttributes={hasLinkAttributes} />
-            <PollPlugin />
+            {/* <PollPlugin /> */}
             <TwitterPlugin />
             <YouTubePlugin />
-            <FigmaPlugin />
+            {/* <FigmaPlugin /> */}
             <ClickableLinkPlugin disabled={isEditable} />
-            <HorizontalRulePlugin />
+            {/* <HorizontalRulePlugin /> */}
             <EquationsPlugin />
-            <ExcalidrawPlugin />
+            {/* <ExcalidrawPlugin /> */}
             <TabFocusPlugin />
             <TabIndentationPlugin maxIndent={7} />
-            <CollapsiblePlugin />
-            <PageBreakPlugin />
+            {/* <CollapsiblePlugin /> */}
+            {/* <PageBreakPlugin /> */}
             <LayoutPlugin />
             {floatingAnchorElem && (
               <>
@@ -267,6 +267,8 @@ export default function Editor({value, onChange}:EditorProps): JSX.Element {
             <HistoryPlugin externalHistoryState={historyState} />
           </>
         )}
+
+
         {(isCharLimit || isCharLimitUtf8) && (
           <CharacterLimitPlugin
             charset={isCharLimit ? 'UTF-16' : 'UTF-8'}

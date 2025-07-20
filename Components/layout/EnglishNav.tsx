@@ -1,8 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { CiDark } from "react-icons/ci";
-import { CiGlobe } from "react-icons/ci";
+
 import { TbLanguageHiragana } from "react-icons/tb";
 import { FaBell } from "react-icons/fa";
 
@@ -10,7 +9,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import Link from "next/link";
 
 import { MdKeyboardArrowRight } from "react-icons/md";
-import ThemeProvider from "@/utils/theme/ThemeProvider";
+
 import ThemeToggle from "@/utils/theme/ThemeToggle";
 import { IoClose } from "react-icons/io5";
 import { RiMenu2Fill } from "react-icons/ri";

@@ -1,3 +1,5 @@
+
+/* eslint-disable */
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -27,7 +29,7 @@ type SettingsContextShape = {
 };
 
 const Context: React.Context<SettingsContextShape> = createContext({
-  setOption: (name: SettingName, value: boolean) => {
+  setOption: (_name: SettingName, value: boolean) => {
     return;
   },
   settings: INITIAL_SETTINGS,

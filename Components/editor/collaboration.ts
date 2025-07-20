@@ -1,4 +1,5 @@
 'use client'
+
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -32,7 +33,7 @@ export function createWebsocketProvider(
     doc.load();
   }
 
-  // @ts-expect-error
+
   return new WebsocketProvider(
     WEBSOCKET_ENDPOINT,
     WEBSOCKET_SLUG + '/' + WEBSOCKET_ID + '/' + id,
