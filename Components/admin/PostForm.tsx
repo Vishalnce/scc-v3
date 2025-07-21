@@ -47,17 +47,13 @@ const options = [
   },
 ];
 
-
 type OptionType = { value: string; label: string };
 
 export default function Page({ post }: { post?: PostType }) {
-
-
   const { register, handleSubmit, setValue, watch } = useForm<PostType>({
     defaultValues: post || {},
   });
 
-  
   const [selectedOption, setSelectedOption] = useState<OptionType | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string>("");
@@ -89,32 +85,30 @@ export default function Page({ post }: { post?: PostType }) {
 
   const value = `<p class="PlaygroundEditorTheme__paragraph" dir="ltr"><span style="white-space: pre-wrap;">asdsadasdasdasdassszzzzzzzzzzz</span></p>;`;
 
-const isEdit = !!post;
+  const isEdit = !!post;
 
-const onSubmit = async (data: PostType) => {
-  try {
-    const method = isEdit ? "PATCH" : "POST";
+  const onSubmit = async (data: PostType) => {
+    try {
+      const method = isEdit ? "PATCH" : "POST";
 
-    const res = await fetch("/api/en/current-affaris/admin", {
-      method,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
+      const res = await fetch("/api/en/current-affaris/admin", {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
 
-    // const result = await res.json();
+      // const result = await res.json();
 
-    if (res.ok) {
-      alert(isEdit ? "Post updated successfully!" : "Post created!");
-    } else {
-      alert("Failed to save post");
+      if (res.ok) {
+        alert(isEdit ? "Post updated successfully!" : "Post created!");
+      } else {
+        alert("Failed to save post");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error submitting");
     }
-  } catch (err) {
-    console.error(err);
-    alert("Error submitting");
-  }
-};
-
-
+  };
 
   const handleChange = (option: OptionType | null) => {
     setSelectedOption(option);
@@ -148,15 +142,14 @@ const onSubmit = async (data: PostType) => {
   };
 
   // for editor
-useEffect(() => {
-  if (post?.topic) {
-    const matched = options.find((opt) => opt.value === post.topic);
-    if (matched) {
-      setSelectedOption(matched);
+  useEffect(() => {
+    if (post?.topic) {
+      const matched = options.find((opt) => opt.value === post.topic);
+      if (matched) {
+        setSelectedOption(matched);
+      }
     }
-  }
-}, [post]);
-
+  }, [post]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-6">
@@ -205,14 +198,13 @@ useEffect(() => {
       </button>
 
       {uploadedImageUrl && (
-        <div>
+        <div className="relative w-[30%] h-[228px] ">
           <p className="text-sm text-gray-600">Uploaded Image:</p>
           <Image
             src={uploadedImageUrl}
-            alt="Uploaded"
-            width={46}
-            height={46}
-            className="h-32 object-contain  w-auto"
+            alt={watch("alt") || "Uploaded image preview"}
+            fill
+            className="object-cover"
           />
         </div>
       )}

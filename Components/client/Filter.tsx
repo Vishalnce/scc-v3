@@ -54,16 +54,16 @@ const Filter = () => {
   const handleSubmit = () => {
     const params = new URLSearchParams();
     if (date) {
-      const formattedDate = format(date, "dd/MM/yyyy");
+      const formattedDate = format(date, "yyyy-MM-dd");
       params.set("date", formattedDate);
-      console.log(formattedDate); // ✅ formatted date
+      // console.log(formattedDate); // ✅ formatted date
     }
     if (selectedOption?.value) {
       params.set("topic", selectedOption.value);
-      console.log(selectedOption.value);
+      // console.log(selectedOption.value);
     }
 
-    console.log(params.toString());
+    // console.log(params.toString());
     router.push(`/current-affaris?${params.toString()}`); // ✅ adjust route if needed
   };
 
@@ -73,10 +73,11 @@ const Filter = () => {
   return (
     <>
       {/* left side  */}
-      <div className="max-md:w-full max-md:flex-wrap flex flex-row items-center max-md:justify-around gap-4 max-sm:gap-1 border-2  ">
+      <div className="max-md:w-full max-md:flex-wrap flex flex-row items-center max-md:justify-around gap-4 max-sm:gap-1   ">
         {/* date  */}
         <div className="relative w-[160px]">
           <DatePicker
+          isClearable
             className="w-full pl-8 pr-4 py-2 text-md border-2 rounded-full bg-transparent placeholder:text-[#6C6C6C] dark:placeholder:text-[#C2C2C2] focus:outline-none focus:ring-0"
             selected={date}
             onChange={handleDateChange}
@@ -93,6 +94,7 @@ const Filter = () => {
 
         {/*  selection */}
         <Select
+          isClearable
           value={selectedOption}
           onChange={handleChange}
           options={options}

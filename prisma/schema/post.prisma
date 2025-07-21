@@ -1,13 +1,14 @@
 model Post {
-  id    Int    @id @default(autoincrement())
-  title String 
-  slug  String @unique
-  image String 
-  alt String
-  topic String
-  summary String
-  keywords String
+  id          Int      @id @default(autoincrement())
+  title       String
+  slug        String   @unique
+  image       String
+  alt         String
+  topic       String
+  summary     String
+  keywords    String
   description String
-  editorHtml String
-  toc String
+  editorHtml  String
+  toc         String
+  createdAt   DateTime @default(now())
 }

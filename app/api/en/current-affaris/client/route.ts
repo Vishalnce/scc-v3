@@ -1,32 +1,37 @@
-// app/api/en/current-affaris/client/route.ts
+import { NextRequest, NextResponse } from "next/server";
+import db from "@/lib/db"; // Your Prisma instance
 
-import { NextResponse  ,NextRequest} from "next/server";
-import db from "@/lib/db";
-
-export async function GET(req: NextRequest,res:NextResponse) {
-
+export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
 
-  const date = searchParams.get("date");
+  const page = parseInt(searchParams.get("page") || "1");
+  const limit = parseInt(searchParams.get("limit") || "3");
   const topic = searchParams.get("topic");
+  const date = searchParams.get("date");
 
-  console.log("🔍 Filters received:", { date, topic });
+  const where: any = {};
 
-  try {
-    const posts = await db.post.findMany({
-      where: {
-        ...(date && { date }),
-        ...(topic && { topic }),
-      },
-    });
+  if (topic) where.topic = topic;
+  if (date) {
+    const targetDate = new Date(date);
+    const nextDate = new Date(targetDate);
+    nextDate.setDate(nextDate.getDate() + 1);
 
-
-    return NextResponse.json(posts);
-  } catch (error) {
-    console.error(" Error fetching posts:", error);
-    return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 }
-    );
+    where.createdAt = {
+      gte: targetDate,
+      lt: nextDate,
+    };
   }
+
+  const [posts, totalCount] = await Promise.all([
+    db.post.findMany({
+      where,
+      orderBy: { createdAt: "desc" },
+      skip: (page - 1) * limit,
+      take: limit,
+    }),
+    db.post.count({ where }),
+  ]);
+
+  return NextResponse.json({ posts, totalCount });
 }

@@ -51,6 +51,19 @@ body {
    margin: 0 auto;
 } */
 
+
+.text-fade {
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0.2) 90%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0.2) 90%);
+}
+
+
+.react-datepicker__close-icon::after {
+  background-color: #007076 !important;/* or white for dark mode */
+ 
+}
+
+
 .css-hlgwow {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
