@@ -2,6 +2,7 @@ import Filter from "@/Components/client/Filter";
 import Image from "next/image";
 import Link from "next/link";
 import { FaRegCalendarMinus } from "react-icons/fa6";
+
 type Post = {
   id: number;
   title: string;
@@ -38,7 +39,7 @@ async function fetchPosts(
     }
   );
 
-  if (!res.ok) throw new Error("Failed to fetch posts");
+  // if (!res.ok) throw new Error("Failed to fetch posts");
 
   return res.json();
 }
@@ -62,11 +63,11 @@ export default async function Page({
   const { posts, totalCount } = await fetchPosts(page, limit, topic, date);
   const totalPages = Math.ceil(totalCount / limit);
 
-  console.log(posts);
+  
   return (
     <>
       {/* Header */}
-      <header className="bg-[image:var(--color-my-gradient)]">
+      <header className="bg-[image:var(--color-my-gradient)] ">
         <div className="flex flex-col justify-center items-center min-h-[150px] mx-auto max-w-[1400px] max-sm:w-[90%] text-center">
           <h1 className="text-3xl font-bold max-sm:text-2xl">
             Current Affairs for <span className="text-my-green">SSC CGL</span>{" "}
@@ -79,8 +80,9 @@ export default async function Page({
         </div>
       </header>
 
+      <div className="dark:bg-[#191919]">
       {/* Filter + Alert */}
-      <div className="flex flex-row justify-between items-center mx-auto w-[90%] mt-2">
+      <div className="flex dark:bg-[#191919] flex-row justify-between items-center mx-auto w-[90%] pt-2">
         <Filter />
         <div className="max-md:hidden">
           <p className="bg-[image:var(--color-my-yellow-alert)] dark:text-black max-lg:text-sm px-4 py-2 rounded-4xl text-center">
@@ -91,7 +93,7 @@ export default async function Page({
 
       {/* Posts */}
 
-      <div className="w-[90%]  mx-auto m-6">
+      <div className="w-[90%] dark:bg-[#191919] mx-auto m-6">
         <Link href="/admin/editor ">
           <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
             Add post
@@ -100,12 +102,12 @@ export default async function Page({
       </div>
 
       {/* post boady */}
-      <div className="flex flex-col w-[90%] mx-auto ">
+      <div className="flex flex-col w-[90%] mx-auto #191919">
         {posts.map((post) => (
-          <Link href={`/current-affaris-page/${post.slug}`}>
+          <Link key={post.id} href={`/current-affaris-page/${post.slug}`}>
           <div
-            key={post.id}
-            className="flex flex-row border-2 max-h-[288px] m-3 justify-center "
+            
+            className="flex flex-row border-2 max-h-[288px] m-3 justify-center dark:bg-[#313131] "
           >
             {/* images */}
             <div className="w-[30%]  relative border-red-600 border-2 m-2">
@@ -120,17 +122,19 @@ export default async function Page({
             </div>
             {/* info */}
             <div className="flex flex-col  w-[60%] m-2 justify-start border-2 ">
-              <h2 className="text-xl font-bold">{post.title}</h2>
+              <h2 className="text-xl font-bold dark:text-[#FFFFFF]">{post.title}</h2>
 
+            
               <p className="text-my-text-color  mt-3 text-fade">
                 Summary: {post.summary}
               </p>
-              <div className="flex flex-row justify-between mt-1">
-                <p className="text-sm">Read More</p>
+                {/* nav button */}
+              <div className="flex flex-row justify-between mt-3">
+                <p className="text-sm dark:text-[#FFFFFF]">Read More</p>
 
                 <div className="flex flex-row gap-1" >
                   <FaRegCalendarMinus />
-                  <p className="font-semibold text-sm ">
+                  <p className="font-semibold text-sm  dark:text-[#FFFFFF]">
                     {new Date(post.createdAt).toLocaleDateString("en-US", {
                       day: "2-digit",
                       month: "long", // 👈 "April"
@@ -146,7 +150,7 @@ export default async function Page({
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-center items-center gap-4 mt-6 mb-8  ">
+      <div className="flex  justify-center items-center gap-4 mt-6 mb-8  ">
         <Link
           href={{
             pathname: "",
@@ -158,7 +162,7 @@ export default async function Page({
         >
           Previous
         </Link>
-        <span className="text-sm">
+        <span className="text-sm dark:text-white">
           Page {page} of {totalPages}
         </span>
         <Link
@@ -172,6 +176,7 @@ export default async function Page({
         >
           Next
         </Link>
+      </div>
       </div>
     </>
   );

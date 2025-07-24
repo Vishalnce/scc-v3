@@ -20,10 +20,11 @@ function Page() {
     <>
     
       {/* Added 'break-words' to allow long strings to wrap */}
-      <p className="font-montserrat bg-cyan-500 break-words p-4">
-        ddddddddddddddddddddddddddddddddddddddddddddxxxxxxxxxxx inside layout
-      </p>
-      
+     
+<div className="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 p-4">
+  <h1>Hello, World!</h1>
+</div>
+
       {/* The commented out section from your original code */}
       {/* <div className=" max-w-none p-8">
         <div dangerouslySetInnerHTML={{ __html: html }} />

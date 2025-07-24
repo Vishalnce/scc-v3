@@ -16,7 +16,7 @@ export default function ThemeToggle() {
     >
 
 
-      <FaMoon className="block dark:hidden "/>
+      <FaMoon className="block dark:hidden"/>
 
       {/* <svg
         role="graphics-symbol"

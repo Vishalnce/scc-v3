@@ -1,47 +1,43 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
+
+
 :root {
   --font-default: var(--font-lato);
   --font-secondary: var(--font-montserrat);
-  
 }
 
 body {
   font-family: var(--font-default), sans-serif;
-  
 }
 
-
-
 @theme {
-  --font-lato: var(--font-lato), sans-serif; 
-  --font-montserrat: var(--font-montserrat), sans-serif; 
-  
+  --font-lato: var(--font-lato), sans-serif;
+  --font-montserrat: var(--font-montserrat), sans-serif;
+
   --color-active-background: var(--active-background);
 
   --color-my-green: #007076;
 
-  --color-my-text-color: #6C6C6C;
-  --color-my-yellow-alert: linear-gradient(to right, #FFF095, #FFE332);
- 
+  --color-my-text-color: #6c6c6c;
+  --color-my-yellow-alert: linear-gradient(to right, #fff095, #ffe332);
+
 }
 
 @layer base {
   :root {
- 
     --active-background: white;
-    --color-my-text-color: #6C6C6C;
-    --color-my-gradient: linear-gradient(to right, #FAFCFC, #E6F1F1);
-
+    --color-my-text-color: #6c6c6c;
+    --color-my-gradient: linear-gradient(to right, #fafcfc, #e6f1f1);
 
   }
+
   .dark {
-    
     --active-background: #313131;
     --color-my-text-color: white;
-     --color-my-gradient: linear-gradient(to right, #313131, #313131);
-    
+    --color-my-gradient: linear-gradient(to right, #313131, #313131);
+
   }
 }
 
@@ -51,18 +47,22 @@ body {
    margin: 0 auto;
 } */
 
-
 .text-fade {
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0.2) 90%);
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0.2) 90%);
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 20%,
+    rgba(0, 0, 0, 0.2) 90%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 20%,
+    rgba(0, 0, 0, 0.2) 90%
+  );
 }
-
 
 .react-datepicker__close-icon::after {
-  background-color: #007076 !important;/* or white for dark mode */
- 
+  background-color: #007076 !important; /* or white for dark mode */
 }
-
 
 .css-hlgwow {
   padding-top: 0 !important;
@@ -72,7 +72,6 @@ body {
 p[style*="text-align"] > img {
   display: inline-block !important;
 }
-
 
 ul {
   list-style-type: disc;
@@ -492,7 +491,7 @@ ol {
 }
 .PlaygroundEditorTheme__characterLimit {
   display: inline;
-  background-color: #ffbbbb !important;
+ 
 }
 .PlaygroundEditorTheme__ol1 {
   padding: 0;
