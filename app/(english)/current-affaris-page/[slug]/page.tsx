@@ -93,9 +93,27 @@ export default async function CurrentAffarisPage({
 
   const post = await fetchPost(slug);
 
+  console.log("Post fetched:", post);
+
   return (
     <>
       <div>{post?.title}</div>;
+      
+      <div dangerouslySetInnerHTML={{ __html: post?.editorHtml || "" }} />
+
+      <div>
+  <h2>Table of Contents</h2>
+  <ul>
+    {post?.toc && JSON.parse(post.toc).map((item: any, index: number) => (
+      <li key={index}>
+        <a href={`#${item.id}`}>{item.text}</a>
+      </li>
+    ))}
+  </ul>
+</div>
+
+
+
       
     </>
   );

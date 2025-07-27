@@ -97,10 +97,11 @@ export default function Page({ post }: { post?: PostType }) {
         body: JSON.stringify(data),
       });
 
-      // const result = await res.json();
+      const result = await res.json();
 
       if (res.ok) {
         alert(isEdit ? "Post updated successfully!" : "Post created!");
+        console.log("Result:", result);
       } else {
         alert("Failed to save post");
       }
@@ -140,6 +141,12 @@ export default function Page({ post }: { post?: PostType }) {
       alert("Error uploading image");
     }
   };
+
+  useEffect(() => {
+  setValue("editorHtml", editorData.html);
+  setValue("toc", JSON.stringify(editorData.toc));
+}, [editorData, setValue]);
+
 
   // for editor
   useEffect(() => {

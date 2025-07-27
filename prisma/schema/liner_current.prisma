@@ -1,0 +1,5 @@
+model Liner {
+  id          Int      @id @default(autoincrement()) @unique
+  content    String
+  createdAt   DateTime @default(now())
+}

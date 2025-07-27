@@ -9,13 +9,13 @@ export default async function AdminEditorPage({
 }) {
    let post = undefined
 
-  // if (searchParams.slug) {
-  //   post = await db.post.findUnique({
-  //     where: { slug: searchParams.slug },
-  //   });
+  if (searchParams.slug) {
+    post = await db.post.findUnique({
+      where: { slug: searchParams.slug },
+    });
 
-  //   if (!post) return notFound();
-  // }
+    if (!post) return notFound();
+  }
   
 
   return <PostForm post={post} />;
