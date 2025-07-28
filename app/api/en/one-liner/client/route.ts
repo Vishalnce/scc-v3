@@ -7,7 +7,7 @@ export async function GET(req: NextRequest) {
   try {
     const url = new URL(req.url);
     const dateStr = url.searchParams.get("date");
-
+    console.log("Fetching one-liner contents for date:", dateStr);
     if (dateStr) {
       const start = new Date(dateStr);
       const end = new Date(start);

@@ -55,8 +55,8 @@ const FilterOneLiner = () => {
     }
     
 
-    // console.log(params.toString());
-    // router.push(`/one-liner?${params.toString()}`); // ✅ adjust route if needed
+    console.log(params.toString());
+    router.push(`/one-liner?${params.toString()}`); // ✅ adjust route if needed
   };
 
   // console.log(selectedOption);

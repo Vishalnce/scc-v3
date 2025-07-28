@@ -2,29 +2,29 @@ import { NextRequest, NextResponse } from "next/server";
 import db from "@/lib/db";
 
 
-// Fetch all post
+// Fetch all post or get post by date
 export async function GET(req: NextRequest) {
     try {
-    const url = new URL(req.url);
-    const dateStr = url.searchParams.get("date");
+    // const url = new URL(req.url);
+    // const dateStr = url.searchParams.get("date");
 
-    if (!dateStr) {
-      return NextResponse.json(
-        { error: "Missing 'date' query param" },
-        { status: 400 }
-      );
-    }
-    const start = new Date(dateStr);
-    const end = new Date(start);
-    end.setDate(end.getDate() + 1);
+    // if (!dateStr) {
+    //   return NextResponse.json(
+    //     { error: "Missing 'date' query param" },
+    //     { status: 400 }
+    //   );
+    // }
+    // const start = new Date(dateStr);
+    // const end = new Date(start);
+    // end.setDate(end.getDate() + 1);
 
     const contents = await db.liner.findMany({
-      where: {
-        createdAt: {
-          gte: start,
-          lt: end,
-        },
-      },
+      // where: {
+      //   createdAt: {
+      //     gte: start,
+      //     lt: end,
+      //   },
+      // },
       orderBy: { id: "desc" },
     });
 
@@ -36,8 +36,7 @@ export async function GET(req: NextRequest) {
       { status: 500 }
     );
   }
-  try {
-  } catch (error) {}
+ 
 }
 
 // Create a post
@@ -45,10 +44,10 @@ export async function POST(req: NextRequest) {
 
  try {
   const body = await req.json();
-  const { content  } = body;
+  const { text  } = body;
   const contents = await db.liner.create({
     data: {
-      content,
+      content:text,
     }
   })
 

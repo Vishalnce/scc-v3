@@ -2,8 +2,30 @@ import DateWise from "@/Components/client/one-liner/DateWise";
 import FilterOneLiner from "@/Components/client/one-liner/FilterOneLiner";
 import React from "react";
 
-const page = () => {
+
+type postType = {
+  id: number;
+  content: string;
+  createdAt: string | Date;
+};
+
+export default async function ({
+  searchParams,
+}: {
+  searchParams: Promise<{ date?: string }>;
+}) {
+  const params = await searchParams;
+  const date = params.date;
   
+
+  
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/one-liner/client/?date=${date || ""}`,
+  );
+
+  const { contents } = await res.json();
+  console.log(contents);
 
   return (
     <>
@@ -39,32 +61,35 @@ const page = () => {
         <div className="flex flex-row w-[90%] mx-auto border-2 justify-between ">
           {/* DateWise Section */}
           <div className="w-[25%] ">
-
-            <DateWise/>
+            <DateWise />
           </div>
-
 
           {/* Content Section */}
           <div className="w-[70%]">
-
             {/* small heading */}
 
             <div className="flex flex-row justify-between my-4">
-              <h2 className="text-xl text-my-text-color font-bold ">One-Liner Current Affairs</h2>
-              <p className="text-sm text-gray-500 ">
-                Updated Daily
-              </p>
+              <h2 className="text-xl text-my-text-color font-bold ">
+                One-Liner Current Affairs
+              </h2>
+              <p className="text-sm text-gray-500 ">Updated Daily</p>
             </div>
 
+            {/* main content */}
 
-
+            <div className="">
+              {contents.map((item: postType) => (
+                <div
+                  key={item.id}
+                  className="border-2 m-2 flex flex-row justify-between"
+                >
+                  <p className="p-2 bg-[#FAFCFC]">{item.content}</p>
+                </div>
+              ))}
+            </div>
           </div>
-
-
         </div>
       </div>
     </>
   );
-};
-
-export default page;
+}
