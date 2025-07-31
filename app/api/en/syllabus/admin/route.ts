@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
     const slug = url.searchParams.get("slug");
 
     if (slug) {
-      const post = await db.post.findUnique({
+      const post = await db.syllabus.findUnique({
         where: { slug },
       });
 
@@ -39,7 +39,7 @@ export async function PATCH(req: NextRequest) {
   try {
     const body = await req.json();
 
-    const updated = await db.post.update({
+    const updated = await db.syllabus.update({
       where: { slug: body.slug },
       data: body,
     });
@@ -72,7 +72,7 @@ export async function POST(req: NextRequest) {
       toc,
     } = body;
 
-    const post = await db.post.create({
+    const post = await db.syllabus.create({
       data: {
         title,
         slug,
@@ -109,7 +109,7 @@ export async function DELETE(req: NextRequest) {
       return NextResponse.json({ error: "Missing slug" }, { status: 400 });
     }
 
-    const post = await db.post.delete({
+    const post = await db.syllabus.delete({
       where: { slug },
     });
 

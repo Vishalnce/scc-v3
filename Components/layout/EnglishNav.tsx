@@ -78,23 +78,23 @@ function Nav() {
                   <p className="">Quiz</p> <IoIosArrowDown />
                 </div>
               </Link>
-              <Link href="/">
+              <Link href="/syllabus">
                 <div className="flex flex-row items-center justify-center text-my-text-color text-sm hover:text-my-green ">
                   <p className="">Syllabus</p>
                 </div>
               </Link>
 
-              <Link href="/">
+              <Link href="/test-series">
                 <div className="flex flex-row items-center justify-center text-my-text-color text-sm hover:text-my-green ">
                   <p className="">Test Series</p>
                 </div>
               </Link>
-              <Link href="/">
+              <Link href="/upcoming-exam">
                 <div className="flex flex-row items-center justify-center text-my-text-color text-sm hover:text-my-green ">
                   <p className="">Upcoming Exam</p>
                 </div>
               </Link>
-              <Link href="/">
+              <Link href="/blogs">
                 <div className="flex flex-row items-center justify-center text-my-text-color text-sm hover:text-my-green ">
                   <p className="">Blogs</p>
                 </div>

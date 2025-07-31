@@ -1,8 +1,7 @@
 import DateWise from "@/Components/client/one-liner/DateWise";
 import FilterOneLiner from "@/Components/client/one-liner/FilterOneLiner";
 import React from "react";
-
-
+import Link from "next/link";
 type postType = {
   id: number;
   content: string;
@@ -16,12 +15,9 @@ export default async function ({
 }) {
   const params = await searchParams;
   const date = params.date;
-  
-
-  
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/one-liner/client/?date=${date || ""}`,
+    `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/one-liner/client/?date=${date || ""}`
   );
 
   const { contents } = await res.json();
@@ -49,6 +45,12 @@ export default async function ({
           <FilterOneLiner />
 
           <div className="max-md:hidden">
+            <Link href="/admin/one-liner ">
+              <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
+                Add post
+              </button>
+            </Link>
+
             <p className="bg-[image:var(--color-my-yellow-alert)] dark:text-black max-lg:text-sm px-4 py-2 rounded-4xl text-center">
               New One-Liner Just Dropped!
             </p>

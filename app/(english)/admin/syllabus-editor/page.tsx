@@ -1,4 +1,4 @@
-import PostForm from "@/Components/admin/PostForm";
+import PostFormSyllabus from "@/Components/admin/PostForm";
 import  db  from "@/lib/db";
 import { notFound } from "next/navigation";
 
@@ -18,5 +18,5 @@ export default async function AdminEditorPage({
   }
   
 
-  return <PostForm post={post} />;
+  return <PostFormSyllabus post={post} />;
 }

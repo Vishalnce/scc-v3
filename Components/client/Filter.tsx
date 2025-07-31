@@ -93,7 +93,7 @@ const Filter = () => {
         </div>
 
         {/*  selection */}
-        <Select
+        {/* <Select
           isClearable
           value={selectedOption}
           onChange={handleChange}
@@ -145,7 +145,7 @@ const Filter = () => {
           classNames={{
             control: () => "min-w-[160px]",
           }}
-        />
+        /> */}
 
         <button
           onClick={handleSubmit}
