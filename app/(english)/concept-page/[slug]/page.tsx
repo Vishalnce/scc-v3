@@ -18,7 +18,7 @@ type Post = {
 
 async function fetchPost(slug: string) {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/current-affaris-page/client/${slug}`,
+    `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/concept-page/client/${slug}`,
     { cache: "no-store" }
   );
 
@@ -38,7 +38,7 @@ export async function generateMetadata({
   const { slug } = await params;
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/current-affaris-page/client/${slug}`,
+    `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/concept-page/client/${slug}`,
     {
       cache: "no-store",
     }
@@ -60,7 +60,7 @@ export async function generateMetadata({
     openGraph: {
       title: post.title,
       description: post.description,
-      url: `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/current-affaris-page/client/${slug}`,
+      url: `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/concept-page/client/${slug}`,
       siteName: "SSC ExamLife Info",
       images: [
         {
@@ -75,7 +75,7 @@ export async function generateMetadata({
     },
 
     alternates: {
-      canonical: `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/current-affaris-page/client/${slug}`,
+      canonical: `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/concept-page/client/${slug}`,
     },
     robots: {
       index: true,
@@ -96,23 +96,7 @@ export default async function CurrentAffarisPage({
   console.log("Post fetched:", post);
 
   return (
-
-    
     <>
-    {/* header */}
-
-    <header className="bg-[image:var(--color-my-gradient)] ">
-        <div className="flex flex-col justify-center items-center min-h-[150px] mx-auto max-w-[1400px] max-sm:w-[90%] text-center">
-          <h1 className="text-3xl font-bold max-sm:text-2xl">
-            Current Affairs for <span className="text-my-green">SSC CGL</span>{" "}
-            Success
-          </h1>
-          <p className="mt-1 text-sm text-my-text-color">
-            Stay Ahead with Daily Updates Tailored for SSC CGL General
-            Awareness!
-          </p>
-        </div>
-      </header>
       <div>{post?.title}</div>;
       
       <div dangerouslySetInnerHTML={{ __html: post?.editorHtml || "" }} />
@@ -127,8 +111,6 @@ export default async function CurrentAffarisPage({
     ))}
   </ul>
 </div>
-
-
 
 
 

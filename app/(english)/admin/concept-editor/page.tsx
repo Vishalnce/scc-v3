@@ -1,5 +1,5 @@
-import PostFormSyllabus from "@/Components/admin/PostFormSyllabus";
-import  db  from "@/lib/db";
+import PostFormConcepts from "@/Components/admin/PostFormConcepts";
+import db from "@/lib/db";
 import { notFound } from "next/navigation";
 
 export default async function AdminEditorPage({
@@ -7,16 +7,15 @@ export default async function AdminEditorPage({
 }: {
   searchParams: Promise<{ slug?: string }>;
 }) {
-   let post = undefined
-   const params =  (await searchParams).slug
+  let post = undefined;
+  const params = (await searchParams).slug;
   if (params) {
-    post = await db.blog.findUnique({
+    post = await db.concept.findUnique({
       where: { slug: params },
     });
 
     if (!post) return notFound();
   }
-  
 
-  return <PostFormSyllabus post={post} />;
+  return <PostFormConcepts post={post} />;
 }

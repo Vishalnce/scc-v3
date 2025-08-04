@@ -45,7 +45,13 @@ body {
   padding: 8px 32px !important;
   border-radius: 9999px;
    margin: 0 auto;
+   z-index: 1;
 } */
+
+
+/* globals.css */
+
+
 
 .text-fade {
   mask-image: linear-gradient(

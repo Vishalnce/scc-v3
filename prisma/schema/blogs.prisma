@@ -1,7 +1,7 @@
-model Post {
-  id          Int       @id @default(autoincrement())
+model Blog {
+  id          Int      @id @default(autoincrement())
   title       String
-  slug        String    @unique
+  slug        String   @unique
   image       String
   alt         String
   topic       String
@@ -10,7 +10,5 @@ model Post {
   description String
   editorHtml  String
   toc         String
-  createdAt   DateTime  @default(now())
-
-  
+  createdAt   DateTime @default(now())
 }
