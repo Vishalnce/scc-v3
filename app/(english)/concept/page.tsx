@@ -1,6 +1,6 @@
 import DeleteButton from "@/Components/client/concept/DeleteButton";
 import EditButton from "@/Components/client/concept/EditButton";
-import Filter from "@/Components/client/Filter";
+import Filter from "@/Components/client/concept/Filter";
 import Image from "next/image";
 import Link from "next/link";
 import { FaRegCalendarMinus } from "react-icons/fa6";
@@ -97,12 +97,12 @@ export default async function Page({
         </div>
 
         {/* Show Active Filters */}
-        <div className="text-sm text-gray-600 dark:text-gray-300 mt-4 w-[90%] mx-auto">
+        {/* <div className="text-sm text-gray-600 dark:text-gray-300 mt-4 w-[90%] mx-auto">
           {category && <span>Category: <strong>{category}</strong></span>}
           {subject && <span className="ml-3">Subject: <strong>{subject}</strong></span>}
           {topic && <span className="ml-3">Topic: <strong>{topic}</strong></span>}
           {date && <span className="ml-3">Date: <strong>{date}</strong></span>}
-        </div>
+        </div> */}
 
         {/* Add Post Button */}
         <div className="w-[90%] dark:bg-[#191919] mx-auto m-6">

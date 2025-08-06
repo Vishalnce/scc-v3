@@ -34,8 +34,27 @@ export async function POST(req: NextRequest) {
 }
 
 
+export async function PATCH(req: NextRequest) {
+  try {
+    const body = await req.json();
+
+    const updated = await db.concept.update({
+      where: { slug: body.slug },
+      data: body,
+    });
+
+    return NextResponse.json({ success: true, post: updated });
+  } catch (error) {
+    console.error("PATCH error:", error);
+    return NextResponse.json({ error: "Update failed" }, { status: 500 });
+  }
+}
+
+
+
 export async function DELETE(req: NextRequest) {
-  const { slug } = await req.json();
+  const { searchParams } = new URL(req.url);
+  const slug = searchParams.get("slug");
 
   if (!slug) {
     return NextResponse.json({ error: "Missing slug" }, { status: 400 });

@@ -8,7 +8,7 @@ export default function EditButton({ slug }: { slug: string }) {
   const router = useRouter();
 
   function handleOnEdit() {
-    router.push(`/admin/editor?slug=${slug}`);
+    router.push(`/admin/concept-editor?slug=${slug}`);
   }
 
   return (

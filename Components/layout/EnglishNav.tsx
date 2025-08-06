@@ -126,7 +126,7 @@ function Nav() {
 
       {/* DropDown for current affaris */}
       {activeTag === "curren-affairs" && (
-        <div className=" w-full  flex flex-col absolute top-12 bg-[image:var(--color-my-gradient)] border-2 ">
+        <div className="  z-50 w-full  flex flex-col absolute top-12 bg-[image:var(--color-my-gradient)] border-2 ">
           <div className="w-[20%] ml-24  p-2  hover:bg-[#E6F1F1] dark:hover:bg-[#313131] rounded-xl">
             <div>
               <div className="flex flex-row items-center">
@@ -157,7 +157,7 @@ function Nav() {
 
       {/* DropDown for concepts */}
       {activeTag === "concepts" && (
-        <div className=" w-full  flex flex-col absolute top-12  bg-[image:var(--color-my-gradient)]  ">
+        <div className="  z-50 w-full  flex flex-col absolute top-12  bg-[image:var(--color-my-gradient)]  ">
           <div className="border-2 w-full flex flex-row justify-between">
             {/* heading */}
             <div className="w-[25%] flex flex-row  justify-center border-2 border-fuchsia-700 mt-10 p-3 ">
@@ -173,7 +173,7 @@ function Nav() {
               <Link
                 href={{
                   pathname: "/concept",
-                  query: { category: "pre", subject: "gs1" },
+                  query: { category: "pre", subject: "quantitative-apptitude" },
                 }}
                  onClick={() => setActiveTag(null)}
               >
@@ -246,7 +246,7 @@ function Nav() {
 
       {/* DropDown for quiz */}
       {activeTag === "quiz" && (
-        <div className=" w-full  flex flex-col absolute top-12  bg-[image:var(--color-my-gradient)]  ">
+        <div className="  z-50 w-full  flex flex-col absolute top-12  bg-[image:var(--color-my-gradient)]  ">
           <div className="border-2 w-full flex flex-row justify-between">
             {/* heading */}
             <div className="w-[25%] flex flex-row  justify-center border-2 border-fuchsia-700 mt-10 p-3 ">

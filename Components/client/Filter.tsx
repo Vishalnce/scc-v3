@@ -75,6 +75,7 @@ const Filter = () => {
       {/* left side  */}
       <div className="max-md:w-full max-md:flex-wrap flex flex-row items-center max-md:justify-around gap-4 max-sm:gap-1   ">
         {/* date  */}
+       
         <div className="relative w-[160px]">
           <DatePicker
           isClearable
@@ -91,9 +92,10 @@ const Filter = () => {
           />
           <FiCalendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-600 pointer-events-none" />
         </div>
+        
 
         {/*  selection */}
-        {/* <Select
+       <Select
           isClearable
           value={selectedOption}
           onChange={handleChange}
@@ -141,11 +143,11 @@ const Filter = () => {
               right:"1px"
             }),
           }}
-          className="w-[160px]"
+          className="w-[160px] "
           classNames={{
             control: () => "min-w-[160px]",
           }}
-        /> */}
+        /> 
 
         <button
           onClick={handleSubmit}

@@ -81,8 +81,10 @@ export default function Page({ post }: { post?: PostType }) {
       setValue("slug", newSlug, { shouldValidate: true });
     }
   }, [title, slugTransform, setValue]);
+  
+const value = post?.editorHtml || "";
 
-  const value = `<p class="PlaygroundEditorTheme__paragraph" dir="ltr"><span style="white-space: pre-wrap;">asdsadasdasdasdassszzzzzzzzzzz</span></p>;`;
+  // const value = `<p class="PlaygroundEditorTheme__paragraph" dir="ltr"><span style="white-space: pre-wrap;">asdsadasdasdasdassszzzzzzzzzzz</span></p>;`;
 
   const isEdit = !!post;
 
