@@ -24,9 +24,7 @@ type PostType = {
   toc: string;
 };
 
-type TopicOptionType = OptionType & {
-  subject: string; // Add this to match filtering logic
-};
+
 
 const categoryOptions = [
   { value: "pre", label: "Pre" },

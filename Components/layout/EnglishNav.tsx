@@ -75,7 +75,7 @@ function Nav() {
               </div>
             </Link>
 
-            <Link href="/" onClick={() => handleClick("quiz")}>
+            <Link href="" onClick={() => handleClick("quiz")}>
               <div className="flex flex-row items-center justify-center text-my-text-color text-sm hover:text-my-green ">
                 <p className="">Quiz</p> <IoIosArrowDown />
               </div>
@@ -259,9 +259,16 @@ function Nav() {
             {/* body */}
 
             <div className="w-[60%] border-2 border-red-600 flex flex-row justify-start text-sm text-my-text-color flex-wrap mt-10 gap-x-8 ">
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] rounded-lg">
+               <Link
+                href={{
+                  pathname: "/quiz",
+                  query: { category: "pre", subject: "quantitative-apptitude" },
+                }}
+                 onClick={() => setActiveTag(null)}
+              ><p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] rounded-lg">
                 Quantitative Apptitude{" "}
-              </p>
+              </p></Link>
+              
               <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] rounded-lg">
                 {" "}
                 Reasoning & General Intelligence
