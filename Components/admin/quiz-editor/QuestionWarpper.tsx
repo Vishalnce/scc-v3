@@ -25,7 +25,7 @@ function QuestionWarpper( {id}:QuestionWrapperProps ) {
   // On sucess it will refersh Question List 
   // QuesID is for editing question 
   // SetQuestId to set null
-  // second SetQuestId to set for id 
+  // second SetQuestId to set for id //
 
   return (
    <>

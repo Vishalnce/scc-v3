@@ -68,7 +68,7 @@ const QuestionList = ({ id, setQuesId }: QuestionWrapperProps) => {
   if (loading) return <div>Loading questions...</div>;
   if (error) return <div>Error: {error}</div>;
   if (questions.length === 0) return <div>No questions found.</div>;
-
+//
   return (
     <div>
       <h2>Questions List</h2>

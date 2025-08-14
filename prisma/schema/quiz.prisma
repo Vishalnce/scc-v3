@@ -23,7 +23,7 @@ model Question {
   questionText  String?  // optional text
   questionImage String?  // optional image URL
  
-  options       Json     // Example: [{ text: "Option 1", image: "url" }, { text: "Option 2" }]
+  options       Json     // Example: [{ text: "Option 1", image: "url" }, { text: "Option 2"// }]
 
   solutionText  String?
   solutionImage String?

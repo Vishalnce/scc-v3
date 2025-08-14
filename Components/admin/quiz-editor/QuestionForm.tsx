@@ -63,7 +63,7 @@ function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
 
     const fullData = {
       ...data,
-      quizId: id, // id comes from props
+      quizId: id, // id comes from props //
     };
 
     try {
