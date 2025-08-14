@@ -115,49 +115,60 @@ function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
     }
   }
 
-useEffect(() => {
-  if (!quesId) {
-    resetQ(); 
-    setQuestionImageUrl("");
-    setOptionImageUrls(["", "", "", ""]);
-    setSolutionImageUrl("");
-    return;
-  }
+  useEffect(() => {
+    if (!quesId) {
+      resetQ();
+      setQuestionImageUrl("");
+      setOptionImageUrls(["", "", "", ""]);
+      setSolutionImageUrl("");
+      return;
+    }
 
-  fetch(`/api/en/question/admin?quesId=${quesId}`)
-    .then((res) => res.json())
-    .then((data) => {
-      // Update RHF form values
-      resetQ({
-        questionText: data.questionText || "",
-        questionImage: data.questionImage || "",
-        options: [
-          { text: data.options?.[0]?.text ?? "", image: data.options?.[0]?.image ?? "" },
-          { text: data.options?.[1]?.text ?? "", image: data.options?.[1]?.image ?? "" },
-          { text: data.options?.[2]?.text ?? "", image: data.options?.[2]?.image ?? "" },
-          { text: data.options?.[3]?.text ?? "", image: data.options?.[3]?.image ?? "" },
-        ],
-        solutionText: data.solutionText || "",
-        solutionImage: data.solutionImage || "",
-        correctOption: data.correctOption ?? undefined,
-        marksPositive: data.marksPositive ?? undefined,
-        marksNegative: data.marksNegative ?? undefined,
-        level: data.level || "easy",
-      });
+    fetch(`/api/en/question/admin?quesId=${quesId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        // Update RHF form values
+        resetQ({
+          questionText: data.questionText || "",
+          questionImage: data.questionImage || "",
+          options: [
+            {
+              text: data.options?.[0]?.text ?? "",
+              image: data.options?.[0]?.image ?? "",
+            },
+            {
+              text: data.options?.[1]?.text ?? "",
+              image: data.options?.[1]?.image ?? "",
+            },
+            {
+              text: data.options?.[2]?.text ?? "",
+              image: data.options?.[2]?.image ?? "",
+            },
+            {
+              text: data.options?.[3]?.text ?? "",
+              image: data.options?.[3]?.image ?? "",
+            },
+          ],
+          solutionText: data.solutionText || "",
+          solutionImage: data.solutionImage || "",
+          correctOption: data.correctOption ?? undefined,
+          marksPositive: data.marksPositive ?? undefined,
+          marksNegative: data.marksNegative ?? undefined,
+          level: data.level || "easy",
+        });
 
-      // Update preview states
-      setQuestionImageUrl(data.questionImage || "");
-      setOptionImageUrls([
-        data.options?.[0]?.image ?? "",
-        data.options?.[1]?.image ?? "",
-        data.options?.[2]?.image ?? "",
-        data.options?.[3]?.image ?? "",
-      ]);
-      setSolutionImageUrl(data.solutionImage || "");
-    })
-    .catch(console.error);
-}, [quesId, resetQ]);
-
+        // Update preview states
+        setQuestionImageUrl(data.questionImage || "");
+        setOptionImageUrls([
+          data.options?.[0]?.image ?? "",
+          data.options?.[1]?.image ?? "",
+          data.options?.[2]?.image ?? "",
+          data.options?.[3]?.image ?? "",
+        ]);
+        setSolutionImageUrl(data.solutionImage || "");
+      })
+      .catch(console.error);
+  }, [quesId, resetQ]);
 
   async function updateQuestion(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault(); // prevent form submit
@@ -198,7 +209,7 @@ useEffect(() => {
       console.log("Question updated successfully:", result);
 
       onSuccess();
-       resetQ({
+      resetQ({
         questionText: "",
         questionImage: "",
         options: [
@@ -301,36 +312,35 @@ useEffect(() => {
           </button>
 
           {questionImageUrl && (
-  <div className="relative w-[30%] h-[228px] ">
-    <p className="text-sm text-gray-600 flex justify-between items-center">
-      Uploaded Image:
-      <button
-        type="button"
-        className="text-red-500 text-sm ml-2"
-        onClick={() => {
-          // Reset preview
-          setQuestionImageUrl("");
-          setQuestionImageFile(null);
+            <div className="relative w-[30%] h-[228px] ">
+              <p className="text-sm text-gray-600 flex justify-between items-center">
+                Uploaded Image:
+                <button
+                  type="button"
+                  className="text-red-500 text-sm ml-2"
+                  onClick={() => {
+                    // Reset preview
+                    setQuestionImageUrl("");
+                    setQuestionImageFile(null);
 
-          // Reset form value
-          resetQ({ ...getValues(), questionImage: "" });
+                    // Reset form value
+                    resetQ({ ...getValues(), questionImage: "" });
 
-          // Optionally: call API to delete image from server
-          // fetch(`/api/upload/delete?url=${questionImageUrl}`, { method: 'DELETE' });
-        }}
-      >
-        Cancel
-      </button>
-    </p>
-    <Image
-      src={questionImageUrl}
-      alt={"Uploaded image preview"}
-      fill
-      className="object-cover"
-    />
-  </div>
-)}
-
+                    // Optionally: call API to delete image from server
+                    // fetch(`/api/upload/delete?url=${questionImageUrl}`, { method: 'DELETE' });
+                  }}
+                >
+                  Cancel
+                </button>
+              </p>
+              <Image
+                src={questionImageUrl}
+                alt={"Uploaded image preview"}
+                fill
+                className="object-cover"
+              />
+            </div>
+          )}
         </div>
 
         {Array.from({ length: 4 }).map((_, idx) => (
@@ -381,41 +391,40 @@ useEffect(() => {
             </button>
 
             {optionImageUrls[idx] && (
-  <div className="relative w-[30%] h-[150px]">
-    <p className="text-sm text-gray-600 flex justify-between items-center">
-      Uploaded Image:
-      <button
-        type="button"
-        className="text-red-500 text-sm ml-2"
-        onClick={() => {
-          const newUrls = [...optionImageUrls];
-          newUrls[idx] = "";
-          setOptionImageUrls(newUrls);
+              <div className="relative w-[30%] h-[150px]">
+                <p className="text-sm text-gray-600 flex justify-between items-center">
+                  Uploaded Image:
+                  <button
+                    type="button"
+                    className="text-red-500 text-sm ml-2"
+                    onClick={() => {
+                      const newUrls = [...optionImageUrls];
+                      newUrls[idx] = "";
+                      setOptionImageUrls(newUrls);
 
-          const newFiles = [...optionImageFiles];
-          newFiles[idx] = null;
-          setOptionImageFiles(newFiles);
+                      const newFiles = [...optionImageFiles];
+                      newFiles[idx] = null;
+                      setOptionImageFiles(newFiles);
 
-          // Reset form value
-          const currentOptions = getValues("options");
-          currentOptions[idx].image = "";
-          resetQ({ ...getValues(), options: currentOptions });
+                      // Reset form value
+                      const currentOptions = getValues("options");
+                      currentOptions[idx].image = "";
+                      resetQ({ ...getValues(), options: currentOptions });
 
-          // Optionally: delete from server
-          // fetch(`/api/upload/delete?url=${optionImageUrls[idx]}`, { method: 'DELETE' });
-        }}
-      >
-        Cancel
-      </button>
-    </p>
-    <img
-      src={optionImageUrls[idx]}
-      alt={`Option ${idx + 1} preview`}
-      className="object-cover w-full h-full rounded border"
-    />
-  </div>
-)}
-
+                      // Optionally: delete from server
+                      // fetch(`/api/upload/delete?url=${optionImageUrls[idx]}`, { method: 'DELETE' });
+                    }}
+                  >
+                    Cancel
+                  </button>
+                </p>
+                <img
+                  src={optionImageUrls[idx]}
+                  alt={`Option ${idx + 1} preview`}
+                  className="object-cover w-full h-full rounded border"
+                />
+              </div>
+            )}
           </div>
         ))}
 
@@ -457,33 +466,32 @@ useEffect(() => {
           </button>
 
           {solutionImageUrl && (
-  <div className="relative w-[30%] h-[228px] ">
-    <p className="text-sm text-gray-600 flex justify-between items-center">
-      Uploaded Image:
-      <button
-        type="button"
-        className="text-red-500 text-sm ml-2"
-        onClick={() => {
-          setSolutionImageUrl("");
-          setSolutionImageFile(null);
-          resetQ({ ...getValues(), solutionImage: "" });
+            <div className="relative w-[30%] h-[228px] ">
+              <p className="text-sm text-gray-600 flex justify-between items-center">
+                Uploaded Image:
+                <button
+                  type="button"
+                  className="text-red-500 text-sm ml-2"
+                  onClick={() => {
+                    setSolutionImageUrl("");
+                    setSolutionImageFile(null);
+                    resetQ({ ...getValues(), solutionImage: "" });
 
-          // Optionally: delete from server
-          // fetch(`/api/upload/delete?url=${solutionImageUrl}`, { method: 'DELETE' });
-        }}
-      >
-        Cancel
-      </button>
-    </p>
-    <Image
-      src={solutionImageUrl}
-      alt={"Uploaded image preview"}
-      fill
-      className="object-cover"
-    />
-  </div>
-)}
-
+                    // Optionally: delete from server
+                    // fetch(`/api/upload/delete?url=${solutionImageUrl}`, { method: 'DELETE' });
+                  }}
+                >
+                  Cancel
+                </button>
+              </p>
+              <Image
+                src={solutionImageUrl}
+                alt={"Uploaded image preview"}
+                fill
+                className="object-cover"
+              />
+            </div>
+          )}
         </div>
         <input
           type="number"
