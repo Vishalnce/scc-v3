@@ -9,6 +9,7 @@ import {
   topicOptions,
 } from "@/constants/admin-quiz/options";
 import QuestionWarpper from "./QuestionWarpper";
+
 type PostFormQuizProps = {
   id?: number;
   title: string;
@@ -47,6 +48,8 @@ function PostFormQuiz({ post,editId }: { post?: PostFormQuizProps; editId?: stri
   const [filteredTopics, setFilteredTopics] = useState<OptionType[]>([]);
 
   const onSubmitQuiz = async (data: PostFormQuizProps) => {
+
+
     try {
       const res = await fetch("/api/en/quiz/admin", {
         method: "POST",
@@ -151,6 +154,7 @@ function PostFormQuiz({ post,editId }: { post?: PostFormQuizProps; editId?: stri
     alert("Failed to update quiz.");
   }
 }
+console.log(`askfhdjbidsafb ${postId}`)
 
 
   return (

@@ -8,13 +8,20 @@ type QuestionWrapperProps = {
   setQuesId: (id: string | null) => void;
 };
 
+type OptionType = {
+  text?: string;
+  image?: string;
+};
+
 type QuestionType = {
   id: string;
   quizId: number;
-  question: string;
-  options: string[];
+  questionText?: string;
+  questionImage?: string;
+  options: OptionType[];
+  solutionText?: string;
+  solutionImage?: string;
   correctOption: number;
-  solution: string;
   marksPositive: number;
   marksNegative: number;
   level: string;
@@ -22,7 +29,8 @@ type QuestionType = {
   updatedAt: string;
 };
 
-const QuestionList = ({ id,setQuesId  }: QuestionWrapperProps) => {
+
+const QuestionList = ({ id, setQuesId }: QuestionWrapperProps) => {
   const [questions, setQuestions] = useState<QuestionType[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -66,26 +74,56 @@ const QuestionList = ({ id,setQuesId  }: QuestionWrapperProps) => {
       <h2>Questions List</h2>
       <ul>
         {questions.map((q) => (
-          <div className="flex flex-row justify-between">
-            {/* question list  */}
-            <li key={q.id}>
-              <strong>{q.question}</strong>
-              <ul>
+          <div className="flex flex-row justify-between mb-4" key={q.id}>
+            <li>
+              <div>
+                {q.questionText && <p>{q.questionText}</p>}
+                {q.questionImage && (
+                  <img
+                    src={q.questionImage}
+                    alt="Question"
+                    className="w-[200px] h-[150px] object-cover rounded"
+                  />
+                )}
+              </div>
+
+              <ul className="mt-2">
                 {q.options.map((opt, idx) => (
-                  <li key={idx}>
-                    {idx + 1}. {opt}
+                  <li key={idx} className="mb-1">
+                    {opt.text && (
+                      <span>
+                        {idx + 1}. {opt.text}
+                      </span>
+                    )}
+                    {opt.image && (
+                      <img
+                        src={opt.image}
+                        alt={`Option ${idx + 1}`}
+                        className="w-[150px] h-[100px] object-cover rounded ml-2"
+                      />
+                    )}
                   </li>
                 ))}
               </ul>
+
+              <div className="mt-2">
+                {q.solutionText && <p>Solution: {q.solutionText}</p>}
+                {q.solutionImage && (
+                  <img
+                    src={q.solutionImage}
+                    alt="Solution"
+                    className="w-[200px] h-[150px] object-cover rounded"
+                  />
+                )}
+              </div>
             </li>
 
-            {/* edit button and delete button */}
-            <div className="flex flex-col">
-              <button onClick={() => setQuesId(q.id)} className="btn-edit">
+            {/* edit and delete */}
+            <div className="flex flex-col ml-4">
+              <button onClick={() => setQuesId(q.id)} className="btn-edit mb-2">
                 Edit
               </button>
-
-              <DeleteButton quesId={q.id} onDeleted={fetchQuestions} />
+              <DeleteButton quesId={q.id} onDeleted={() => fetchQuestions()} />
             </div>
           </div>
         ))}

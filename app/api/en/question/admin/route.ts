@@ -48,6 +48,7 @@ export async function GET(req: Request) {
         where: { quizId },
         orderBy: { createdAt: "desc" },
       });
+  
 
       return NextResponse.json(questions);
     }

@@ -19,10 +19,16 @@ model Question {
   id            String   @id @default(uuid())
   quizId        Int
   quiz          Quiz     @relation(fields: [quizId], references: [id],onDelete: Cascade)
-  question      String
-  options       String[] // Array of strings
+
+  questionText  String?  // optional text
+  questionImage String?  // optional image URL
+ 
+  options       Json     // Example: [{ text: "Option 1", image: "url" }, { text: "Option 2" }]
+
+  solutionText  String?
+  solutionImage String?
+
   correctOption Int
-  solution      String
   marksPositive Float
   marksNegative Float
   level         String

@@ -21,6 +21,11 @@ function QuestionWarpper( {id}:QuestionWrapperProps ) {
     setRefreshKey((prev) => prev + 1);
   };
 
+  // id is quiz id 
+  // On sucess it will refersh Question List 
+  // QuesID is for editing question 
+  // SetQuestId to set null
+  // second SetQuestId to set for id 
 
   return (
    <>
