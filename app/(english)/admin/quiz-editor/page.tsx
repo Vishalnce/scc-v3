@@ -5,10 +5,10 @@ import { notFound } from "next/navigation";
 export default async function AdminEditorPage({
   searchParams,
 }: {
-  searchParams: Promise<{ slug?: string }>;
+  searchParams: Promise<{ id?: number}>;
 }) {
    let post = undefined
-   const params =  (await searchParams).slug
+   const params =  (await searchParams).id
   if (params) {
     post = await db.quiz.findUnique({
       where: { id: Number(params) },
@@ -18,5 +18,5 @@ export default async function AdminEditorPage({
   }
   
 
-  return <PostFormQuiz post={post} />;
+  return <PostFormQuiz post={post} editId = {params} />;
 }

@@ -1,5 +1,5 @@
-import DeleteButton from "@/Components/client/concept/DeleteButton";
-import EditButton from "@/Components/client/concept/EditButton";
+import DeleteButton from "@/Components/client/quiz/DeleteButton";
+import EditButton from "@/Components/client/quiz/EditButton";
 import Filter from "@/Components/client/concept/Filter";
 import Image from "next/image";
 import Link from "next/link";
@@ -112,7 +112,7 @@ export default async function Page({
 
         {/* Add Post Button */}
         <div className="w-[90%] dark:bg-[#191919] mx-auto m-6">
-          <Link href="/admin/quiz">
+          <Link href="/admin/quiz-editor">
             <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
               Add post
             </button>
@@ -162,8 +162,8 @@ export default async function Page({
 
               {/* Edit & Delete */}
               <div className="grid grid-col-1 items-center justify-center">
-                {/* <EditButton slug={post.slug} />
-                <DeleteButton slug={post.slug} /> */}
+                <EditButton id={post.id} />
+                <DeleteButton id={post.id} />
               </div>
             </div>
           ))}

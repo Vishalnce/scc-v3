@@ -22,9 +22,12 @@ type PostFormQuizProps = {
 };
 
 
+
+
+
 type OptionType = { value: string; label: string };
 
-function PostFormQuiz({ post }: { post?: PostFormQuizProps }) {
+function PostFormQuiz({ post,editId }: { post?: PostFormQuizProps; editId?: string | number; }) {
 
   const [postId ,setPostId ] =useState<number | null >(null)
 
@@ -36,11 +39,9 @@ function PostFormQuiz({ post }: { post?: PostFormQuizProps }) {
   );
   const [selectedTopic, setSelectedTopic] = useState<OptionType | null>(null);
 
-  const { register, handleSubmit, setValue } = useForm<PostFormQuizProps>({
+  const { register, handleSubmit, setValue,getValues } = useForm<PostFormQuizProps>({
     defaultValues: post || {},
   });
-
-
 
 
   const [filteredTopics, setFilteredTopics] = useState<OptionType[]>([]);
@@ -116,6 +117,42 @@ function PostFormQuiz({ post }: { post?: PostFormQuizProps }) {
     }
   }, [post, setValue]);
 
+  async function updateQuiz(e: React.MouseEvent<HTMLButtonElement>) {
+  e.preventDefault();
+  try {
+    const formData = {
+      title: getValues("title"),
+      summary: getValues("summary"),
+      keywords: getValues("keywords"),
+      description: getValues("description"),
+      category: getValues("category"),
+      subject: getValues("subject"),
+      topic: getValues("topic"),
+      timeLimit: getValues("timeLimit"),
+    };
+
+    const res = await fetch(`/api/en/quiz/admin?id=${editId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!res.ok) {
+      throw new Error(`Failed to update quiz: ${res.statusText}`);
+    }
+
+    const result = await res.json();
+    console.log("Quiz updated:", result);
+    alert("Quiz updated successfully!");
+  } catch (error) {
+    console.error("Error updating quiz:", error);
+    alert("Failed to update quiz.");
+  }
+}
+
+
   return (
     <div className="max-w-[80%] mx-auto space-y-8 p-4">
       {/* QUIZ FORM */}
@@ -185,13 +222,15 @@ function PostFormQuiz({ post }: { post?: PostFormQuizProps }) {
         >
          Save Quiz
         </button>
+
+        <button onClick={updateQuiz}>Upadate question</button>
       </form>
 
       <h2>Before adding question Click save quiz button</h2>
 
       {/* QUESTION EDITOR */}
       
-      <QuestionWarpper id={postId}  />
+      <QuestionWarpper id={editId ? Number(editId) : postId}   />
 
 
       {/* QUESTION LIST */}
