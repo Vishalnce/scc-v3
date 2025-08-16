@@ -61,8 +61,8 @@ const Filter = () => {
     }
   }, [subject]);
 
-const handleSubmit = () => {
-  const params = new URLSearchParams(searchParams); // Preserve existing params
+function handleSubmit(): void {
+  const params = new URLSearchParams(searchParams);
 
   if (subject) {
     params.set("subject", subject);
@@ -71,14 +71,14 @@ const handleSubmit = () => {
   if (selectedTopic?.value) {
     params.set("topic", selectedTopic.value);
   } else {
-    params.delete("topic"); // ✅ Remove the topic filter
+    params.delete("topic");
   }
 
-  // Optionally reset page to 1 if topic changes
   params.set("page", "1");
 
   router.push(`/concept?${params.toString()}`);
-};
+}
+
 
 
 

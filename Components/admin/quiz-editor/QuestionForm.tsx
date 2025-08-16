@@ -311,36 +311,32 @@ function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
             Upload Image
           </button>
 
-          {questionImageUrl && (
-            <div className="relative w-[30%] h-[228px] ">
-              <p className="text-sm text-gray-600 flex justify-between items-center">
-                Uploaded Image:
-                <button
-                  type="button"
-                  className="text-red-500 text-sm ml-2"
-                  onClick={() => {
-                    // Reset preview
-                    setQuestionImageUrl("");
-                    setQuestionImageFile(null);
+{questionImageUrl && (
+  <div className="relative w-[30%] h-[150px]">
+    <p className="text-sm text-gray-600 flex justify-between items-center">
+      Uploaded Image:
+      <button
+        type="button"
+        className="text-red-500 text-sm ml-2"
+        onClick={() => {
+          setQuestionImageUrl("");
+          setQuestionImageFile(null);
+          resetQ({ ...getValues(), questionImage: "" });
+          // Optionally: delete from server
+          // fetch(`/api/upload/delete?url=${questionImageUrl}`, { method: 'DELETE' });
+        }}
+      >
+        Cancel
+      </button>
+    </p>
+    <img
+      src={questionImageUrl}
+      alt="Question preview"
+      className="object-cover w-full h-full rounded border"
+    />
+  </div>
+)}
 
-                    // Reset form value
-                    resetQ({ ...getValues(), questionImage: "" });
-
-                    // Optionally: call API to delete image from server
-                    // fetch(`/api/upload/delete?url=${questionImageUrl}`, { method: 'DELETE' });
-                  }}
-                >
-                  Cancel
-                </button>
-              </p>
-              <Image
-                src={questionImageUrl}
-                alt={"Uploaded image preview"}
-                fill
-                className="object-cover"
-              />
-            </div>
-          )}
         </div>
 
         {Array.from({ length: 4 }).map((_, idx) => (
@@ -465,33 +461,33 @@ function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
             Upload Image
           </button>
 
-          {solutionImageUrl && (
-            <div className="relative w-[30%] h-[228px] ">
-              <p className="text-sm text-gray-600 flex justify-between items-center">
-                Uploaded Image:
-                <button
-                  type="button"
-                  className="text-red-500 text-sm ml-2"
-                  onClick={() => {
-                    setSolutionImageUrl("");
-                    setSolutionImageFile(null);
-                    resetQ({ ...getValues(), solutionImage: "" });
+{solutionImageUrl && (
+  <div className="relative w-[30%] h-[228px]">
+    <p className="text-sm text-gray-600 flex justify-between items-center">
+      Uploaded Image:
+      <button
+        type="button"
+        className="text-red-500 text-sm ml-2"
+        onClick={() => {
+          setSolutionImageUrl("");
+          setSolutionImageFile(null);
+          resetQ({ ...getValues(), solutionImage: "" });
+          // Optionally: delete from server
+          // fetch(`/api/upload/delete?url=${solutionImageUrl}`, { method: 'DELETE' });
+        }}
+      >
+        Cancel
+      </button>
+    </p>
+    <img
+      src={solutionImageUrl}
+      alt={"Uploaded image preview"}
+      className="object-cover w-full h-full rounded border"
+    />
+  </div>
+)}
 
-                    // Optionally: delete from server
-                    // fetch(`/api/upload/delete?url=${solutionImageUrl}`, { method: 'DELETE' });
-                  }}
-                >
-                  Cancel
-                </button>
-              </p>
-              <Image
-                src={solutionImageUrl}
-                alt={"Uploaded image preview"}
-                fill
-                className="object-cover"
-              />
-            </div>
-          )}
+
         </div>
         <input
           type="number"
