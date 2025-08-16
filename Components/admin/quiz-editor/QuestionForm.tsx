@@ -311,32 +311,42 @@ function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
             Upload Image
           </button>
 
-{questionImageUrl && (
-  <div className="relative w-[30%] h-[150px]">
-    <p className="text-sm text-gray-600 flex justify-between items-center">
-      Uploaded Image:
-      <button
-        type="button"
-        className="text-red-500 text-sm ml-2"
-        onClick={() => {
-          setQuestionImageUrl("");
-          setQuestionImageFile(null);
-          resetQ({ ...getValues(), questionImage: "" });
-          // Optionally: delete from server
-          // fetch(`/api/upload/delete?url=${questionImageUrl}`, { method: 'DELETE' });
-        }}
-      >
-        Cancel
-      </button>
-    </p>
-    <img
-      src={questionImageUrl}
-      alt="Question preview"
-      className="object-cover w-full h-full rounded border"
-    />
-  </div>
-)}
-
+          {questionImageUrl && (
+            <div className="relative w-[30%] h-[150px]">
+              <p className="text-sm text-gray-600 flex justify-between items-center">
+                Uploaded Image:
+                <button
+                  type="button"
+                  className="text-red-500 text-sm ml-2"
+                  onClick={async () => {
+                    // Only delete if there is a URL
+                 
+                    if (!questionImageUrl) return;
+                    try {
+                      const res = await fetch(
+                        `http://localhost:5000/api/delete?url=${questionImageUrl}`,
+                        { method: "DELETE" }
+                      );
+                      
+                    } catch (error) {
+                      console.error("Fetch error:", error);
+                    }
+                    // Now clear state
+                    setQuestionImageUrl("");
+                    setQuestionImageFile(null);
+                    resetQ({ ...getValues(), questionImage: "" });
+                  }}
+                >
+                  Cancel
+                </button>
+              </p>
+              <img
+                src={questionImageUrl}
+                alt="Question preview"
+                className="object-cover w-full h-full rounded border"
+              />
+            </div>
+          )}
         </div>
 
         {Array.from({ length: 4 }).map((_, idx) => (
@@ -461,33 +471,31 @@ function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
             Upload Image
           </button>
 
-{solutionImageUrl && (
-  <div className="relative w-[30%] h-[228px]">
-    <p className="text-sm text-gray-600 flex justify-between items-center">
-      Uploaded Image:
-      <button
-        type="button"
-        className="text-red-500 text-sm ml-2"
-        onClick={() => {
-          setSolutionImageUrl("");
-          setSolutionImageFile(null);
-          resetQ({ ...getValues(), solutionImage: "" });
-          // Optionally: delete from server
-          // fetch(`/api/upload/delete?url=${solutionImageUrl}`, { method: 'DELETE' });
-        }}
-      >
-        Cancel
-      </button>
-    </p>
-    <img
-      src={solutionImageUrl}
-      alt={"Uploaded image preview"}
-      className="object-cover w-full h-full rounded border"
-    />
-  </div>
-)}
-
-
+          {solutionImageUrl && (
+            <div className="relative w-[30%] h-[228px]">
+              <p className="text-sm text-gray-600 flex justify-between items-center">
+                Uploaded Image:
+                <button
+                  type="button"
+                  className="text-red-500 text-sm ml-2"
+                  onClick={() => {
+                    setSolutionImageUrl("");
+                    setSolutionImageFile(null);
+                    resetQ({ ...getValues(), solutionImage: "" });
+                    // Optionally: delete from server
+                    // fetch(`/api/upload/delete?url=${solutionImageUrl}`, { method: 'DELETE' });
+                  }}
+                >
+                  Cancel
+                </button>
+              </p>
+              <img
+                src={solutionImageUrl}
+                alt={"Uploaded image preview"}
+                className="object-cover w-full h-full rounded border"
+              />
+            </div>
+          )}
         </div>
         <input
           type="number"
