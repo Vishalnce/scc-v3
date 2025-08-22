@@ -80,14 +80,14 @@ export default async function ({
             {/* main content */}
 
             <div className="">
-              {contents.map((item: postType) => (
+              {contents?.map((item: postType) => (
                 <div
                   key={item.id}
                   className="border-2 m-2 flex flex-row justify-between"
                 >
                   <p className="p-2 bg-[#FAFCFC]">{item.content}</p>
                 </div>
-              ))}
+              )) || <p>No data found</p>}
             </div>
           </div>
         </div>

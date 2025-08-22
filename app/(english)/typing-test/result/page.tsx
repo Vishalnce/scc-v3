@@ -54,7 +54,7 @@ function Page() {
           {/* left half
            */}
 
-          <div className="flex flex-col w-[45%] ">
+          <div className="flex flex-col w-[45%] border-2">
             <div className="flex flex-row justify-between items-center  my-2 ">
 
             <div className="flex flex-row  min-w-[41%] gap-2">
@@ -156,7 +156,7 @@ function Page() {
           </div>
 
           {/* right half */}
-         <div className="flex flex-col w-[45%]">
+         <div className="flex flex-col w-[45%] border-2 ">
             <div className="flex flex-row justify-between  my-2">
             <div className="flex flex-row  min-w-[41%] gap-2">
               <Image

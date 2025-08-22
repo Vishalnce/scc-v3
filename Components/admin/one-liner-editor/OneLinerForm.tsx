@@ -18,7 +18,7 @@ export default function OneLinerForm({ onSuccess, content, id }: Props) {
     register,
     handleSubmit,
     reset,
-    formState: { isSubmitSuccessful },
+    // formState: { isSubmitSuccessful },
   } = useForm<LinerFormInput>({
     defaultValues: { text: content || "" },
   });
@@ -45,8 +45,7 @@ export default function OneLinerForm({ onSuccess, content, id }: Props) {
     const response = await fetch(`/api/en/one-liner/admin?id=${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ content: data.text })
-
+      body: JSON.stringify({ content: data.text }),
     });
     if (response.ok) {
       onSuccess();
@@ -66,23 +65,21 @@ export default function OneLinerForm({ onSuccess, content, id }: Props) {
           className="w-full p-2 border border-gray-300 rounded"
         />
 
-        
-          <button
-            type="button"
-            onClick={handleSubmit(handleAdd)}
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-          >
-            Add
-          </button>
-       
-          <button
-            type="button"
-            onClick={handleSubmit(handleUpdate)}
-            className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
-          >
-            Update
-          </button>
-       
+        <button
+          type="button"
+          onClick={handleSubmit(handleAdd)}
+          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        >
+          Add
+        </button>
+
+        <button
+          type="button"
+          onClick={handleSubmit(handleUpdate)}
+          className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+        >
+          Update
+        </button>
       </form>
     </div>
   );
