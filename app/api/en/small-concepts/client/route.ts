@@ -3,12 +3,11 @@ import db from "@/lib/db";
 
 export async function GET(req: NextRequest) {
   try {
-    const url = new URL(req.url);
-    const topic = url.searchParams.get("topic");
+
 
 
     const post = await db.smallConcepts.findMany({
-      where:{topic : topic || undefined},
+      where:{id:255},
       orderBy: {
         
         createdAt: "desc",

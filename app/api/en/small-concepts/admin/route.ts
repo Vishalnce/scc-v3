@@ -5,7 +5,7 @@ export async function GET(req: NextRequest) {
   try {
     const url = new URL(req.url);
     const id = url.searchParams.get("id");
-    console.log("ID from query params:", id);
+    
     if (id) {
       const post = await db.smallConcepts.findUnique({
         where: { id: Number(id) },
@@ -34,11 +34,13 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    
     const body = await req.json();
-    console.log(body);
+
     const post = await db.smallConcepts.create({
-      data: body,
+      data: {
+        id: 255,
+        ...body,
+      },
     });
 
     if (!post) {
