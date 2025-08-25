@@ -3,8 +3,14 @@ import db from "@/lib/db";
 
 export async function GET(req: NextRequest) {
   try {
+    const url = new URL(req.url);
+    const level = url.searchParams.get("level");
+
+
     const post = await db.typing.findMany({
+      where:{level: level || undefined},
       orderBy: {
+        
         createdAt: "desc",
       }
     });

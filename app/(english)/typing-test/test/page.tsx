@@ -11,7 +11,6 @@ export default function Page() {
 
   const time = searchParams.get("time");
   const level = searchParams.get("level");
-  console.log(typeof time, level);
 
   // Allowed params
   const allowedTimes = ["3", "5", "10"];
@@ -23,10 +22,38 @@ export default function Page() {
   /** States */
   const [input, setInput] = useState("");
   const [startTime, setStartTime] = useState<number | null>(null);
+ const [posts, setPosts] = useState<{ title: string; id: number }[]>([]);
+   const [targetText, setTargetText] = useState("");
+  const fetchText = async () => {
+    
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/typing/client?level=${validLevel}`
+      );
+      const data = await response.json();
+      if (data.success && data.post.length > 0) {
+        setPosts(data.post);
+
+  
+        const randomIndex = Math.floor(Math.random() * data.post.length);
+        setTargetText(data.post[randomIndex].title);
+      } else {
+     
+        setTargetText(
+          "The quick brown fox jumps over the lazy dog. This sentence contains every letter of the alphabet."
+        );
+      }
+    } catch (error) {
+      console.error("Error fetching text data:", error);
+    }
+  };
+
+  useEffect(( ) => {
+    fetchText()
+  },[])
 
   /**  Target text */
-  const targetText =
-    "The quick brown fox jumps over the lazy dog. This sentence contains every letter of the alphabet and is often used for typing practice.";
+
 
   const targetWords = targetText.split(" ");
 
