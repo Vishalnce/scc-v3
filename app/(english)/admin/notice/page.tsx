@@ -1,4 +1,4 @@
-import PostFormAnnouncement from "@/Components/admin/announcement/PostFormAnnouncement";
+import PostFormAnnouncement from "@/Components/admin/notice/PostFormNotice";
 type Announce = {
   id: number;
   title: string;
@@ -16,7 +16,7 @@ export default async function Announcement({
 
   if (res) {
     const respond = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/announcement/admin?id=${res}`,
+      `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/notice/admin?id=${res}`,
       {
         method: "GET",
       }

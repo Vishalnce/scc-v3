@@ -7,7 +7,7 @@ export async function GET(req: NextRequest) {
     const id = url.searchParams.get("id");
 
     if (id) {
-      const post = await db.announcement.findUnique({
+      const post = await db.notice.findUnique({
         where: { id: Number(id) },
       });
 
@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
 
       return NextResponse.json({ success: true, post });
     }
-    const post = await db.announcement.findMany({
+    const post = await db.notice.findMany({
       orderBy: {
         createdAt: "desc",
       },
@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
-    const post = await db.announcement.create({
+    const post = await db.notice.create({
       data: body,
     });
     if (!post) {
@@ -59,7 +59,7 @@ export async function PATCH(req: NextRequest) {
     const body = await req.json();
     const id = body.id;
 
-    const updated = await db.announcement.update({
+    const updated = await db.notice.update({
       where: { id },
       data: body,
     });
@@ -84,7 +84,7 @@ export async function DELETE(req: NextRequest) {
       );
     }
 
-    const deletedContent = await db.announcement.delete({
+    const deletedContent = await db.notice.delete({
       where: { id: parseInt(id) },
     });
 

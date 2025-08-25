@@ -20,11 +20,11 @@ export default function Page() {
   const validTime = time && allowedTimes.includes(time) ? time : null;
   const validLevel = level && allowedLevels.includes(level) ? level : null;
 
-  /** ✅ States */
+  /** States */
   const [input, setInput] = useState("");
   const [startTime, setStartTime] = useState<number | null>(null);
 
-  /** ✅ Target text */
+  /**  Target text */
   const targetText =
     "The quick brown fox jumps over the lazy dog. This sentence contains every letter of the alphabet and is often used for typing practice.";
 
@@ -39,7 +39,7 @@ export default function Page() {
     setInput(e.target.value);
   };
 
-  /** ✅ Save results to localStorage */
+  /**  Save results to localStorage */
   const saveResultToStorage = (result: any) => {
     const prevResults = JSON.parse(
       localStorage.getItem("typingResults") || "[]"
@@ -188,6 +188,7 @@ export default function Page() {
           <textarea
             placeholder="Start typing here..."
             value={input}
+             onPaste={(e) => e.preventDefault()} 
             onChange={handleChange}
             className="w-full border border-gray-300 rounded px-4 py-2 text-lg focus:outline-none focus:ring-2 focus:ring-[#007076] resize-none"
             rows={5}

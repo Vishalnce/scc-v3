@@ -34,7 +34,7 @@ export async function GET(req: NextRequest) {
   }
 }
 
-// Edit handlere 
+// Edit handlere
 export async function PATCH(req: NextRequest) {
   try {
     const body = await req.json();
@@ -51,13 +51,10 @@ export async function PATCH(req: NextRequest) {
   }
 }
 
-
-
 // POST handler: Create a new post
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-
 
     const {
       title,
@@ -91,15 +88,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true, post });
   } catch (error: any) {
     console.error(" POST error:", error.message || error);
-    return NextResponse.json({ error: error.message || "Internal Server Error" }, { status: 500 });
+    return NextResponse.json(
+      { error: error.message || "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }
 
-
-
-
-
-// delter a post by slug 
+// delter a post by slug
 
 export async function DELETE(req: NextRequest) {
   try {
@@ -116,6 +112,9 @@ export async function DELETE(req: NextRequest) {
     return NextResponse.json({ success: true, post });
   } catch (error: any) {
     console.error("DELETE error:", error.message || error);
-    return NextResponse.json({ error: error.message || "Internal Server Error" }, { status: 500 });
+    return NextResponse.json(
+      { error: error.message || "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }
