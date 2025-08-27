@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
 
     const {
       title,
-      slug,
+      slug="syllabus-for-ssc-cgl",
       summary,
       topic,
       image,
@@ -87,7 +87,7 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    console.log("✅ Post created:", post);
+    console.log(" Post created:", post);
     return NextResponse.json({ success: true, post });
   } catch (error: any) {
     console.error(" POST error:", error.message || error);

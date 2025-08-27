@@ -3,14 +3,12 @@ import { NextRequest, NextResponse } from "next/server";
 
 // implimentation of GET by slug only
 export async function GET(
-  req: NextRequest,
-  { params }: { params: Promise<{ slug: string }> }
-) {
-  const { slug } = await params;
 
-  if (!slug) {
-    return NextResponse.json({ error: "Slug is required" }, { status: 400 });
-  }
+ 
+) {
+  const  slug  = "syllabus-for-ssc-cgl";
+
+  
 
   try {
     const post = await db.syllabus.findUnique({

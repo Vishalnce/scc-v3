@@ -82,7 +82,7 @@ export default function Page({ post }: { post?: PostType }) {
     }
   }, [title, slugTransform, setValue]);
 
-  const value = `<p class="PlaygroundEditorTheme__paragraph" dir="ltr"><span style="white-space: pre-wrap;">asdsadasdasdasdassszzzzzzzzzzz</span></p>;`;
+  const value = post?.editorHtml || "";
 
   const isEdit = !!post;
 
@@ -142,10 +142,9 @@ export default function Page({ post }: { post?: PostType }) {
   };
 
   useEffect(() => {
-  setValue("editorHtml", editorData.html);
-  setValue("toc", JSON.stringify(editorData.toc));
-}, [editorData, setValue]);
-
+    setValue("editorHtml", editorData.html);
+    setValue("toc", JSON.stringify(editorData.toc));
+  }, [editorData, setValue]);
 
   // for editor
   useEffect(() => {
@@ -161,12 +160,16 @@ export default function Page({ post }: { post?: PostType }) {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-6">
       <input
         {...register("title")}
+        value="Syllabus for SSC CGL"
+        readOnly
         placeholder="Title"
         className="border p-2 w-full"
       />
 
       <input
         {...register("slug", { required: true })}
+        value="syllabus-for-ssc-cgl"
+  
         placeholder="Slug"
         className="border p-2 w-full bg-gray-100"
         readOnly // Optional: make it read-only since it's auto-generated

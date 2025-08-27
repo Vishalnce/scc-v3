@@ -1,22 +1,35 @@
 import PostFormSyllabus from "@/Components/admin/PostFormSyllabus";
-import  db  from "@/lib/db";
+import db from "@/lib/db";
 import { notFound } from "next/navigation";
+
+type PostType = {
+  title: string;
+  slug: string;
+  topic: string;
+  image: string;
+  alt: string;
+  summary: string;
+  keywords: string;
+  description: string;
+  editorHtml: string;
+  toc: string;
+};
 
 export default async function AdminEditorPage({
   searchParams,
 }: {
   searchParams: Promise<{ slug?: string }>;
 }) {
-   let post = undefined
-   const params =  (await searchParams).slug
-  if (params) {
-    post = await db.blog.findUnique({
-      where: { slug: params },
+  let post: PostType | undefined = undefined;
+
+  const slug = (await searchParams).slug; // ✅ directly accessible
+  if (slug) {
+    const result = await db.syllabus.findUnique({
+      where: { slug },
     });
 
-    if (!post) return notFound();
+     post = result ?? undefined; 
   }
-  
 
   return <PostFormSyllabus post={post} />;
 }

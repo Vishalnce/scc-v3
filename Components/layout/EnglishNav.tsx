@@ -80,7 +80,7 @@ function Nav() {
                 <p className="">Quiz</p> <IoIosArrowDown />
               </div>
             </Link>
-            <Link href="/syllabus">
+            <Link href="/syllabus-page/client?slug=syllabus-for-ssc-cgl">
               <div className="flex flex-row items-center justify-center text-my-text-color text-sm hover:text-my-green ">
                 <p className="">Syllabus</p>
               </div>
