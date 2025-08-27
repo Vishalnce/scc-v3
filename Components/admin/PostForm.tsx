@@ -92,7 +92,7 @@ const value = post?.editorHtml || "";
     try {
       const method = isEdit ? "PATCH" : "POST";
 
-      const res = await fetch("/api/en/syllabus/admin", {
+      const res = await fetch("/api/en/current-affaris/admin", {
         method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
