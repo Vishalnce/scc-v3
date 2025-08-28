@@ -1,5 +1,6 @@
-import PostForm from "@/Components/admin/PostForm";
-import  db  from "@/lib/db";
+import ParentComponent from "@/Components/admin/post-quiz/ParentComponent";
+import PostForm from "@/Components/admin/post-quiz/PostForm";
+import db from "@/lib/db";
 import { notFound } from "next/navigation";
 
 export default async function AdminEditorPage({
@@ -7,16 +8,20 @@ export default async function AdminEditorPage({
 }: {
   searchParams: Promise<{ slug?: string }>;
 }) {
-   let post = undefined
-   const params =  (await searchParams).slug
+  let post = undefined;
+  let editPostId = null;
+  const params = (await searchParams).slug;
   if (params) {
     post = await db.post.findUnique({
       where: { slug: params },
     });
 
+
+
     if (!post) return notFound();
   }
-  
+  editPostId = post?.id || null;
+  // trhis is editor for post
 
-  return <PostForm post={post} />;
+  return <ParentComponent post={post} editPostId={editPostId} />;
 }

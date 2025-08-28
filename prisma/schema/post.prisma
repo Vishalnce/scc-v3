@@ -12,5 +12,25 @@ model Post {
   toc         String
   createdAt   DateTime  @default(now())
 
+  quizposts   PostQuiz[]
+}
+
+model PostQuiz {
+
   
+  id            String   @id @default(uuid())
+  postId        Int
+  post          Post     @relation(fields: [postId], references: [id],onDelete: Cascade)
+  questionText  String?  // optional text
+
+  options       Json     // Example: [{ text: "Option 1", image: "url" }, { text: "Option 2"// }]
+
+  solutionText  String?
+
+  correctOption Int
+  marksPositive Float
+  marksNegative Float
+  level         String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }

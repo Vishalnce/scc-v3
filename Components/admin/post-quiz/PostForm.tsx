@@ -8,6 +8,8 @@ import { useState, useCallback, useEffect } from "react";
 import Editor from "@/Components/admin/editor-page"; // adjust path if needed
 import type { TocItem } from "@/Components/admin/toc";
 import Image from "next/image";
+import PostFormQuiz from "./PostQuizForm";
+import QuestionWarpper from "./PostQuestionWarpper";
 
 type PostType = {
   title: string;
@@ -45,10 +47,16 @@ const options = [
     label: "Government Schemes & Policies",
   },
 ];
-
+type SetPostId = (id: number | null) => void;
 type OptionType = { value: string; label: string };
 
-export default function Page({ post }: { post?: PostType }) {
+export default function Page({
+  post,
+  setPostId,
+}: {
+  post?: PostType;
+  setPostId: SetPostId;
+}) {
   const { register, handleSubmit, setValue, watch } = useForm<PostType>({
     defaultValues: post || {},
   });
@@ -81,8 +89,8 @@ export default function Page({ post }: { post?: PostType }) {
       setValue("slug", newSlug, { shouldValidate: true });
     }
   }, [title, slugTransform, setValue]);
-  
-const value = post?.editorHtml || "";
+
+  const value = post?.editorHtml || "";
 
   // const value = `<p class="PlaygroundEditorTheme__paragraph" dir="ltr"><span style="white-space: pre-wrap;">asdsadasdasdasdassszzzzzzzzzzz</span></p>;`;
 
@@ -101,8 +109,12 @@ const value = post?.editorHtml || "";
       const result = await res.json();
 
       if (res.ok) {
+        
+       console.log("Newly:", result.post.id);
+        setPostId(result.post.id); // pass the new post ID to parent
         alert(isEdit ? "Post updated successfully!" : "Post created!");
-        console.log("Result:", result);
+        
+  
       } else {
         alert("Failed to save post");
       }
@@ -114,7 +126,7 @@ const value = post?.editorHtml || "";
 
   const handleChange = (option: OptionType | null) => {
     setSelectedOption(option);
-    setValue("topic", option?.value || ""); // 👈 sets the category field
+    setValue("topic", option?.value || ""); //  sets the category field
   };
 
   // image upload
@@ -144,10 +156,9 @@ const value = post?.editorHtml || "";
   };
 
   useEffect(() => {
-  setValue("editorHtml", editorData.html);
-  setValue("toc", JSON.stringify(editorData.toc));
-}, [editorData, setValue]);
-
+    setValue("editorHtml", editorData.html);
+    setValue("toc", JSON.stringify(editorData.toc));
+  }, [editorData, setValue]);
 
   // for editor
   useEffect(() => {
@@ -253,6 +264,8 @@ const value = post?.editorHtml || "";
       >
         Save
       </button>
+
+      {/* <QuestionWarpper id={editId ? Number(editId) : postId} /> */}
     </form>
   );
 }

@@ -8,7 +8,7 @@ import {
   subjectOptions,
   topicOptions,
 } from "@/constants/admin-quiz/options";
-import QuestionWarpper from "./QuestionWarpper";
+import QuestionWarpper from "./PostQuestionWarpper";
 
 type PostFormQuizProps = {
   id?: number;
