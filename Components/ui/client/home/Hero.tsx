@@ -57,14 +57,14 @@ export default function Hero() {
 
             {/* image section */}
             <div className="w-[40%]  max-sm:w-full relative max-sm:py-4">
-              <div className=" border-2 max-w-[400px] max-h-[450px]">
+              <div className=" border-2 max-w-[400px] max-h-[450px] ">
                 <Image
                   src="/ui/client/home/girl.png"
                   alt="ssc"
                   width={0}
                   height={0}
                   sizes="100vw"
-                  className="w-full h-auto"
+                  className="w-full h-auto min-h-[450px]"
                 />
               </div>
 

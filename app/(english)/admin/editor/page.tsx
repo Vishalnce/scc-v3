@@ -2,7 +2,7 @@ import ParentComponent from "@/Components/admin/post-quiz/ParentComponent";
 import PostForm from "@/Components/admin/post-quiz/PostForm";
 import db from "@/lib/db";
 import { notFound } from "next/navigation";
-
+// this is cuuurent page for editor
 export default async function AdminEditorPage({
   searchParams,
 }: {
