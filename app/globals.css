@@ -41,6 +41,11 @@ body {
   }
 }
 
+/* font added in theme editor css */
+ .PlaygroundEditorTheme__textBase {
+  font-family: var(--font-lato), sans-serif;  /* 👈 default = Lato */
+}
+
 
 .list-circle {
   list-style-type: circle;

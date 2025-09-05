@@ -9,7 +9,10 @@
 
  /* Apply Lato everywhere inside the editor */
 
- 
+ .PlaygroundEditorTheme__textBase {
+  font-family: var(--font-lato), sans-serif;  /* 👈 default = Lato */
+}
+
 .PlaygroundEditorTheme__ltr {
   text-align: left;
 }

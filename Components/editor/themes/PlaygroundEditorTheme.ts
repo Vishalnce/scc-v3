@@ -117,7 +117,7 @@ const theme: EditorThemeClasses = {
   tableSelected: 'PlaygroundEditorTheme__tableSelected',
   tableSelection: 'PlaygroundEditorTheme__tableSelection',
   text: {
-    
+    base: 'PlaygroundEditorTheme__textBase', 
     bold: 'PlaygroundEditorTheme__textBold',
     capitalize: 'PlaygroundEditorTheme__textCapitalize',
     code: 'PlaygroundEditorTheme__textCode',
