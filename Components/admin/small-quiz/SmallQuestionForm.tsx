@@ -19,14 +19,10 @@ type QuestionFormData = {
     // image?: string;
   }[]; // matches Json array of options in model
 
-  solutionText?: string; // matches optional solutionText
-  // solutionImage?: string; // matches optional solutionImage
+
 
 correctOption: number | "";
-marksPositive: number | "";
-marksNegative: number | "";
 
-  level: string;
 };
 
 type FormDataType = {};
@@ -47,12 +43,10 @@ function QuestionForm({ onSuccess, quesId, setQuesId }: QuestionFormProps) {
         { text: "" },
         { text: "" },
       ],
-      solutionText: "",
+
   
       correctOption: undefined,
-      marksPositive: undefined,
-      marksNegative: undefined,
-      level: "easy",
+ 
     },
   });
 
@@ -87,12 +81,10 @@ function QuestionForm({ onSuccess, quesId, setQuesId }: QuestionFormProps) {
           { text: "" },
           { text: "" },
         ],
-        solutionText: "",
+
 
         correctOption: "",
-        marksPositive:  "" ,
-        marksNegative: "",
-        level: "",
+
       });
 
 
@@ -134,12 +126,10 @@ function QuestionForm({ onSuccess, quesId, setQuesId }: QuestionFormProps) {
      
             },
           ],
-          solutionText: data.solutionText || "",
+
  
           correctOption: data.correctOption ?? undefined,
-          marksPositive: data.marksPositive ?? undefined,
-          marksNegative: data.marksNegative ?? undefined,
-          level: data.level || "easy",
+
         });
 
         // Update preview states
@@ -192,12 +182,10 @@ function QuestionForm({ onSuccess, quesId, setQuesId }: QuestionFormProps) {
           { text: "" },
           { text: "" },
         ],
-        solutionText: "",
+  
 
         correctOption: "",
-        marksPositive: "",
-        marksNegative: "",
-        level: "",
+
       });
 
       // Reset image previews and file states
@@ -243,37 +231,11 @@ function QuestionForm({ onSuccess, quesId, setQuesId }: QuestionFormProps) {
           className="w-full p-2 border rounded"
         />
 
-        <textarea
-          {...registerQ("solutionText")}
-          placeholder="Solution"
-          className="w-full p-2 border rounded"
-        />
         {/* for solution imaeg upload  */}
 
-        <input
-          type="number"
-          {...registerQ("marksPositive", { valueAsNumber: true })}
-          placeholder="Marks Positive"
-          className="w-full p-2 border rounded"
-        />
-        <input
-          type="number"
-          {...registerQ("marksNegative", { valueAsNumber: true })}
-          placeholder="Marks Negative"
-          className="w-full p-2 border rounded"
-        />
-        <select
-          {...registerQ("level")}
-          className="w-full p-2 border rounded"
-          defaultValue=""
-        >
-          <option value="" disabled>
-            Select difficulty level
-          </option>
-          <option value="easy">Easy</option>
-          <option value="medium">Medium</option>
-          <option value="hard">Hard</option>
-        </select>
+
+
+     
         <button
           type="submit"
           className="bg-green-600 text-white px-4 py-2 rounded"

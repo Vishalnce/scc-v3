@@ -5,6 +5,7 @@ import Reason from "@/Components/ui/client/home/Reason";
 import Current from "@/Components/ui/client/home/Current";
 import SmallQuiz from "@/Components/ui/client/home/SamllQuiz"
 import React from "react";
+import QuizCard from "@/Components/ui/client/home/QuizCard";
 
 function Page() {
   return (
@@ -13,6 +14,7 @@ function Page() {
     <Reason />
     <Current/>
     <SmallQuiz/>
+    <QuizCard/>
     
     </>
   );

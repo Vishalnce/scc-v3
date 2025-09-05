@@ -2,6 +2,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 type CurrentAffair = {
   title: string;
@@ -78,7 +79,7 @@ export default function Current() {
 
   return (
     <div className="bg-[image:var(--color-my-gradient)]">
-      <div className="max-w-[1400px] mt-10 flex flex-col mx-auto border-2 w-[90%]  relative">
+      <div className="max-w-[1400px] pt-10 flex flex-col mx-auto border-2 w-[90%]  relative">
         {/* heading */}
         <header className="flex flex-row justify-between items-center border-2 p-4">
           <div className="w-[60%]">
@@ -98,7 +99,10 @@ export default function Current() {
         </header>
 
         {/* main body */}
-        <div className="overflow-hidden border-2 my-12" ref={emblaRef}>
+        <div
+          className="overflow-hidden border-2 my-12 dark:bg-black"
+          ref={emblaRef}
+        >
           <div className="flex">
             {loading ? (
               <p className="p-4">Loading...</p>
@@ -106,7 +110,10 @@ export default function Current() {
               <p className="p-4">No current affairs available</p>
             ) : (
               affairs.map((item, index) => (
-                <div className="min-w-[33.333%] px-2 border-2" key={index}>
+                <div
+                  className="min-w-[33.333%] max-sm:min-w-[85%] px-2 max-sm:pr-8 border-2"
+                  key={index}
+                >
                   {/* iimage */}
 
                   <div className="w-full h-48 relative">
@@ -125,26 +132,25 @@ export default function Current() {
                   <div className="flex flex-col ">
                     <div className="flex flex-row justify-between items-center py-2 ">
                       <div className="text-sm p-2 rounded-full bg-[#FFE332]">
-                      Updated  
+                        Updated
                       </div>
-                      <div>
+                      <div className="dark:text-white">
                         {item.createdAt.slice(0, 10)}
-                        </div>
+                      </div>
                     </div>
 
                     <div>
-                    <p className="font-bold py-2">{item.title}</p>  
+                      <p className="font-bold py-2 dark:text-white">
+                        {item.title}
+                      </p>
                     </div>
-                    <div className="text-fade">
-                    {item.summary.slice(0, 150)}...  
-                  
+                    <div className="text-fade dark:text-white">
+                      {item.summary.slice(0, 150)}...
                     </div>
 
                     <div className="py-2">
-                      <p>Read more</p>
+                      <p className="dark:text-white">Read more</p>
                     </div>
-
-
                   </div>
                 </div>
               ))
@@ -156,18 +162,19 @@ export default function Current() {
         <button
           onClick={scrollPrev}
           disabled={!canPrev}
-          className={`px-4 py-2 absolute left-2 top-1/2 -translate-y-1/2 rounded-lg 
-          ${canPrev ? "bg-gray-800 text-white hover:bg-gray-700" : "bg-gray-400 text-gray-200 cursor-not-allowed opacity-50"}`}
+          className={`max-sm:hidden  absolute left-2 top-1/2 -translate-y-1/2  
+          ${canPrev ? "bg-white p-3 text-2xl max-sm:p-2 max-sm:text-xl rounded-full text-[#007076]" : "bg-white p-3 text-2xl max-sm:p-2 max-sm:text-xl rounded-full text-[#007076] cursor-not-allowed opacity-50"}`}
         >
-          Prev
+           <IoIosArrowBack />
         </button>
+
         <button
           onClick={scrollNext}
           disabled={!canNext}
-          className={`px-4 py-2 absolute right-2 top-1/2 -translate-y-1/2 rounded-lg 
-          ${canNext ? "bg-gray-800 text-white hover:bg-gray-700" : "bg-gray-400 text-gray-200 cursor-not-allowed opacity-50"}`}
+          className={`max-sm:hidden  absolute right-2 top-1/2 -translate-y-1/2  
+          ${canNext ? "bg-white p-3 text-2xl max-sm:p-2 max-sm:text-xl rounded-full text-[#007076]" : "bg-white p-3 text-2xl max-sm:p-2 max-sm:text-xl rounded-full text-[#007076] cursor-not-allowed opacity-50"}`}
         >
-          Next
+          <IoIosArrowForward />
         </button>
       </div>
     </div>

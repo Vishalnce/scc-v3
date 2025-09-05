@@ -19,12 +19,11 @@ type QuestionType = {
   questionText?: string;
 
   options: OptionType[];
-  solutionText?: string;
+
 
   correctOption: number | "";
-  marksPositive: number | "";
-  marksNegative: number | "";
-  level: string;
+
+ 
   createdAt: string;
   updatedAt: string;
 };
@@ -66,6 +65,7 @@ const QuestionList = ({ setQuesId }: QuestionWrapperProps) => {
   if (error) return <div>Error: {error}</div>;
   if (questions.length === 0) return <div>No questions found.</div>;
 
+
   return (
     <div>
       <h2>Questions List</h2>
@@ -90,15 +90,17 @@ const QuestionList = ({ setQuesId }: QuestionWrapperProps) => {
                   </li>
                 ))}
               </ul>
-              <div className="mt-2">
-                {q.solutionText && <p>Correct Option: {q.correctOption}</p>}
+
+                   <div>
+                <p>
+                  Correct Option number {q.correctOption}
+                </p>
                
               </div>
 
-              <div className="mt-2">
-                {q.solutionText && <p>Solution: {q.solutionText}</p>}
-               
-              </div>
+
+
+              
             </li>
 
             {/* edit and delete */}
