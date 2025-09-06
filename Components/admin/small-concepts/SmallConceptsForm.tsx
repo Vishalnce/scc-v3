@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 type Announce = {
   id: number;
   title: string;
+  content: string;
   topic: string;
 };
 
@@ -18,6 +19,7 @@ type AnnounceFormProps = {
 
 type AnnounceFormInput = {
   title: string;
+  content: string;
   topic: string;
 };
 
@@ -34,32 +36,43 @@ function AnnounceForm({ announce, onSuccess }: AnnounceFormProps) {
     control,
     // formState: { isSubmitSuccessful },
   } = useForm({
-    defaultValues: { title: "", topic: "" },
+    defaultValues: { title: "", content: "", topic: "" },
   });
 
   useEffect(() => {
     if (announce) {
       reset({
         title: announce.title || "",
+        content: announce.content  || "",
         topic: announce.topic || "",
       });
     } else {
-      reset({ title: "", topic: "" }); // clear when adding
+      reset({ title: "",  content: "", topic: "" }); // clear when adding
     }
   }, [announce, reset]);
 
   const handleAdd = async (data: AnnounceFormInput) => {
+  try {
     const response = await fetch("/api/en/small-concepts/admin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
 
+    const result = await response.json();
+
     if (response.ok) {
+      alert("Record added successfully ✅");
       onSuccess();
-      reset(); // ✅ Clear input after adding
+      reset(); // Clear form
+    } else {
+      alert(result.error || "Failed to add record ❌");
     }
-  };
+  } catch (err) {
+    alert("Something went wrong. Please try again ❌");
+  }
+};
+
   const handleUpdate = async (data: AnnounceFormInput) => {
     const modifiedData = { ...data, id: id };
     const response = await fetch(`/api/en/small-concepts/admin?id=${id}`, {
@@ -69,23 +82,21 @@ function AnnounceForm({ announce, onSuccess }: AnnounceFormProps) {
     });
     if (response.ok) {
       onSuccess();
-      reset({ title: "", topic: "" });
+      reset({ title: "", content: "", topic: "" });
       router.push("/admin/small-concepts");
     }
   };
 
-
-
   const topicOptions: OptionType[] = [
     { value: "Quantitative Apptitude", label: "Quantitative Apptitude" },
-    { value: "Reasoning & General Intelligence", label: "Reasoning & General Intelligence" },
+    {
+      value: "Reasoning & General Intelligence",
+      label: "Reasoning & General Intelligence",
+    },
     { value: "English Comprehension", label: "English Comprehension" },
     { value: "General Awareness", label: "General Awareness" },
     { value: "Computer Knowledge", label: "Computer Knowledge" },
     { value: "Mathematical Abilities", label: "Mathematical Abilities" },
-
-    
-
   ];
 
   return (
@@ -95,9 +106,14 @@ function AnnounceForm({ announce, onSuccess }: AnnounceFormProps) {
           {announce?.id ? "Update One-Liner" : "Add One-Liner"}
         </h2>
         <form className="space-y-4">
-          <textarea
+          <input
             {...register("title", { required: "One-liner is required" })}
             placeholder="Enter a title..."
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+          <textarea
+            {...register("content", { required: "One-liner is required" })}
+            placeholder="Enter a content..."
             className="w-full p-2 border border-gray-300 rounded"
           />
 

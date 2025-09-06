@@ -6,6 +6,7 @@ import DeleteButton from "./DeleteButton";
 type Announce = {
   id: number;
   title: string;
+  content:string;
   topic: string;
 };
 
@@ -44,6 +45,8 @@ export default function AnnounceList() {
             <div >
            
               <p className="p-2 bg-[#FAFCFC]">{item.title}</p>
+              <p className="p-2 bg-[#FAFCFC]">{item.content}</p>
+
               <p className="p-2 bg-[#FAFCFC]">{item.topic}</p>{" "}
             </div>
 

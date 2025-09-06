@@ -1,0 +1,32 @@
+import Image from 'next/image'
+import React from 'react'
+import { GoClock } from "react-icons/go";
+export default function DataEntry() {
+  return (
+    <>
+    <div className='bg-[#007076]'>
+      <div className='max-w-[1400px] flex flex-row justify-between items-center mx-auto  w-[90%] py-5'>
+        {/* time and text */}
+        <div className='flex flex-row gap-5 max-sm:gap-2  max-md:w-[95%]'>
+
+          <div className='my-auto '>
+            <GoClock className='text-white max-sm:size-12 size-16 bg-[#26858A] p-3  rounded-full'/>
+
+          </div>
+          <div className='my-auto'>
+            <p className='text-2xl max-sm:text-sm text-white font-bold'>Explore our new Data Entry Speed Test</p>
+          </div>
+        </div>
+
+           <div className="flex justify-end w-[50%] xl:justify-start ">
+      <button className="bg-[#FFE332] max-lg:py-1.5 max-md:text-xs px-4 max-sm:px-5 rounded-full text-sm">
+        Start Typing
+      </button>
+    </div>
+
+      </div>
+      
+    </div>
+    </>
+  )
+}

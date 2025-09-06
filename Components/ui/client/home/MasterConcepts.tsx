@@ -5,33 +5,40 @@ import React, { useCallback, useEffect, useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { MdOutlineEventNote } from "react-icons/md";
 
-export default function QuizCard() {
+export default function MasterConcepts() {
   const Tier1: any = [
     {
       image: "/ui/client/home/quiz/math.svg",
+      image2: "/ui/client/home/dive/tier1/quant.svg",
       title: "Quantitative Aptitude",
+      
     },
-   
+
     {
       image: "/ui/client/home/quiz/reasoning.svg",
+       image2: "/ui/client/home/dive/tier1/reasoning.svg",
       title: "Reasoning & GI",
     },
     {
       image: "/ui/client/home/quiz/english.svg",
+       image2: "/ui/client/home/dive/tier1/english.svg",
+
       title: "English Comprehension",
     },
     {
       image: "/ui/client/home/quiz/reasoning.svg",
+        image2: "/ui/client/home/dive/tier1/general.svg",
       title: "General Awareness",
     },
   ];
 
-  const Tier2:any = [
-     {
+  const Tier2: any = [
+    {
       image: "/ui/client/home/quiz/math.svg",
+     
       title: "Quantitative Aptitude",
     },
-   
+
     {
       image: "/ui/client/home/quiz/reasoning.svg",
       title: "Reasoning & GI",
@@ -44,15 +51,15 @@ export default function QuizCard() {
       image: "/ui/client/home/quiz/reasoning.svg",
       title: "General Awareness",
     },
-     {
+    {
       image: "/ui/client/home/quiz/computer.svg",
       title: "Computer Knowledge",
     },
-     {
+    {
       image: "/ui/client/home/quiz/data.svg",
       title: "Data Entry Speed Test",
     },
-  ]
+  ];
 
   const [tierChange, setTierChange] = useState<"for-tier1" | "for-tier2">(
     "for-tier1"
@@ -96,21 +103,21 @@ export default function QuizCard() {
   return (
     <>
       <div className="bg-[image:var(--color-my-gradient)]">
-        <div className="max-w-[1400px] pt-8 flex flex-col mx-auto border-2 w-[90%]">
+        <div className="max-w-[1400px] pt-8 flex flex-col mx-auto w-[90%]">
           {/* heading */}
 
-          <header className="flex flex-row justify-between items-center p-4">
-            <div className="w-[60%]">
+          <header className="flex flex-row  justify-between items-center p-4 max-sm:px-0 ">
+            <div className="w-[60%] max-sm:w-[50%]">
               <p className="text-2xl font-bold dark:text-white">
-                Dive Into Live Quizzes Now
+                Master All SSC CGL Concepts
               </p>
               <p className="text-sm text-my-text-color max-sm:hidden">
-                Test Your Skills in Real-Time with Subject-Wise Live Quizzes for
-                SSC CGL!
+                Access Comprehensive Study Material for Every Subject to Excel
+                in Your SSC CGL Preparation!
               </p>
             </div>
             {/* buttons */}
-            <div className="w-[22%]   flex flex-row justify-between gap-2">
+            <div className="w-[22%]  max-sm:w-[35%] flex flex-row max-sm:flex-col justify-between gap-2">
               <button
                 onClick={() => {
                   setTierChange("for-tier1");
@@ -131,33 +138,49 @@ export default function QuizCard() {
           </header>
 
           {/* main boady */}
-          <main className="border-2  ">
+          <main className="  ">
             {tierChange === "for-tier1" ? (
-              <div className="   flex flex-row justify-between py-12 ">
+              <div className="   flex flex-row flex-nowrap justify-between py-12   overflow-x-auto  max-sm:min-h-[326]  scrollbar-hide  ">
                 {/* cards */}
 
                 {Tier1.map((item: any, index: number) => (
                   <div
                     key={index}
-                    className="w-[25%] px-2   rounded-t-lg rounded-b-lg max-h-[280px] max-w-[280px]"
+                    className="px-2 flex-shrink-0 
+             w-[25%] lg:max-h-[280px] lg:max-w-[280px] 
+             max-sm:w-[70%] rounded-t-lg rounded-b-lg   "
                   >
                     {/* top */}
-                    <div className="flex flex-col justify-center items-center py-6 bg-[#F1F7F7] rounded-t-lg">
-                      <div className="-mt-12">
+                    <div className="relative flex justify-center items-center bg-[#F1F7F7] rounded-t-lg border-2 w-full aspect-[21/9] ">
+                      {/* Background image fills rectangle */}
+                      <Image
+                        src={"/ui/client/home/dive/quantitaive.png"}
+                        alt={item.title}
+                        fill
+                        className="object-cover rounded-t-lg"
+                      />
+
+                      {/* Overlay image on top */}
+                      <div className="absolute -top-6">
                         <Image
                           src={item.image}
                           alt={item.title}
                           width={60}
                           height={60}
+                          className="object-contain"
                         />
-                      </div>
-                      <div>
-                        <p className="text-lg font-bold pt-3">{item.title}</p>
                       </div>
                     </div>
 
                     {/* middle */}
-                    <div className="flex flex-row justify-between py-3 w-full px-2 bg-white  ">
+
+                    <div className="min-h-[65px] max-sm:min-h-[50px] w-full ">
+                      <p className="text-lg font-bold pt-3 text-center">
+                        {item.title}
+                      </p>
+                    </div>
+
+                    {/* <div className="flex flex-row justify-between py-3 w-full px-2 bg-white  ">
                       <div className="w-[30%]">
                         <p className="text-sm">Questions</p>
                         <p className="text-sm font-bold">1000+</p>
@@ -172,7 +195,7 @@ export default function QuizCard() {
                           {new Date().getFullYear()}
                         </p>
                       </div>
-                    </div>
+                    </div> */}
 
                     {/* bottom */}
                     <div className="w-full bg-[#007076] py-4 rounded-b-lg">
@@ -182,47 +205,46 @@ export default function QuizCard() {
                 ))}
               </div>
             ) : (
-              <div className="  relative">
-                <div className="overflow-hidden  py-12" ref={emblaRef}>
+              <div className="  relative   max-sm:min-h-[326]">
+                <div className="overflow-hidden  py-12 " ref={emblaRef}>
                   {/* track */}
                   <div className="flex">
                     {Tier2.map((item: any, index: number) => (
                       <div
                         key={index}
-                        className="w-[25%] flex-shrink-0 px-2" // 3 cards visible
+                        className="px-2 flex-shrink-0 
+             w-[25%] lg:max-h-[280px] lg:max-w-[280px] 
+             max-sm:w-[70%] rounded-t-lg rounded-b-lg " // 3 cards visible
                       >
                         <div className="bg-white rounded-t-lg rounded-b-lg max-h-[280px]">
                           {/* top */}
-                          <div className="flex flex-col justify-center items-center py-6 bg-[#F1F7F7] rounded-t-lg">
-                            <div className="-mt-12">
-                              <Image
-                                src={item.image}
-                                alt={item.title}
-                                width={60}
-                                height={60}
-                              />
-                            </div>
-                            <p className="text-lg font-bold pt-3">
-                              {item.title}
-                            </p>
-                          </div>
+                            <div className="relative flex justify-center items-center bg-[#F1F7F7] rounded-t-lg border-2 w-full aspect-[21/9] ">
+                      {/* Background image fills rectangle */}
+                      <Image
+                        src={"/ui/client/home/dive/quantitaive.png"}
+                        alt={item.title}
+                        fill
+                        className="object-cover rounded-t-lg"
+                      />
+
+                      {/* Overlay image on top */}
+                      <div className="absolute -top-6">
+                        <Image
+                          src={item.image}
+                          alt={item.title}
+                          width={60}
+                          height={60}
+                          className="object-contain"
+                        />
+                      </div>
+                    </div>
 
                           {/* middle */}
-                          <div className="flex flex-row justify-between py-3 w-full px-2 bg-white">
-                            <div className="w-[30%]">
-                              <p className="text-sm">Questions</p>
-                              <p className="text-sm font-bold">1000+</p>
-                            </div>
-                            <div className="w-[35%]">
-                              <div className="flex flex-row gap-1 justify-end">
-                                <MdOutlineEventNote className="my-auto" />
-                                <p className="text-sm">Updated</p>
-                              </div>
-                              <p className="text-sm text-end font-bold">
-                                {new Date().getFullYear()}
-                              </p>
-                            </div>
-                          </div>
+                         <div className="min-h-[65px] max-sm:min-h-[50px] w-full ">
+                      <p className="text-lg font-bold pt-3 text-center">
+                        {item.title}
+                      </p>
+                    </div>
 
                           {/* bottom */}
                           <div className="w-full bg-[#007076] py-4 rounded-b-lg">
@@ -238,7 +260,7 @@ export default function QuizCard() {
                 <button
                   onClick={scrollPrev}
                   disabled={!canPrev}
-                 className={`absolute -left-2 top-34 -translate-y-1/2 p-3 rounded-full 
+                  className={` max-sm:hidden absolute -left-2 top-34 -translate-y-1/2 p-3 rounded-full 
     ${canPrev ? "bg-white text-[#007076]" : "bg-white text-[#007076] opacity-80"}`}
                 >
                   <IoIosArrowBack />
@@ -246,7 +268,7 @@ export default function QuizCard() {
                 <button
                   onClick={scrollNext}
                   disabled={!canNext}
-                  className={`absolute -right-2 top-34 -translate-y-1/2 p-3 rounded-full 
+                  className={`  max-sm:hidden absolute -right-2 top-34 -translate-y-1/2 p-3 rounded-full 
     ${canNext ? "bg-white text-[#007076]" : "bg-white text-[#007076] opacity-80"}`}
                 >
                   <IoIosArrowForward />

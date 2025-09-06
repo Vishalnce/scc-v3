@@ -3,6 +3,7 @@ import PostFormAnnouncement from "@/Components/admin/small-concepts/PostFormSmal
 type Announce = {
   id: number;
   title: string;
+  content: string;
   topic: string;
 };
 

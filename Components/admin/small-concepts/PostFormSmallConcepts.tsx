@@ -7,6 +7,7 @@ import AnnounceList from './SmallConceptsList';
 type Announce ={
   id:number;
   title: string;
+  content: string;
   topic :string;
 }
 

@@ -36,16 +36,22 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
+    
+    const existing = await db.smallConcepts.findFirst();
+
+    if (existing) {
+      return NextResponse.json(
+        { error: "You cannot add more than 1 record." },
+        { status: 400 }
+      );
+    }
+
+   
     const post = await db.smallConcepts.create({
       data: {
-        id: 255,
         ...body,
       },
     });
-
-    if (!post) {
-      return NextResponse.json({ error: "Not Found" }, { status: 404 });
-    }
 
     return NextResponse.json({ success: true, post });
   } catch (error: any) {
@@ -55,7 +61,6 @@ export async function POST(req: NextRequest) {
     );
   }
 }
-
 // edit handler
 
 export async function PATCH(req: NextRequest) {
