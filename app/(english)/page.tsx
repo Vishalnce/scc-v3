@@ -10,6 +10,7 @@ import DataEntry from "@/Components/ui/client/home/DataEntry";
 import OneLiner from "@/Components/ui/client/home/OneLiner";
 import Concept from "@/Components/ui/client/home/Concept";
 import MasterConcepts  from "@/Components/ui/client/home/MasterConcepts";
+import AnnounceUpcoming from "@/Components/ui/client/home/AnnounceUpcoming";
 
 
 function Page() {
@@ -24,6 +25,7 @@ function Page() {
     <OneLiner/> 
     <Concept/> 
     <MasterConcepts/> 
+    <AnnounceUpcoming/>
     <div className="h-[20vh] w-[20vh]">
       
     </div>

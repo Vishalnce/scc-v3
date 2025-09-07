@@ -14,7 +14,7 @@ export default function AnnounceList() {
 
   const fetchAnnounces = async () => {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/notice/client`
+      `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/announcement/client`
     );
     const body = await res.json();
   

@@ -9,25 +9,25 @@ export default function MasterConcepts() {
   const Tier1: any = [
     {
       image: "/ui/client/home/quiz/math.svg",
-      image2: "/ui/client/home/dive/tier1/quant.svg",
+      image2: "/ui/client/home/dive/tier1/quant.png",
       title: "Quantitative Aptitude",
       
     },
 
     {
       image: "/ui/client/home/quiz/reasoning.svg",
-       image2: "/ui/client/home/dive/tier1/reasoning.svg",
+       image2: "/ui/client/home/dive/tier1/reasoning.png",
       title: "Reasoning & GI",
     },
     {
       image: "/ui/client/home/quiz/english.svg",
-       image2: "/ui/client/home/dive/tier1/english.svg",
+       image2: "/ui/client/home/dive/tier1/english.png",
 
       title: "English Comprehension",
     },
     {
       image: "/ui/client/home/quiz/reasoning.svg",
-        image2: "/ui/client/home/dive/tier1/general.svg",
+        image2: "/ui/client/home/dive/tier1/general.png",
       title: "General Awareness",
     },
   ];
@@ -35,28 +35,39 @@ export default function MasterConcepts() {
   const Tier2: any = [
     {
       image: "/ui/client/home/quiz/math.svg",
+        image2: "/ui/client/home/dive/tier2/math.png",
      
       title: "Quantitative Aptitude",
     },
 
     {
       image: "/ui/client/home/quiz/reasoning.svg",
+        image2: "/ui/client/home/dive/tier2/reasoning.png",
+
       title: "Reasoning & GI",
     },
     {
       image: "/ui/client/home/quiz/english.svg",
+        image2: "/ui/client/home/dive/tier2/english.png",
+
       title: "English Comprehension",
     },
     {
       image: "/ui/client/home/quiz/reasoning.svg",
+        image2: "/ui/client/home/dive/tier2/general.png",
+
       title: "General Awareness",
     },
     {
       image: "/ui/client/home/quiz/computer.svg",
+        image2: "/ui/client/home/dive/tier2/computer.png",
+
       title: "Computer Knowledge",
     },
     {
       image: "/ui/client/home/quiz/data.svg",
+        image2: "/ui/client/home/dive/tier2/data.png",
+
       title: "Data Entry Speed Test",
     },
   ];
@@ -151,10 +162,10 @@ export default function MasterConcepts() {
              max-sm:w-[70%] rounded-t-lg rounded-b-lg   "
                   >
                     {/* top */}
-                    <div className="relative flex justify-center items-center bg-[#F1F7F7] rounded-t-lg border-2 w-full aspect-[21/9] ">
+                    <div className="relative flex justify-center items-center bg-[#F1F7F7] rounded-t-lg  w-full aspect-[21/9] ">
                       {/* Background image fills rectangle */}
                       <Image
-                        src={"/ui/client/home/dive/quantitaive.png"}
+                        src={item.image2}
                         alt={item.title}
                         fill
                         className="object-cover rounded-t-lg"
@@ -218,10 +229,10 @@ export default function MasterConcepts() {
                       >
                         <div className="bg-white rounded-t-lg rounded-b-lg max-h-[280px]">
                           {/* top */}
-                            <div className="relative flex justify-center items-center bg-[#F1F7F7] rounded-t-lg border-2 w-full aspect-[21/9] ">
+                            <div className="relative flex justify-center items-center bg-[#F1F7F7] rounded-t-lg  w-full aspect-[21/9] ">
                       {/* Background image fills rectangle */}
                       <Image
-                        src={"/ui/client/home/dive/quantitaive.png"}
+                        src={item.image2}
                         alt={item.title}
                         fill
                         className="object-cover rounded-t-lg"

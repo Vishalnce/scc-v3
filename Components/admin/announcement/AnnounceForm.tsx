@@ -48,7 +48,7 @@ function AnnounceForm({ announce, onSuccess }: AnnounceFormProps) {
   }, [announce, reset]);
 
   const handleAdd = async (data: AnnounceFormInput) => {
-    const response = await fetch("/api/en/notice/admin", {
+    const response = await fetch("/api/en/announcement/admin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -61,7 +61,7 @@ function AnnounceForm({ announce, onSuccess }: AnnounceFormProps) {
   };
   const handleUpdate = async (data: AnnounceFormInput) => {
     const modifiedData = { ...data, id: id }; 
-    const response = await fetch(`/api/en/notice/admin?id=${id}`, {
+    const response = await fetch(`/api/en/announcement/admin?id=${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify( modifiedData),
