@@ -41,10 +41,10 @@ export default async function AnnounceUpcoming() {
   return (
     <>
       <div className="bg-white dark:bg-black">
-        <div className="max-w-[1400px]  w-[90%] mx-auto py-16">
-          <div className="flex flex-row justify-between items-center">
+        <div className="max-w-[1400px]  w-[90%] mx-auto py-16 max-md:py-12">
+          <div className="flex flex-row justify-between items-center max-md:flex-col max-md:gap-8">
             {/* announcment card */}
-            <div className=" w-[46%] ">
+            <div className=" w-[46%] max-md:w-[100%] ">
               {/* heading */}
               <div className="  bg-[#007076] rounded-t-xl flex flex-row items-center justify-center gap-4  py-1 w-full">
                 <div className="my-auto ">
@@ -62,14 +62,14 @@ export default async function AnnounceUpcoming() {
 
               {/* body  */}
 
-              <div className=" py-3 space-y-3 max-h-[210px] overflow-y-auto shadow-2xl px-3 rounded-b-lg ">
+              <div className=" py-3 space-y-3 max-h-[210px] overflow-y-auto shadow-2xl px-3 rounded-b-lg dark:bg-[#313131]">
                 {post.map((item: any) => (
                   <div
                     key={item.id}
                     className="flex flex-row justify-between gap-3  h-[54px]"
                   >
                     <span className="w-4 h-4 my-auto flex items-center justify-center rounded-full border-4 font-bold dark:border-white"></span>
-                    <p className="text-[#6C6C6C] text-sm my-auto w-[60%]">
+                    <p className="text-[#6C6C6C] dark:text-[#C2C2C2] text-sm my-auto w-[60%]">
                       {item.title}
                     </p>
                     <div className="w-[30%] max-w-32 flex flex-col justify-center">
@@ -81,14 +81,13 @@ export default async function AnnounceUpcoming() {
                     </div>
                   </div>
                 ))}
-
-              
               </div>
             </div>
 
-            <div className=" w-[46%] ">
+            {/* upcoming exam as notice */}
+            <div className=" w-[46%] max-md:w-[100%] ">
               {/* heading */}
-              <div className="  bg-[#007076] rounded-t-xl flex flex-row items-center justify-center gap-4  py-1 w-full">
+              <div className="  bg-[#007076] rounded-t-xl flex flex-row items-center justify-center gap-4  py-1 w-full ">
                 <div className="my-auto ">
                   <Image
                     src={"/ui/client/home/upcoming.svg"}
@@ -104,14 +103,14 @@ export default async function AnnounceUpcoming() {
 
               {/* body  */}
 
-              <div className=" py-3 space-y-3 overflow-y-auto max-h-[210px]  px-3 rounded-b-lg shadow-2xl">
+              <div className=" py-3 space-y-3 overflow-y-auto max-h-[210px]  px-3 rounded-b-lg shadow-2xl dark:bg-[#313131]">
                 {noticePost.map((item: any) => (
                   <div
                     key={item.id}
                     className="flex flex-row justify-between gap-3  h-[54px]"
                   >
                     <span className="w-4 h-4 my-auto flex items-center justify-center rounded-full border-4 font-bold dark:border-white"></span>
-                    <p className="text-[#6C6C6C] text-sm my-auto w-[60%]">
+                    <p className=" text-[#6C6C6C] dark:text-[#C2C2C2] text-sm my-auto w-[60%]">
                       {item.title}
                     </p>
                     <div className="w-[30%] max-w-32 flex flex-col justify-center">

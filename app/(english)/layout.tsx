@@ -1,12 +1,13 @@
-
 // import dynamic from "next/dynamic";
 
 // const EnglishNav = dynamic(() => import("@/Components/layout/EnglishNav"), {
 //   ssr: false, // OR remove if SSR is needed
-  
+
 // });
 
-import EnglishNav from "@/Components/layout/EnglishNav"
+import EnglishNav from "@/Components/layout/EnglishNav";
+import Footer from "@/Components/layout/Footer";
+import TouchBanner from "@/Components/layout/TouchBanner";
 
 export default function RootLayout({
   children,
@@ -15,6 +16,10 @@ export default function RootLayout({
     <>
       <EnglishNav />
       {children}
+      <TouchBanner />
+
+      <Footer />
+     
     </>
   );
 }

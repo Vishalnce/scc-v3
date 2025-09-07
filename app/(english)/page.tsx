@@ -11,6 +11,7 @@ import OneLiner from "@/Components/ui/client/home/OneLiner";
 import Concept from "@/Components/ui/client/home/Concept";
 import MasterConcepts  from "@/Components/ui/client/home/MasterConcepts";
 import AnnounceUpcoming from "@/Components/ui/client/home/AnnounceUpcoming";
+import Banner from "@/Components/ui/client/home/Banner";
 
 
 function Page() {
@@ -26,9 +27,8 @@ function Page() {
     <Concept/> 
     <MasterConcepts/> 
     <AnnounceUpcoming/>
-    <div className="h-[20vh] w-[20vh]">
-      
-    </div>
+    <Banner/>
+    
     
     </>
   );
