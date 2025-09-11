@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { NextResponse } from "next/server";
 import React from "react";
 
@@ -93,46 +94,43 @@ export default async function CurrentAffarisPage({
 
   const post = await fetchPost(slug);
 
-  console.log("Post fetched:", post);
+  // console.log("Post fetched:", post);
 
   return (
-
-    
     <>
-    {/* header */}
-
-    <header className="bg-[image:var(--color-my-gradient)] ">
+      {/* header */}
+      <header className="bg-[image:var(--color-my-gradient)] ">
         <div className="flex flex-col justify-center items-center min-h-[150px] mx-auto max-w-[1400px] max-sm:w-[90%] text-center">
-          <h1 className="text-3xl font-bold max-sm:text-2xl">
-            Current Affairs for <span className="text-my-green">SSC CGL</span>{" "}
-            Success
-          </h1>
-          <p className="mt-1 text-sm text-my-text-color">
-            Stay Ahead with Daily Updates Tailored for SSC CGL General
-            Awareness!
+          <p className="text-sm text-gray-600">
+            <span className="hover:underline cursor-pointer text-[#007076]">
+              Home
+            </span>
+            <span className="mx-1 text-[#007076]"> &gt; </span>
+            <span className="hover:underline cursor-pointer text-[#007076]">
+              Current Affairs
+            </span>{" "}
+          <span className="mx-1 text-[#007076]"> &gt; </span>
+            <span className="font-semibold dark:text-white">{post?.title}</span>
           </p>
+
+          <h1 className="text-3xl font-bold max-sm:text-2xl">
+            <p> {post?.title} </p>
+          </h1>
         </div>
       </header>
       <div>{post?.title}</div>;
-      
       <div dangerouslySetInnerHTML={{ __html: post?.editorHtml || "" }} />
-
       <div>
-  <h2>Table of Contents</h2>
-  <ul>
-    {post?.toc && JSON.parse(post.toc).map((item: any, index: number) => (
-      <li key={index}>
-        <a href={`#${item.id}`}>{item.text}</a>
-      </li>
-    ))}
-  </ul>
-</div>
-
-
-
-
-
-      
+        <h2>Table of Contents</h2>
+        <ul>
+          {post?.toc &&
+            JSON.parse(post.toc).map((item: any, index: number) => (
+              <li key={index}>
+                <a href={`#${item.id}`}>{item.text}</a>
+              </li>
+            ))}
+        </ul>
+      </div>
     </>
   );
 }

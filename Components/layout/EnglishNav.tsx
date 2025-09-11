@@ -62,7 +62,7 @@ function Nav() {
           {/* links */}
           <div className="flex flex-row items-center space-x-8 max-lg:hidden ">
             <Link
-              href="/current-affaris"
+              href=""
               onClick={() => handleClick("current-affairs")}
             >
               <div className="flex flex-row items-center justify-center text-my-text-color text-sm hover:text-my-green">
@@ -126,42 +126,43 @@ function Nav() {
       </nav>
 
       {/* DropDown for current affaris */}
-      {activeTag === "curren-affairs" && (
-        <div className="  z-50 w-full  flex flex-col absolute top-12 bg-[image:var(--color-my-gradient)] border-2 ">
-          <div className="w-[20%] ml-24  p-2  hover:bg-[#E6F1F1] dark:hover:bg-[#313131] rounded-xl">
+      {activeTag === "current-affairs" && (
+        <div className="  z-50 w-full  flex py-4 flex-col absolute top-12 bg-[image:var(--color-my-gradient)]  ">
+          <div className="w-[20%] ml-24  p-2  hover:bg-[#E6F1F1] dark:hover:bg-black rounded-xl">
             <div>
-              <div className="flex flex-row items-center">
-                <p className=" text-sm"> Detailed Current Affaris </p>{" "}
-                <MdKeyboardArrowRight />
+              <div className="flex flex-row items-center gap-2">
+                <p className=" text-sm text-my-text-color "> Detailed Current Affaris </p>{" "}
+                <MdKeyboardArrowRight className="text-my-text-color"/>
               </div>
 
-              <p className="text-my-text-color text-sm">
+              <p className="text-my-text-color text-sm py-2">
                 Get Full Details here
               </p>
             </div>
           </div>
 
-          <div className="w-[20%] ml-24 mt-2 p-2   hover:bg-[#E6F1F1] dark:hover:bg-[#313131] rounded-xl ">
+          <div className="w-[20%] ml-24 mt-2 p-2   hover:bg-[#E6F1F1] dark:hover:bg-black rounded-xl ">
             <div>
-              <div className="flex flex-row items-center">
-                <p className=" text-sm"> One Liner Current Affaris </p>{" "}
-                <MdKeyboardArrowRight />
+              <div className="flex flex-row items-center gap-2">
+                <p className=" text-sm text-my-text-color "> One Liner Current Affaris </p>{" "}
+                <MdKeyboardArrowRight className="text-my-text-color"/>
               </div>
 
-              <p className="text-my-text-color text-sm">
+              <p className="text-my-text-color text-sm py-2">
                 Get Full Details here
               </p>
             </div>
           </div>
+
         </div>
       )}
 
       {/* DropDown for concepts */}
       {activeTag === "concepts" && (
         <div className="  z-50 w-full  flex flex-col absolute top-12  bg-[image:var(--color-my-gradient)]  ">
-          <div className="border-2 w-full flex flex-row justify-between">
+          <div className=" w-full flex flex-row justify-between">
             {/* heading */}
-            <div className="w-[25%] flex flex-row  justify-center border-2 border-fuchsia-700 mt-10 p-3 ">
+            <div className="w-[25%] flex flex-row  justify-center  border-fuchsia-700 mt-10 p-3 ">
               <p className="text-my-text-color text-sm ">
                 Concepts For Prelims (Tier 1)
               </p>
@@ -170,7 +171,7 @@ function Nav() {
 
             {/* body */}
 
-            <div className="w-[60%] border-2 border-red-600 flex flex-row justify-start text-sm text-my-text-color flex-wrap mt-10 gap-x-8 ">
+            <div className="w-[60%]  border-red-600 flex flex-row justify-start text-sm text-my-text-color flex-wrap mt-10 gap-x-8 ">
               <Link
                 href={{
                   pathname: "/concept",
@@ -179,33 +180,34 @@ function Nav() {
                  onClick={() => setActiveTag(null)}
               >
                 {" "}
-                <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-[#313131]  rounded-lg">
+                <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black  rounded-lg">
                   Quantitative Apptitude{" "}
                 </p>
               </Link>
 
-              <p className="p-3 hover:bg-[#E6F1F1] rounded-lg dark:hover:bg-[#313131]">
+              <p className="p-3 hover:bg-[#E6F1F1] rounded-lg dark:hover:bg-black">
                 {" "}
                 Reasoning & General Intelligence
               </p>
-              <p className="p-3 hover:bg-[#E6F1F1] rounded-lg dark:hover:bg-[#313131] ">
+              <p className="p-3 hover:bg-[#E6F1F1] rounded-lg dark:hover:bg-black ">
                 English Comprehension{" "}
               </p>
-
-              <p className="p-3 hover:bg-[#E6F1F1] rounded-lg dark:hover:bg-[#313131] ">
+                
+                <Link href={""}>
+                 <p className="p-3 hover:bg-[#E6F1F1] rounded-lg dark:hover:bg-black ">
                 General Awareness{" "}
               </p>
+                </Link>
+             
 
-              <p className="p-3 hover:bg-[#E6F1F1] rounded-lg dark:hover:bg-[#313131] ">
-                PYQs{" "}
-              </p>
+              
             </div>
           </div>
 
           {/* tier-2 */}
-          <div className="border-2 w-full flex flex-row justify-between">
+          <div className=" w-full flex flex-row justify-between">
             {/* heading */}
-            <div className="w-[25%] flex flex-row  justify-center border-2 border-fuchsia-700 mt-10 p-3 ">
+            <div className="w-[25%] flex flex-row  justify-center  border-fuchsia-700 mt-10 p-3 ">
               <p className="text-my-text-color text-sm ">
                 Concepts For mains (Tier 2)
               </p>
@@ -214,30 +216,30 @@ function Nav() {
 
             {/* body */}
 
-            <div className="w-[60%] border-2 border-red-600 flex flex-row justify-start text-sm text-my-text-color flex-wrap mt-10 gap-x-8 ">
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] rounded-lg">
+            <div className="w-[60%]  border-red-600 flex flex-row justify-start text-sm text-my-text-color flex-wrap mt-10 gap-x-8 ">
+              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
                 Mathematical Abilities{" "}
               </p>
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] rounded-lg">
+              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
                 {" "}
                 Reasoning & General Intelligence
               </p>
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] rounded-lg">
+              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
                 English Comprehension{" "}
               </p>
 
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] rounded-lg">
+              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
                 General Awareness{" "}
               </p>
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] rounded-lg">
+              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
                 Computer Knowledge{" "}
               </p>
 
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] rounded-lg">
+              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
                 Data Entry Speed Test{" "}
               </p>
 
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] rounded-lg">
+              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
                 PYQs{" "}
               </p>
             </div>
@@ -248,9 +250,9 @@ function Nav() {
       {/* DropDown for quiz */}
       {activeTag === "quiz" && (
         <div className="  z-50 w-full  flex flex-col absolute top-12  bg-[image:var(--color-my-gradient)]  ">
-          <div className="border-2 w-full flex flex-row justify-between">
+          <div className=" w-full flex flex-row justify-between">
             {/* heading */}
-            <div className="w-[25%] flex flex-row  justify-center border-2 border-fuchsia-700 mt-10 p-3 ">
+            <div className="w-[25%] flex flex-row  justify-center  border-fuchsia-700 mt-10 p-3 ">
               <p className="text-my-text-color text-sm ">
                 Quiz For Prelims (Tier 1)
               </p>
@@ -259,39 +261,39 @@ function Nav() {
 
             {/* body */}
 
-            <div className="w-[60%] border-2 border-red-600 flex flex-row justify-start text-sm text-my-text-color flex-wrap mt-10 gap-x-8 ">
+            <div className="w-[60%]  border-red-600 flex flex-row justify-start text-sm text-my-text-color flex-wrap mt-10 gap-x-8 ">
                <Link
                 href={{
                   pathname: "/quiz",
                   query: { category: "pre", subject: "quantitative-apptitude" },
                 }}
                  onClick={() => setActiveTag(null)}
-              ><p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] rounded-lg">
+              ><p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
                 Quantitative Apptitude{" "}
               </p></Link>
               
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] rounded-lg">
+              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
                 {" "}
                 Reasoning & General Intelligence
               </p>
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] rounded-lg">
+              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
                 English Comprehension{" "}
               </p>
 
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] rounded-lg">
+              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
                 General Awareness{" "}
               </p>
 
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] rounded-lg">
+              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
                 PYQs{" "}
               </p>
             </div>
           </div>
 
           {/* tier-2 */}
-          <div className="border-2 w-full flex flex-row justify-between">
+          <div className=" w-full flex flex-row justify-between">
             {/* heading */}
-            <div className="w-[25%] flex flex-row  justify-center border-2 border-fuchsia-700 mt-10 p-3 ">
+            <div className="w-[25%] flex flex-row  justify-center  border-fuchsia-700 mt-10 p-3 ">
               <p className="text-my-text-color text-sm ">
                 Quiz For mains (Tier 2)
               </p>
@@ -300,30 +302,30 @@ function Nav() {
 
             {/* body */}
 
-            <div className="w-[60%] border-2 border-red-600 flex flex-row justify-start text-sm text-my-text-color flex-wrap mt-10 gap-x-8 ">
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] rounded-lg">
+            <div className="w-[60%]  border-red-600 flex flex-row justify-start text-sm text-my-text-color flex-wrap mt-10 gap-x-8 ">
+              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
                 Mathematical Abilities{" "}
               </p>
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] rounded-lg">
+              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
                 {" "}
                 Reasoning & General Intelligence
               </p>
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] rounded-lg">
+              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
                 English Comprehension{" "}
               </p>
 
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] rounded-lg">
+              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
                 General Awareness{" "}
               </p>
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] rounded-lg">
+              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
                 Computer Knowledge{" "}
               </p>
 
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] rounded-lg">
+              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
                 Data Entry Speed Test{" "}
               </p>
 
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] rounded-lg">
+              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
                 PYQs{" "}
               </p>
             </div>

@@ -79,7 +79,7 @@ const Filter = () => {
         <div className="relative w-[160px]">
           <DatePicker
           isClearable
-            className="w-full pl-8 pr-4 py-2 text-md border-2 rounded-full bg-transparent placeholder:text-[#6C6C6C] dark:placeholder:text-[#C2C2C2] focus:outline-none focus:ring-0"
+            className="w-full pl-8 pr-4 py-2 text-md border-2 rounded-full bg-transparent placeholder:text-[#6C6C6C] dark:placeholder:text-[#C2C2C2] focus:outline-none focus:ring-0 dark:border-white"
             selected={date}
             onChange={handleDateChange}
             closeOnScroll={false}
@@ -90,7 +90,7 @@ const Filter = () => {
             scrollableYearDropdown
             calendarClassName="z-50 "
           />
-          <FiCalendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-600 pointer-events-none" />
+          <FiCalendar className="absolute left-3 top-1/2 -translate-y-1/2 dark:text-white text-gray-600 pointer-events-none" />
         </div>
         
 
