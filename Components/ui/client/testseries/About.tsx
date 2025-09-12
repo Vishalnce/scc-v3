@@ -12,7 +12,6 @@ export default function About() {
           {/* left card */}
 
           <div className=" w-[60%]  max-md:w-[90%] max-md:mx-auto flex flex-col items-start  justify-center">
-            
             <p className="font-bold font-montserrat text-3xl py-4 dark:text-white">
               About SSC CGL Examlife Test Series
             </p>
@@ -63,20 +62,20 @@ export default function About() {
               </div>
             </div>
 
-             {/* button  */}
+            {/* button  */}
 
-                 <div className='self-start max-sm:flex flex-row space-x-6 py-2'>
-            <Link href="/">
-                <button className='border-2 px-4 py-2 max-sm:text-xs rounded-full dark:border-white dark:text-white  '>
+            <div className="self-start max-sm:flex flex-row space-x-6 py-2">
+              <Link href="/">
+                <button className="border-2 px-4 py-2 max-sm:text-xs rounded-full dark:border-white dark:text-white  ">
                   Join Test Series
                 </button>
-            </Link>
-                 <Link href="/">
-                <button className=' px-4 py-2 rounded-full max-sm:text-xs  bg-[#007076] text-white'>
+              </Link>
+              <Link href="/">
+                <button className=" px-4 py-2 rounded-full max-sm:text-xs  bg-[#007076] text-white">
                   Join Test Series
                 </button>
-            </Link>
-          </div>
+              </Link>
+            </div>
           </div>
 
           {/* right card */}
@@ -90,10 +89,6 @@ export default function About() {
               className="object-contain w-full h-auto"
             />
           </div>
-
-         
-
-          
         </div>
       </div>
     </>

@@ -1,4 +1,5 @@
 import { Linden_Hill } from 'next/font/google'
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
@@ -6,41 +7,48 @@ export default function Hero() {
   return (
     <>
 
-    <div className='bg-white'>
+    <div className='bg-white dark:bg-[#313131]'>
 
-      <div className='max-w-[1400px] mx-auto border-2 w-[90%] flex flex-row justify-between'>
+      <div className='max-w-[1400px] mx-auto  w-[90%] flex flex-row justify-between'>
 
      
 
           {/* text */}
-        <div className='w-[55%] border-2 flex flex-col items-center justify-center  my-18'>
+        <div className='w-[55%] max-md:w-[90%] max-md:mx-auto flex flex-col items-center justify-center  my-14'>
          
-          <p className='text-4xl font-bold font-montserrat py-2'>
+          <p className='text-4xl max-sm:text-2xl font-bold font-montserrat py-2 dark:text-white'>
             Conquer  <span className='text-[#007076] '>SSC CGL </span>with Our Power-Packed Test Series
           </p>
-          <p className='text-my-text-color py-2'>
+          <p className='text-my-text-color py-2 max-sm:text-sm'>
             Sharpen Your Skills and Track Your Progress with Realistic Mock Tests Designed for SSC CGL Excellence
           </p>
 
-          <div className='self-start space-x-6 py-2'>
-            <Link href="/">
-                <button className='border-2 px-4 py-2 rounded-full'>
+          <div className="self-start max-sm:flex flex-row space-x-6 py-2">
+              <Link href="/">
+                <button className="border-2 px-4 py-2 max-sm:text-xs rounded-full dark:border-white dark:text-white  ">
                   Join Test Series
                 </button>
-            </Link>
-                 <Link href="/">
-                <button className='border-2 px-4 py-2 rounded-full'>
+              </Link>
+              <Link href="/">
+                <button className=" px-4 py-2 rounded-full max-sm:text-xs  bg-[#007076] text-white">
                   Join Test Series
                 </button>
-            </Link>
-          </div>
+              </Link>
+            </div>
 
         </div>
 
         {/* image */}
 
-        <div className='w-[40%] border-2'>
-          
+        <div className='w-[40%] mask-l-from-10% mask-l-to-100% max-md:hidden   max-lg:my-14'>
+          <Image
+          src="/ui/client/test-series/Trophy.png"
+          alt='Trophy'
+          width={527}
+          height={440}
+          className=' object-contain h-auto w-full'
+          />
+
         </div>  
 
       </div> 
