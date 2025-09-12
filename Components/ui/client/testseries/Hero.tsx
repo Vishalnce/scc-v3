@@ -9,12 +9,12 @@ export default function Hero() {
 
     <div className='bg-white dark:bg-[#313131]'>
 
-      <div className='max-w-[1400px] mx-auto  w-[90%] flex flex-row justify-between'>
+      <div className='max-w-[1400px] mx-auto   flex flex-row justify-between'>
 
      
 
           {/* text */}
-        <div className='w-[55%] max-md:w-[90%] max-md:mx-auto flex flex-col items-center justify-center  my-14'>
+        <div className='w-[55%] max-md:w-[90%] max-md:mx-auto flex flex-col items-center justify-center max-sm:my-8  my-14  md:ml-14'>
          
           <p className='text-4xl max-sm:text-2xl font-bold font-montserrat py-2 dark:text-white'>
             Conquer  <span className='text-[#007076] '>SSC CGL </span>with Our Power-Packed Test Series
