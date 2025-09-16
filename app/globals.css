@@ -41,6 +41,20 @@ body {
   }
 }
 
+
+
+/* Disable default password reveal icon */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+input[type="password"]::-webkit-textfield-decoration-container {
+  display: none;
+}
+
+
+
 /* Hide scrollbar for Chrome, Safari and Edge */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
