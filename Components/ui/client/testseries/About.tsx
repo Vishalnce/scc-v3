@@ -84,8 +84,7 @@ export default function About() {
             <Image
               src="/ui/client/test-series/boy.png"
               alt="boy"
-              width={520} // natural width
-              height={485} // natural height
+              fill
               className="object-contain w-full h-auto"
             />
           </div>

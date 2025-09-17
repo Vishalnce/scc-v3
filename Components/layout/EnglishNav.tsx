@@ -31,7 +31,7 @@ function Nav() {
 
   return (
     <>
-      <nav className="bg-[image:var(--color-my-gradient)]  w-full sticky z-50  top-0 ">
+      <nav className="bg-[image:var(--color-my-gradient)]  w-full sticky z-50   top-0 ">
         <div className="  flex flex-row justify-between items-center mx-auto   max-w-[1400px]  ">
           {/* small screen toggle menu button */}
 
@@ -129,7 +129,7 @@ function Nav() {
       {activeTag === "current-affairs" && (
         <div className="  z-50 w-full  flex py-4 flex-col absolute top-12 bg-[image:var(--color-my-gradient)]  ">
           <div className="w-[20%] ml-24  p-2  hover:bg-[#E6F1F1] dark:hover:bg-black rounded-xl">
-            <div>
+            <Link href={"/current-affaris"} onClick={() => setActiveTag(null)}>
               <div className="flex flex-row items-center gap-2">
                 <p className=" text-sm text-my-text-color "> Detailed Current Affaris </p>{" "}
                 <MdKeyboardArrowRight className="text-my-text-color"/>
@@ -138,7 +138,7 @@ function Nav() {
               <p className="text-my-text-color text-sm py-2">
                 Get Full Details here
               </p>
-            </div>
+            </Link>
           </div>
 
           <div className="w-[20%] ml-24 mt-2 p-2   hover:bg-[#E6F1F1] dark:hover:bg-black rounded-xl ">

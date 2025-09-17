@@ -43,6 +43,13 @@ body {
 
 
 
+
+/* Apply scroll margin to all elements with an id */
+[id] {
+  scroll-margin-top: 100px; /* adjust this number to match navbar height */
+}
+
+
 /* Disable default password reveal icon */
 input[type="password"]::-ms-reveal,
 input[type="password"]::-ms-clear {
@@ -153,19 +160,19 @@ ol {
 }
 .PlaygroundEditorTheme__h1 {
   font-size: 24px;
-  color: rgb(5, 5, 5);
+ 
   font-weight: 400;
   margin: 0;
 }
 .PlaygroundEditorTheme__h2 {
   font-size: 18px;
-  color: rgb(5, 5, 5);
+  
   font-weight: 400;
   margin: 0;
 }
 .PlaygroundEditorTheme__h3 {
    font-size: 12px;
-  color: rgb(5, 5, 5);
+  
   font-weight: 400;
   margin: 0;
 }
