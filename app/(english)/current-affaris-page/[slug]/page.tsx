@@ -1,3 +1,4 @@
+import NextPrev from "@/Components/ui/client/current-affaris-page/NextPrev";
 import Image from "next/image";
 import Link from "next/link";
 import { NextResponse } from "next/server";
@@ -18,20 +19,72 @@ type Post = {
   createdAt: string;
 };
 
+type FetchResponse = {
+  posts: Post[];
+  page: number;
+};
+
+// only fetch by slug
 async function fetchPost(slug: string) {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/current-affaris-page/client/${slug}`,
-    { cache: "no-store" }
-  );
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/current-affaris-page/client/${slug}`,
+      { cache: "no-store" }
+    );
 
-  if (!res.ok) return null;
+    if (!res.ok) return null;
 
-  const post: Post = await res.json();
-  return post;
+    const post: Post = await res.json();
+    return post;
+  } catch (error) {
+    console.log(`erronwhile fetching ${error}`);
+  }
+}
+
+// fetch all current affaris by number return posts and current page number
+async function fetchCurrentAffairs(pageNumber: number): Promise<FetchResponse> {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/current-affaris/client/?page=${pageNumber}`,
+      { cache: "no-store" }
+    );
+
+    if (!res.ok) {
+      return { posts: [], page: 1 }; // fallback
+    }
+
+    const raw = await res.json();
+
+    return {
+      posts: raw.posts ?? [],
+      page: raw.page ?? null, // fallback to 1 if API doesn’t send page
+    };
+  } catch (error) {
+    console.log(`error while fetching ${error}`);
+    return { posts: [], page: 1 }; // fallback
+  }
+}
+
+async function fetchOneLiner() {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/one-liner/client/`,
+      { cache: "no-store" }
+    );
+
+    if (!res.ok) return [];
+
+    const raw = await res.json();
+
+    // return only the array inside "contents"
+    return raw.contents;
+  } catch (error) {
+    console.log(`error while fetching ${error}`);
+    return [];
+  }
 }
 
 // genrate metadata for the page
-
 export async function generateMetadata({
   params,
 }: {
@@ -86,16 +139,101 @@ export async function generateMetadata({
   };
 }
 
+// main components
 export default async function CurrentAffarisPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>;
+
+  searchParams?: { [key: string]: string | undefined };
 }) {
   const { slug } = await params;
 
+  let pageNumber = Number(searchParams?.page) || 1;
+ 
   const post = await fetchPost(slug);
 
-  console.log("Post fetched:", post?.toc);
+  const { posts, page } = await fetchCurrentAffairs(pageNumber);
+
+  // console.log("Page:", page);
+  // console.log("Posts:", posts);
+
+  const oneLiner = await fetchOneLiner();
+
+  // 3️⃣ Compute prev/next
+  const currentIndex = posts.findIndex((p) => p.slug === slug);
+  console.log(" currenuindex",currentIndex)
+  
+  let prevPost: Post | null = posts[currentIndex - 1] ?? null;
+  let nextPost: Post | null = posts[currentIndex + 1] ?? null;
+  // this comes in pagination so it willl no cause performance issues
+ let prevNumber = page;
+  console.log("prev post", prevPost);
+  console.log("Next  post", nextPost);
+  console.log("ia ma in pafge,", page);
+
+  // fetchon next is null and return post and cext current page number
+  async function fetchNextCurrentAffaris(page: number) {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/current-affaris/client/?page=${page}`,
+        { cache: "no-store" }
+      );
+
+      if (!res.ok) {
+        return { posts: [], page: 1 }; // fallback
+      }
+
+      const raw = await res.json();
+      console.log("sdfsdfsdf", raw);
+
+      return {
+        posts: raw.posts ?? [],
+        page: raw.page ?? 1, // fallback to 1 if API doesn’t send page
+      };
+    } catch (error) {
+      console.log(`Error is ${error}`);
+
+      return { posts: [], page: 1 }; // ✅ always return
+    }
+  }
+
+  if (nextPost == null) {
+    const { posts, page } = await fetchNextCurrentAffaris(pageNumber + 1);
+    // console.log(posts)
+    
+    if (posts.length == 0) {
+      pageNumber = page - 1;
+      nextPost = null;
+    } else {
+      nextPost = posts[0];
+      pageNumber = page;
+      console.log("next page number should be", page);
+    }
+  }
+
+  if (prevPost == null) {
+    console.log("frpm prev page" ,pageNumber)
+    
+    // console.log(posts)
+    
+    if (pageNumber == 1) {
+     
+      prevPost = null;
+    } else {
+
+      const { posts, page } = await fetchNextCurrentAffaris(pageNumber - 1);
+      prevPost = posts[2];
+      prevNumber = page;
+      console.log("next page number should be", page);
+      console.log("Prev page number should be", prevNumber);
+
+    }
+  }
+
+
+  console.log("prevNumber",prevNumber)
 
   return (
     <>
@@ -123,8 +261,9 @@ export default async function CurrentAffarisPage({
       <div className="bg-white dark:bg-black pt-12">
         <div className="w-[90%]  mx-auto flex flex-row gap-10 justify-between">
           {/* left box */}
-          <div className="w-[30%]  bg-[#FAFCFC] border-1 rounded-2xl border-[#E6F1F1] px-4 dark:border-[#E6F1F1] dark:bg-[#313131] ">
-            <div className=" border-2">
+          <div className="w-[30%] flex flex-col gap-4  ">
+            {/* table of content */}
+            <div className=" border-2 bg-[#FAFCFC]  rounded-2xl border-[#E6F1F1] px-4 dark:border-[#E6F1F1] dark:bg-[#313131] py-2 pb-4">
               {post?.toc &&
                 (() => {
                   let h1 = 0,
@@ -168,72 +307,75 @@ export default async function CurrentAffarisPage({
                 })()}
             </div>
 
-             <div className="">
-              {post?.toc &&
-                (() => {
-                  let h1 = 0,
-                    h2 = 0,
-                    h3 = 0;
-                  return JSON.parse(post.toc).map(
-                    (item: any, index: number) => {
-                      if (item.tag === "h1") {
-                        h1++;
-                        h2 = 0;
-                        h3 = 0;
-                      } else if (item.tag === "h2") {
-                        h2++;
-                        h3 = 0;
-                      } else if (item.tag === "h3") {
-                        h3++;
-                      }
-                      let numbering = "";
-                      if (item.tag === "h1") numbering = `${h1}`;
-                      if (item.tag === "h2") numbering = `${h1}.${h2}`;
-                      if (item.tag === "h3") numbering = `${h1}.${h2}.${h3}`;
-                      let indent = "";
-                      if (item.tag === "h1") indent = " my-3 text-xl";
-                      if (item.tag === "h2") indent = "ml-4 my-2 text-md";
-                      if (item.tag === "h3") indent = "ml-8 my-1 text-sm";
-                      return (
-                        <div key={index} className={indent}>
-                          <a
-                            href={`#${item.id}`}
-                            className="hover:underline text-my-text-color"
-                          >
-                            <p className="">
-                              {" "}
-                              {numbering} {item.text}
-                            </p>
-                          </a>
-                        </div>
-                      );
-                    }
-                  );
-                })()}
+            {/* Latest Current Affaris */}
+
+            <div className="border-2 bg-[#FAFCFC] rounded-2xl border-[#E6F1F1] px-4 dark:border-[#E6F1F1] dark:bg-[#313131] py-2 pb-4">
+              <div className="">
+                <p className="py-2 font-bold dark:text-white">
+                  Latest Current Affairs
+                </p>
+              </div>
+              <ul className=" marker:text-black dark:marker:text-white space-y-1 text-my-text-color text-sm">
+                {posts.map((post: any) => (
+                  <li key={post.id} className="py-1">
+                    {post.title}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* one liner */}
+
+            <div className="border-2 bg-[#FAFCFC] rounded-2xl border-[#E6F1F1] px-4 dark:border-[#E6F1F1] dark:bg-[#313131] py-2 pb-4">
+              <div className="">
+                <p className="py-2 font-bold dark:text-white">
+                  Latest Current Affairs
+                </p>
+              </div>
+              <ul className=" marker:text-black space-y-1 dark:marker:text-white text-my-text-color text-sm">
+                {oneLiner.map((post: any) => (
+                  <li key={post.id} className="py-1">
+                    {post.content}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
 
           {/* right box  */}
-          <div className="w-[70%]  bg-[#FAFCFC] border-1 rounded-2xl border-[#E6F1F1] dark:border-[#E6F1F1] dark:bg-[#313131] ">
+          <div className="w-[70%]  bg-[#FAFCFC] border-2 rounded-2xl border-[#E6F1F1] dark:border-[#E6F1F1] dark:bg-[#313131] ">
             {/* <div className="h-[100vh]">
 
 
             </div> */}
+            {post && (
+              <div className="w-full max-md:hidden flex justify-center items-center">
+                <Image
+                  src={post.image}
+                  alt={post.alt}
+                  width={520}
+                  height={485}
+                  className="object-contain w-full h-auto rounded-2xl"
+                />
+              </div>
+            )}
 
-            <div className=" w-full max-md:hidden flex justify-center items-center ">
-              <Image
-                src={post!.image}
-                alt={post!.alt}
-                width={520} // natural width
-                height={485} // natural height
-                className="object-contain w-full h-auto rounded-2xl"
-              />
-            </div>
-
-            <div className="px-2  pt-6 dark:text-my-text-color" dangerouslySetInnerHTML={{ __html: post?.editorHtml || "" }} />
+            <div
+              className="px-2  pt-6 text-my-text-color"
+              dangerouslySetInnerHTML={{ __html: post?.editorHtml || "" }}
+            />
           </div>
         </div>
       </div>
+
+      <NextPrev
+        nextPost={nextPost}
+        prevPost={prevPost}
+        pageNumber={pageNumber}
+        prevNumber= {prevNumber}
+      />
+
+      {/* want toadd a componeten that handle quiz from post it is can be fetcher */}
     </>
   );
 }

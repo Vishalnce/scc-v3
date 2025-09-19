@@ -96,7 +96,7 @@ export default async function Page({
         {/* Posts */}
 
         <div className="w-[90%] dark:bg-[#191919] mx-auto m-6 max-md:hidden">
-          <Link href="/admin/editor " >
+          <Link href="/admin/editor ">
             <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
               Add post
             </button>
@@ -110,12 +110,14 @@ export default async function Page({
               key={post.id}
               className="flex flex-row  rounded-2xl  md:max-h-[288px] m-3 justify-center dark:bg-[#313131] "
             >
-             
               <Link
-                href={`/current-affaris-page/${post.slug}`}
+                href={{
+                  pathname: `/current-affaris-page/${post.slug}`,
+                  query: { page:page }, // pass your page variable here
+                }}
                 className="flex flex-row w-full max-md:flex-col"
               >
-                 {/* images */}
+                {/* images */}
                 <div className="w-[35%] max-md:w-[90%] max-md:h-[200px] max-md:mx-auto  relative  rounded-xl  m-2  h-[224px]  ">
                   {post.image && (
                     <Image
@@ -128,7 +130,6 @@ export default async function Page({
                 </div>
                 {/* info */}
                 <div className="flex flex-col  w-[60%] m-2 justify-start   max-md:mx-auto max-md:w-[90%]">
-
                   <h2 className="text-xl font-bold dark:text-[#FFFFFF]  min-h-[64px]">
                     {post.title}
                   </h2>
@@ -136,7 +137,6 @@ export default async function Page({
                   <p className="text-my-text-color  mt-3  text-fade h-[100px]  overflow-hidden">
                     Summary: {post.summary}
                   </p>
-
 
                   {/* nav button */}
                   <div className="flex flex-row justify-between mt-3 ">
