@@ -14,6 +14,7 @@ type PostType = {
   keywords: string;
   description: string;
   editorHtml: string;
+  timeLimit:number;
   toc: string;
 };
 

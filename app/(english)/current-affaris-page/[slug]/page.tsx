@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { NextResponse } from "next/server";
 import React from "react";
-
+import QuizWrapper from "@/Components/client/post-quiz/QuizWrapper"
 type Post = {
   id: number;
   title: string;
@@ -16,6 +16,7 @@ type Post = {
   description: string;
   editorHtml: string;
   toc: string;
+  timeLimit:number;
   createdAt: string;
 };
 
@@ -146,12 +147,12 @@ export default async function CurrentAffarisPage({
 }: {
   params: Promise<{ slug: string }>;
 
-  searchParams?: { [key: string]: string | undefined };
+  searchParams: Promise<{ page?: number | null }>;
 }) {
   const { slug } = await params;
 
-  let pageNumber = Number(searchParams?.page) || 1;
- 
+  let pageNumber = (await searchParams).page ?? 1;
+
   const post = await fetchPost(slug);
 
   const { posts, page } = await fetchCurrentAffairs(pageNumber);
@@ -163,15 +164,11 @@ export default async function CurrentAffarisPage({
 
   // 3️⃣ Compute prev/next
   const currentIndex = posts.findIndex((p) => p.slug === slug);
-  console.log(" currenuindex",currentIndex)
-  
+
   let prevPost: Post | null = posts[currentIndex - 1] ?? null;
   let nextPost: Post | null = posts[currentIndex + 1] ?? null;
   // this comes in pagination so it willl no cause performance issues
- let prevNumber = page;
-  console.log("prev post", prevPost);
-  console.log("Next  post", nextPost);
-  console.log("ia ma in pafge,", page);
+  let prevNumber = page;
 
   // fetchon next is null and return post and cext current page number
   async function fetchNextCurrentAffaris(page: number) {
@@ -186,7 +183,6 @@ export default async function CurrentAffarisPage({
       }
 
       const raw = await res.json();
-      console.log("sdfsdfsdf", raw);
 
       return {
         posts: raw.posts ?? [],
@@ -200,40 +196,33 @@ export default async function CurrentAffarisPage({
   }
 
   if (nextPost == null) {
-    const { posts, page } = await fetchNextCurrentAffaris(pageNumber + 1);
+    const { posts, page } = await fetchNextCurrentAffaris(
+      Number(pageNumber) + 1
+    );
     // console.log(posts)
-    
+
     if (posts.length == 0) {
       pageNumber = page - 1;
       nextPost = null;
     } else {
       nextPost = posts[0];
       pageNumber = page;
-      console.log("next page number should be", page);
     }
   }
 
   if (prevPost == null) {
-    console.log("frpm prev page" ,pageNumber)
-    
     // console.log(posts)
-    
+
     if (pageNumber == 1) {
-     
       prevPost = null;
     } else {
-
-      const { posts, page } = await fetchNextCurrentAffaris(pageNumber - 1);
+      const { posts, page } = await fetchNextCurrentAffaris(
+        Number(pageNumber) - 1
+      );
       prevPost = posts[2];
       prevNumber = page;
-      console.log("next page number should be", page);
-      console.log("Prev page number should be", prevNumber);
-
     }
   }
-
-
-  console.log("prevNumber",prevNumber)
 
   return (
     <>
@@ -261,7 +250,7 @@ export default async function CurrentAffarisPage({
       <div className="bg-white dark:bg-black pt-12">
         <div className="w-[90%]  mx-auto flex flex-row gap-10 justify-between">
           {/* left box */}
-          <div className="w-[30%] flex flex-col gap-4  ">
+          <div className="w-[30%] flex flex-col gap-4  max-md:hidden ">
             {/* table of content */}
             <div className=" border-2 bg-[#FAFCFC]  rounded-2xl border-[#E6F1F1] px-4 dark:border-[#E6F1F1] dark:bg-[#313131] py-2 pb-4">
               {post?.toc &&
@@ -343,13 +332,13 @@ export default async function CurrentAffarisPage({
           </div>
 
           {/* right box  */}
-          <div className="w-[70%]  bg-[#FAFCFC] border-2 rounded-2xl border-[#E6F1F1] dark:border-[#E6F1F1] dark:bg-[#313131] ">
+          <div className="w-[70%] max-md:w-[90%] max-md:mx-auto ">
             {/* <div className="h-[100vh]">
 
 
             </div> */}
             {post && (
-              <div className="w-full max-md:hidden flex justify-center items-center">
+              <div className="w-full  flex justify-center items-center">
                 <Image
                   src={post.image}
                   alt={post.alt}
@@ -360,10 +349,12 @@ export default async function CurrentAffarisPage({
               </div>
             )}
 
-            <div
-              className="px-2  pt-6 text-my-text-color"
-              dangerouslySetInnerHTML={{ __html: post?.editorHtml || "" }}
-            />
+            <div className="px-2 pt-6 text-my-text-color">
+              <div
+                dangerouslySetInnerHTML={{ __html: post?.editorHtml || "" }}
+              />
+              
+            </div>
           </div>
         </div>
       </div>
@@ -372,10 +363,13 @@ export default async function CurrentAffarisPage({
         nextPost={nextPost}
         prevPost={prevPost}
         pageNumber={pageNumber}
-        prevNumber= {prevNumber}
+        prevNumber={prevNumber}
       />
 
       {/* want toadd a componeten that handle quiz from post it is can be fetcher */}
+    {post?.id && <QuizWrapper postId={post.id} timeLimit={post.timeLimit} />}
+
+              {/* //vcurtial typeerror */}
     </>
   );
 }

@@ -10,6 +10,7 @@ model Post {
   description String
   editorHtml  String
   toc         String
+  timeLimit Float     @default(15)
   createdAt   DateTime  @default(now())
 
   quizposts   PostQuiz[]

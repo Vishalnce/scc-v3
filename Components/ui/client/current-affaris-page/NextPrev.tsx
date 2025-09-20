@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
 type Post = {
   id: number;
@@ -62,27 +63,30 @@ export default function NextPrev({
     }
   };
 
-  console.log("prevnumber form next comp",prevNumber)
+ 
 
   return (
-    <div className="border-2 w-[90%] mx-auto mt-6">
+    <>
+
+     <div className="bg-white dark:bg-black">
+<div className="border-2 w-[90%] mx-auto pt-12 flex flex-row justify-between items-center py-5 dark:bg-black max-md:flex-col max-md:gap-6">
       {/* share button */}
 
-      <div className="flex flex-row justify-between items-center">
+      <div className="flex flex-row justify-center items-center gap-3 ">
         {/* button */}
         <div>
           <button
             onClick={handleShare}
-            className="bg-[#2CBB0180] px-6 py-2 rounded-md font-semibold hover:bg-[#2CBB01]"
+            className="bg-[#2CBB0180] px-6 py-2 rounded-full font-semibold text-sm "
           >
-            Share
+            Share this post on
           </button>
         </div>
         {/* image */}
 
-        <div className="py-4 flex flex-row items-center gap-2">
+        <div className=" flex flex-row items-center gap-2">
           <Image
-            src="/ui/client/home/group.png"
+            src="/ui/client/current-affaris-page/icons.png"
             alt="ssc"
             width={150}
             height={150}
@@ -92,16 +96,16 @@ export default function NextPrev({
 
       {/* nex and prev button  */}
 
-      <div className="flex justify-between items-center mt-6">
+      <div className="flex justify-center items-center   gap-4">
         {prevPost ? (
           <Link
             href={{
               pathname: `/current-affaris-page/${prevPost.slug}`,
               query: { page: prevNumber }, // pass your page variable
             }}
-            className="text-blue-600"
+            className=" bg-[#FFE332] py-2 px-5 rounded-full  flex flex-row items-center"
           >
-            Prev
+          <MdKeyboardArrowLeft className="my-auto size-6" />  Previous
           </Link>
         ) : (
           <span />
@@ -113,14 +117,18 @@ export default function NextPrev({
               pathname: `/current-affaris-page/${nextPost.slug}`,
               query: { page: pageNumber }, // pass your page variable
             }}
-            className="text-blue-600"
+            className=" bg-[#FFE332] py-2 px-7 rounded-full  flex flex-row items-center"
           >
-            Next
+            Next  <MdKeyboardArrowRight className="my-auto size-6" />
           </Link>
         ) : (
           <span />
         )}
       </div>
     </div>
+    </div>
+    
+    </>
+   
   );
 }

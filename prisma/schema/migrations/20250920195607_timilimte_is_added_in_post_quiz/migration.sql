@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Post" ADD COLUMN     "timeLimit" DOUBLE PRECISION NOT NULL DEFAULT 15;

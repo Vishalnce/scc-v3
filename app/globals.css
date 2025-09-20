@@ -76,6 +76,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
 /* font added in theme editor css */
  .PlaygroundEditorTheme__textBase {
   font-family: var(--font-lato), sans-serif;  /* 👈 default = Lato */
+   --color-my-text-color: #6c6c6c;
 }
 
 

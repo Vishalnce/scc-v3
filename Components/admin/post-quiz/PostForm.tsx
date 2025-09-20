@@ -21,6 +21,7 @@ type PostType = {
   keywords: string;
   description: string;
   editorHtml: string;
+   timeLimit: number; 
   toc: string;
 };
 const options = [
@@ -97,6 +98,7 @@ export default function Page({
   const isEdit = !!post;
 
   const onSubmit = async (data: PostType) => {
+   
     try {
       const method = isEdit ? "PATCH" : "POST";
 
@@ -254,6 +256,17 @@ export default function Page({
       </div>
 
       <Editor value={value} onSync={setEditorData} />
+
+<input
+  type="number"
+  step="0.000001"          
+  min="0"              
+  max="200"            
+  {...register("timeLimit", { valueAsNumber: true })} 
+  placeholder="Time limit FOR QUIZ"
+  className="w-full p-2 border rounded"
+/>
+
 
       <input type="hidden" {...register("editorHtml")} />
 

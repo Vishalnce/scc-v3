@@ -168,7 +168,7 @@ export default async function Page({
         </div>
 
         {/* Pagination */}
-        <div className="flex  justify-center items-center gap-4 mt-6 mb-8  ">
+        <div className="flex  justify-center items-center gap-4 pt-6 pb-8  ">
           <Link
             href={{
               pathname: "",
