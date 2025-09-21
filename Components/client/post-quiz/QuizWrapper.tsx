@@ -16,6 +16,7 @@ export default function QuizSection({ postId,timeLimit }: { postId: number,timeL
 
     const [answers, setAnswers] = useState<{ questionId: string; answer: number | null }[]>([]);
 
+  const [timeTaken,setTimeTaken] = useState<number>(0)
 
   const [questions,setQuestion] =useState<string[]>([])
 
@@ -45,7 +46,7 @@ export default function QuizSection({ postId,timeLimit }: { postId: number,timeL
     fetchQuizPost(postId)
   },[postId])
 
-  console.log(questions)
+
 
   if (stage === "intro") 
     return <QuizIntro onStart={() => setStage("quiz")} />;
@@ -55,7 +56,7 @@ export default function QuizSection({ postId,timeLimit }: { postId: number,timeL
       <QuizQuestion
         questions={questions}
         timeLimit={timeLimit}
-        
+        setTimeTaken={setTimeTaken}
         onFinish={(a: { questionId: string; answer: number | null }[]) => {
           setAnswers(a);        // store answers as objects
           setStage("result");   // move to result page
@@ -68,7 +69,7 @@ export default function QuizSection({ postId,timeLimit }: { postId: number,timeL
     // you add feature same as pass one function result 
 
   if (stage === "result") 
-    return <QuizResult questions={questions} answers={answers} onRestart={() => {
+    return <QuizResult questions={questions} timeTaken={timeTaken} answers={answers} onRestart={() => {
       setStage("intro")
     }} />;
 

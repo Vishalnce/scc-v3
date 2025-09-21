@@ -4,9 +4,11 @@ import { useState } from "react";
 export default function QuizResult({
   questions,
   answers,
+  timeTaken,
   onRestart,
 }: {
   questions: any[];
+  timeTaken:number;
   answers: { questionId: string; answer: number | null }[];
   onRestart: () => void
 }) {
@@ -74,6 +76,7 @@ export default function QuizResult({
         <p>Incorrect: {incorrectCount}</p>
         <p>Not Attempted: {notAttemptedCount}</p>
         <p>Total Questions: {questions.length}</p>
+        <p>Total Time Taekn : {timeTaken}</p>
 
         <button onClick={handleOnClick}>Reattempt</button>
       </div>
