@@ -1,7 +1,6 @@
 "use client";
-import { useState } from "react";
-
-
+import { useState, useRef, useCallback } from "react";
+import CountdownTimer from "./CountdownTimer";
 
 export default function QuizQuestion({
   questions,
@@ -9,54 +8,48 @@ export default function QuizQuestion({
   onFinish,
 }: {
   questions: any[];
-  timeLimit:number
+  timeLimit: number;
   onFinish: (answers: { questionId: string; answer: number | null }[]) => void;
 }) {
-
-
   const [current, setCurrent] = useState(0);
+const [answers, setAnswers] = useState<{ questionId: string; answer: number | null }[]>(
+  questions.map((q) => ({ questionId: q.id, answer: null }))
+);
 
-  // Initialize answers with null for each question
-  
-  const [answers, setAnswers] = useState<{ questionId: string; answer: number | null }[]>(
-    questions.map((q) => ({ questionId: q.id, answer: null }))
-  );
+
+  const answersRef = useRef(answers);
+  answersRef.current = answers; // always have latest answers
 
   const q = questions[current];
 
-  // Handle selecting an option
   const handleSelect = (optionIndex: number) => {
-    const newAnswers = [...answers];
-    newAnswers[current] = { questionId: q.id, answer: optionIndex };
-    setAnswers(newAnswers);
+    setAnswers((prev) => {
+      const copy = [...prev];
+      copy[current] = { questionId: q.id, answer: optionIndex };
+      return copy;
+    });
   };
 
-  // Navigate to previous question
-  const handlePrev = () => {
-    if (current > 0) setCurrent(current - 1);
-  };
+  const handlePrev = () => setCurrent((prev) => Math.max(prev - 1, 0));
+  const handleNext = () => setCurrent((prev) => Math.min(prev + 1, questions.length - 1));
+  const handleSubmit = () => onFinish(answers);
 
-  // Navigate to next question
-  const handleNext = () => {
-    if (current < questions.length - 1) setCurrent(current + 1);
-  };
-
-  // Submit answers
-  const handleSubmit = () => {
-    onFinish(answers);
-  };
+  // Stable callback for timer
+  const handleTimerFinish = useCallback(() => {
+    onFinish(answersRef.current); // read latest answers from ref
+  }, [onFinish]);
 
   return (
     <div className="p-4 border rounded-lg">
-      {/* Question Text */}
       <h3 className="font-bold">{q.questionText}</h3>
 
-      {/* Options */}
+      <CountdownTimer minutes={timeLimit} onFinish={handleTimerFinish} />
+
       <div className="flex flex-col gap-2 mt-4">
         {q.options.map((opt: { text: string }, idx: number) => (
           <button
             key={idx}
-            onClick={() => handleSelect(idx)} // store index
+            onClick={() => handleSelect(idx)}
             className={`px-3 py-2 border rounded-lg ${
               answers[current].answer === idx ? "bg-blue-200" : "hover:bg-gray-100"
             }`}
@@ -66,7 +59,6 @@ export default function QuizQuestion({
         ))}
       </div>
 
-      {/* Navigation Buttons */}
       <div className="flex justify-between mt-6">
         <button
           onClick={handlePrev}
@@ -76,24 +68,21 @@ export default function QuizQuestion({
           Prev
         </button>
 
-   
-          <button
-            onClick={handleNext}
-            className="px-4 py-2 border rounded bg-gray-100"
-          >
-            Next
-          </button>
-      
-          <button
-            onClick={handleSubmit}
-            className="px-4 py-2 border rounded bg-green-300"
-          >
-            Submit
-          </button>
-       
+        <button
+          onClick={handleNext}
+          className="px-4 py-2 border rounded bg-gray-100"
+        >
+          Next
+        </button>
+
+        <button
+          onClick={handleSubmit}
+          className="px-4 py-2 border rounded bg-green-300"
+        >
+          Submit
+        </button>
       </div>
 
-      {/* Question Progress */}
       <p className="text-sm text-gray-500 mt-2">
         Question {current + 1} / {questions.length}
       </p>

@@ -55,6 +55,7 @@ export default function QuizSection({ postId,timeLimit }: { postId: number,timeL
       <QuizQuestion
         questions={questions}
         timeLimit={timeLimit}
+        
         onFinish={(a: { questionId: string; answer: number | null }[]) => {
           setAnswers(a);        // store answers as objects
           setStage("result");   // move to result page
