@@ -76,6 +76,7 @@ export default function QuizSection({
     return (
       <QuizResult
         questions={questions}
+        topic={topic}
         timeTaken={timeTaken}
         answers={answers}
         onRestart={() => {

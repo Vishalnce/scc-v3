@@ -1,16 +1,21 @@
 "use client";
+import Image from "next/image";
 import { useState } from "react";
+import { FaRegCircle } from "react-icons/fa";
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
 export default function QuizResult({
   questions,
   answers,
+  topic,
   timeTaken,
   onRestart,
 }: {
   questions: any[];
-  timeTaken:number;
+  timeTaken: number;
+  topic: string;
   answers: { questionId: string; answer: number | null }[];
-  onRestart: () => void
+  onRestart: () => void;
 }) {
   const [current, setCurrent] = useState(0);
 
@@ -24,10 +29,11 @@ export default function QuizResult({
   questions.forEach((q) => {
     totalPossibleScore += q.marksPositive ?? 0;
     const ua = answers.find((a) => a.questionId === q.id);
-    if (ua?.answer === q.correctOption) {
+    const normalizedCorrectIndex = q.correctOption - 1; // DB is 1-based
+    if (ua?.answer === normalizedCorrectIndex) {
       totalScore += q.marksPositive ?? 0;
       correctCount++;
-    } else if (ua?.answer != null && ua.answer !== q.correctOption) {
+    } else if (ua?.answer != null && ua.answer !== normalizedCorrectIndex) {
       totalScore += q.marksNegative ?? 0;
       incorrectCount++;
     } else {
@@ -37,12 +43,13 @@ export default function QuizResult({
 
   const q = questions[current];
   const userAnswerObj = answers.find((a) => a.questionId === q.id);
-  const userAnswerIndex = userAnswerObj?.answer;
-  const correctAnswerIndex = q.correctOption;
+  const userAnswerIndex = userAnswerObj?.answer; // 0-based from answers
+  const correctAnswerIndex = q.correctOption - 1; // normalize to 0-based
 
   // Marks and status for current question
   let marksEarned = 0;
   let status = "";
+
   if (userAnswerIndex === correctAnswerIndex) {
     marksEarned = q.marksPositive ?? 0;
     status = "✅ Correct";
@@ -62,90 +69,187 @@ export default function QuizResult({
     if (current < questions.length - 1) setCurrent(current + 1);
   };
 
-  function handleOnClick (){
-    onRestart()
-  }
+    console.log("The current question is", questions);
+  
 
   return (
-    <div className="max-w-xl mx-auto space-y-6">
-      {/* Overall Summary */}
-      <div className="p-4 border rounded-lg bg-gray-50">
-        <h2 className="text-xl font-bold mb-2">Quiz Summary</h2>
-        <p>Total Score: {totalScore} / {totalPossibleScore}</p>
-        <p>Correct: {correctCount}</p>
-        <p>Incorrect: {incorrectCount}</p>
-        <p>Not Attempted: {notAttemptedCount}</p>
-        <p>Total Questions: {questions.length}</p>
-        <p>Total Time Taekn : {timeTaken}</p>
-
-        <button onClick={handleOnClick}>Reattempt</button>
-      </div>
-
-      {/* Current Question */}
-      <div className="p-4 border rounded-lg">
-        <h3 className="font-semibold mb-2">{q.questionText}</h3>
-
-        <p>
-          Your Answer:{" "}
-          <span
-            className={
-              userAnswerIndex === correctAnswerIndex
-                ? "text-green-600 font-bold"
-                : userAnswerIndex == null
-                ? "text-gray-500 font-bold"
-                : "text-red-600 font-bold"
-            }
-          >
-            {userAnswerIndex != null
-              ? q.options[userAnswerIndex]?.text
-              : "Not answered"}
-          </span>
-        </p>
-
-        <p>
-          Correct Answer:{" "}
-          <span className="text-green-600 font-bold">
-            {q.options[correctAnswerIndex]?.text}
-          </span>
-        </p>
-
-        <p>
-          Status: <span className="font-bold">{status}</span> | Marks:{" "}
-          <span className="font-bold">{marksEarned}</span>
-        </p>
-
-        {q.solutionText && (
-          <p className="text-gray-600 italic mt-2">{q.solutionText}</p>
-        )}
-      </div>
-
-      {/* Navigation Buttons */}
-      <div className="flex justify-between">
-        <button
-          onClick={handlePrev}
-          disabled={current === 0}
-          className="px-4 py-2 border rounded disabled:opacity-50"
+    <div className="max-w-[1400px] mx-auto dark:bg-black border-2 py-14">
+      {/* Header card */}
+      <div className="w-[90%] bg-[#FAFCFC] border-2 mx-auto flex flex-col items-center dark:bg-[#313131] py-6 border-[#E6F1F1] rounded-2xl ">
+        <div
+          className="-mt-14 rounded-full p-3 bg-white"
+          style={{
+            boxShadow:
+              "0 4px 10px rgba(0,0,0,0.25), 0 8px 20px rgba(0,0,0,0.15)",
+          }}
         >
-          Prev
-        </button>
+          <Image
+            src={"/ui/client/current-affaris-page/party.svg"}
+            alt="party"
+            width={50}
+            height={50}
+          />
+        </div>
 
-        {current < questions.length - 1 ? (
+        <div className="py-4">
+          <p className="font-bold dark:text-white text-xl">
+            Congratulations!!! Your Score Card is Here
+          </p>
+        </div>
+
+        <div className="flex flex-row gap-2 items-center justify-center">
+          <Image
+            src="/typing-test/icons/taken.svg"
+            alt="typing-test"
+            width={24}
+            height={24}
+          />
+          <p className="text-xl">Time Taken : {Number(timeTaken)} minutes</p>
+        </div>
+
+        <div className="flex flex-row justify-around w-full py-12">
+          <div className="flex flex-row gap-2 min-w-[160px] justify-center">
+            <FaRegCircle className="bg-[#2CBB01] my-auto rounded-full text-[#2CBB01]" />
+            <p className="text-xl">Correct : {correctCount}</p>
+          </div>
+          <div className="flex flex-row gap-2 min-w-[160px] justify-center">
+            <FaRegCircle className="bg-[#FF0000] my-auto rounded-full text-[#FF0000]" />
+            <p className="text-xl">Incorrect : {incorrectCount}</p>
+          </div>
+          <div className="flex flex-row gap-2 min-w-[160px] justify-center">
+            <FaRegCircle className="bg-[#6C6C6C] my-auto rounded-full text-[#6C6C6C]" />
+            <p className="text-xl">Not Attempted: {notAttemptedCount}</p>
+          </div>
+        </div>
+
+        <div>
           <button
-            onClick={handleNext}
-            className="px-4 py-2 border rounded bg-gray-100"
+            onClick={onRestart}
+            className="px-4 py-2 bg-[#FFE332] rounded-full"
           >
-            Next
+            Restart Quiz
           </button>
-        ) : (
-          <button className="px-4 py-2 border rounded bg-green-300">
-            Finish
-          </button>
-        )}
+        </div>
       </div>
 
-      <p className="text-sm text-gray-500 mt-2 text-center">
-        Question {current + 1} / {questions.length}
-      </p>
+      {/* Explanation section */}
+      <div className="w-[90%] py-4 dark:bg-[#313131] bg-[#FAFCFC] rounded-2xl mx-auto px-6 mt-14 border-2 border-[#E6F1F1]">
+        {/* question number */}
+        <div className="flex flex-row justify-between items-center w-[90%] mx-auto -mt-10">
+          <div
+            className="min-w-[60px] bg-white py-1"
+            style={{
+              boxShadow:
+                "0 4px 10px rgba(0,0,0,0.25), 0 8px 20px rgba(0,0,0,0.15)",
+            }}
+          >
+            <p className="font-montserrat font-bold text-3xl max-sm:text-2xl shadow-black/80 text-[#007076] text-center">
+              {current < 9 ? "0" + (current + 1) : current + 1}
+            </p>
+          </div>
+        </div>
+
+        {/* question + topic */}
+        <div className="flex flex-row justify-between items-start min-h-[20vh] mt-6">
+          <div className="w-[60%]">
+            <p className="font-bold dark:text-white">{q.questionText}</p>
+          </div>
+          <div className="flex items-end">
+            <button className="px-4 py-2 bg-[#FFE332] rounded-full text-sm">
+              {topic}
+            </button>
+          </div>
+        </div>
+
+        {/* options */}
+        <div className="flex flex-row justify-between items-stretch">
+          {/* left options */}
+          <div className="max-sm:py-2 max-sm:w-full grid grid-cols-2 gap-6 w-[60%]">
+            {q.options.map((opt: { text: string }, idx: number) => (
+              <button
+                key={idx}
+                className={`px-3 py-3 border dark:border-white rounded-full flex flex-row justify-between  ${
+                      idx === correctAnswerIndex
+                        ? "bg-[#2CBB0126] border-[#2CBB0126]" // correct answer
+                        : idx === userAnswerIndex
+                        ? "bg-[#FF000026] border-[#FF000026]" // user wrong choice
+                        : "" // default
+                    } `}
+              >
+                <p className={`max-lg:text-sm  ${
+                      idx === correctAnswerIndex
+                        ? "text-black dark:text-white" // correct answer
+                        : idx === userAnswerIndex
+                        ? "text-black dark:text-white" // user wrong choice
+                        : "text-my-text-color" // default
+                    }`}>{opt.text}</p>
+
+
+                <div className="my-auto">
+                  <FaRegCircle
+                    size={22}
+                    className={`rounded-full ${
+                      idx === correctAnswerIndex
+                        ? "bg-[#2CBB01] text-[#2CBB01]" // correct answer
+                        : idx === userAnswerIndex
+                        ? "bg-[#FF0000] text-[#FF0000]" // user wrong choice
+                        : " text-[#6C6C6C]" // default
+                    }`}
+                  />
+                </div>
+              </button>
+            ))}
+          </div>
+
+          {/* right navigation */}
+          <div className="w-[30%] flex flex-col justify-end">
+            <div className="flex flex-row justify-between gap-2">
+              <button
+                onClick={handlePrev}
+                disabled={current === 0}
+                className="bg-[#FFE332] py-2 px-4 rounded-full flex flex-row items-center disabled:opacity-50 pl-2"
+              >
+                <MdKeyboardArrowLeft className="my-auto size-6" /> Prev
+              </button>
+              <button
+                onClick={handleNext}
+                disabled={current === questions.length - 1}
+                className="bg-[#FFE332] py-2 px-4 rounded-full flex flex-row items-center disabled:opacity-50 pr-2"
+              >
+                Next <MdKeyboardArrowRight className="my-auto size-6" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+      
+      </div>
+
+      {/* detail explanation  */}
+
+
+      <div className="w-[90%] py-4 dark:bg-[#313131] bg-[#FAFCFC] rounded-2xl mx-auto px-6 mt-14 border-2 border-[#E6F1F1]">
+
+            <div className="flex flex-col items-start ">
+
+              <p>
+                <span className="font-bold dark:text-white">Answer : {q.options[correctAnswerIndex]?.text}</span>
+
+              </p>
+
+              <p className="py-4">
+
+                {q.solutionText ? (
+                  <span className=" dark:text-white">Explanation : {q.solutionText}</span>
+                ) : (
+                  <span className=" dark:text-white">No explanation provided for this question.</span>
+                )}
+
+              </p>
+
+            </div>
+
+      </div>
     </div>
   );
 }

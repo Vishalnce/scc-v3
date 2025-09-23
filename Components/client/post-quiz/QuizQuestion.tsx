@@ -28,6 +28,7 @@ export default function QuizQuestion({
   const q = questions[current];
 
 const handleSelect = (optionIndex: number) => {
+
   setAnswers((prev) => {
     const copy = [...prev];
     const currentAnswer = copy[current].answer;
