@@ -26,7 +26,7 @@ export default function CountdownTimer({ minutes,setTimeTaken, onFinish }: Count
 
       const timeSpent = Math.round((Date.now() - startTimeRef.current) / 1000);
       setTimeTaken(timeSpent)
-      onFinish?.();
+      // onFinish?.();
       return;
     }
 
@@ -42,8 +42,18 @@ export default function CountdownTimer({ minutes,setTimeTaken, onFinish }: Count
   const displaySeconds = secondsLeft % 60;
 
   return (
-    <div className="text-2xl font-bold">
-      {displayMinutes}:{displaySeconds.toString().padStart(2, "0")}
+
+    <>
+
+     <div className=" font-bold  bg-white min-w-[60px] py-3 text-center shadow-2xl" style={{
+    boxShadow: "0 4px 10px rgba(0,0,0,0.25), 0 8px 20px rgba(0,0,0,0.15)"
+  }}>
+    <p className="text-xl text-my-green">
+{displayMinutes}:{displaySeconds.toString().padStart(2, "0")}
+    </p>
+      
     </div>
+    </>
+   
   );
 }

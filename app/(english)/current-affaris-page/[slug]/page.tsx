@@ -224,6 +224,9 @@ export default async function CurrentAffarisPage({
     }
   }
 
+
+  console.log("topics",post?.topic)
+
   return (
     <>
       {/* header */}
@@ -367,7 +370,7 @@ export default async function CurrentAffarisPage({
       />
 
       {/* want toadd a componeten that handle quiz from post it is can be fetcher */}
-    {post?.id && <QuizWrapper postId={post.id} timeLimit={post.timeLimit} />}
+    {post?.id && <QuizWrapper postId={post.id} timeLimit={post.timeLimit} topic={post.topic} />}
 
               {/* //vcurtial typeerror */}
     </>
