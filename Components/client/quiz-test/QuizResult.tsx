@@ -26,30 +26,31 @@ export default function QuizResult({
   let incorrectCount = 0;
   let notAttemptedCount = 0;
 
-questions.forEach((question) => {
-  // Add the maximum possible marks for this question
-  totalPossibleScore += question.marksPositive ?? 0;
+  questions.forEach((question) => {
+    // Add the maximum possible marks for this question
+    totalPossibleScore += question.marksPositive ?? 0;
 
-  // Find the user's answer for this question
-  const userAnswer = answers.find((a) => a.questionId === question.id)?.answer;
+    // Find the user's answer for this question
+    const userAnswer = answers.find(
+      (a) => a.questionId === question.id
+    )?.answer;
 
-  // Adjust the correct option index (DB uses 1-based index)
-  const correctIndex = question.correctOption - 1;
+    // Adjust the correct option index (DB uses 1-based index)
+    const correctIndex = question.correctOption - 1;
 
-  if (userAnswer === correctIndex) {
-    // Correct answer
-    totalScore += question.marksPositive ?? 0;
-    correctCount++;
-  } else if (userAnswer != null) {
-    // Wrong answer
-    totalScore += question.marksNegative ?? 0;
-    incorrectCount++;
-  } else {
-    // Not attempted
-    notAttemptedCount++;
-  }
-});
-
+    if (userAnswer === correctIndex) {
+      // Correct answer
+      totalScore += question.marksPositive ?? 0;
+      correctCount++;
+    } else if (userAnswer != null) {
+      // Wrong answer
+      totalScore += question.marksNegative ?? 0;
+      incorrectCount++;
+    } else {
+      // Not attempted
+      notAttemptedCount++;
+    }
+  });
 
   const q = questions[current];
   const userAnswerObj = answers.find((a) => a.questionId === q.id);
@@ -79,8 +80,7 @@ questions.forEach((question) => {
     if (current < questions.length - 1) setCurrent(current + 1);
   };
 
-   
-  
+  console.log("The current question is", questions);
 
   return (
     <div className="max-w-[1400px] mx-auto dark:bg-black border-2 py-14">
@@ -115,11 +115,12 @@ questions.forEach((question) => {
             height={24}
           />
           <p className="text-xl">
-            Time Taken:{" "}
-            {Number(timeTaken) < 60
-              ? `${Number(timeTaken).toFixed(2)} seconds`
-              : `${(Number(timeTaken) / 60).toFixed(2)} minutes`}
-          </p>
+  Time Taken:{" "}
+  {Number(timeTaken) < 60
+    ? `${Number(timeTaken).toFixed(2)} seconds`
+    : `${Math.floor(Number(timeTaken) / 60)} minutes`}
+</p>
+
         </div>
 
         <div className="flex flex-row justify-around w-full py-12">
@@ -184,21 +185,24 @@ questions.forEach((question) => {
               <button
                 key={idx}
                 className={`px-3 py-3 border dark:border-white rounded-full flex flex-row justify-between  ${
-                      idx === correctAnswerIndex
-                        ? "bg-[#2CBB0126] border-[#2CBB0126]" // correct answer
-                        : idx === userAnswerIndex
-                        ? "bg-[#FF000026] border-[#FF000026]" // user wrong choice
-                        : "" // default
-                    } `}
+                  idx === correctAnswerIndex
+                    ? "bg-[#2CBB0126] border-[#2CBB0126]" // correct answer
+                    : idx === userAnswerIndex
+                      ? "bg-[#FF000026] border-[#FF000026]" // user wrong choice
+                      : "" // default
+                } `}
               >
-                <p className={`max-lg:text-sm  ${
-                      idx === correctAnswerIndex
-                        ? "text-black dark:text-white" // correct answer
-                        : idx === userAnswerIndex
+                <p
+                  className={`max-lg:text-sm  ${
+                    idx === correctAnswerIndex
+                      ? "text-black dark:text-white" // correct answer
+                      : idx === userAnswerIndex
                         ? "text-black dark:text-white" // user wrong choice
                         : "text-my-text-color" // default
-                    }`}>{opt.text}</p>
-
+                  }`}
+                >
+                  {opt.text}
+                </p>
 
                 <div className="my-auto">
                   <FaRegCircle
@@ -207,8 +211,8 @@ questions.forEach((question) => {
                       idx === correctAnswerIndex
                         ? "bg-[#2CBB01] text-[#2CBB01]" // correct answer
                         : idx === userAnswerIndex
-                        ? "bg-[#FF0000] text-[#FF0000]" // user wrong choice
-                        : " text-[#6C6C6C]" // default
+                          ? "bg-[#FF0000] text-[#FF0000]" // user wrong choice
+                          : " text-[#6C6C6C]" // default
                     }`}
                   />
                 </div>
@@ -236,34 +240,30 @@ questions.forEach((question) => {
             </div>
           </div>
         </div>
-
-      
       </div>
 
       {/* detail explanation  */}
 
-
       <div className="w-[90%] py-4 dark:bg-[#313131] bg-[#FAFCFC] rounded-2xl mx-auto px-6 mt-14 border-2 border-[#E6F1F1]">
+        <div className="flex flex-col items-start ">
+          <p>
+            <span className="font-bold dark:text-white">
+              Answer : {q.options[correctAnswerIndex]?.text}
+            </span>
+          </p>
 
-            <div className="flex flex-col items-start ">
-
-              <p>
-                <span className="font-bold dark:text-white">Answer : {q.options[correctAnswerIndex]?.text}</span>
-
-              </p>
-
-              <p className="py-4">
-
-                {q.solutionText ? (
-                  <span className=" dark:text-white">Explanation : {q.solutionText}</span>
-                ) : (
-                  <span className=" dark:text-white">No explanation provided for this question.</span>
-                )}
-
-              </p>
-
-            </div>
-
+          <p className="py-4">
+            {q.solutionText ? (
+              <span className=" dark:text-white">
+                Explanation : {q.solutionText}
+              </span>
+            ) : (
+              <span className=" dark:text-white">
+                No explanation provided for this question.
+              </span>
+            )}
+          </p>
+        </div>
       </div>
     </div>
   );

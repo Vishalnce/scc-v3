@@ -1,7 +1,5 @@
 import NextPrev from "@/Components/ui/client/current-affaris-page/NextPrev";
 import Image from "next/image";
-import Link from "next/link";
-import { NextResponse } from "next/server";
 import React from "react";
 import QuizWrapper from "@/Components/client/post-quiz/QuizWrapper"
 type Post = {

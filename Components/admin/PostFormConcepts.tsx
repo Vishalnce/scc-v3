@@ -1,6 +1,6 @@
 "use client";
 
-import "react-datepicker/dist/react-datepicker.css";
+// import "react-datepicker/dist/react-datepicker.css";
 
 import Select from "react-select";
 import { useForm } from "react-hook-form";
@@ -27,19 +27,19 @@ type PostType = {
 
 
 const categoryOptions = [
-  { value: "pre", label: "Pre" },
-  { value: "mains", label: "Mains" },
+  { value: "Pre", label: "Pre" },
+  { value: "Mains", label: "Mains" },
 ];
 
 const subjectOptions = [
-  { value: "quantitative-apptitude", label: "Quantitative Apptitude" },
-  { value: "reasoning-general", label: "Reasoning & General Intelligence" },
-  { value: "english-comprehension", label: "English Comprehension" },
-  { value: "general-awareness", label: "General Awareness" },
+  { value: "Quantitative-Apptitude", label: "Quantitative Apptitude" },
+  { value: "Reasoning-General", label: "Reasoning & General Intelligence" },
+  { value: "English-Comprehension", label: "English Comprehension" },
+  { value: "General-Awareness", label: "General Awareness" },
 
-  { value: "mathematical-abilities", label: "Mathematical Abilities" },
+  { value: "Mathematical-Abilities", label: "Mathematical Abilities" },
 
-  { value: "computer-knowledge", label: "Computer Knowledge" },
+  { value: "Computer-knowledge", label: "Computer Knowledge" },
 ];
 
 // const topicOptions = [
@@ -178,81 +178,81 @@ const topicOptions = [
   { subject: "english-comprehension", label: "Comprehension and Usage", value: "comprehension-usage" },
 
   // Quantitative Aptitude
-  { subject: "quantitative-apptitude", label: "Arithmetic", value: "arithmetic" },
-  { subject: "quantitative-apptitude", label: "Data Interpretation", value: "data-interpretation" },
-  { subject: "quantitative-apptitude", label: "Area & Volume", value: "area-volume" },
-  { subject: "quantitative-apptitude", label: "Simple Interest (SI) & Compound Interest (CI)", value: "si-ci" },
-  { subject: "quantitative-apptitude", label: "Time, Speed, Distance", value: "time-speed-distance" },
-  { subject: "quantitative-apptitude", label: "Time & Work", value: "time-work" },
-  { subject: "quantitative-apptitude", label: "Ratio & Proportion", value: "ratio-proportion" },
-  { subject: "quantitative-apptitude", label: "Profit & Loss", value: "profit-loss" },
-  { subject: "quantitative-apptitude", label: "Percentages", value: "percentages" },
-  { subject: "quantitative-apptitude", label: "Averages", value: "averages" },
-  { subject: "quantitative-apptitude", label: "Numbers", value: "numbers" },
-  { subject: "quantitative-apptitude", label: "Mixture and Allegation", value: "mixture-allegation" },
-  { subject: "quantitative-apptitude", label: "Advanced Mathematics", value: "advanced-mathematics" },
-  { subject: "quantitative-apptitude", label: "Mensuration", value: "mensuration" },
-  { subject: "quantitative-apptitude", label: "Trigonometry", value: "trigonometry" },
-  { subject: "quantitative-apptitude", label: "Statistics", value: "statistics" },
-  { subject: "quantitative-apptitude", label: "Geometry", value: "geometry" },
+  { subject: "quantitative-apptitude", label: "Arithmetic", value: "Arithmetic" },
+  { subject: "quantitative-apptitude", label: "Data Interpretation", value: "Data-interpretation" },
+  { subject: "quantitative-apptitude", label: "Area & Volume", value: "Area-volume" },
+  { subject: "quantitative-apptitude", label: "Simple Interest (SI) & Compound Interest (CI)", value: "Si-Ci" },
+  { subject: "quantitative-apptitude", label: "Time, Speed, Distance", value: "Time-Speed-Distance" },
+  { subject: "quantitative-apptitude", label: "Time & Work", value: "Time-Work" },
+  { subject: "quantitative-apptitude", label: "Ratio & Proportion", value: "Ratio-Proportion" },
+  { subject: "quantitative-apptitude", label: "Profit & Loss", value: "Profit-Loss" },
+  { subject: "quantitative-apptitude", label: "Percentages", value: "Percentages" },
+  { subject: "quantitative-apptitude", label: "Averages", value: "Averages" },
+  { subject: "quantitative-apptitude", label: "Numbers", value: "Numbers" },
+  { subject: "quantitative-apptitude", label: "Mixture and Allegation", value: "Mixture-Allegation" },
+  { subject: "quantitative-apptitude", label: "Advanced Mathematics", value: "Advanced-Mathematics" },
+  { subject: "quantitative-apptitude", label: "Mensuration", value: "Mensuration" },
+  { subject: "quantitative-apptitude", label: "Trigonometry", value: "Trigonometry" },
+  { subject: "quantitative-apptitude", label: "Statistics", value: "Statistics" },
+  { subject: "quantitative-apptitude", label: "Geometry", value: "Geometry" },
 
   // Reasoning
-  { subject: "reasoning-general", label: "Seating Arrangement", value: "seating-arrangement" },
-  { subject: "reasoning-general", label: "Syllogism", value: "syllogism" },
-  { subject: "reasoning-general", label: "Blood Relations", value: "blood-relations" },
-  { subject: "reasoning-general", label: "Puzzles", value: "puzzles" },
+  { subject: "reasoning-general", label: "Seating Arrangement", value: "Seating-Arrangement" },
+  { subject: "reasoning-general", label: "Syllogism", value: "Syllogism" },
+  { subject: "reasoning-general", label: "Blood Relations", value: "Blood-Relations" },
+  { subject: "reasoning-general", label: "Puzzles", value: "Puzzles" },
 
-  { subject: "reasoning-general", label: "Inequalities", value: "inequalities" },
-  { subject: "reasoning-general", label: "Input-Output", value: "input-output" },
-  { subject: "reasoning-general", label: "Coding-Decoding", value: "coding-decoding" },
-  { subject: "reasoning-general", label: "Data Sufficiency", value: "data-sufficiency" },
-  { subject: "reasoning-general", label: "Order and Ranking", value: "order-ranking" },
-  { subject: "reasoning-general", label: "Alphanumeric Series", value: "alphanumeric-series" },
-  { subject: "reasoning-general", label: "Directions", value: "directions" },
-  { subject: "reasoning-general", label: "Analogy", value: "analogy" },
-  { subject: "reasoning-general", label: "Classification/Odd One Out", value: "classification" },
-  { subject: "reasoning-general", label: "Statement and Conclusion", value: "statement-conclusion" },
-  { subject: "reasoning-general", label: "Statement and Assumption", value: "statement-assumption" },
-  { subject: "reasoning-general", label: "Statement and Arguments", value: "statement-arguments" },
-  { subject: "reasoning-general", label: "Cause and Effect", value: "cause-effect" },
-  { subject: "reasoning-general", label: "Logical Venn Diagrams", value: "logical-venn-diagrams" },
-  { subject: "reasoning-general", label: "Number Series", value: "number-series" },
-  { subject: "reasoning-general", label: "Calender", value: "calender" },
+  { subject: "reasoning-general", label: "Inequalities", value: "Inequalities" },
+  { subject: "reasoning-general", label: "Input-Output", value: "Input-Output" },
+  { subject: "reasoning-general", label: "Coding-Decoding", value: "Coding-Decoding" },
+  { subject: "reasoning-general", label: "Data Sufficiency", value: "Data-Sufficiency" },
+  { subject: "reasoning-general", label: "Order and Ranking", value: "Order-Ranking" },
+  { subject: "reasoning-general", label: "Alphanumeric Series", value: "Alphanumeric-Series" },
+  { subject: "reasoning-general", label: "Directions", value: "Directions" },
+  { subject: "reasoning-general", label: "Analogy", value: "Analogy" },
+  { subject: "reasoning-general", label: "Classification/Odd One Out", value: "Classification" },
+  { subject: "reasoning-general", label: "Statement and Conclusion", value: "Statement-Conclusion" },
+  { subject: "reasoning-general", label: "Statement and Assumption", value: "Statement-Assumption" },
+  { subject: "reasoning-general", label: "Statement and Arguments", value: "Statement-Arguments" },
+  { subject: "reasoning-general", label: "Cause and Effect", value: "Cause-Effect" },
+  { subject: "reasoning-general", label: "Logical Venn Diagrams", value: "Logical-Venn-Diagrams" },
+  { subject: "reasoning-general", label: "Number Series", value: "Number-Series" },
+  { subject: "reasoning-general", label: "Calender", value: "Calender" },
 
-  { subject: "reasoning-general", label: "Clock", value: "clock" },
-  { subject: "reasoning-general", label: "Non-Verbal Reasoning (Mirror Image, Water Image, Paper Folding, etc.)", value: "non-verbal-reasoning" },
-  { subject: "reasoning-general", label: "Embedded Figures", value: "embedded-figures" },
-  { subject: "reasoning-general", label: "Cube and Dice", value: "cube-dice" },
-  { subject: "reasoning-general", label: "Figure Series", value: "figure-series" },
-  { subject: "reasoning-general", label: "Coding using Symbols", value: "coding" },
+  { subject: "reasoning-general", label: "Clock", value: "Clock" },
+  { subject: "reasoning-general", label: "Non-Verbal Reasoning (Mirror Image, Water Image, Paper Folding, etc.)", value: "Non-Verbal-Reasoning" },
+  { subject: "reasoning-general", label: "Embedded Figures", value: "Embedded-Figures" },
+  { subject: "reasoning-general", label: "Cube and Dice", value: "Cube-Dice" },
+  { subject: "reasoning-general", label: "Figure Series", value: "Figure-Series" },
+  { subject: "reasoning-general", label: "Coding using Symbols", value: "Coding" },
 
 
   // Computer Knowledge
-  { subject: "computer-knowledge", label: "Basics of Computers", value: "basics-computers" },
-  { subject: "computer-knowledge", label: "Operating System (OS)", value: "os" },
-  { subject: "computer-knowledge", label: "Software", value: "software" },
-  { subject: "computer-knowledge", label: "Internet and Web", value: "internet-web" },
-  { subject: "computer-knowledge", label: "Networking and Communication", value: "networking" },
-  { subject: "computer-knowledge", label: "MS Office Tools", value: "ms-office" },
-  { subject: "computer-knowledge", label: "Cyber Security & Malware", value: "cyber-security" },
-  { subject: "computer-knowledge", label: "Computer Abbreviations and Terminology", value: "computer-abbreviations" },
+  { subject: "computer-knowledge", label: "Basics of Computers", value: "Basics-Computers" },
+  { subject: "computer-knowledge", label: "Operating System (OS)", value: "OS" },
+  { subject: "computer-knowledge", label: "Software", value: "Software" },
+  { subject: "computer-knowledge", label: "Internet and Web", value: "Internet-Web" },
+  { subject: "computer-knowledge", label: "Networking and Communication", value: "Networking" },
+  { subject: "computer-knowledge", label: "MS Office Tools", value: "MS-Office" },
+  { subject: "computer-knowledge", label: "Cyber Security & Malware", value: "Cyber-Security" },
+  { subject: "computer-knowledge", label: "Computer Abbreviations and Terminology", value: "Computer-Abbreviations" },
 
   // General Awareness
-  { subject: "general-awareness", label: "History", value: "history" },
-  { subject: "general-awareness", label: "Geography", value: "geography" },
-  { subject: "general-awareness", label: "Indian Polity", value: "indian-polity" },
-  { subject: "general-awareness", label: "Indian Economy", value: "indian-economy" },
-  { subject: "general-awareness", label: "General Science", value: "general-science" },
-  { subject: "general-awareness", label: "Current Affairs", value: "current-affairs" },
-  { subject: "general-awareness", label: "Static General Knowledge", value: "static-gk" },
-  { subject: "general-awareness", label: "Art and Culture", value: "art-culture" },
+  { subject: "general-awareness", label: "History", value: "History" },
+  { subject: "general-awareness", label: "Geography", value: "Geography" },
+  { subject: "general-awareness", label: "Indian Polity", value: "Indian-Polity" },
+  { subject: "general-awareness", label: "Indian Economy", value: "Indian-Economy" },
+  { subject: "general-awareness", label: "General Science", value: "General-Science" },
+  { subject: "general-awareness", label: "Current Affairs", value: "Current-Affairs" },
+  { subject: "general-awareness", label: "Static General Knowledge", value: "Static-Gk" },
+  { subject: "general-awareness", label: "Art and Culture", value: "Art-Culture" },
 
-  { subject: "general-awareness", label: "Environment and Ecology", value: "environment-ecology" },
-  { subject: "general-awareness", label: "Government Schemes and Policies", value: "govt-schemes" },
-  { subject: "general-awareness", label: "Important Days and Events", value: "important-days" },
-  { subject: "general-awareness", label: "Books and Authors", value: "books-authors" },
-  { subject: "general-awareness", label: "Sports and Awards", value: "sports-awards" },
-  { subject: "general-awareness", label: "Miscellaneous GK", value: "miscellaneous-gk" }
+  { subject: "general-awareness", label: "Environment and Ecology", value: "Environment-Ecology" },
+  { subject: "general-awareness", label: "Government Schemes and Policies", value: "Govt-Schemes" },
+  { subject: "general-awareness", label: "Important Days and Events", value: "Important-Days" },
+  { subject: "general-awareness", label: "Books and Authors", value: "Books-Authors" },
+  { subject: "general-awareness", label: "Sports and Awards", value: "Sports-Awards" },
+  { subject: "general-awareness", label: "Miscellaneous GK", value: "Miscellaneous-Gk" }
 ];
 
 

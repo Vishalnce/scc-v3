@@ -107,6 +107,8 @@ const QuestionList = ({ id, setQuesId }: QuestionWrapperProps) => {
               </ul>
 
               <div className="mt-2">
+                <p> Solution :      {q.correctOption} </p>
+           
                 {q.solutionText && <p>Solution: {q.solutionText}</p>}
                 {q.solutionImage && (
                   <img

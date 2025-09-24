@@ -503,12 +503,13 @@ function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
           placeholder="Marks Positive"
           className="w-full p-2 border rounded"
         />
-        <input
-          type="number"
-          {...registerQ("marksNegative", { valueAsNumber: true })}
-          placeholder="Marks Negative"
-          className="w-full p-2 border rounded"
-        />
+       <input
+  type="number"
+  {...registerQ("marksNegative", { valueAsNumber: true })}
+  placeholder="Marks Negative"
+  className="w-full p-2 border rounded"
+  step="0.01"
+/>
         <select
           {...registerQ("level")}
           className="w-full p-2 border rounded"

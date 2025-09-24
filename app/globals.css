@@ -42,6 +42,11 @@ body {
 }
 
 
+.capitalize-first-letter::first-letter {
+  text-transform: uppercase;
+}
+
+
 
 
 /* Apply scroll margin to all elements with an id */
