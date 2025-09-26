@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect,useRef } from "react";
+import { CiClock1 } from "react-icons/ci";
 
 type CountdownTimerProps = {
   minutes: number;
@@ -45,11 +46,10 @@ export default function CountdownTimer({ minutes,setTimeTaken, onFinish }: Count
 
     <>
 
-     <div className=" font-bold  bg-white min-w-[60px] py-3 text-center shadow-2xl" style={{
-    boxShadow: "0 4px 10px rgba(0,0,0,0.25), 0 8px 20px rgba(0,0,0,0.15)"
-  }}>
-    <p className="text-xl text-my-green">
-{displayMinutes}:{displaySeconds.toString().padStart(2, "0")}
+     <div className=" font-bold  min-w-[60px] py-3 text-center flex flex-row gap-2" >
+      <CiClock1 className="my-auto size-6"/>
+    <p className=" text-[#6C6C6C]">
+      {displayMinutes}:{displaySeconds.toString().padStart(2, "0")}
     </p>
       
     </div>

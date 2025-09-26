@@ -88,6 +88,7 @@ export default function QuizSection({
         questions={questions}
         topic={topic}
         timeTaken={timeTaken}
+        timeLimit={timeLimit}
         answers={answers}
         onRestart={() => {
           setStage("intro");
