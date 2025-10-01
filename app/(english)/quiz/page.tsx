@@ -168,7 +168,7 @@ export default async function Page({
 
                   {/* nav button */}
                   <div className="flex flex-row justify-between mt-3 ">
-                    <p className="text-sm dark:text-[#FFFFFF]">Read More</p>
+                    <p className="text-sm dark:text-[#FFFFFF] px-4 py-2 bg-[#007076] rounded-full text-white">Start Quiz</p>
 
                     <div className="flex flex-row gap-1">
                       <FaRegCalendarMinus />

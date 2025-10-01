@@ -42,6 +42,7 @@ export default function QuizSection({
       const data = await res.json(); // ✅ parse JSON
       setQuestion(data);
 
+
       return data; // should be your array of objects
     } catch (error) {
       console.error("The error in quiz part is", error);
@@ -53,7 +54,11 @@ export default function QuizSection({
     fetchQuizPost(postId);
   }, [postId]);
 
-  if (stage === "intro") return <QuizIntro onStart={() => setStage("quiz")} />;
+  if(questions.length == 0 ){
+    return null
+  }
+
+  if (stage === "intro" ) return <QuizIntro onStart={() => setStage("quiz")} />;
 
   if (stage === "quiz")
     return (

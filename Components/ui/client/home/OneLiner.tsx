@@ -14,6 +14,11 @@ export default async function OneLiner() {
         `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/one-liner/client`,
         { cache: "no-store" }
       );
+
+        if (!res.ok) {
+        return { contents: [] };
+      }
+
       const data = await res.json();
       return data; // { contents: [...] }
     } catch (error) {

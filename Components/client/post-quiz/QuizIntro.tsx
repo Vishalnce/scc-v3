@@ -1,8 +1,8 @@
 export default function QuizIntro({ onStart }: { onStart: () => void }) {
   return (
     <>
-      <div className="max-w-[1400px] mx-auto  w-[90%] py-4">
-        <div className="flex flex-col  justify-between  border-2 mx-auto py-8 bg-[#FAFCFC] border-[#E6F1F1] rounded-2xl px-12 ">
+      <div className="max-w-[1400px] mx-auto  w-[90%] py-4  ">
+        <div className="flex flex-col  justify-between  border-2 mx-auto py-8 bg-[#FAFCFC] border-[#E6F1F1] rounded-2xl px-12 max-sm:px-6 ">
           {/* top heading  */}
           <div className="flex flex-row items-center justify-between w-full ">
             <div className="  flex flex-col items-start ">
@@ -14,7 +14,7 @@ export default function QuizIntro({ onStart }: { onStart: () => void }) {
               </p>
             </div>
 
-            <div>
+            <div className="max-md:hidden">
               <button className="bg-[#2CBB0180] px-6 py-2 rounded-full font-semibold text-sm ">
                 Share this post on
               </button>
@@ -23,7 +23,7 @@ export default function QuizIntro({ onStart }: { onStart: () => void }) {
 
           {/* below heading */}
 
-          <div className="  flex flex-row justify-between pt-6 pb-4">
+          <div className="  flex flex-row max-sm:flex-col  justify-between pt-6 pb-4 max-sm:gap-4">
             <div className="">
               <ul className="font-bold space-y-2">
                 <li>Click "Start Quiz" to begin.</li>

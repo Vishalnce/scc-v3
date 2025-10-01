@@ -13,6 +13,7 @@ model Quiz {
   questions Question[]
 
   createdAt DateTime @default(now())
+   comment Comment[]
 }
 
 model Question {

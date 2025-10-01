@@ -2,6 +2,14 @@ import NextPrev from "@/Components/ui/client/current-affaris-page/NextPrev";
 import Image from "next/image";
 import React from "react";
 import QuizWrapper from "@/Components/client/post-quiz/QuizWrapper"
+import CommentWrapper from "@/Components/client/comment/CommentWrapper";
+// Type for the related quiz items
+type QuizPostItem = {
+  id: number;
+  quizId: number;
+  postId: number;
+  // Include other fields from PostQuiz if you have any
+};
 type Post = {
   id: number;
   title: string;
@@ -16,6 +24,7 @@ type Post = {
   toc: string;
   timeLimit:number;
   createdAt: string;
+   quizposts: QuizPostItem[];
 };
 
 type FetchResponse = {
@@ -368,9 +377,12 @@ export default async function CurrentAffarisPage({
       />
 
       {/* want toadd a componeten that handle quiz from post it is can be fetcher */}
-    {post?.id && <QuizWrapper postId={post.id} timeLimit={post.timeLimit} topic={post.topic} />}
+    {post?.id  &&<QuizWrapper postId={post.id} timeLimit={post.timeLimit} topic={post.topic} />}
 
               {/* //vcurtial typeerror */}
+
+      <CommentWrapper  parentId={post?.id} parentType="postId" />
     </>
+
   );
 }

@@ -15,4 +15,5 @@ model Concept {
   editorHtml  String
   toc         String
   createdAt   DateTime @default(now())
+  comments Comment[]
 }

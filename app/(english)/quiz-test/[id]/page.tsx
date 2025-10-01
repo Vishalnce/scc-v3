@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import QuizWrapper from '@/Components/client/quiz-test/QuizWrapper'
+import CommentWrapper from '@/Components/client/comment/CommentWrapper';
 
 export default async function page({ params}: {  params: Promise<{ id: string }>;}) {
 
@@ -52,6 +53,8 @@ async function fetchPost(id: string) {
         </div>
       </header>
     <QuizWrapper quizId={Number(id)} timeLimit={res.timeLimit} topic = {res.topic} subject={res.subject}  />
+
+         <CommentWrapper  parentId={Number(id)} parentType="quizId" />
     </>
   )
 }

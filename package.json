@@ -30,7 +30,7 @@
     "@lexical/table": "^0.32.1",
     "@lexical/utils": "^0.32.1",
     "@next/bundle-analyzer": "^15.4.1",
-    "@prisma/client": "^6.12.0",
+    "@prisma/client": "^6.16.3",
     "cheerio": "^1.1.0",
     "date-fns": "^4.1.0",
     "embla-carousel-react": "^8.6.0",
@@ -61,7 +61,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.3.4",
-    "prisma": "^6.12.0",
+    "prisma": "^6.16.3",
     "typescript": "^5"
   }
 }

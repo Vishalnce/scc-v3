@@ -68,9 +68,9 @@ const handleSelect = (optionIndex: number) => {
   return (
     <>
       <div className=" dark:bg-black pb-14 pt-20 ">
-        <div className=" w-[90%] py-4 dark:bg-[#313131] bg-[#FAFCFC] rounded-2xl mx-auto px-6 ">
+        <div className=" w-[90%] py-4 dark:bg-[#313131] bg-[#FAFCFC] rounded-2xl mx-auto px-6 border-2">
           {/* question number and timer */}
-          <div className="flex flex-row justify-between items-center  w-[90%] mx-auto -mt-10">
+          <div className="flex flex-row justify-between items-center  w-[90%] mx-auto -mt-10 border-2">
             <div
               className="  min-w-[60px]  bg-white py-1  "
               style={{
@@ -95,22 +95,22 @@ const handleSelect = (optionIndex: number) => {
           {/* question  and topics */}
 
           <div className="flex flex-row justify-between items-start min-h-[20vh]   mt-6 ">
-            <div className="w-[60%] ">
+            <div className="w-[60%] max-sm:w-full">
               <p className="font-bold dark:text-white">{q.questionText}</p>
             </div>
 
-            <div className=" flex items-end ">
+            <div className=" flex items-end max-sm:hidden">
               <button className="px-4 py-2 bg-[#FFE332]  rounded-full text-sm">
                 {topic}
               </button>
             </div>
           </div>
 
-          {/* question and buttons */}
-          <div className="flex flex-row justify-between items-stretch  border-red-300">
+          {/* options and buttons */}
+          <div className="flex flex-row max-sm:flex-col justify-between items-stretch  border-red-300 border-2 max-sm:gap-5">
             {/* left box */}
 
-            <div className="max-sm:py-2 max-sm:w-full grid grid-cols-2 gap-6 w-[60%] ">
+            <div className="max-sm:py-2 max-sm:w-full max-sm:grid-cols-1 grid grid-cols-2 gap-6 w-[60%] ">
               {q.options.map((opt: { text: string }, idx: number) => (
                 <button
                   key={idx}
@@ -136,8 +136,8 @@ const handleSelect = (optionIndex: number) => {
             </div>
 
             {/* right box  */}
-            <div className=" w-[30%] flex flex-col justify-end">
-              <div className="flex flex-row justify-between gap-2">
+            <div className=" w-[30%] max-sm:w-full flex flex-col justify-end max-sm:justify-between">
+              <div className="flex flex-row justify-between gap-2 ">
                 <button
                   onClick={handlePrev}
                   disabled={current === 0}

@@ -85,6 +85,8 @@ questions.forEach((question) => {
   return (
     <div className="max-w-[1400px] mx-auto dark:bg-black border-2 py-14">
       {/* Header card */}
+
+
       <div className="w-[90%] bg-[#FAFCFC] border-2 mx-auto flex flex-col items-center dark:bg-[#313131] py-6 border-[#E6F1F1] rounded-2xl ">
         <div
           className="-mt-14 rounded-full p-3 bg-white"
@@ -102,7 +104,7 @@ questions.forEach((question) => {
         </div>
 
         <div className="py-4">
-          <p className="font-bold dark:text-white text-xl">
+          <p className="font-bold dark:text-white text-xl px-4 max-sm:text-center">
             Congratulations!!! Your Score Card is Here
           </p>
         </div>
@@ -122,7 +124,7 @@ questions.forEach((question) => {
           </p>
         </div>
 
-        <div className="flex flex-row justify-around w-full py-12">
+        <div className="flex flex-row max-sm:flex-col max-sm:gap-2 justify-around w-full py-12">
           <div className="flex flex-row gap-2 min-w-[160px] justify-center">
             <FaRegCircle className="bg-[#2CBB01] my-auto rounded-full text-[#2CBB01]" />
             <p className="text-xl">Correct : {correctCount}</p>
@@ -166,10 +168,10 @@ questions.forEach((question) => {
 
         {/* question + topic */}
         <div className="flex flex-row justify-between items-start min-h-[20vh] mt-6">
-          <div className="w-[60%]">
+          <div className="w-[60%] border-2 max-sm:w-full">
             <p className="font-bold dark:text-white">{q.questionText}</p>
           </div>
-          <div className="flex items-end">
+          <div className="flex items-end max-sm:hidden">
             <button className="px-4 py-2 bg-[#FFE332] rounded-full text-sm">
               {topic}
             </button>
@@ -177,9 +179,9 @@ questions.forEach((question) => {
         </div>
 
         {/* options */}
-        <div className="flex flex-row justify-between items-stretch">
+        <div className="flex flex-row max-sm:flex-col justify-between items-stretch max-sm:gap-4">
           {/* left options */}
-          <div className="max-sm:py-2 max-sm:w-full grid grid-cols-2 gap-6 w-[60%]">
+          <div className="max-sm:py-2 max-sm:w-full max-sm:grid-cols-1 grid grid-cols-2 gap-6 w-[60%]">
             {q.options.map((opt: { text: string }, idx: number) => (
               <button
                 key={idx}
@@ -217,7 +219,7 @@ questions.forEach((question) => {
           </div>
 
           {/* right navigation */}
-          <div className="w-[30%] flex flex-col justify-end">
+          <div className="w-[30%] max-sm:w-full flex flex-col justify-end">
             <div className="flex flex-row justify-between gap-2">
               <button
                 onClick={handlePrev}

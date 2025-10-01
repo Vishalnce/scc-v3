@@ -243,7 +243,7 @@ export default function Explanation({questions,answers,topic}:Props) {
               Correct Answer : {q.options[correctAnswerIndex]?.text}
             </span>
             <span className="font-bold dark:text-white">
-              Choose Answer :{" "}
+              Your Choose Answer :{" "}
               {userAnswerIndex !== null && userAnswerIndex !== undefined
                 ? q.options[userAnswerIndex]?.text
                 : "Not Attempted"}

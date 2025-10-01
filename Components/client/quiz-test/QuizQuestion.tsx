@@ -6,6 +6,7 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import Quiz from "@/Components/ui/client/home/SamllQuiz";
 import { CiClock1 } from "react-icons/ci";
 import { set } from "date-fns";
+import Image from "next/image";
 
 type quiz = {
   id: string;
@@ -14,7 +15,7 @@ type quiz = {
   questionText: string;
   questionImage: String;
 
-  options: { text: string }[];
+  options: { text: string; image: string }[];
 
   solutionText: string;
   solutionImage: string;
@@ -106,7 +107,7 @@ export default function QuizQuestion({
   answersRef.current = answers; // always have latest answers
   const startTimeRef = useRef<number>(Date.now());
   const q: quiz = questions[current];
-
+  console.log("saiufdhidsu", q);
   const handleSelect = (optionIndex: number) => {
     setAnswers((prev) => {
       const copy = [...prev];
@@ -164,7 +165,7 @@ export default function QuizQuestion({
   return (
     <>
       <div className=" dark:bg-black">
-        <div className="w-[95%] mx-auto flex flex-row justify-between  border-2 h-[80vh]">
+        <div className="w-[95%] mx-auto flex flex-row justify-between  border-2 ">
           {/* Left div  */}
 
           <div className="flex flex-col justify-start items-center border-2 w-[65%]">
@@ -209,42 +210,74 @@ export default function QuizQuestion({
               </div>
             </div>
 
-            <div className="border-2  flex flex-row justify-between items-stretch h-full">
+            <div className="border-2 w-full flex flex-row justify-between items-stretch h-full">
               {/* question and options  */}
 
-              <div className="flex flex-col justify-between items-start     ">
+              <div className="flex flex-col justify-between items-start   flex-1  ">
                 {/* question  */}
 
-                <div className="w-full px-4  border-2 min-h-[40vh] pt-2">
-                  <p className="font-bold dark:text-white">{q.questionText}</p>
+                <div className="w-full px-4  border-2 min-h-[40vh] py-3 flex flex-row gap-2 ">
+                  <p className="font-bold dark:text-white w-[50%]">{q.questionText}</p>
+
+                  {/* image have to fixed size */}
+                  {q.questionImage ? (
+                    <div className="relative  max-w-[400px] w-[40%] aspect-[16/9]  border-2 border-pink-500">
+                      <Image
+                        src={q.questionImage.toString()}
+                        alt="question image"
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                  ) : null}
                 </div>
 
                 {/* option */}
 
                 <div className="flex flex-row justify-between items-stretch border-2 border-red-300 w-full px-4 ">
                   <div className="max-sm:py-2 max-sm:w-full grid grid-cols-2 gap-6 w-full">
-                    {q.options.map((opt: { text: string }, idx: number) => (
-                      <button
-                        key={idx}
-                        onClick={() => handleSelect(idx)}
-                        className={`px-3 py-3 border dark:border-white rounded-full flex flex-row justify-between `}
-                      >
-                        <p className="text-my-text-color max-lg:text-sm">
-                          {opt.text}
-                        </p>
+                    {q.options.map(
+                      (opt: { text: string; image: string }, idx: number) =>
+                        opt.text ? (
+                          <button
+                            key={idx}
+                            onClick={() => handleSelect(idx)}
+                            className={`px-3 py-3 border dark:border-white rounded-full flex flex-row justify-between `}
+                          >
+                            <p className="text-my-text-color max-lg:text-sm">
+                              {opt.text}
+                            </p>
 
-                        <div className=" my-auto">
-                          <FaRegCircle
-                            size="22"
-                            className={`text-my-text-color rounded-full ${
-                              answers[current].answer === idx
-                                ? "bg-[#6C6C6C]"
-                                : ""
-                            } `}
-                          />
-                        </div>
-                      </button>
-                    ))}
+                            <div className=" my-auto">
+                              <FaRegCircle
+                                size="22"
+                                className={`text-my-text-color rounded-full ${
+                                  answers[current].answer === idx
+                                    ? "bg-[#6C6C6C]"
+                                    : ""
+                                } `}
+                              />
+                            </div>
+                          </button>
+                        ) : (
+                          <div
+                            className="relative  max-w-[400px] w-[70%] aspect-[16/9]  border-2 "
+                            key={idx}
+                            onClick={() => handleSelect(idx)}
+                          >
+                            <Image
+                              src={opt.image.toString()}
+                              alt="question image"
+                              fill
+                              className={`object-contain ${
+                                answers[current].answer === idx
+                                  ? "border-2 border-amber-400"
+                                  : ""
+                              }`}
+                            />
+                          </div>
+                        )
+                    )}
                   </div>
                 </div>
               </div>
