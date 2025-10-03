@@ -114,13 +114,19 @@ function Nav() {
             <FaBell className="size-5 " />
 
             <ThemeToggle />
+              <Link href={"/login"}>
 
-            <button className="p-0.5 px-4 border-1 rounded-lg max-lg:text-sm max-sm:px-2 max-lg:hidden">
+               <button className="p-0.5 px-4 border-1 rounded-lg max-lg:text-sm max-sm:px-2 max-lg:hidden">
               Login
             </button>
-            <button className="p-0.5 px-4 border-1 rounded-lg bg-my-green text-white max-lg:text-sm max-sm:px-2  ">
+              </Link>
+              
+              <Link href={"/signup"}>
+               <button className="p-0.5 px-4 border-1 rounded-lg bg-my-green text-white max-lg:text-sm max-sm:px-2  ">
               Signup
             </button>
+              </Link>
+           
           </div>
         </div>
       </nav>
