@@ -1,5 +1,6 @@
 import "./globals.css";
 import { lato, montserrat } from "@/lib/fonts/fonts";
+import { Provider } from "@/utils/auth-provider/Providers";
 import ThemeProvider from "@/utils/theme/ThemeProvider";
 import Script from "next/script";
 export default function RootLayout({
@@ -10,22 +11,21 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      
       className={`${lato.variable} ${montserrat.variable} `}
       suppressHydrationWarning
     >
-     
       <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem={false}
-          
-          disableTransitionOnChange
-          enableColorScheme={false} // ✅ prevents color-scheme mismatch
-        >
-          {children}
-        </ThemeProvider>
+        <Provider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem={false}
+            disableTransitionOnChange
+            enableColorScheme={false} // ✅ prevents color-scheme mismatch
+          >
+            {children}
+          </ThemeProvider>
+        </Provider>
       </body>
     </html>
   );

@@ -13,6 +13,7 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import ThemeToggle from "@/utils/theme/ThemeToggle";
 import { IoClose } from "react-icons/io5";
 import { RiMenu2Fill } from "react-icons/ri";
+import { signIn } from "next-auth/react";
 
 function Nav() {
   const [activeTag, setActiveTag] = useState<string | null>(null);
@@ -116,7 +117,11 @@ function Nav() {
             <ThemeToggle />
               <Link href={"/login"}>
 
-               <button className="p-0.5 px-4 border-1 rounded-lg max-lg:text-sm max-sm:px-2 max-lg:hidden">
+               <button
+               onClick={() => {
+                signIn();
+               }}
+               className="p-0.5 px-4 border-1 rounded-lg max-lg:text-sm max-sm:px-2 max-lg:hidden">
               Login
             </button>
               </Link>
