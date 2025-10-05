@@ -74,13 +74,19 @@ export default function QuizSection({
         setTimeTaken={setTimeTaken}
         onFinish={(a: { questionId: string; answer: number | null }[]) => {
           setAnswers(a); // store answers as objects
-          setStage("result"); // move to result page
+          setStage("login"); // move to result page
         }}
       />
     );
 
   // add login check feature
   // you add feature same as pass one function result
+
+  if (stage === "login"){
+    return(<QuizLogin 
+    onFinish= { () => {setStage("result")}}
+    />)
+  }
 
   if (stage === "result")
     return (

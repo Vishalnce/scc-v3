@@ -14,7 +14,7 @@ export default function SignInModal({ onClose }: { onClose: () => void }) {
         >
           ✕
         </button>
-        <SignInModalForm />
+        <SignInModalForm onClose={onClose} />
       </div>
     </div>
   );
