@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import db from "@/lib/db";
-
+type BodyType = {
+  name: string;
+  email: string;
+  content: string;
+};
 // Post by quizId blogId conceptId postId
 export async function POST(req: Request) {
   try {
@@ -10,11 +14,11 @@ export async function POST(req: Request) {
     const quizId = searchParams.get("quizId");
     const blogId = searchParams.get("blogId");
 
-    const body = await req.json();
-    const name = "VIhsal Dummy"
-    const email = "VIhsalDummy@gmail.com"
+    const body:BodyType = await req.json();
+    const {name, email,content} =body;
 
-    const { content } = body;
+
+ 
 
     // collect which IDs are provided
     const ids = [postId, conceptId, quizId, blogId].filter(Boolean);

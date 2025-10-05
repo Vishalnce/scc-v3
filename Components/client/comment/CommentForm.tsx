@@ -1,5 +1,8 @@
 "use client";
-import React, { useRef } from "react";
+import SignUpForm from "@/Components/ui/client/signup/SignUpForm";
+import SignInModal from "@/Components/ui/client/signin/SignInModal";
+import { useSession } from "next-auth/react";
+import React, { useRef, useState } from "react";
 import { FaRegCommentDots } from "react-icons/fa";
 
 type Props = {
@@ -15,9 +18,22 @@ export default function CommentForm({
 }: Props) {
   const contentRef = useRef<HTMLTextAreaElement | null>(null);
 
+  const { data: session, status } = useSession();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   async function handleSubmit() {
     try {
       if (!parentId) return;
+
+      // ✅ Check authentication before submit
+      if (!session) {
+        setIsModalOpen(true);
+        return;
+      }
+
+      const email = session?.user?.email;
+      const name = session?.user?.name;
       const comment = contentRef.current?.value;
 
       const res = await fetch(
@@ -27,7 +43,7 @@ export default function CommentForm({
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ content: comment }),
+          body: JSON.stringify({name:name,email:email, content: comment }),
         }
       );
 
@@ -75,6 +91,11 @@ export default function CommentForm({
               </button>
             </div>
           </div>
+        </div>
+
+        <div>
+          {/* Modal for login/signup */}
+          {isModalOpen && <SignInModal onClose={() => setIsModalOpen(false)} />}
         </div>
       </div>
     </>
