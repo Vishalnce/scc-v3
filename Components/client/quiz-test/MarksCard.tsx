@@ -143,12 +143,12 @@ export default function MarksCard({
         </div>
 
         <div className="py-4">
-          <p className="font-bold dark:text-white text-xl">
+          <p className="font-bold dark:text-white text-xl max-sm:text-center max-sm:px-4">
             Congratulations!!! Your Score Card is Here
           </p>
         </div>
 
-        <div className="flex flex-row gap-4 items-center justify-center ">
+        <div className="flex flex-row max-sm:flex-col gap-4 items-center justify-center ">
           <div className="flex flex-row gap-1">
             <Image
               src="/typing-test/icons/taken.svg"
@@ -164,7 +164,7 @@ export default function MarksCard({
             </p>
           </div>
 
-          <div className="flex flex-row gap-1">
+          <div className="flex flex-row gap-1 ">
             <Image
               src="/typing-test/icons/taken.svg"
               alt="typing-test"
@@ -183,9 +183,9 @@ export default function MarksCard({
         </div>
 
         {/* report card */}
-        <div className="w-[90%] mx-auto flex flex-row justify-around items-center py-8">
+        <div className="w-[90%] mx-auto flex flex-row max-sm:flex-col justify-around items-center py-8">
           {/* left div  */}
-          <div className="w-[35%] flex flex-col px-2 gap-1 bg-white rounded-2xl py-2 ">
+          <div className="w-[35%] flex flex-col px-2 gap-1 bg-white rounded-2xl py-2  max-sm:w-full ">
             <div className="flex flex-row justify-between items-center py-1">
               <div className="flex flex-row  gap-1">
                 <FaRegCircle className="my-auto   size-5" /> <p>Total Marks</p>
@@ -213,7 +213,7 @@ export default function MarksCard({
           </div>
           {/* right div  */}
 
-          <div className="w-[35%] px-2 py-2 flex flex-col gap-1   bg-white rounded-2xl">
+          <div className="w-[35%] px-2 py-2 flex flex-col gap-1   bg-white rounded-2xl max-sm:w-full ">
             <div className="flex flex-row justify-between items-center">
               <div className="flex flex-row justify-between items-center  py-1">
                 <div className="flex flex-row gap-1 ">

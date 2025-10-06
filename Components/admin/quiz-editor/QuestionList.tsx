@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import DeleteButton from "./DeleteButton";
+import Image from "next/image";
 
 type QuestionWrapperProps = {
   id: number | null;
@@ -28,7 +29,6 @@ type QuestionType = {
   createdAt: string;
   updatedAt: string;
 };
-
 
 const QuestionList = ({ id, setQuesId }: QuestionWrapperProps) => {
   const [questions, setQuestions] = useState<QuestionType[]>([]);
@@ -74,16 +74,20 @@ const QuestionList = ({ id, setQuesId }: QuestionWrapperProps) => {
       <h2>Questions List</h2>
       <ul>
         {questions.map((q) => (
-          <div className="flex flex-row justify-between mb-4" key={q.id}>
+          <div className="flex flex-row justify-between mb-4 border-2" key={q.id}>
             <li>
               <div>
                 {q.questionText && <p>{q.questionText}</p>}
+
                 {q.questionImage && (
-                  <img
-                    src={q.questionImage}
-                    alt="Question"
-                    className="w-[200px] h-[150px] object-cover rounded"
-                  />
+                  <div className="relative  max-w-[400px] w-[200px] h-[150px] aspect-[16/9]  border-2 border-pink-500">
+                    <Image
+                      src={q.questionImage}
+                      alt="question image"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
                 )}
               </div>
 
@@ -107,8 +111,8 @@ const QuestionList = ({ id, setQuesId }: QuestionWrapperProps) => {
               </ul>
 
               <div className="mt-2">
-                <p> Solution :      {q.correctOption} </p>
-           
+                <p> Solution : {q.correctOption} </p>
+
                 {q.solutionText && <p>Solution: {q.solutionText}</p>}
                 {q.solutionImage && (
                   <img

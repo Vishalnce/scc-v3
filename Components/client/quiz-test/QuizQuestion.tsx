@@ -164,13 +164,13 @@ export default function QuizQuestion({
 
   return (
     <>
-      <div className=" dark:bg-black">
-        <div className="w-[95%] mx-auto flex flex-row justify-between  border-2 ">
-          {/* Left div  */}
+      <div className=" dark:bg-black ">
+        <div className="w-[95%] mx-auto flex flex-row max-sm:flex-col-reverse justify-between border-2  ">
+          {/* Left div of questiona and option  */}
 
-          <div className="flex flex-col justify-start items-center border-2 w-[65%]">
+          <div className="flex flex-col justify-start items-center  w-[65%] max-sm:w-full  ">
             {/* top heaeding */}
-            <div className=" border-2 flex flex-row justify-around items-center gap-12 w-full">
+            <div className=" border-2 flex flex-row justify-around items-center gap-12 w-full max-sm:py-4 max-sm:mt-4">
               {/* timer and marks */}
               <div className="flex flex-row justify-between items-center  w-[42%] ">
                 <div className="flex flex-row justify-between items-center -mt-8  ">
@@ -192,14 +192,14 @@ export default function QuizQuestion({
                 <div className="">
                   <p className=" text-sm text-green-600 font-semibold">
                     {" "}
-                    {q.marksPositive} Marks{" "}
+                    {q.marksPositive} <span className="max-sm:hidden">Marks </span>
                   </p>
                 </div>
 
                 <div className="">
                   <p className="text-sm  text-red-600  font-semibold">
                     {" "}
-                    {q.marksNegative} Negative Marks
+                    {q.marksNegative} <span className="max-sm:hidden"> Negative Marks </span>
                   </p>
                 </div>
               </div>
@@ -216,12 +216,12 @@ export default function QuizQuestion({
               <div className="flex flex-col justify-between items-start   flex-1  ">
                 {/* question  */}
 
-                <div className="w-full px-4  border-2 min-h-[40vh] py-3 flex flex-row gap-2 ">
-                  <p className="font-bold dark:text-white w-[50%]">{q.questionText}</p>
+                <div className="w-full px-4  min-h-[40vh] py-3 flex flex-row justify-between gap-2 border-2 max-sm:flex-col ">
+                  <p className={`font-bold dark:text-white border-2 ${q.questionImage? " w-[55%] max-sm:w-full" : "null" } `}>{q.questionText}</p>
 
                   {/* image have to fixed size */}
                   {q.questionImage ? (
-                    <div className="relative  max-w-[400px] w-[40%] aspect-[16/9]  border-2 border-pink-500">
+                    <div className="relative  max-w-[400px] w-[40%] max-sm:w-full aspect-[16/9]  border-2 border-pink-500">
                       <Image
                         src={q.questionImage.toString()}
                         alt="question image"
@@ -235,7 +235,7 @@ export default function QuizQuestion({
                 {/* option */}
 
                 <div className="flex flex-row justify-between items-stretch border-2 border-red-300 w-full px-4 ">
-                  <div className="max-sm:py-2 max-sm:w-full grid grid-cols-2 gap-6 w-full">
+                  <div className={`max-sm:py-2 max-sm:w-full   mx-auto gap-6 w-full  py-4 ${q.options[0]?.image ? "flex flex-wrap justify-between " : "grid grid-cols-2"}`}>
                     {q.options.map(
                       (opt: { text: string; image: string }, idx: number) =>
                         opt.text ? (
@@ -261,7 +261,7 @@ export default function QuizQuestion({
                           </button>
                         ) : (
                           <div
-                            className="relative  max-w-[400px] w-[70%] aspect-[16/9]  border-2 "
+                            className="relative  max-w-[400px] w-[40%] aspect-[16/9]  hover:cursor-pointer border-2 border-[#6C6C6C] "
                             key={idx}
                             onClick={() => handleSelect(idx)}
                           >
@@ -271,7 +271,7 @@ export default function QuizQuestion({
                               fill
                               className={`object-contain ${
                                 answers[current].answer === idx
-                                  ? "border-2 border-amber-400"
+                                  ? "border-4 border-[#6C6C6C] "
                                   : ""
                               }`}
                             />
@@ -284,9 +284,9 @@ export default function QuizQuestion({
             </div>
           </div>
 
-          {/* right div */}
+          {/* right div of question and option */}
 
-          <div className="border-2 border-red-500 w-[32%] self-stretch flex flex-col  ">
+          <div className="border-2 border-red-500 w-[32%] self-stretch flex flex-col  max-sm:w-full  ">
             {/* Timer and SubTopics */}
             <div className="border-2 flex flex-row  justify-between items-center pb-3 ">
               <CountdownTimer
@@ -304,8 +304,8 @@ export default function QuizQuestion({
 
             {/* navigation  */}
 
-            <div className=" h-full overflow-y-auto">
-              <div className="flex flex-row flex-wrap justify-between items-center gap-2 ">
+            <div className=" h-full  overflow-y-auto  ">
+              <div className="flex flex-row sm:flex-wrap overflow-x-auto sm:justify-center items-center gap-3 border-2 ">
                 {Array.from({ length: questions.length }, (_, idx) => {
                   const m = mark[idx]; // status of this question
 
@@ -329,35 +329,35 @@ export default function QuizQuestion({
         </div>
 
         {/* navigation box  */}
-        <div className="w-[95%] mx-auto flex flex-row justify-between  border-2 ">
+        <div className="w-[95%] mx-auto flex flex-row  justify-between  mt-4 border-2 max-sm:flex-col-reverse">
           {/* left box  */}
 
-          <div className="border-2 w-[65%] flex flex-row justify-between items-center px-2 py-2">
+          <div className="border-2 w-[65%] max-sm:w-full flex flex-row justify-between items-center px-2 py-2">
             <div className="flex flex-row items-center gap-2">
               <button className="px-4 py-2  min-w-[50px] rounded bg-[#2CBB01] text-white">
                 {counts.answered}
               </button>
-              <p>Answer</p>
+              <p className="max-sm:hidden">Answer</p>
             </div>
 
             <div className="flex flex-row items-center gap-2">
               <button className="px-4 py-2  min-w-[50px]  rounded bg-[#FF0000] text-white">
                 {counts.notAnswered}
               </button>
-              <p>Not Answer</p>
+              <p className="max-sm:hidden">Not Answer</p>
             </div>
 
             <div className="flex flex-row items-center gap-2">
               <button className="px-4 py-2  min-w-[50px] border-1  rounded bg-white text-black">
                 {counts.notVisited}
               </button>
-              <p>Not Visted</p>
+              <p  className="max-sm:hidden">Not Visted</p>
             </div>
           </div>
 
           {/* rightbox  */}
 
-          <div className="border-2 w-[32%] flex flex-row justify-between items-center py-2 px-2">
+          <div className="border-2 w-[32%] max-sm:w-full flex flex-row justify-between items-center py-2 px-2">
             <button
               onClick={handlePrev}
               disabled={current === 0}

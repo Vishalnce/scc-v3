@@ -19,9 +19,9 @@ export default function QuizIntro({ onStart ,subject, timeLimt,noOfQuestion }:  
   return (
     <>
       <div className="max-w-[1400px] mx-auto  w-[90%] py-4">
-        <div className="flex flex-col  justify-between  border-2 mx-auto py-8 bg-[#FAFCFC] border-[#E6F1F1] rounded-2xl px-12 ">
+        <div className="flex flex-col  justify-between  border-2 mx-auto py-8 bg-[#FAFCFC] border-[#E6F1F1] rounded-2xl  max-sm:px-4 px-12 ">
           {/* top heading  */}
-          <div className="flex flex-row items-center justify-between w-full ">
+          <div className="flex flex-row items-center justify-between w-full   ">
             <div className="  flex flex-col items-start ">
               <p className=" font-montserrat font-bold text-2xl dark:text-white">
                 Test Your Knowledge with Quizzes
@@ -46,7 +46,7 @@ export default function QuizIntro({ onStart ,subject, timeLimt,noOfQuestion }:  
               </div>
             </div>
 
-            <div>
+            <div className="max-sm:hidden">
               <button className="bg-[#2CBB0180] px-6 py-2 rounded-full font-semibold text-sm  ">
                 {subject}
               </button>
@@ -55,7 +55,7 @@ export default function QuizIntro({ onStart ,subject, timeLimt,noOfQuestion }:  
 
           {/* below heading */}
 
-          <div className="  flex flex-row justify-between pt-6 pb-4">
+          <div className="  flex flex-row max-sm:flex-col gap-4 justify-between pt-6 pb-4">
             <div className="">
               <p className="font-bold">Intructions</p>
               <ul className=" space-y-2 text-my-text-color">

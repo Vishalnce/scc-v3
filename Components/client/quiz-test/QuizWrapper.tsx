@@ -4,8 +4,7 @@ import QuizIntro from "./QuizIntro";
 import QuizQuestion from "./QuizQuestion";
 import QuizLogin from "./QuizLogin";
 import QuizResult from "./QuizResult";
-import { constructFromSymbol } from "date-fns/constants";
-import { set } from "date-fns";
+
 
 export default function QuizSection({
   quizId,

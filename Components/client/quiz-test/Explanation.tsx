@@ -1,67 +1,60 @@
-"use client"
-import React ,{useState}from 'react'
-import { FaRegCircle } from 'react-icons/fa'
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md'
+"use client";
+import Image from "next/image";
+import React, { useState } from "react";
+import { FaRegCircle } from "react-icons/fa";
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
 type Props = {
-  questions:any
-  answers:any
-  topic:string
-}
+  questions: any;
+  answers: any;
+  topic: string;
+};
 
-
-
-
-export default function Explanation({questions,answers,topic}:Props) {
-
+export default function Explanation({ questions, answers, topic }: Props) {
   const [current, setCurrent] = useState(0);
-  
-  
-  
-    const q = questions[current];
-    const userAnswerObj = answers.find((a:any) => a.questionId === q.id);
-    const userAnswerIndex = userAnswerObj?.answer; // 0-based from answers
-    const correctAnswerIndex = q.correctOption - 1; // normalize to 0-based
-  
-    // Marks and status for current question
-    let marksEarned = 0;
-    let status = "";
-  
-    if (userAnswerIndex === correctAnswerIndex) {
-      marksEarned = q.marksPositive ?? 0;
-      status = "✅ Correct";
-    } else if (userAnswerIndex == null) {
-      marksEarned = 0;
-      status = "⚪ Not Attempted";
-    } else {
-      marksEarned = q.marksNegative ?? 0;
-      status = "❌ Incorrect";
-    }
-  
-    const handlePrev = () => {
-      if (current > 0) setCurrent(current - 1);
-    };
-  
-    const handleNext = () => {
-      if (current < questions.length - 1) setCurrent(current + 1);
-    };
-    const handleOnClick = (index: number) => {
-      setCurrent(index);
-    };
-  
-    const handleSelect = (optionIndex: number) => {};
-  
-  
+
+  const q = questions[current];
+  const userAnswerObj = answers.find((a: any) => a.questionId === q.id);
+  const userAnswerIndex = userAnswerObj?.answer; // 0-based from answers
+  const correctAnswerIndex = q.correctOption - 1; // normalize to 0-based
+
+  // Marks and status for current question
+  let marksEarned = 0;
+  let status = "";
+
+  if (userAnswerIndex === correctAnswerIndex) {
+    marksEarned = q.marksPositive ?? 0;
+    status = "✅ Correct";
+  } else if (userAnswerIndex == null) {
+    marksEarned = 0;
+    status = "⚪ Not Attempted";
+  } else {
+    marksEarned = q.marksNegative ?? 0;
+    status = "❌ Incorrect";
+  }
+
+  const handlePrev = () => {
+    if (current > 0) setCurrent(current - 1);
+  };
+
+  const handleNext = () => {
+    if (current < questions.length - 1) setCurrent(current + 1);
+  };
+  const handleOnClick = (index: number) => {
+    setCurrent(index);
+  };
+
+  const handleSelect = (optionIndex: number) => {};
+
   return (
     <>
-
-     <div className="w-[90%] py-4 dark:bg-[#313131] bg-[#FAFCFC] rounded-2xl mx-auto px-6 mt-14  border-[#E6F1F1]">
+      <div className="max-sm:w-[100%] w-[95%] py-4 dark:bg-[#313131] bg-[#FAFCFC] rounded-2xl mx-auto px-6 mt-14  border-[#E6F1F1]">
         {/* vi qwuestrion asn wer  */}
 
-        <div className="w-full mx-auto flex flex-row justify-between   h-[80vh]">
+        <div className="w-full mx-auto flex flex-row max-sm:flex-col-reverse justify-between   ">
           {/* Left div  */}
 
-          <div className="flex flex-col justify-start items-center  w-[65%]">
+          <div className="flex flex-col justify-start items-center  w-[65%] max-sm:w-full border-2 max-sm:mt-6">
             {/* top heaeding */}
             <div className="  flex flex-row justify-around items-center gap-12 w-full">
               {/* timer and marks */}
@@ -83,14 +76,16 @@ export default function Explanation({questions,answers,topic}:Props) {
                 <div className="">
                   <p className=" text-sm text-green-600 font-semibold">
                     {" "}
-                    {q.marksPositive} Marks{" "}
+                    {q.marksPositive}{" "}
+                    <span className="max-sm:hidden"> Marks </span>{" "}
                   </p>
                 </div>
 
                 <div className="">
                   <p className="text-sm  text-red-600  font-semibold">
                     {" "}
-                    {q.marksNegative} Negative Marks
+                    {q.marksNegative}{" "}
+                    <span className="max-sm:hidden"> Negative Marks </span>
                   </p>
                 </div>
               </div>
@@ -101,58 +96,80 @@ export default function Explanation({questions,answers,topic}:Props) {
               </div>
             </div>
 
-            <div className="border-2  flex flex-row justify-between items-stretch h-full">
+            <div className="border-2  flex flex-row justify-between items-stretch h-full w-full">
               {/* question and options  */}
 
-              <div className="flex flex-col justify-between items-start     ">
+              <div className="flex flex-col justify-between items-start w-full     ">
                 {/* question  */}
 
-                <div className="w-full px-4  border-2 min-h-[40vh] pt-2">
-                  <p className="font-bold dark:text-white">{q.questionText}</p>
+                <div className="w-full px-4  min-h-[40vh] py-3 flex flex-row justify-between gap-2 border-2 max-sm:flex-col  ">
+                  <p
+                    className={`font-bold dark:text-white border-2 ${q.questionImage ? " w-[55%] max-sm:w-full" : "null"} `}
+                  >
+                    {q.questionText}
+                  </p>
+
+                  {/* image have to fixed size */}
+                  {q.questionImage ? (
+                    <div className="relative  max-w-[400px] w-[40%] max-sm:w-full aspect-[16/9]  border-2 border-pink-500">
+                      <Image
+                        src={q.questionImage.toString()}
+                        alt="question image"
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                  ) : null}
                 </div>
 
                 {/* option */}
 
                 <div className="flex flex-row justify-between items-stretch border-2 border-red-300 w-full px-4 ">
-                  <div className="max-sm:py-2 max-sm:w-full grid grid-cols-2 gap-6 w-full">
-                    {q.options.map((opt: { text: string }, idx: number) => (
-                      <button
-                        key={idx}
-                        onClick={() => handleSelect(idx)}
-                        className={`px-3 py-3 border dark:border-white rounded-full flex flex-row justify-between  ${
-                          idx === correctAnswerIndex
-                            ? "bg-[#2CBB0126] border-[#2CBB0126]" // correct answer
-                            : idx === userAnswerIndex
-                              ? "bg-[#FF000026] border-[#FF000026]" // user wrong choice
-                              : "" // default
-                        } `}
-                      >
-                        <p
-                          className={`max-lg:text-sm  ${
-                            idx === correctAnswerIndex
-                              ? "text-black dark:text-white" // correct answer
-                              : idx === userAnswerIndex
-                                ? "text-black dark:text-white" // user wrong choice
-                                : "text-my-text-color" // default
-                          }`}
-                        >
-                          {opt.text}
-                        </p>
+                  <div
+                    className={`max-sm:py-2 max-sm:w-full   mx-auto gap-6 w-full  py-4 ${q.options[0]?.image ? "flex flex-wrap justify-between " : "grid grid-cols-2"}`}
+                  >
+                    {q.options.map(
+                      (opt: { text: string; image: string }, idx: number) =>
+                        opt.text ? (
+                          <button
+                            key={idx}
+                            onClick={() => handleSelect(idx)}
+                            className={`px-3 py-3 border dark:border-white rounded-full flex flex-row justify-between `}
+                          >
+                            <p className="text-my-text-color max-lg:text-sm">
+                              {opt.text}
+                            </p>
 
-                        <div className=" my-auto">
-                          <FaRegCircle
-                            size="22"
-                            className={`rounded-full ${
-                              idx === correctAnswerIndex
-                                ? "bg-[#2CBB01] text-[#2CBB01]" // correct answer
-                                : idx === userAnswerIndex
-                                  ? "bg-[#FF0000] text-[#FF0000]" // user wrong choice
-                                  : " text-[#6C6C6C]" // default
-                            }`}
-                          />
-                        </div>
-                      </button>
-                    ))}
+                            <div className=" my-auto">
+                              <FaRegCircle
+                                size="22"
+                                className={`text-my-text-color rounded-full ${
+                                  answers[current].answer === idx
+                                    ? "bg-[#6C6C6C]"
+                                    : ""
+                                } `}
+                              />
+                            </div>
+                          </button>
+                        ) : (
+                          <div
+                            className="relative  max-w-[400px] w-[40%] aspect-[16/9]  hover:cursor-pointer border-2 border-[#6C6C6C] "
+                            key={idx}
+                            onClick={() => handleSelect(idx)}
+                          >
+                            <Image
+                              src={opt.image.toString()}
+                              alt="question image"
+                              fill
+                              className={`object-contain ${
+                                answers[current].answer === idx
+                                  ? "border-4 border-[#6C6C6C] "
+                                  : ""
+                              }`}
+                            />
+                          </div>
+                        )
+                    )}
                   </div>
                 </div>
               </div>
@@ -161,8 +178,8 @@ export default function Explanation({questions,answers,topic}:Props) {
 
           {/* right div */}
 
-          <div className="border-2 border-red-500 w-[32%] self-stretch flex flex-col  ">
-            {/* Timer and SubTopics */}
+          <div className="border-2 border-red-500 w-[32%] sm:self-stretch max-sm:w-full flex flex-col   ">
+            {/* topic and navigation */}
             <div className="border-2 flex flex-row  justify-between items-center pb-3 ">
               <div className=" flex items-end ">
                 <button className="px-4 py-2 bg-[#95DC7F]  rounded-full text-sm">
@@ -173,12 +190,12 @@ export default function Explanation({questions,answers,topic}:Props) {
 
             {/* navigation  */}
 
-            <div className=" h-full overflow-y-auto">
-              <div className="flex flex-row flex-wrap justify-between items-center gap-2 ">
+            <div className=" h-full overflow-y-auto max-sm:overflow-x-auto">
+              <div className="flex flex-row sm:flex-wrap sm:justify-center  items-center gap-2 ">
                 {Array.from({ length: questions.length }, (_, idx) => {
                   const q = questions[idx];
                   const userAnswer = answers.find(
-                    (a:any) => a.questionId === q.id
+                    (a: any) => a.questionId === q.id
                   )?.answer;
                   const correctIndex = q.correctOption - 1;
 
@@ -207,12 +224,12 @@ export default function Explanation({questions,answers,topic}:Props) {
           </div>
         </div>
 
-        <div className="w-full mx-auto flex flex-row justify-end  border-2 ">
+        <div className="w-full mx-auto flex flex-row sm:justify-end  border-2 ">
           {/* left box  */}
 
           {/* rightbox  */}
 
-          <div className="border-2 w-[32%] flex flex-row justify-between items-center py-2 px-2">
+          <div className="border-2 w-[32%] max-sm:w-full flex flex-row justify-between items-center py-2 px-2">
             <button
               onClick={handlePrev}
               disabled={current === 0}
@@ -230,8 +247,6 @@ export default function Explanation({questions,answers,topic}:Props) {
             </button>
           </div>
         </div>
-
-
       </div>
 
       {/* detail explanation  */}
@@ -251,18 +266,23 @@ export default function Explanation({questions,answers,topic}:Props) {
           </div>
 
           <p className="py-4">
-            {q.solutionText ? (
-              <span className=" dark:text-white">
-                Explanation : {q.solutionText}
-              </span>
-            ) : (
-              <span className=" dark:text-white">
-                No explanation provided for this question.
-              </span>
-            )}
+            <p className=" dark:text-white"> Explanation : {q.solutionText} </p>
+
+            {q.solutionImage ? (
+              <div className="relative  max-w-[400px] w-[40%] max-sm:w-full aspect-[16/9]  border-2 border-pink-500">
+                <Image
+                  src={q.questionImage.toString()}
+                  alt="question image"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+            ) : null}
+
+           
           </p>
         </div>
       </div>
     </>
-  )
+  );
 }
