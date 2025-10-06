@@ -51,7 +51,7 @@ export default function SignUpModals({ onClose }: { onClose: () => void }) {
     const top = window.screen.height / 2 - height / 2;
 
     const newPopup = window.open(
-      `/api/auth/signin/google?callbackUrl=${encodeURIComponent(window.location.origin)}`,
+      `https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?client_id=98189081503-ctgekhbcc05uugj534hih2lj8v0fh4oj.apps.googleusercontent.com&scope=openid%20email%20profile&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fauth%2Fcallback%2Fgoogle&state=aMVy6CzHnv_4aRIZncvAGQvpzkYdssWlaKFAXA_Wm24&code_challenge=l05rLaaEitfI-_txUJJF5SVyF9e2NTeiMxvi9OmeUWU&code_challenge_method=S256&service=lso&o2v=2&flowName=GeneralOAuthFlow`,
       "google-login",
       `width=${width},height=${height},top=${top},left=${left}`
     );
@@ -77,7 +77,7 @@ export default function SignUpModals({ onClose }: { onClose: () => void }) {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center py-8 w-full max-md:w-[90%] border-2">
+      <div className="flex flex-col items-center justify-center py-8 w-full max-md:w-[90%] border-2 mx-auto">
         <p className="py-2 font-bold text-3xl font-montserrat dark:text-white max-md:text-center max-md:text-2xl">
           Sign in to SSC ExamLife
         </p>

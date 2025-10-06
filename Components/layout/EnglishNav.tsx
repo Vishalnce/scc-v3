@@ -62,26 +62,25 @@ function Nav() {
 
           {/* links */}
           <div className="flex flex-row items-center space-x-8 max-lg:hidden ">
-            <Link
-              href=""
+            <div
               onClick={() => handleClick("current-affairs")}
             >
               <div className="flex flex-row items-center justify-center text-my-text-color text-sm hover:text-my-green">
                 <p className="">Current Affairs</p> <IoIosArrowDown />
               </div>
-            </Link>
+            </div>
 
-            <Link href="" onClick={() => handleClick("concepts")}>
+            <div onClick={() => handleClick("concepts")}>
               <div className="flex flex-row items-center justify-center text-my-text-color text-sm hover:text-my-green ">
                 <p className="">Concepts</p> <IoIosArrowDown />
               </div>
-            </Link>
+            </div>
 
-            <Link href="" onClick={() => handleClick("quiz")}>
+            <div onClick={() => handleClick("quiz")}>
               <div className="flex flex-row items-center justify-center text-my-text-color text-sm hover:text-my-green ">
                 <p className="">Quiz</p> <IoIosArrowDown />
               </div>
-            </Link>
+            </div>
             <Link href="/syllabus-page/client?slug=syllabus-for-ssc-cgl">
               <div className="flex flex-row items-center justify-center text-my-text-color text-sm hover:text-my-green ">
                 <p className="">Syllabus</p>
@@ -138,7 +137,7 @@ function Nav() {
 
       {/* DropDown for current affaris */}
       {activeTag === "current-affairs" && (
-        <div className="  z-50 w-full  flex py-4 flex-col absolute top-12 bg-[image:var(--color-my-gradient)]  ">
+        <div className="  z-50 w-full  flex py-4 flex-col fixed top-12 bg-[image:var(--color-my-gradient)]  ">
           <div className="w-[20%] ml-24  p-2  hover:bg-[#E6F1F1] dark:hover:bg-black rounded-xl">
             <Link href={"/current-affaris"} onClick={() => setActiveTag(null)}>
               <div className="flex flex-row items-center gap-2">
@@ -170,7 +169,7 @@ function Nav() {
 
       {/* DropDown for concepts */}
       {activeTag === "concepts" && (
-        <div className="  z-50 w-full  flex flex-col absolute top-12  bg-[image:var(--color-my-gradient)]  ">
+        <div className="  z-50 w-full  flex flex-col fixed top-12  bg-[image:var(--color-my-gradient)]  ">
           <div className=" w-full flex flex-row justify-between">
             {/* heading */}
             <div className="w-[25%] flex flex-row  justify-center  border-fuchsia-700 mt-10 p-3 ">
@@ -260,7 +259,7 @@ function Nav() {
 
       {/* DropDown for quiz */}
       {activeTag === "quiz" && (
-        <div className="  z-50 w-full  flex flex-col absolute top-12  bg-[image:var(--color-my-gradient)]  ">
+        <div className="  z-50 w-full  flex flex-col fixed top-12  bg-[image:var(--color-my-gradient)]  ">
           <div className=" w-full flex flex-row justify-between">
             {/* heading */}
             <div className="w-[25%] flex flex-row  justify-center  border-fuchsia-700 mt-10 p-3 ">
