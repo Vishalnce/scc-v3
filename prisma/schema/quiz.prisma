@@ -14,6 +14,8 @@ model Quiz {
 
   createdAt DateTime @default(now())
    comment Comment[]
+
+   rank Rank[]
 }
 
 model Question {
@@ -36,3 +38,5 @@ model Question {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
+
+

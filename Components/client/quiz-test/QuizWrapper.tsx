@@ -92,6 +92,7 @@ export default function QuizSection({
     return (
       <QuizResult
         questions={questions}
+        quizId={quizId}
         topic={topic}
         timeTaken={timeTaken}
         timeLimit={timeLimit}

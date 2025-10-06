@@ -8,8 +8,10 @@ import { RxCrossCircled } from "react-icons/rx";
 import LevelWise from "./LevelWise";
 import MarksCard from "./MarksCard";
 import Explanation from "./Explanation";
+import RankCard from "./RankCard";
 export default function QuizResult({
   questions,
+  quizId,
   answers,
   topic,
   timeTaken,
@@ -17,6 +19,7 @@ export default function QuizResult({
   onRestart,
 }: {
   questions: any[];
+  quizId:number;
   timeTaken: number;
   timeLimit: number;
   topic: string;
@@ -28,7 +31,7 @@ export default function QuizResult({
   return (
     <div className="max-w-[1400px] mx-auto dark:bg-black border-2 py-14">
       {/* Header card */}
-      <MarksCard  questions= {questions} answers = {answers} timeTaken={timeTaken} timeLimit={timeTaken} onRestart= {onRestart}/>
+      <MarksCard  questions= {questions} answers = {answers} timeTaken={timeTaken} timeLimit={timeTaken} onRestart= {onRestart} quizId= {quizId} />
 
       {/* Explanation section */}
 
@@ -37,6 +40,9 @@ export default function QuizResult({
 
       {/* Performance by Level */}
         <LevelWise questions= {questions} answers = {answers}/>
+
+      <RankCard quizId={quizId} />
+
     </div>
   );
 }

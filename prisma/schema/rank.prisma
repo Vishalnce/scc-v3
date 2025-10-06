@@ -1,0 +1,13 @@
+model Rank {
+  rankId String @id @default(uuid())
+  quizId Int
+  quiz   Quiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
+
+  name     String
+  score    Int
+  maxMarks Int
+  timeTaken Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+}
