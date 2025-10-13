@@ -79,9 +79,9 @@ export default function Current() {
 
   return (
     <div className="bg-[image:var(--color-my-gradient)]">
-      <div className="max-w-[1400px] pt-10 flex flex-col mx-auto border-2 w-[90%]  relative">
+      <div className="max-w-[1400px] pt-10 flex flex-col mx-auto  w-[90%]  relative">
         {/* heading */}
-        <header className="flex flex-row justify-between items-center border-2 p-4">
+        <header className="flex flex-row justify-between items-center  p-4">
           <div className="w-[60%]">
             <p className="text-2xl font-bold dark:text-white">
               Check out the Latest Current Affairs
@@ -100,7 +100,7 @@ export default function Current() {
 
         {/* main body */}
         <div
-          className="overflow-hidden border-2 my-12 dark:bg-black"
+          className="overflow-hidden  my-12 dark:bg-black"
           ref={emblaRef}
         >
           <div className="flex">
@@ -111,7 +111,7 @@ export default function Current() {
             ) : (
               affairs.map((item, index) => (
                 <div
-                  className="min-w-[33.333%] max-sm:min-w-[85%] px-2 max-sm:pr-8 border-2"
+                  className="min-w-[33.333%] max-sm:min-w-[85%] px-2 max-sm:pr-8 "
                   key={index}
                 >
                   {/* iimage */}

@@ -732,19 +732,22 @@ export default function ToolbarPlugin({
     [activeEditor],
   );
 
-  const onFontColorSelect = useCallback(
-    (value: string, skipHistoryStack: boolean) => {
-      applyStyleText({color: value}, skipHistoryStack);
-    },
-    [applyStyleText],
-  );
+const onFontColorSelect = useCallback(
+  (value: string, skipHistoryStack: boolean) => {
+    // Apply only text color, not background
+    applyStyleText({ color: value, 'background-color': '' }, skipHistoryStack);
+  },
+  [applyStyleText],
+);
 
-  const onBgColorSelect = useCallback(
-    (value: string, skipHistoryStack: boolean) => {
-      applyStyleText({'background-color': value}, skipHistoryStack);
-    },
-    [applyStyleText],
-  );
+const onBgColorSelect = useCallback(
+  (value: string, skipHistoryStack: boolean) => {
+    // If you want to clear text color when applying background (optional)
+    applyStyleText({ 'background-color': value }, skipHistoryStack);
+  },
+  [applyStyleText],
+);
+
 
   const insertLink = useCallback(() => {
     if (!toolbarState.isLink) {

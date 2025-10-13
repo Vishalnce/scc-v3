@@ -5,7 +5,7 @@ export default function Reason() {
   return (
     <>
       <div className="bg-[#007076]">
-        <div className=" w-[90%]  mx-auto pt-14 pb-8 flex flex-row max-sm:flex-col justify-between border-2 ">
+        <div className=" w-[90%]  mx-auto pt-14 pb-8 flex flex-row max-sm:flex-col justify-between ">
           {/* heading */}
           <div className="w-[30%] max-sm:w-[95%] flex flex-col max-sm:flex-row items-start max-sm:pt-4 pt-8  max-sm:justify-between">
             <p className="text-white text-3xl font-bold max-sm:w-[70%]">

@@ -181,7 +181,7 @@ export default function Quiz() {
               </div>
 
               <div className=" flex flex-row max-sm:flex-col py-4">
-                <div className="w-[40%] max-sm:w-full max-sm:py-2 max-sm:min-h-20 border-2">
+                <div className="w-[40%] max-sm:w-full max-sm:py-2 max-sm:min-h-20 px-2">
                   <p className="text-white max-sm:text-center">{quizData[currentQ].question}</p>
                 </div>
 

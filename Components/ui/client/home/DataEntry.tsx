@@ -18,8 +18,8 @@ export default function DataEntry() {
           </div>
         </div>
 
-           <div className="flex justify-end w-[50%] xl:justify-start ">
-      <button className="bg-[#FFE332] max-lg:py-1.5 max-md:text-xs px-4 max-sm:px-5 rounded-full text-sm">
+           <div className="flex justify-end w-[50%]  ">
+      <button className="bg-[#FFE332] max-lg:py-1.5 max-md:text-xs px-4 py-2 max-sm:px-5 rounded-full text-sm">
         Start Typing
       </button>
     </div>

@@ -1,29 +1,51 @@
 "use client";
-import React from "react";
+
+import React, { useState } from "react";
 import Image from "next/image";
+import { IoClose } from "react-icons/io5";
+import Link from "next/link";
 export default function Hero() {
+  const [smallBanner, setSmallBanner] = useState<boolean>(false);
   return (
     <>
       <div className="bg-[image:var(--color-my-gradient)]">
         {/* samll banner */}
-        <div className="bg-[#2CBB01] flex flex-row justify-center items-center gap-2 py-2  ">
-          <p className="text-center text-[#FFFFFF]  text-sm max-sm:text-[10px] ">
-            Exclusive SSC Test Series that Blends Quality with Affordability!
-          </p>
-          <button className="p-1 px-2 bg-[#FFE332] rounded-full text-xs max-sm:text-[10px] ">
-            Coming soon
+
+        <div
+          className={`relative bg-[#2CBB01] flex items-center justify-center py-2 px-4 ${smallBanner ? "hidden" : ""} }`}
+        >
+          {/* Center text content */}
+          <div className="flex flex-row items-center gap-2">
+            <p className="text-center text-[#FFFFFF] text-sm max-sm:text-[10px]">
+              Exclusive SSC Test Series that Blends Quality with Affordability!
+            </p>
+            <p className="p-1 px-2 bg-[#FFE332] rounded-full text-xs max-sm:text-[10px]">
+              Coming soon
+            </p>
+          </div>
+
+          {/* Close button on right */}
+          <button
+            className="absolute right-1"
+            onClick={() => setSmallBanner(true)}
+          >
+            <IoClose className="text-white text-lg" />
           </button>
         </div>
+
         <div className="max-w-[1400px] flex flex-col  mx-auto">
           {/* main banner */}
 
-          <div className="flex flex-row justify-around  border-2 py-6 sm:py-8 w-[90%] mx-auto max-sm:flex-col">
+          <div className="flex flex-row justify-between   py-6 sm:py-8 w-[90%] mx-auto max-md:flex-col ">
             {/* text section */}
-            <div className="flex flex-col border-2 w-[50%] items-start max-sm:w-full ">
-              <p className="bg-[#FFE332] rounded-full p-2 text-sm py-2 ">
-                New Quizzes and Current Affairs Just Dropped!
-              </p>
-              <h1 className="text-4xl max-sm:text-3xl font-bold dark:text-[#FFFFFF] py-4">
+            <div className="flex flex-col  w-[55%] items-start gap-2 max-sm:w-full ">
+              <div className="">
+                <p className="bg-[#FFE332] rounded-full p-2 text-sm py-2 ">
+                  New Quizzes and Current Affairs Just Dropped!
+                </p>
+              </div>
+
+              <h1 className="text-4xl font-montserrat max-sm:text-3xl font-bold dark:text-[#FFFFFF] pt-2  leading-snug">
                 Conquer the <span className="text-[#007076]">SSC CGL</span> Exam
                 and Secure Your Dream Career!
               </h1>
@@ -32,16 +54,24 @@ export default function Hero() {
                 Quizzes and Exclusive SSC CGL Updates to help you succeed in
                 exam.{" "}
               </p>
-              <div className="flex flex-row gap-2 py-3">
-                <button className="p-2 px-3 border-black border-2 dark:border-white text-sm rounded-full dark:text-white ">
-                  {" "}
-                  See Current Affairs
-                </button>
-                <button className="p-2 px-6 text-sm text-white rounded-full bg-[#007076]">
-                  {" "}
-                  Take Quiz
-                </button>
+
+              {/* button */}
+              <div className="flex flex-row gap-2 py-3 ">
+                <Link href={"/"}>
+                  <button className="p-2 px-3 border-black border-2 dark:border-white text-sm rounded-full dark:text-white ">
+                    {" "}
+                    See Current Affairs
+                  </button>
+                </Link>
+                <Link href={"/"}>
+                  <button className="p-2 px-6 text-sm text-white rounded-full bg-[#007076]">
+                    {" "}
+                    Take Quiz
+                  </button>
+                </Link>
               </div>
+
+              {/* trusted by banner  */}
               <div className="py-4 flex flex-row items-center gap-2">
                 <Image
                   src="/ui/client/home/group.png"
@@ -56,15 +86,13 @@ export default function Hero() {
             </div>
 
             {/* image section */}
-            <div className="w-[40%]  max-sm:w-full relative max-sm:py-4">
-              <div className=" border-2 max-w-[400px] max-h-[450px] ">
+            <div className="w-[40%]  max-sm:w-full relative max-sm:py-4 flex items-stretch">
+              <div className="relative w-full aspect-[450/477]   max-w-[400px] mx-auto ">
                 <Image
                   src="/ui/client/home/girl.png"
                   alt="ssc"
-                  width={0}
-                  height={0}
-                  sizes="100vw"
-                  className="w-full h-auto min-h-[450px]"
+                  fill
+                  className="object-contain border-2"
                 />
               </div>
 
