@@ -1,50 +1,41 @@
-import db from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
+import db from "@/lib/db"; // Your Prisma instance
 
 export async function GET(req: NextRequest) {
+
+  
   const { searchParams } = new URL(req.url);
 
-  const slug = searchParams.get("slug");
-  const page = Number(searchParams.get("page") || 1);
-  const limit = Number(searchParams.get("limit") || 3);
-  const topic = searchParams.get("topic") || undefined;
-  const category = searchParams.get("category") || undefined;
-  const subject = searchParams.get("subject") || undefined;
-  const date = searchParams.get("date") || undefined;
 
-  // fetch single concept
-  if (slug) {
-    const concept = await db.concept.findUnique({ where: { slug } });
-    if (!concept) {
-      return NextResponse.json({ error: "Not found" }, { status: 404 });
+    const page = parseInt(searchParams.get("page") || "1");
+    // 5 changer earlier it was 3
+    const limit = parseInt(searchParams.get("limit") || "5");
+    const topic = searchParams.get("topic");
+    const date = searchParams.get("date");
+
+    const where: any = {};
+
+    if (topic) where.topic = topic;
+    if (date) {
+      const targetDate = new Date(date);
+      const nextDate = new Date(targetDate);
+      nextDate.setDate(nextDate.getDate() + 1);
+
+      where.createdAt = {
+        gte: targetDate,
+        lt: nextDate,
+      };
     }
-    return NextResponse.json(concept);
-  }
 
-  const whereClause: any = {};
-  if (topic) whereClause.topic = topic;
-  if (category) whereClause.category = category;
-  if (subject) whereClause.subject = subject;
-  if (date) {
-    // optional: filter by date
-    const parsedDate = new Date(date);
-    const nextDate = new Date(parsedDate);
-    nextDate.setDate(parsedDate.getDate() + 1);
-    whereClause.createdAt = {
-      gte: parsedDate,
-      lt: nextDate,
-    };
-  }
+    const [posts, totalCount] = await Promise.all([
+      db.concept.findMany({
+        orderBy: { createdAt: "desc" },
+        skip: (page - 1) * limit,
+        take: limit,
+      }),
+      db.post.count({ where }),
+    ]);
 
-  const [concepts, totalCount] = await Promise.all([
-    db.concept.findMany({
-      where: whereClause,
-      skip: (page - 1) * limit,
-      take: limit,
-      orderBy: { createdAt: "desc" },
-    }),
-    db.concept.count({ where: whereClause }),
-  ]);
-
-  return NextResponse.json({ posts: concepts, totalCount });
+    return NextResponse.json({ posts, totalCount,page }, { status: 200 });
+  
 }

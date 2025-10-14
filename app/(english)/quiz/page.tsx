@@ -124,7 +124,7 @@ export default async function Page({
         <div className="w-[90%] dark:bg-[#191919] mx-auto m-6">
           <Link href="/admin/quiz-editor">
             <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
-              Add post
+              Add Quiz
             </button>
           </Link>
         </div>

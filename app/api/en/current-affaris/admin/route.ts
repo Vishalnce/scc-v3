@@ -2,9 +2,17 @@ import { NextRequest, NextResponse } from "next/server";
 
 import db from "@/lib/db";
 
+import { NEXT_AUTH } from "@/lib/auth";
+import { getServerSession } from "next-auth";
+import { requireAdmin } from "@/lib/adminCheck";
+
 // GET handler: Fetch all posts or a single post by `slug`
 export async function GET(req: NextRequest) {
   try {
+    const session = await requireAdmin();
+    if (session instanceof NextResponse) return session;
+
+    
     const url = new URL(req.url);
     const slug = url.searchParams.get("slug");
 
@@ -34,9 +42,12 @@ export async function GET(req: NextRequest) {
   }
 }
 
-// Edit handlere 
+// Edit handlere
 export async function PATCH(req: NextRequest) {
   try {
+
+     const session = await requireAdmin();
+    if (session instanceof NextResponse) return session;
     const body = await req.json();
 
     const updated = await db.post.update({
@@ -51,11 +62,12 @@ export async function PATCH(req: NextRequest) {
   }
 }
 
-
-
 // POST handler: Create a new post
 export async function POST(req: NextRequest) {
   try {
+
+    const session = await requireAdmin();
+    if (session instanceof NextResponse) return session;
     const body = await req.json();
     console.log("🔍 Incoming body:", body);
 
@@ -91,18 +103,22 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true, post });
   } catch (error: any) {
     console.error(" POST error:", error.message || error);
-    return NextResponse.json({ error: error.message || "Internal Server Error" }, { status: 500 });
+    return NextResponse.json(
+      { error: error.message || "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }
 
-
-
-
-
-// delter a post by slug 
+// delter a post by slug
 
 export async function DELETE(req: NextRequest) {
   try {
+
+
+    const session = await requireAdmin();
+    if (session instanceof NextResponse) return session;
+    
     const url = new URL(req.url);
     const slug = url.searchParams.get("slug");
     if (!slug) {
@@ -116,6 +132,9 @@ export async function DELETE(req: NextRequest) {
     return NextResponse.json({ success: true, post });
   } catch (error: any) {
     console.error("DELETE error:", error.message || error);
-    return NextResponse.json({ error: error.message || "Internal Server Error" }, { status: 500 });
+    return NextResponse.json(
+      { error: error.message || "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }

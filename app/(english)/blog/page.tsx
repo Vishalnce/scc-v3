@@ -1,9 +1,15 @@
 import DeleteButton from "@/Components/client/blog/DeleteButton";
 import EditButton from "@/Components/client/blog/EditButton";
 import Filter from "@/Components/client/Filter";
+
+
 import Image from "next/image";
 import Link from "next/link";
 import { FaRegCalendarMinus } from "react-icons/fa6";
+
+
+import NextAuth, { getServerSession } from "next-auth/next";
+import { NEXT_AUTH } from "@/lib/auth"; // your NextAuth config
 
 
 type Post = {
@@ -66,6 +72,10 @@ export default async function Page({
   const { posts, totalCount } = await fetchPosts(page, limit, topic, date);
   const totalPages = Math.ceil(totalCount / limit);
 
+  const session  = await getServerSession(NEXT_AUTH);
+
+ 
+
   return (
     <>
       {/* Header */}
@@ -92,15 +102,16 @@ export default async function Page({
           </div>
         </div>
 
-        {/* Posts */}
+       {/* admin roiute button for adding blog  */}
 
-        <div className="w-[90%] dark:bg-[#191919] mx-auto m-6">
+        { (session?.user?.role === "ADMIN" ? (  <div className="w-[90%] dark:bg-[#191919] mx-auto m-6">
           <Link href="/admin/blog-editor ">
             <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
-              Add post
+              Add Blog
             </button>
           </Link>
-        </div>
+        </div> ) : "") }
+      
 
         {/* post boady */}
         <div className="flex flex-col w-[90%] mx-auto #191919">

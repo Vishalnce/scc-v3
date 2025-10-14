@@ -14,7 +14,6 @@ import ThemeToggle from "@/utils/theme/ThemeToggle";
 import { IoClose } from "react-icons/io5";
 import { RiMenu2Fill } from "react-icons/ri";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { unauthorized } from "next/navigation";
 
 function Nav() {
   const [activeTag, setActiveTag] = useState<string | null>(null);
@@ -214,15 +213,38 @@ function Nav() {
                 </p>
               </Link>
 
-              <p className="p-3 hover:bg-[#E6F1F1] rounded-lg dark:hover:bg-black">
-                {" "}
-                Reasoning & General Intelligence
-              </p>
-              <p className="p-3 hover:bg-[#E6F1F1] rounded-lg dark:hover:bg-black ">
-                English Comprehension{" "}
-              </p>
+              <Link
+                href={{
+                  pathname: "/concept",
+                  query: { category: "pre", subject: "reasoning-general" },
+                }}
+                onClick={() => setActiveTag(null)}
+              >
+                <p className="p-3 hover:bg-[#E6F1F1] rounded-lg dark:hover:bg-black">
+                  {" "}
+                  Reasoning & General Intelligence
+                </p>
+              </Link>
 
-              <Link href={""}>
+              <Link
+                href={{
+                  pathname: "/concept",
+                  query: { category: "pre", subject: "english-comprehension" },
+                }}
+                onClick={() => setActiveTag(null)}
+              >
+                <p className="p-3 hover:bg-[#E6F1F1] rounded-lg dark:hover:bg-black ">
+                  English Comprehension{" "}
+                </p>
+              </Link>
+
+              <Link
+                href={{
+                  pathname: "/concept",
+                  query: { category: "pre", subject: "general-awareness" },
+                }}
+                onClick={() => setActiveTag(null)}
+              >
                 <p className="p-3 hover:bg-[#E6F1F1] rounded-lg dark:hover:bg-black ">
                   General Awareness{" "}
                 </p>
@@ -243,31 +265,81 @@ function Nav() {
             {/* body */}
 
             <div className="w-[60%]  border-red-600 flex flex-row justify-start text-sm text-my-text-color flex-wrap mt-10 gap-x-8 ">
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
-                Mathematical Abilities{" "}
-              </p>
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
-                {" "}
-                Reasoning & General Intelligence
-              </p>
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
-                English Comprehension{" "}
-              </p>
+              <Link
+                href={{
+                  pathname: "/concept",
+                  query: { category: "mains", subject: "mathematics-ability" },
+                }}
+                onClick={() => setActiveTag(null)}
+              >
+                <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
+                  Mathematical Abilities{" "}
+                </p>
+              </Link>
+              <Link
+                href={{
+                  pathname: "/concept",
+                  query: { category: "mains", subject: "reasoning-general" },
+                }}
+                onClick={() => setActiveTag(null)}
+              >
+                <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
+                  {" "}
+                  Reasoning & General Intelligence
+                </p>
+              </Link>
 
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
-                General Awareness{" "}
-              </p>
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
-                Computer Knowledge{" "}
-              </p>
+              <Link
+                href={{
+                  pathname: "/concept",
+                  query: {
+                    category: "mains",
+                    subject: "english-comprehension",
+                  },
+                }}
+                onClick={() => setActiveTag(null)}
+              >
+                <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
+                  English Comprehension{" "}
+                </p>
+              </Link>
 
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
-                Data Entry Speed Test{" "}
-              </p>
+              <Link
+                href={{
+                  pathname: "/concept",
+                  query: {
+                    category: "mains",
+                    subject: "general-awareness",
+                  },
+                }}
+                onClick={() => setActiveTag(null)}
+              >
+                <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
+                  General Awareness{" "}
+                </p>
+              </Link>
 
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
-                PYQs{" "}
-              </p>
+              <Link
+                href={{
+                  pathname: "/concept",
+                  query: {
+                    category: "mains",
+                    subject: "computer-knowledge",
+                  },
+                }}
+                onClick={() => setActiveTag(null)}
+              >
+                <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
+                  Computer Knowledge{" "}
+                </p>
+              </Link>
+
+              <Link href={"/typing-test"}>
+                <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
+                  Data Entry Speed Test{" "}
+                </p>
+              </Link>
+
             </div>
           </div>
         </div>
@@ -300,21 +372,54 @@ function Nav() {
                 </p>
               </Link>
 
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
-                {" "}
-                Reasoning & General Intelligence
-              </p>
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
-                English Comprehension{" "}
-              </p>
+              <Link
+                href={{
+                  pathname: "/quiz",
+                  query: { category: "pre", subject: "reasoning-general" },
+                }}
+                onClick={() => setActiveTag(null)}
+              >
+                <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
+                  {" "}
+                  Reasoning & General Intelligence
+                </p>
+              </Link>
 
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
-                General Awareness{" "}
-              </p>
+              <Link
+                href={{
+                  pathname: "/quiz",
+                  query: { category: "pre", subject: "english-comprehension" },
+                }}
+                onClick={() => setActiveTag(null)}
+              >
+                <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
+                  English Comprehension{" "}
+                </p>
+              </Link>
 
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
-                PYQs{" "}
-              </p>
+              <Link
+                href={{
+                  pathname: "/quiz",
+                  query: { category: "pre", subject: "general-awareness" },
+                }}
+                onClick={() => setActiveTag(null)}
+              >
+                <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
+                  General Awareness{" "}
+                </p>
+              </Link>
+
+              <Link
+                href={{
+                  pathname: "/quiz",
+                  query: { category: "pre", subject: "" },
+                }}
+                onClick={() => setActiveTag(null)}
+              >
+                <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
+                  PYQs{" "}
+                </p>
+              </Link>
             </div>
           </div>
 
@@ -331,28 +436,97 @@ function Nav() {
             {/* body */}
 
             <div className="w-[60%]  border-red-600 flex flex-row justify-start text-sm text-my-text-color flex-wrap mt-10 gap-x-8 ">
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
-                Mathematical Abilities{" "}
-              </p>
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
+              <Link
+                href={{
+                  pathname: "/quiz",
+                  query: {
+                    category: "mains",
+                    subject: "mathematics-ability",
+                  },
+                }}
+                onClick={() => setActiveTag(null)}
+              >
+                <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
+                  Mathematical Abilities{" "}
+                </p>
+              </Link>
+
+              <Link
+                href={{
+                  pathname: "/quiz",
+                  query: {
+                    category: "mains",
+                    subject: "reasoning-general",
+                  },
+                }}
+                onClick={() => setActiveTag(null)}
+              >
+                <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
+                  {" "}
+                  Reasoning & General Intelligence
+                </p>
+              </Link>
+
+              <Link
+                href={{
+                  pathname: "/quiz",
+                  query: {
+                    category: "mains",
+                    subject: "english-comprehension",
+                  },
+                }}
+                onClick={() => setActiveTag(null)}
+              >
+                <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
+                  English Comprehension{" "}
+                </p>
+              </Link>
+
+              <Link
+                href={{
+                  pathname: "/quiz",
+                  query: {
+                    category: "mains",
+                    subject: "general-awareness",
+                  },
+                }}
+                onClick={() => setActiveTag(null)}
+              >
                 {" "}
-                Reasoning & General Intelligence
-              </p>
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
-                English Comprehension{" "}
-              </p>
+                <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
+                  General Awareness{" "}
+                </p>
+              </Link>
 
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
-                General Awareness{" "}
-              </p>
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
-                Computer Knowledge{" "}
-              </p>
 
+              
+              <Link
+                href={{
+                  pathname: "/quiz",
+                  query: {
+                    category: "mains",
+                    subject: "computer-knowledge",
+                  },
+                }}
+                onClick={() => setActiveTag(null)}
+              >
+                {" "}
+                <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
+                 Computer Knowledge{" "}
+                </p>
+              </Link>
+
+
+                <Link href={"/typing test"}>
+                   
               <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
                 Data Entry Speed Test{" "}
               </p>
 
+                </Link>
+
+             
+          
               <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
                 PYQs{" "}
               </p>

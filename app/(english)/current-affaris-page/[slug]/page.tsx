@@ -1,7 +1,7 @@
 import NextPrev from "@/Components/ui/client/current-affaris-page/NextPrev";
 import Image from "next/image";
 import React from "react";
-import QuizWrapper from "@/Components/client/post-quiz/QuizWrapper"
+import QuizWrapper from "@/Components/client/post-quiz/QuizWrapper";
 import CommentWrapper from "@/Components/client/comment/CommentWrapper";
 // Type for the related quiz items
 type QuizPostItem = {
@@ -22,9 +22,9 @@ type Post = {
   description: string;
   editorHtml: string;
   toc: string;
-  timeLimit:number;
+  timeLimit: number;
   createdAt: string;
-   quizposts: QuizPostItem[];
+  quizposts: QuizPostItem[];
 };
 
 type FetchResponse = {
@@ -231,9 +231,6 @@ export default async function CurrentAffarisPage({
     }
   }
 
-
-  console.log("topics",post?.topic)
-
   return (
     <>
       {/* header */}
@@ -328,7 +325,7 @@ export default async function CurrentAffarisPage({
             <div className="border-2 bg-[#FAFCFC] rounded-2xl border-[#E6F1F1] px-4 dark:border-[#E6F1F1] dark:bg-[#313131] py-2 pb-4">
               <div className="">
                 <p className="py-2 font-bold dark:text-white">
-                  Latest Current Affairs
+                  Latest One Liner
                 </p>
               </div>
               <ul className=" marker:text-black space-y-1 dark:marker:text-white text-my-text-color text-sm">
@@ -363,7 +360,6 @@ export default async function CurrentAffarisPage({
               <div
                 dangerouslySetInnerHTML={{ __html: post?.editorHtml || "" }}
               />
-              
             </div>
           </div>
         </div>
@@ -374,15 +370,21 @@ export default async function CurrentAffarisPage({
         prevPost={prevPost}
         pageNumber={pageNumber}
         prevNumber={prevNumber}
+        parentType= "current-affaris-page"
       />
 
       {/* want toadd a componeten that handle quiz from post it is can be fetcher */}
-    {post?.id  &&<QuizWrapper postId={post.id} timeLimit={post.timeLimit} topic={post.topic} />}
+      {post?.id && (
+        <QuizWrapper
+          postId={post.id}
+          timeLimit={post.timeLimit}
+          topic={post.topic}
+        />
+      )}
 
-              {/* //vcurtial typeerror */}
+      {/* //vcurtial typeerror */}
 
-      <CommentWrapper  parentId={post?.id} parentType="postId" />
+      <CommentWrapper parentId={post?.id} parentType="postId" />
     </>
-
   );
 }

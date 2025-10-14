@@ -1,6 +1,8 @@
 import DeleteButton from "@/Components/client/current-affaris/DeleteButton";
 import EditButton from "@/Components/client/current-affaris/EditButton";
 import Filter from "@/Components/client/Filter";
+import { NEXT_AUTH } from "@/lib/auth";
+import { getServerSession } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
 import { FaRegCalendarMinus } from "react-icons/fa6";
@@ -65,7 +67,9 @@ export default async function Page({
 
   const { posts, totalCount } = await fetchPosts(page, limit, topic, date);
   const totalPages = Math.ceil(totalCount / limit);
+  const session  = await getServerSession(NEXT_AUTH);
 
+ 
   return (
     <>
       {/* Header */}
@@ -95,13 +99,15 @@ export default async function Page({
 
         {/* Posts */}
 
-        <div className="w-[90%] dark:bg-[#191919] mx-auto m-6 max-md:hidden">
-          <Link href="/admin/editor ">
+
+            { (session?.user?.role === "ADMIN" ? (   <div className="w-[90%] dark:bg-[#191919] mx-auto m-6 max-md:hidden">
+          <Link href="/admin/current-affaris-editor ">
             <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
-              Add post
+              Add Current Affaris
             </button>
           </Link>
-        </div>
+        </div> ) : "") }
+        
 
         {/* post boady */}
         <div className="flex flex-col w-[90%] mx-auto #191919">

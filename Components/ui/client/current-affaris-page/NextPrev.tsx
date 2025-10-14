@@ -24,13 +24,15 @@ type NextPrevProps = {
   prevPost?: Post | null;
   pageNumber?: number | null;
   prevNumber?:number | null;
+  parentType: "current-affaris-page" | "concept-page" | "blog"
 };
 
 export default function NextPrev({
   nextPost,
   prevPost,
   pageNumber,
-  prevNumber
+  prevNumber,
+  parentType
 }: NextPrevProps) {
 
  
@@ -100,7 +102,7 @@ export default function NextPrev({
         {prevPost ? (
           <Link
             href={{
-              pathname: `/current-affaris-page/${prevPost.slug}`,
+              pathname: `/${parentType}/${prevPost.slug}`,
               query: { page: prevNumber }, // pass your page variable
             }}
             className=" bg-[#FFE332] py-2 px-5 rounded-full  flex flex-row items-center"
@@ -114,7 +116,7 @@ export default function NextPrev({
         {nextPost ? (
           <Link
            href={{
-              pathname: `/current-affaris-page/${nextPost.slug}`,
+              pathname: `/${parentType}/${nextPost.slug}`,
               query: { page: pageNumber }, // pass your page variable
             }}
             className=" bg-[#FFE332] py-2 px-7 rounded-full  flex flex-row items-center"
