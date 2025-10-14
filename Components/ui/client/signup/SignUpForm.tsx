@@ -135,7 +135,7 @@ export default function SignUpForm() {
               </button> */}
 
             <button type="submit" className=" bg-[#FFE332] rounded-3xl py-2">
-              <p className="font-bold">Sign In</p>
+              <p className="font-bold">Sign Up</p>
             </button>
           </div>
         </form>

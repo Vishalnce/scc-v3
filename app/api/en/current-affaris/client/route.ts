@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
 
     const page = parseInt(searchParams.get("page") || "1");
     // 5 changer earlier it was 3
-    const limit = parseInt(searchParams.get("limit") || "3");
+    const limit = parseInt(searchParams.get("limit") || "5");
     const topic = searchParams.get("topic");
     const date = searchParams.get("date");
 

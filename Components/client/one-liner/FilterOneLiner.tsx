@@ -8,7 +8,7 @@ import { useTheme } from "next-themes";
 import Select from "react-select";
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
-
+import Link from "next/link";
 type OptionType = { value: string; label: string };
 
 const options = [
@@ -93,6 +93,12 @@ const FilterOneLiner = () => {
         >
           Submmit
         </button>
+
+         <Link href="/admin/one-liner " className="max-sm:hidden">
+              <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
+                Add post
+              </button>
+            </Link>
       </div>
 
       {/* right side */}

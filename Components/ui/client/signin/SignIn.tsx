@@ -34,7 +34,7 @@ export default function SignIn() {
         {/* Input fields */}
         <div className="flex flex-col items-center justify-center py-8 w-[60%] max-md:w-[90%]">
           <p className="py-2 font-bold text-3xl font-montserrat dark:text-white max-md:text-center max-md:text-2xl">
-            Sign in to SSC ExamLife
+            Login  to SSC ExamLife
           </p>
 
           <div className="flex flex-row items-center gap-8 py-2">
@@ -84,15 +84,15 @@ export default function SignIn() {
               </button>
             </div>
 
-            <button>
+            {/* <button>
               <p className="underline py-2 text-my-text-color">Forgot Your Password</p>
-            </button>
+            </button> */}
 
             <button
               onClick={handleSignIn}
               className="bg-[#FFE332] rounded-3xl py-2"
             >
-              <p className="font-bold">Sign In</p>
+              <p className="font-bold"> Log In</p>
             </button>
           </div>
         </div>
@@ -117,7 +117,7 @@ export default function SignIn() {
               </p>
             </div>
             <button className="border-white border-2 w-[60%] rounded-4xl py-1">
-              <Link href={"/"}>
+              <Link href={"/signup"}>
                 <p className="text-white">Sign Up</p>
               </Link>
             </button>

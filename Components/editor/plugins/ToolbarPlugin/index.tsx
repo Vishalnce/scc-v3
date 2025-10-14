@@ -731,14 +731,22 @@ export default function ToolbarPlugin({
     },
     [activeEditor],
   );
+  
+const DEFAULT_TEXT_COLOR = "#6c6c6c"; // use theme var in real usage
 
 const onFontColorSelect = useCallback(
   (value: string, skipHistoryStack: boolean) => {
-    // Apply only text color, not background
-    applyStyleText({ color: value, 'background-color': '' }, skipHistoryStack);
+    if (!value || value === "#6c6c6c" || value === "default") {
+      // Remove inline color style so CSS class color applies
+      applyStyleText({}, skipHistoryStack);
+    } else {
+      // Apply inline color for any other custom value
+      applyStyleText({ color: value, 'background-color': '' }, skipHistoryStack);
+    }
   },
-  [applyStyleText],
+  [applyStyleText]
 );
+
 
 const onBgColorSelect = useCallback(
   (value: string, skipHistoryStack: boolean) => {

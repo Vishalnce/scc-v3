@@ -46,12 +46,13 @@ export default function SignUp() {
                   </p>
                 </Link>
               </div>
-
-              <button className="border-white border-2 w-[60%] rounded-4xl py-1">
-                <Link href={"/"}>
-                  <p className="text-white">Login </p>
-                </Link>
+            <Link href={"/login"} className="border-white border-2 w-[60%] rounded-4xl py-1">
+              <button className=" w-full">
+                
+                  <p className="text-white pointer">Login </p>
+               
               </button>
+               </Link>
             </div>
           </div>
 

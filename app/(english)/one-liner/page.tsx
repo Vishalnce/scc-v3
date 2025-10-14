@@ -1,7 +1,7 @@
 import DateWise from "@/Components/client/one-liner/DateWise";
 import FilterOneLiner from "@/Components/client/one-liner/FilterOneLiner";
 import React from "react";
-import Link from "next/link";
+
 type postType = {
   id: number;
   content: string;
@@ -45,11 +45,7 @@ export default async function ({
           <FilterOneLiner />
 
           <div className="max-md:hidden">
-            <Link href="/admin/one-liner ">
-              <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
-                Add post
-              </button>
-            </Link>
+           
 
             <p className="bg-[image:var(--color-my-yellow-alert)] dark:text-black max-lg:text-sm px-4 py-2 rounded-4xl text-center">
               New One-Liner Just Dropped!
@@ -59,15 +55,15 @@ export default async function ({
       </div>
 
       {/* Main Section or One-Liner Section */}
-      <div className=" dark:bg-[#191919]  ">
-        <div className="flex flex-row w-[90%] mx-auto border-2 justify-between ">
+      <div className=" dark:bg-[#191919] border-2 py-4">
+        <div className="flex flex-row w-[90%] mx-auto  justify-between ">
           {/* DateWise Section */}
           <div className="w-[25%] ">
             <DateWise />
           </div>
 
           {/* Content Section */}
-          <div className="w-[70%]">
+          <div className="w-[70%] ">
             {/* small heading */}
 
             <div className="flex flex-row justify-between my-4">
@@ -79,13 +75,13 @@ export default async function ({
 
             {/* main content */}
 
-            <div className="">
+            <div className=" ">
               {contents?.map((item: postType) => (
                 <div
                   key={item.id}
-                  className="border-2 m-2 flex flex-row justify-between"
+                  className=" m-2 flex flex-row justify-between  bg-[#FAFCFC]"
                 >
-                  <p className="p-2 bg-[#FAFCFC]">{item.content}</p>
+                  <p className="p-2 ">{item.content}</p>
                 </div>
               )) || <p>No data found</p>}
             </div>

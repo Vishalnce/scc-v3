@@ -38,7 +38,7 @@ export default function Current() {
         const res = await fetch("/api/en/current-affaris/client");
         if (!res.ok) throw new Error("Failed to fetch current affairs");
         const data = await res.json();
-        console.log(data.posts);
+        
         setAffairs(data.posts); // ✅ adjust based on API shape
       } catch (err) {
         console.error(err);
@@ -79,9 +79,9 @@ export default function Current() {
 
   return (
     <div className="bg-[image:var(--color-my-gradient)]">
-      <div className="max-w-[1400px] pt-10 flex flex-col mx-auto  w-[90%]  relative">
+      <div className="max-w-[1400px] pt-8 flex flex-col mx-auto  w-[90%]  relative">
         {/* heading */}
-        <header className="flex flex-row justify-between items-center  p-4">
+        <header className="flex flex-row justify-between items-center  ">
           <div className="w-[60%]">
             <p className="text-2xl font-bold dark:text-white">
               Check out the Latest Current Affairs
@@ -100,7 +100,7 @@ export default function Current() {
 
         {/* main body */}
         <div
-          className="overflow-hidden  my-12 dark:bg-black"
+          className="overflow-hidden  my-8 dark:bg-black  pb-6"
           ref={emblaRef}
         >
           <div className="flex">
@@ -111,12 +111,12 @@ export default function Current() {
             ) : (
               affairs.map((item, index) => (
                 <div
-                  className="min-w-[33.333%] max-sm:min-w-[85%] px-2 max-sm:pr-8 "
+                  className="min-w-[33.333%] max-sm:min-w-[85%] px-2 max-sm:pr-8  "
                   key={index}
                 >
                   {/* iimage */}
 
-                  <div className="w-full h-48 relative">
+                  <div className="w-full h-48 relative shadow-2xl">
                     {" "}
                     {/* parent is relative */}
                     <Image
@@ -129,8 +129,8 @@ export default function Current() {
 
                   {/* boady */}
 
-                  <div className="flex flex-col ">
-                    <div className="flex flex-row justify-between items-center py-2 ">
+                  <div className="flex flex-col rounded-b-2xl shadow-2xl items-stretch px-2 min-h-84 sm:min-h-80 ">
+                    <div className="flex flex-row justify-between items-center py-2 pt-4 ">
                       <div className="text-sm p-2 rounded-full bg-[#FFE332]">
                         Updated
                       </div>
@@ -140,7 +140,7 @@ export default function Current() {
                     </div>
 
                     <div>
-                      <p className="font-bold py-2 dark:text-white">
+                      <p className="font-bold py-2 dark:text-white sm:min-h-22 min-h-24">
                         {item.title}
                       </p>
                     </div>
@@ -152,6 +152,7 @@ export default function Current() {
                       <p className="dark:text-white">Read more</p>
                     </div>
                   </div>
+
                 </div>
               ))
             )}
@@ -171,7 +172,7 @@ export default function Current() {
         <button
           onClick={scrollNext}
           disabled={!canNext}
-          className={`max-sm:hidden  absolute right-2 top-1/2 -translate-y-1/2  
+          className={`max-sm:hidden  absolute right-2 top-1/2  -translate-y-1/2  
           ${canNext ? "bg-white p-3 text-2xl max-sm:p-2 max-sm:text-xl rounded-full text-[#007076]" : "bg-white p-3 text-2xl max-sm:p-2 max-sm:text-xl rounded-full text-[#007076] cursor-not-allowed opacity-50"}`}
         >
           <IoIosArrowForward />

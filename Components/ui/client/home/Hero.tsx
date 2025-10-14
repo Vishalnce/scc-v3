@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { IoClose } from "react-icons/io5";
 import Link from "next/link";
+import { MdArrowOutward } from "react-icons/md";
 export default function Hero() {
   const [smallBanner, setSmallBanner] = useState<boolean>(false);
   return (
@@ -12,24 +13,29 @@ export default function Hero() {
         {/* samll banner */}
 
         <div
-          className={`relative bg-[#2CBB01] flex items-center justify-center py-2 px-4 ${smallBanner ? "hidden" : ""} }`}
+          className={`relative bg-[#2CBB01] max-sm:gap-4 flex items-center justify-center py-2 px-4 ${smallBanner ? "hidden" : ""} }`}
         >
           {/* Center text content */}
-          <div className="flex flex-row items-center gap-2">
-            <p className="text-center text-[#FFFFFF] text-sm max-sm:text-[10px]">
+          <div className="flex flex-row items-center sm:gap-2  ">
+            <p className="text-center text-[#FFFFFF] text-sm max-sm:text-[12px] ">
               Exclusive SSC Test Series that Blends Quality with Affordability!
             </p>
-            <p className="p-1 px-2 bg-[#FFE332] rounded-full text-xs max-sm:text-[10px]">
+            <p className="p-1 px-2 bg-[#FFE332] rounded-full text-xs max-sm:text-[10px] max-sm:hidden  max-sm:text-center">
               Coming soon
             </p>
+            <Link href={"/"}>
+            <MdArrowOutward className=" rounded-2xl  bg-[#FFE332] size-6 text-white sm:hidden" />
+            </Link>
+                 
           </div>
 
           {/* Close button on right */}
           <button
-            className="absolute right-1"
+            className="sm:absolute right-1"
             onClick={() => setSmallBanner(true)}
           >
             <IoClose className="text-white text-lg" />
+       
           </button>
         </div>
 
@@ -38,9 +44,9 @@ export default function Hero() {
 
           <div className="flex flex-row justify-between   py-6 sm:py-8 w-[90%] mx-auto max-md:flex-col ">
             {/* text section */}
-            <div className="flex flex-col  w-[55%] items-start gap-2 max-sm:w-full ">
-              <div className="">
-                <p className="bg-[#FFE332] rounded-full p-2 text-sm py-2 ">
+            <div className="flex flex-col  w-[55%] items-start gap-2 max-sm:w-full  ">
+              <div className="  max-sm:w-full">
+                <p className="bg-[#FFE332] rounded-full p-2 text-sm py-2  max-sm:text-center">
                   New Quizzes and Current Affairs Just Dropped!
                 </p>
               </div>

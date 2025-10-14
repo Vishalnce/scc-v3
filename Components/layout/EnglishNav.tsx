@@ -13,7 +13,8 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import ThemeToggle from "@/utils/theme/ThemeToggle";
 import { IoClose } from "react-icons/io5";
 import { RiMenu2Fill } from "react-icons/ri";
-import { signIn } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
+import { unauthorized } from "next/navigation";
 
 function Nav() {
   const [activeTag, setActiveTag] = useState<string | null>(null);
@@ -21,6 +22,8 @@ function Nav() {
   const [isOpen, setIsOpen] = useState(true);
 
   const [subMenu, setSubMenu] = useState<string | null>(null);
+
+  const { status } = useSession();
 
   const handleClick = (menu: string) => {
     setActiveTag((prev) => (prev === menu ? null : menu));
@@ -57,14 +60,11 @@ function Nav() {
                 className="h-auto w-auto"
               />
             </Link>
-            
           </div>
 
           {/* links */}
           <div className="flex flex-row items-center space-x-8 max-lg:hidden ">
-            <div
-              onClick={() => handleClick("current-affairs")}
-            >
+            <div onClick={() => handleClick("current-affairs")}>
               <div className="flex flex-row items-center justify-center text-my-text-color text-sm hover:text-my-green">
                 <p className="">Current Affairs</p> <IoIosArrowDown />
               </div>
@@ -114,23 +114,37 @@ function Nav() {
             <FaBell className="size-5 " />
 
             <ThemeToggle />
-              <Link href={"/login"}>
+            {status === "authenticated" ? (
+              <div>
+                <button
+                  className="p-0.5 px-4 border-1 rounded-lg bg-my-green text-white max-lg:text-sm max-sm:px-2  "
+                  onClick={() => {
+                    signOut();
+                  }}
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <div className="flex flex-row gap-2">
+                <Link href={"/login"}>
+                  <button
+                    onClick={() => {
+                      signIn();
+                    }}
+                    className="p-0.5 px-4 border-1 rounded-lg max-lg:text-sm max-sm:px-2 "
+                  >
+                    Login
+                  </button>
+                </Link>
 
-               <button
-               onClick={() => {
-                signIn();
-               }}
-               className="p-0.5 px-4 border-1 rounded-lg max-lg:text-sm max-sm:px-2 max-lg:hidden">
-              Login
-            </button>
-              </Link>
-              
-              <Link href={"/signup"}>
-               <button className="p-0.5 px-4 border-1 rounded-lg bg-my-green text-white max-lg:text-sm max-sm:px-2  ">
-              Signup
-            </button>
-              </Link>
-           
+                <Link href={"/signup"}>
+                  <button className="p-0.5 px-4 border-1 rounded-lg bg-my-green text-white max-lg:text-sm max-lg:hidden  ">
+                    Signup
+                  </button>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </nav>
@@ -141,8 +155,11 @@ function Nav() {
           <div className="w-[20%] ml-24  p-2  hover:bg-[#E6F1F1] dark:hover:bg-black rounded-xl">
             <Link href={"/current-affaris"} onClick={() => setActiveTag(null)}>
               <div className="flex flex-row items-center gap-2">
-                <p className=" text-sm text-my-text-color "> Detailed Current Affaris </p>{" "}
-                <MdKeyboardArrowRight className="text-my-text-color"/>
+                <p className=" text-sm text-my-text-color ">
+                  {" "}
+                  Detailed Current Affaris{" "}
+                </p>{" "}
+                <MdKeyboardArrowRight className="text-my-text-color" />
               </div>
 
               <p className="text-my-text-color text-sm py-2">
@@ -152,18 +169,20 @@ function Nav() {
           </div>
 
           <div className="w-[20%] ml-24 mt-2 p-2   hover:bg-[#E6F1F1] dark:hover:bg-black rounded-xl ">
-            <div>
+            <Link href={"/one-liner"} onClick={() => setActiveTag(null)}>
               <div className="flex flex-row items-center gap-2">
-                <p className=" text-sm text-my-text-color "> One Liner Current Affaris </p>{" "}
-                <MdKeyboardArrowRight className="text-my-text-color"/>
+                <p className=" text-sm text-my-text-color ">
+                  {" "}
+                  One Liner Current Affaris{" "}
+                </p>{" "}
+                <MdKeyboardArrowRight className="text-my-text-color" />
               </div>
 
               <p className="text-my-text-color text-sm py-2">
                 Get Full Details here
               </p>
-            </div>
+            </Link>
           </div>
-
         </div>
       )}
 
@@ -187,7 +206,7 @@ function Nav() {
                   pathname: "/concept",
                   query: { category: "pre", subject: "quantitative-apptitude" },
                 }}
-                 onClick={() => setActiveTag(null)}
+                onClick={() => setActiveTag(null)}
               >
                 {" "}
                 <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black  rounded-lg">
@@ -202,15 +221,12 @@ function Nav() {
               <p className="p-3 hover:bg-[#E6F1F1] rounded-lg dark:hover:bg-black ">
                 English Comprehension{" "}
               </p>
-                
-                <Link href={""}>
-                 <p className="p-3 hover:bg-[#E6F1F1] rounded-lg dark:hover:bg-black ">
-                General Awareness{" "}
-              </p>
-                </Link>
-             
 
-              
+              <Link href={""}>
+                <p className="p-3 hover:bg-[#E6F1F1] rounded-lg dark:hover:bg-black ">
+                  General Awareness{" "}
+                </p>
+              </Link>
             </div>
           </div>
 
@@ -272,16 +288,18 @@ function Nav() {
             {/* body */}
 
             <div className="w-[60%]  border-red-600 flex flex-row justify-start text-sm text-my-text-color flex-wrap mt-10 gap-x-8 ">
-               <Link
+              <Link
                 href={{
                   pathname: "/quiz",
                   query: { category: "pre", subject: "quantitative-apptitude" },
                 }}
-                 onClick={() => setActiveTag(null)}
-              ><p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
-                Quantitative Apptitude{" "}
-              </p></Link>
-              
+                onClick={() => setActiveTag(null)}
+              >
+                <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
+                  Quantitative Apptitude{" "}
+                </p>
+              </Link>
+
               <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
                 {" "}
                 Reasoning & General Intelligence

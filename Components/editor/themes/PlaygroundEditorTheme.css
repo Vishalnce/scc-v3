@@ -11,6 +11,11 @@
 
  .PlaygroundEditorTheme__textBase {
   font-family: var(--font-lato), sans-serif;  /* 👈 default = Lato */
+  color: var(--color-my-text-color);
+}
+
+.dark .PlaygroundEditorTheme__textBase {
+  color: var(--color-my-text-color-dark);
 }
 
 .PlaygroundEditorTheme__ltr {
@@ -22,6 +27,7 @@
 .PlaygroundEditorTheme__paragraph {
   margin: 0;
   position: relative;
+  color: var(--color-my-text-color);
 }
 .PlaygroundEditorTheme__quote {
   margin: 0;

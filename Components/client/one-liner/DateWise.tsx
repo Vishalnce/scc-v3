@@ -41,14 +41,14 @@ function DateWise() {
   const last10Dates = getLast10Dates();
 
   return (
-    <div className="w-full bg-[#FAFCFC] border-1 rounded-lg shadow-lg">
+    <div className="w-full bg-[#FAFCFC] border-1 border-[#E6F1F1]  rounded-lg shadow-2xl ">
       <h2 className="text-center font-bold py-4">Date Wise Record</h2>
       <div className="flex flex-col gap-2">
         {last10Dates.map((date) => (
-          <div key={date} className="w-full">
+          <div key={date} className="w-full ">
             <li
               onClick={() => handleClick(date)}
-              className={`text-center py-2 cursor-pointer ${
+              className={` list-inside text-center py-2 cursor-pointer ${
                 selectedDate === date
                   ? "bg-green-500 text-white"
                   : "hover:bg-[#E6F1F1] bg-[#FAFCFC]"
