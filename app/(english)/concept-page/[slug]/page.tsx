@@ -1,5 +1,5 @@
 import CommentWrapper from "@/Components/client/comment/CommentWrapper";
-import NextPrev from "@/Components/ui/client/current-affaris-page/NextPrev";
+import NextPrev from "@/Components/ui/client/nextPrevButton/NextPrev";
 import Image from "next/image";
 import Link from "next/link";
 import { NextResponse } from "next/server";
@@ -188,9 +188,7 @@ export default async function ConceptPage({
   }
 
   if (nextPost == null) {
-    const { posts, page } = await fetchNextConcept(
-      Number(pageNumber) + 1
-    );
+    const { posts, page } = await fetchNextConcept(Number(pageNumber) + 1);
     // console.log(posts)
 
     if (posts.length == 0) {
@@ -208,9 +206,7 @@ export default async function ConceptPage({
     if (pageNumber == 1) {
       prevPost = null;
     } else {
-      const { posts, page } = await fetchNextConcept(
-        Number(pageNumber) - 1
-      );
+      const { posts, page } = await fetchNextConcept(Number(pageNumber) - 1);
       prevPost = posts[2];
       prevNumber = page;
     }
@@ -222,17 +218,11 @@ export default async function ConceptPage({
         <div className="flex flex-col justify-center items-center  min-h-[150px] mx-auto max-w-[1400px] max-sm:w-[90%] text-center">
           <p className="text-sm text-gray-600">
             <span className="hover:underline cursor-pointer text-[#007076]">
-              <Link href={"/"}> 
-                 Home
-              </Link>
-           
+              <Link href={"/"}>Home</Link>
             </span>
             <span className="mx-1 text-[#007076]"> &gt; </span>
             <span className="hover:underline cursor-pointer text-[#007076]">
-              <Link href ="/concept" >
-               Concept
-              </Link>
-             
+              <Link href="/concept">Concept</Link>
             </span>{" "}
             <span className="mx-1 text-[#007076]"> &gt; </span>
             <span className="font-semibold dark:text-white">{post?.title}</span>
@@ -243,7 +233,7 @@ export default async function ConceptPage({
           </h1>
         </div>
       </header>
-      
+
       <div className="bg-white dark:bg-black pt-12">
         <div className="w-[90%]  mx-auto flex flex-row gap-10 justify-between">
           {/*left box   */}
@@ -362,11 +352,6 @@ export default async function ConceptPage({
       />
 
       <CommentWrapper parentId={post?.id} parentType="conceptId" />
-
-
-
-   
-      
     </>
   );
 }

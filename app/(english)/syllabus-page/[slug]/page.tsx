@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { NextResponse } from "next/server";
 import React from "react";
@@ -17,6 +18,11 @@ type Post = {
   createdAt: string;
 };
 
+type FetchResponse = {
+  posts: Post[];
+  page: number;
+};
+
 async function fetchPost(slug: string) {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/syllabus-page/client/${slug}`,
@@ -27,6 +33,52 @@ async function fetchPost(slug: string) {
 
   const post: Post = await res.json();
   return post;
+}
+
+
+// fetch all current affaris by number return posts and current page number
+async function fetchCurrentAffairs(pageNumber: number): Promise<FetchResponse> {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/current-affaris/client/?page=${pageNumber}`,
+      { cache: "no-store" }
+    );
+
+    if (!res.ok) {
+      return { posts: [], page: 1 }; // fallback
+    }
+
+    const raw = await res.json();
+
+    return {
+      posts: raw.posts ?? [],
+      page: raw.page ?? null, // fallback to 1 if API doesn’t send page
+    };
+  } catch (error) {
+    console.log(`error while fetching ${error}`);
+    return { posts: [], page: 1 }; // fallback
+  }
+}
+
+// fetch one line3r
+
+async function fetchOneLiner() {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/one-liner/client/`,
+      { cache: "no-store" }
+    );
+
+    if (!res.ok) return [];
+
+    const raw = await res.json();
+
+    // return only the array inside "contents"
+    return raw.contents;
+  } catch (error) {
+    console.log(`error while fetching ${error}`);
+    return [];
+  }
 }
 
 // genrate metadata for the page
@@ -94,16 +146,17 @@ export default async function CurrentAffarisPage({
 
   const post = await fetchPost(slug);
 
-  console.log("Post fetched:", post);
+   const { posts, page } = await fetchCurrentAffairs(1);
+
+
+     const oneLiner = await fetchOneLiner();
 
   return (
     <>
-
-       <header className="bg-[image:var(--color-my-gradient)] ">
+      <header className="bg-[image:var(--color-my-gradient)] ">
         <div className="flex flex-col justify-center items-center min-h-[150px] mx-auto max-w-[1400px] max-sm:w-[90%] text-center">
           <h1 className="text-3xl font-bold max-sm:text-2xl">
-            Syllabus for <span className="text-my-green">SSC CGL</span>{" "}
-            Success
+            Syllabus for <span className="text-my-green">SSC CGL</span> Success
           </h1>
           <p className="mt-1 text-sm text-my-text-color">
             Stay Ahead with latest syllabus updates and resources
@@ -114,26 +167,134 @@ export default async function CurrentAffarisPage({
       <Link href="/admin/syllabus-editor?slug=syllabus-for-ssc-cgl">
         <button className="bg-green-400 rounded p-2">Edit post </button>
       </Link>
+      <div className="bg-white dark:bg-black pt-12">
+        <div className="w-[90%]  mx-auto flex flex-row gap-10 justify-between">
+          {/* left box  */}
 
-      
+          <div className="w-[30%] flex flex-col gap-4  max-md:hidden ">
+            {/* table of content  */}
+
+            <div className=" border-2 bg-[#FAFCFC]  rounded-2xl border-[#E6F1F1] px-4 dark:border-[#E6F1F1] dark:bg-[#313131] py-2 pb-4">
+              {post?.toc &&
+                (() => {
+                  let h1 = 0,
+                    h2 = 0,
+                    h3 = 0;
+                  return JSON.parse(post.toc).map(
+                    (item: any, index: number) => {
+                      if (item.tag === "h1") {
+                        h1++;
+                        h2 = 0;
+                        h3 = 0;
+                      } else if (item.tag === "h2") {
+                        h2++;
+                        h3 = 0;
+                      } else if (item.tag === "h3") {
+                        h3++;
+                      }
+                      let numbering = "";
+                      if (item.tag === "h1") numbering = `${h1}`;
+                      if (item.tag === "h2") numbering = `${h1}.${h2}`;
+                      if (item.tag === "h3") numbering = `${h1}.${h2}.${h3}`;
+                      let indent = "";
+                      if (item.tag === "h1") indent = " my-3 text-xl";
+                      if (item.tag === "h2") indent = "ml-4 my-2 text-md";
+                      if (item.tag === "h3") indent = "ml-8 my-1 text-sm";
+                      return (
+                        <div key={index} className={indent}>
+                          <a
+                            href={`#${item.id}`}
+                            className="hover:underline text-my-text-color"
+                          >
+                            <p className="">
+                              {" "}
+                              {numbering} {item.text}
+                            </p>
+                          </a>
+                        </div>
+                      );
+                    }
+                  );
+                })()}
+            </div>
+
+            {/* latest current Affaris */}
+            <div className="border-2 bg-[#FAFCFC] rounded-2xl border-[#E6F1F1] px-4 dark:border-[#E6F1F1] dark:bg-[#313131] py-2 pb-4">
+              <div className="">
+                <p className="py-2 font-bold dark:text-white">
+                  Latest Current Affairs
+                </p>
+              </div>
+              <ul className=" marker:text-black dark:marker:text-white space-y-1 text-my-text-color text-sm">
+                {posts.map((post: any) => (
+                  <li key={post.id} className="py-1">
+                    {post.title}
+                  </li>
+                ))}
+              </ul>
+            </div>
+              
+            {/* one liner */}
+
+             <div className="border-2 bg-[#FAFCFC] rounded-2xl border-[#E6F1F1] px-4 dark:border-[#E6F1F1] dark:bg-[#313131] py-2 pb-4">
+              <div className="">
+                <p className="py-2 font-bold dark:text-white">
+                  Latest One Liner
+                </p>
+              </div>
+              <ul className=" marker:text-black space-y-1 dark:marker:text-white text-my-text-color text-sm">
+                {oneLiner.map((post: any) => (
+                  <li key={post.id} className="py-1">
+                    {post.content}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+
+
+          </div>
+
+          {/* right box  */}
+
+          <div className="w-[70%] max-md:w-[90%] max-md:mx-auto ">
+                     {/* <div className="h-[100vh]">
+         
+         
+                     </div> */}
+                     {post && (
+                       <div className="w-full  flex justify-center items-center">
+                         <Image
+                           src={post.image}
+                           alt={post.alt}
+                           width={520}
+                           height={485}
+                           className="object-contain w-full h-auto rounded-2xl"
+                         />
+                       </div>
+                     )}
+         
+                     <div className="px-2 pt-6 text-my-text-color">
+                       <div
+                         dangerouslySetInnerHTML={{ __html: post?.editorHtml || "" }}
+                       />
+                     </div>
+                   </div>
+        </div>
+      </div>
       <div>{post?.title}</div>;
-      
       <div dangerouslySetInnerHTML={{ __html: post?.editorHtml || "" }} />
-
       <div>
-  <h2>Table of Contents</h2>
-  <ul>
-    {post?.toc && JSON.parse(post.toc).map((item: any, index: number) => (
-      <li key={index}>
-        <a href={`#${item.id}`}>{item.text}</a>
-      </li>
-    ))}
-  </ul>
-</div>
-
-
-
-      
+        <h2>Table of Contents</h2>
+        <ul>
+          {post?.toc &&
+            JSON.parse(post.toc).map((item: any, index: number) => (
+              <li key={index}>
+                <a href={`#${item.id}`}>{item.text}</a>
+              </li>
+            ))}
+        </ul>
+      </div>
     </>
   );
 }

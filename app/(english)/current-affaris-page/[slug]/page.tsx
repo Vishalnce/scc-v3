@@ -1,4 +1,4 @@
-import NextPrev from "@/Components/ui/client/current-affaris-page/NextPrev";
+import NextPrev from "@/Components/ui/client/nextPrevButton/NextPrev";
 import Image from "next/image";
 import React from "react";
 import QuizWrapper from "@/Components/client/post-quiz/QuizWrapper";
@@ -370,7 +370,7 @@ export default async function CurrentAffarisPage({
         prevPost={prevPost}
         pageNumber={pageNumber}
         prevNumber={prevNumber}
-        parentType= "current-affaris-page"
+        parentType="current-affaris-page"
       />
 
       {/* want toadd a componeten that handle quiz from post it is can be fetcher */}
