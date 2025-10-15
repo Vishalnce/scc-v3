@@ -67,7 +67,7 @@ export default async function Page({
   const page = Number(params.page) || 1;
   const topic = params.topic;
   const date = params.date;
-  const limit = Number(params.limit) || 3;
+  const limit = Number(params.limit) || 5;
 
   const { posts, totalCount } = await fetchPosts(page, limit, topic, date);
   const totalPages = Math.ceil(totalCount / limit);
@@ -82,11 +82,11 @@ export default async function Page({
       <header className="bg-[image:var(--color-my-gradient)] ">
         <div className="flex flex-col justify-center items-center min-h-[150px] mx-auto max-w-[1400px] max-sm:w-[90%] text-center">
           <h1 className="text-3xl font-bold max-sm:text-2xl">
-            Syllabus for <span className="text-my-green">SSC CGL</span>{" "}
+            Blogs for <span className="text-my-green">SSC CGL</span>{" "}
             Success
           </h1>
           <p className="mt-1 text-sm text-my-text-color">
-            Stay Ahead with latest syllabus updates and resources
+            Stay Ahead with latest blog updates and resources
           </p>
         </div>
       </header>
@@ -114,34 +114,34 @@ export default async function Page({
       
 
         {/* post boady */}
-        <div className="flex flex-col w-[90%] mx-auto #191919">
+        <div className="flex flex-col w-[90%] mx-auto">
           {posts.map((post) => (
             <div
               key={post.id}
-              className="flex flex-row border-2 max-h-[288px] m-3 justify-center dark:bg-[#313131] "
+              className="flex flex-row  rounded-2xl  md:max-h-[288px] m-3 justify-center dark:bg-[#313131] "
             >
               {/* images */}
               <Link
                 href={`/blog-page/${post.slug}`}
-                className="flex flex-row w-full"
+                className="flex flex-row w-full max-md:flex-col"
               >
-                <div className="w-[30%]  relative border-red-600 border-2 m-2">
+                <div className="w-[35%] max-md:w-[90%] max-md:h-[200px] max-md:mx-auto  relative  rounded-xl  m-2  h-[224px]">
                   {post.image && (
                     <Image
                       src={post.image}
                       alt={post.alt || "ssc"}
                       fill
-                      className="object-cover"
+                      className="object-cover rounded-xl"
                     />
                   )}
                 </div>
                 {/* info */}
-                <div className="flex flex-col  w-[60%] m-2 justify-start border-2 ">
-                  <h2 className="text-xl font-bold dark:text-[#FFFFFF]">
+                <div className="flex flex-col  w-[60%] m-2 justify-start   max-md:mx-auto max-md:w-[90%]">
+                  <h2 className="text-xl font-bold dark:text-[#FFFFFF]  min-h-[64px]">
                     {post.title}
                   </h2>
 
-                  <p className="text-my-text-color  mt-3 text-fade">
+                  <p className="text-my-text-color  mt-3  text-fade h-[100px]  overflow-hidden">
                     Summary: {post.summary}
                   </p>
                   {/* nav button */}
@@ -153,7 +153,7 @@ export default async function Page({
                       <p className="font-semibold text-sm  dark:text-[#FFFFFF]">
                         {new Date(post.createdAt).toLocaleDateString("en-US", {
                           day: "2-digit",
-                          month: "long", // 👈 "April"
+                          month: "long", 
                           year: "numeric",
                         })}
                       </p>
@@ -164,7 +164,7 @@ export default async function Page({
 
               {/* edit and delete button */}
 
-              <div className="grid grid-col-1 items-center  justify-center ">
+              <div className="grid grid-col-1 items-center  justify-center max-md:hidden ">
                 <EditButton slug={post.slug} />
 
                 <DeleteButton slug={post.slug} />

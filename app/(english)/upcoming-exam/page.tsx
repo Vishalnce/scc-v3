@@ -21,6 +21,8 @@ type Post = {
   createdAt: string;
 };
 
+
+
 async function fetchPosts(
   page: number = 1,
   limit: number = 3,
@@ -103,46 +105,43 @@ export default async function Page({
         </div>
 
         {/* post boady */}
-        <div className="flex flex-col w-[90%] mx-auto #191919">
+       <div className="flex flex-col w-[90%] mx-auto">
           {posts.map((post) => (
             <div
               key={post.id}
-              className="flex flex-row border-2 max-h-[288px] m-3 justify-center dark:bg-[#313131] "
+              className="flex flex-row  rounded-2xl  md:max-h-[288px] m-3 justify-center dark:bg-[#313131]"
             >
-              {/* images */}
-              <Link
-                href={`/upcoming-exam-page/${post.slug}`}
-                className="flex flex-row w-full"
-              >
-                <div className="w-[30%]  relative border-red-600 border-2 m-2">
+              {/* Image */}
+              <Link href={{
+                pathname :`/upcoming-exam-page/${post.slug}`,
+                 query: { page:page },
+                }} className="flex flex-row w-full max-md:flex-col">
+
+                  {/* images */}
+                <div className="w-[35%] max-md:w-[90%] max-md:h-[200px] max-md:mx-auto  relative  rounded-xl  m-2  h-[224px] ">
                   {post.image && (
                     <Image
                       src={post.image}
                       alt={post.alt || "ssc"}
                       fill
-                      className="object-cover"
+                      className="object-cover rounded-xl"
                     />
                   )}
                 </div>
-                {/* info */}
-                <div className="flex flex-col  w-[60%] m-2 justify-start border-2 ">
-                  <h2 className="text-xl font-bold dark:text-[#FFFFFF]">
-                    {post.title}
-                  </h2>
 
-                  <p className="text-my-text-color  mt-3 text-fade">
-                    Summary: {post.summary}
-                  </p>
-                  {/* nav button */}
+                {/* Info */}
+                <div className="flex flex-col  w-[60%] m-2 justify-start   max-md:mx-auto max-md:w-[90%]">
+                  <h2 className="text-xl font-bold dark:text-[#FFFFFF]  min-h-[64px]">{post.title}</h2>
+                  <p className="text-my-text-color  mt-3  text-fade h-[100px]  overflow-hidden">Summary: {post.summary}</p>
+
                   <div className="flex flex-row justify-between mt-3">
                     <p className="text-sm dark:text-[#FFFFFF]">Read More</p>
-
                     <div className="flex flex-row gap-1">
                       <FaRegCalendarMinus />
                       <p className="font-semibold text-sm  dark:text-[#FFFFFF]">
                         {new Date(post.createdAt).toLocaleDateString("en-US", {
                           day: "2-digit",
-                          month: "long", // 👈 "April"
+                          month: "long",
                           year: "numeric",
                         })}
                       </p>
@@ -151,17 +150,14 @@ export default async function Page({
                 </div>
               </Link>
 
-              {/* edit and delete button */}
-
-              <div className="grid grid-col-1 items-center  justify-center ">
+              {/* Edit & Delete */}
+              <div className="grid grid-col-1 items-center  justify-center max-md:hidden">
                 <EditButton slug={post.slug} />
-
                 <DeleteButton slug={post.slug} />
               </div>
             </div>
           ))}
         </div>
-
         {/* Pagination */}
         <div className="flex  justify-center items-center gap-4 mt-6 mb-8  ">
           <Link

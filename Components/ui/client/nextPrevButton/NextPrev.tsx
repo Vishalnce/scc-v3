@@ -24,7 +24,7 @@ type NextPrevProps = {
   prevPost?: Post | null;
   pageNumber?: number | null;
   prevNumber?:number | null;
-  parentType: "current-affaris-page" | "concept-page" | "blog"
+  parentType: "current-affaris-page" | "concept-page" | "blog-page" | "upcoming-exam-page"
 };
 
 export default function NextPrev({
