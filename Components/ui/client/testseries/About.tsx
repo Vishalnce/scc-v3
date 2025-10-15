@@ -80,7 +80,7 @@ export default function About() {
 
           {/* right card */}
 
-          <div className=" w-[40%] max-md:hidden flex justify-center items-center">
+          <div className="relative w-[40%] max-md:hidden flex justify-center items-center ">
             <Image
               src="/ui/client/test-series/boy.png"
               alt="boy"
