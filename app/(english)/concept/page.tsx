@@ -66,7 +66,7 @@ export default async function Page({
   const category = params.category;
   const subject = params.subject;
   const date = params.date;
-  const limit = Number(params.limit) || 3;
+  const limit = Number(params.limit) || 5;
 
   const { posts, totalCount } = await fetchPosts(page, limit, category, subject, topic, date);
   const totalPages = Math.ceil(totalCount / limit);

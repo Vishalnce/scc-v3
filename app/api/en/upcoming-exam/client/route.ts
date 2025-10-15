@@ -30,7 +30,7 @@ export async function GET(req: NextRequest) {
       skip: (page - 1) * limit,
       take: limit,
     }),
-    db.post.count({ where }),
+    db.exam.count({ where }),
   ]);
 
   return NextResponse.json({ posts, totalCount });
