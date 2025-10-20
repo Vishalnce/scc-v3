@@ -6,7 +6,7 @@ import CommentList from "./CommentList"
 
 type Props = {
   parentId:number | undefined
-  parentType:"postId" | "conceptId" | "quizId" | "blogId";
+  parentType:"postId" | "conceptId" | "quizId" | "blogId" | "linerId";
 }
 
 
@@ -24,9 +24,13 @@ export default function CommentWrapper({parentType,parentId}:Props) {
   return (
 
     <>
+ 
   <CommentForm parentType={parentType} parentId={parentId}  onSuccess={handleRefresh}/>
   <CommentList parentType={parentType} parentId={parentId} key={refreshKey} />
     
+
+
+  
     </>
 
   )

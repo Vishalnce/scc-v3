@@ -67,7 +67,7 @@ export default function About() {
             <div className="self-start max-sm:flex flex-row space-x-6 py-2">
               <Link href="/">
                 <button className="border-2 px-4 py-2 max-sm:text-xs rounded-full dark:border-white dark:text-white  ">
-                  Join Test Series
+                  Free Mock Test
                 </button>
               </Link>
               <Link href="/">

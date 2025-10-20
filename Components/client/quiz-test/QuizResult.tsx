@@ -27,11 +27,11 @@ export default function QuizResult({
   onRestart: () => void;
 }) {
   
-
+  console.log(timeLimit)
   return (
-    <div className="max-w-[1400px] mx-auto dark:bg-black border-2 py-14">
+    <div className="max-w-[1400px] mx-auto dark:bg-black  py-14">
       {/* Header card */}
-      <MarksCard  questions= {questions} answers = {answers} timeTaken={timeTaken} timeLimit={timeTaken} onRestart= {onRestart} quizId= {quizId} />
+      <MarksCard  questions= {questions} answers = {answers} timeTaken={timeTaken} timeLimit={timeLimit} onRestart= {onRestart} quizId= {quizId} />
 
       {/* Explanation section */}
 
@@ -39,8 +39,8 @@ export default function QuizResult({
      
 
       {/* Performance by Level */}
-        <LevelWise questions= {questions} answers = {answers}/>
-
+      <LevelWise questions= {questions} answers = {answers}/>
+        
       <RankCard quizId={quizId} />
 
     </div>

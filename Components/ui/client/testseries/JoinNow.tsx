@@ -52,7 +52,7 @@ export default function JoinNow() {
                   />
                 </div>
                 <div>
-                  <p className="text-white text-xl"> Announcement</p>
+                  <p className="text-white text-xl"> Prelims Test Series</p>
                 </div>
               </div>
 
@@ -91,14 +91,14 @@ export default function JoinNow() {
               <div className="  bg-[#007076] rounded-t-xl flex flex-row items-center justify-center gap-4  py-1 w-full ">
                 <div className="my-auto ">
                   <Image
-                    src={"/ui/client/home/upcoming.svg"}
+                    src={"/ui/client/home/announce.svg"}
                     alt="announcement"
                     width={60}
                     height={60}
                   />
                 </div>
                 <div>
-                  <p className="text-white text-xl"> Upcoming Exam</p>
+                  <p className="text-white text-xl"> Mains Test Series</p>
                 </div>
               </div>
 

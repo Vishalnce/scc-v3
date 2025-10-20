@@ -144,7 +144,7 @@ export default function Current() {
                         {item.title}
                       </p>
                     </div>
-                    <div className="text-fade dark:text-white">
+                    <div className="text-fade dark:text-white ">
                       {item.summary.slice(0, 150)}...
                     </div>
 

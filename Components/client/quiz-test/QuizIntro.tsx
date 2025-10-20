@@ -18,8 +18,9 @@ type IntroProps = {
 export default function QuizIntro({ onStart ,subject, timeLimt,noOfQuestion }:  IntroProps) {
   return (
     <>
-      <div className="max-w-[1400px] mx-auto  w-[90%] py-4">
-        <div className="flex flex-col  justify-between  border-2 mx-auto py-8 bg-[#FAFCFC] border-[#E6F1F1] rounded-2xl  max-sm:px-4 px-12 ">
+    <div className="dark:bg-black">
+<div className="max-w-[1400px] mx-auto  w-[90%] py-4  ">
+        <div className="flex flex-col  justify-between  border-2 mx-auto py-8 bg-[#FAFCFC] dark:bg-[#313131] border-[#E6F1F1] rounded-2xl  max-sm:px-4 px-12 ">
           {/* top heading  */}
           <div className="flex flex-row items-center justify-between w-full   ">
             <div className="  flex flex-col items-start ">
@@ -28,15 +29,15 @@ export default function QuizIntro({ onStart ,subject, timeLimt,noOfQuestion }:  
               </p>
               <div className="flex flex-row gap-4 py-2">
                 {/* time section */}
-                <div className="flex flex-row justify-center items-center  gap-1  px-3 py-1 bg-[#E6F1F1] text-my-text-color rounded-lg">
+                <div className="flex flex-row justify-center items-center  gap-1  px-3 py-1 bg-[#E6F1F1] text-my-text-color dark:bg-black rounded-lg">
 
                   <LuClock3  />
-                  <p className="text-sm">{timeLimt}</p>
+                  <p className="text-sm ">{timeLimt}</p>
                   <p>m</p>
 
                 </div>
 
-                  <div className="  bg-[#E6F1F1] text-my-text-color px-3 py-1  rounded-lg">
+                  <div className="  bg-[#E6F1F1] text-my-text-color px-3 py-1  rounded-lg dark:bg-black">
 
                     <p>Question {noOfQuestion}</p>
 
@@ -47,7 +48,7 @@ export default function QuizIntro({ onStart ,subject, timeLimt,noOfQuestion }:  
             </div>
 
             <div className="max-sm:hidden">
-              <button className="bg-[#2CBB0180] px-6 py-2 rounded-full font-semibold text-sm  ">
+              <button className="bg-[#2CBB0180] px-6 py-2 rounded-full font-semibold text-sm capitalize dark:text-white  ">
                 {subject}
               </button>
             </div>
@@ -78,6 +79,8 @@ export default function QuizIntro({ onStart ,subject, timeLimt,noOfQuestion }:  
           </div>
         </div>
       </div>
+    </div>
+      
 
     
     </>

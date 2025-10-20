@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FiUser } from "react-icons/fi";
 
 type Props = {
-  parentType: "postId" | "conceptId" | "quizId" | "blogId";
+  parentType: "postId" | "conceptId" | "quizId" | "blogId" | "linerId";
   parentId: number | undefined;
 };
 
@@ -52,19 +52,19 @@ export default function CommentList({ parentType, parentId }: Props) {
 
   return (
     <>
-      <div>
-        <div className="w-[90%]  mx-auto py-6 space-y-5">
+      <div className="dark:bg-black">
+        <div className="w-[95%]  mx-auto py-6 space-y-5">
           {/* individual card  */}
 
           {comments
             ? comments.map((item, index) => (
-                <div key={index} className="w-full flex flex-row border-2 bg-[#FAFCFC] border-[#E6F1F1] px-4 gap-4 py-6 rounded-2xl">
+                <div key={index} className="w-full flex flex-row border-2 bg-[#FAFCFC] dark:bg-[#313131] border-[#E6F1F1] px-4 gap-4 py-2 rounded-2xl">
                   <div className="">
                     <FiUser className="p-2 bg-[#007076] size-10 text-white rounded-full" />
                   </div>
 
-                  <div className="flex flex-col">
-                    <p className="font-bold text-xl">{item.name} </p>
+                  <div className="flex flex-col ">
+                    <p className="font-bold text-xl dark:text-white">{item.name} </p>
 
                     <p className="text-my-text-color py-1"> {item.content}</p>
                   </div>

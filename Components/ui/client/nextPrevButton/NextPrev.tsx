@@ -71,7 +71,7 @@ export default function NextPrev({
     <>
 
      <div className="bg-white dark:bg-black">
-<div className="border-2 w-[90%] mx-auto pt-12 flex flex-row justify-between items-center py-5 dark:bg-black max-md:flex-col max-md:gap-6">
+<div className=" w-[90%] mx-auto pt-12 flex flex-row justify-between items-center py-5 dark:bg-black max-md:flex-col max-md:gap-6">
       {/* share button */}
 
       <div className="flex flex-row justify-center items-center gap-3 ">

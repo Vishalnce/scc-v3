@@ -339,7 +339,7 @@ export default async function CurrentAffarisPage({
           </div>
 
           {/* right box  */}
-          <div className="w-[70%] max-md:w-[90%] max-md:mx-auto ">
+          <div className="w-[70%] max-md:w-[100%] max-md:mx-auto   ">
             {/* <div className="h-[100vh]">
 
 
@@ -356,7 +356,7 @@ export default async function CurrentAffarisPage({
               </div>
             )}
 
-            <div className="px-2 pt-6 text-my-text-color">
+            <div className="sm:px-2 pt-6 text-my-text-color max-sm:text-xl  max-sm:w-[100%] mt-8 rounded-2xl dark:bg-[#313131] border-white border-2 px-2">
               <div
                 dangerouslySetInnerHTML={{ __html: post?.editorHtml || "" }}
               />

@@ -70,7 +70,7 @@ const FilterOneLiner = () => {
         <div className="relative w-[160px]">
           <DatePicker
           isClearable
-            className="w-full pl-8 pr-4 py-2 text-md border-2 rounded-full bg-transparent placeholder:text-[#6C6C6C] dark:placeholder:text-[#C2C2C2] focus:outline-none focus:ring-0"
+            className="w-full pl-8 pr-4 py-2 text-md border-2 rounded-full bg-transparent dark:border-white placeholder:text-[#6C6C6C] dark:placeholder:text-[#C2C2C2] focus:outline-none focus:ring-0"
             selected={date}
             onChange={handleDateChange}
             closeOnScroll={false}

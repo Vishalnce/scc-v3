@@ -4,6 +4,8 @@ import Filter from "@/Components/client/concept/Filter";
 import Image from "next/image";
 import Link from "next/link";
 import { FaRegCalendarMinus } from "react-icons/fa6";
+import { getServerSession } from "next-auth";
+import { NEXT_AUTH } from "@/lib/auth";
 
 type Post = {
   id: number;
@@ -77,9 +79,9 @@ export default async function Page({
   );
   const totalPages = Math.ceil(totalCount / limit);
 
-  console.log("Posts:", posts);
 
 
+ const session  = await getServerSession(NEXT_AUTH);
 
   // Subject Images Map
 
@@ -121,13 +123,15 @@ export default async function Page({
       
 
         {/* Add Post Button */}
-        <div className="w-[90%] dark:bg-[#191919] mx-auto m-6">
+
+         { (session?.user?.role === "ADMIN" ? (   <div className="w-[90%] dark:bg-[#191919] mx-auto m-6">
           <Link href="/admin/quiz-editor">
             <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
               Add Quiz
             </button>
           </Link>
-        </div>
+        </div> ) : "") }
+       
 
         {/* Post List */}
         <div className="flex flex-col w-[90%] mx-auto">
@@ -141,7 +145,7 @@ export default async function Page({
                   pathname: `/quiz-test/${post.id}`,
                   // query: { page:page }, // pass your page variable here
                 }}
-                className="flex flex-row w-full justify-center max-md:flex-col bg-[#FAFCFC] border-2 border-[#E6F1F1] rounded-2xl py-4 px-4 "
+                className="flex flex-row w-full justify-center max-md:flex-col bg-[#FAFCFC] border-2 border-[#E6F1F1] rounded-2xl py-4 px-4 dark:bg-[#313131] "
               >
                 {/* images */}
                 <div className="   rounded-xl  m-2   ">
@@ -170,9 +174,9 @@ export default async function Page({
                   <div className="flex flex-row justify-between mt-3 ">
                     <p className="text-sm dark:text-[#FFFFFF] px-4 py-2 bg-[#007076] rounded-full text-white">Start Quiz</p>
 
-                    <div className="flex flex-row gap-1">
-                      <FaRegCalendarMinus />
-                      <p className="font-semibold text-sm  dark:text-[#FFFFFF]">
+                    <div className="flex flex-row gap-1 ">
+                      <FaRegCalendarMinus className="max-sm:my-auto dark:text-my-text-color" />
+                      <p className="font-semibold text-sm max-sm:my-auto dark:text-[#FFFFFF]">
                         {new Date(post.createdAt).toLocaleDateString("en-US", {
                           day: "2-digit",
                           month: "long", // 👈 "April"
@@ -186,11 +190,14 @@ export default async function Page({
 
               {/* edit and delete button */}
 
-              <div className="grid grid-col-1 items-center  justify-center max-md:hidden ">
+                          
+         { (session?.user?.role === "ADMIN" ? (  <div className="grid grid-col-1 items-center  justify-center max-md:hidden ">
                 <EditButton id={post.id} />
 
                 <DeleteButton id={post.id} />
-              </div>
+              </div> ) : "") }
+       
+              
             </div>
           ))}
         </div>

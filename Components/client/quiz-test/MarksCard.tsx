@@ -10,8 +10,8 @@ import { useEffect } from "react";
 type Props = {
   questions: any;
   answers: any;
-  timeTaken: any;
-  timeLimit: any;
+  timeTaken: number;
+  timeLimit: number;
   quizId: number;
   onRestart: () => void;
 };
@@ -47,7 +47,7 @@ export default function MarksCard({
 
     return { totalMarks, correctMarks, incorrectMarks };
   };
-
+ console.log("sdkfb iusdjf" , timeLimit)
   const { data, status } = useSession();
   const { totalMarks, correctMarks, incorrectMarks } = calculateScore();
   // Calculate overall stats
@@ -174,12 +174,7 @@ export default function MarksCard({
             <p className="text-lg"> Time Duration: {timeLimit} m</p>
           </div>
 
-          {/* <div className="p-6">
-                <h2 className="text-xl font-bold">Your Result</h2>
-                <p>Total Score: {totalMarks}</p>
-                <p>Correct Marks: {correctMarks}</p>
-                <p>Negative Marks: {incorrectMarks}</p>
-              </div> */}
+       
         </div>
 
         {/* report card */}

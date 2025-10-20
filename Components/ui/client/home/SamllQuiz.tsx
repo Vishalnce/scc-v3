@@ -185,7 +185,7 @@ export default function Quiz() {
                   <p className="text-white max-sm:text-center">{quizData[currentQ].question}</p>
                 </div>
 
-                <div className="w-[70%] max-sm:py-2 max-sm:w-full grid grid-cols-2 gap-6 ">
+                <div className="w-[70%] max-sm:py-2 max-sm:w-full grid grid-cols-2 max-sm:grid-cols-1 gap-6 px-2  ">
                   {quizData[currentQ].options.map((option, index) => {
                     const isSelected = selected === option;
                     const isAnswer = option === quizData[currentQ].answer;
@@ -200,7 +200,7 @@ export default function Quiz() {
                         onClick={() => handleOptionClick(option)}
                         disabled={!!selected}
                         className={`
-                          flex items-center justify-between py-2 px-2 border-2 rounded-full text-left transition w-full
+                          flex items-center justify-between py-2 px-2 rounded-full text-left transition w-full border-2
                           ${
                             correctOpt || showCorrect
                               ? "bg-[#2CBB0126] text-white"

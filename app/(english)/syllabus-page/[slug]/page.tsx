@@ -1,3 +1,5 @@
+import { NEXT_AUTH } from "@/lib/auth";
+import { getServerSession } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
 import { NextResponse } from "next/server";
@@ -150,7 +152,7 @@ export default async function CurrentAffarisPage({
 
 
      const oneLiner = await fetchOneLiner();
-
+    const session = await getServerSession(NEXT_AUTH)
   return (
     <>
       <header className="bg-[image:var(--color-my-gradient)] ">
@@ -164,9 +166,16 @@ export default async function CurrentAffarisPage({
         </div>
       </header>
       {/* for edit post  */}
-      <Link href="/admin/syllabus-editor?slug=syllabus-for-ssc-cgl">
-        <button className="bg-green-400 rounded p-2">Edit post </button>
-      </Link>
+
+      
+         { (session?.user?.role === "ADMIN" ? (   <div className="w-[90%] dark:bg-[#191919] mx-auto m-6">
+          <Link href="/admin/syllabus-editor?slug=syllabus-for-ssc-cgl">
+            <button className="bg-my-green rounded p-2 text-white">
+             Edit Syllabus            </button>
+          </Link>
+        </div> ) : "") }
+       
+      
       <div className="bg-white dark:bg-black pt-12">
         <div className="w-[90%]  mx-auto flex flex-row gap-10 justify-between">
           {/* left box  */}
@@ -282,7 +291,7 @@ export default async function CurrentAffarisPage({
                    </div>
         </div>
       </div>
-      <div>{post?.title}</div>;
+      {/* <div>{post?.title}</div>;
       <div dangerouslySetInnerHTML={{ __html: post?.editorHtml || "" }} />
       <div>
         <h2>Table of Contents</h2>
@@ -294,7 +303,7 @@ export default async function CurrentAffarisPage({
               </li>
             ))}
         </ul>
-      </div>
+      </div> */}
     </>
   );
 }

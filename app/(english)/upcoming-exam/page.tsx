@@ -4,6 +4,8 @@ import Filter from "@/Components/client/Filter";
 import Image from "next/image";
 import Link from "next/link";
 import { FaRegCalendarMinus } from "react-icons/fa6";
+import { getServerSession } from "next-auth";
+import { NEXT_AUTH } from "@/lib/auth";
 
 
 type Post = {
@@ -67,13 +69,13 @@ export default async function Page({
 
   const { posts, totalCount } = await fetchPosts(page, limit, topic, date);
   const totalPages = Math.ceil(totalCount / limit);
-
+  const session =await getServerSession(NEXT_AUTH)
   return (
     <>
       {/* Header */}
       <header className="bg-[image:var(--color-my-gradient)] ">
         <div className="flex flex-col justify-center items-center min-h-[150px] mx-auto max-w-[1400px] max-sm:w-[90%] text-center">
-          <h1 className="text-3xl font-bold max-sm:text-2xl">
+          <h1 className="text-3xl font-bold max-sm:text-2xl ">
             Upcomning Exam for <span className="text-my-green">SSC CGL</span>{" "}
             Success
           </h1>
@@ -89,20 +91,22 @@ export default async function Page({
           <Filter />
           <div className="max-md:hidden">
             <p className="bg-[image:var(--color-my-yellow-alert)] dark:text-black max-lg:text-sm px-4 py-2 rounded-4xl text-center">
-              New Current Affairs Just Dropped!
+              Check Upcoming Exams
             </p>
           </div>
         </div>
 
         {/* Posts */}
 
-        <div className="w-[90%] dark:bg-[#191919] mx-auto m-6">
+      { (session?.user?.role === "ADMIN" ? (  <div className="w-[90%] dark:bg-[#191919] mx-auto m-6">
           <Link href="/admin/upcoming-exam-editor ">
             <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
-              Add post
+              Add Upcoming Exam
             </button>
           </Link>
-        </div>
+        </div> ) : "") }
+        
+        
 
         {/* post boady */}
        <div className="flex flex-col w-[90%] mx-auto">
@@ -137,7 +141,7 @@ export default async function Page({
                   <div className="flex flex-row justify-between mt-3">
                     <p className="text-sm dark:text-[#FFFFFF]">Read More</p>
                     <div className="flex flex-row gap-1">
-                      <FaRegCalendarMinus />
+                      <FaRegCalendarMinus className="dark:text-my-text-color" />
                       <p className="font-semibold text-sm  dark:text-[#FFFFFF]">
                         {new Date(post.createdAt).toLocaleDateString("en-US", {
                           day: "2-digit",
@@ -151,10 +155,14 @@ export default async function Page({
               </Link>
 
               {/* Edit & Delete */}
-              <div className="grid grid-col-1 items-center  justify-center max-md:hidden">
+
+
+               { (session?.user?.role === "ADMIN" ? ( <div className="grid grid-col-1 items-center  justify-center max-md:hidden">
                 <EditButton slug={post.slug} />
                 <DeleteButton slug={post.slug} />
-              </div>
+              </div> ) : "") }
+        
+              
             </div>
           ))}
         </div>

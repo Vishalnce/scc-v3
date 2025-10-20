@@ -6,7 +6,6 @@ import { getServerSession } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
 import { FaRegCalendarMinus } from "react-icons/fa6";
-import { MdDelete, MdEdit } from "react-icons/md";
 
 type Post = {
   id: number;
@@ -75,8 +74,8 @@ export default async function Page({
       {/* Header */}
       <header className="bg-[image:var(--color-my-gradient)] ">
         <div className="flex flex-col justify-center items-center min-h-[150px] mx-auto max-w-[1400px] max-sm:w-[90%] text-center">
-          <h1 className="text-3xl font-bold max-sm:text-2xl">
-            Current Affairs for <span className="text-my-green">SSC CGL</span>{" "}
+          <h1 className="text-3xl font-bold max-sm:text-2xl  ">
+            Current Affairs for <span className="text-my-green dark:text-my-green">SSC CGL</span>{" "}
             Success
           </h1>
           <p className="mt-1 text-sm text-my-text-color">
@@ -149,7 +148,7 @@ export default async function Page({
                     <p className="text-sm dark:text-[#FFFFFF]">Read More</p>
 
                     <div className="flex flex-row gap-1">
-                      <FaRegCalendarMinus />
+                      <FaRegCalendarMinus className="dark:text-my-text-color" />
                       <p className="font-semibold text-sm  dark:text-[#FFFFFF]">
                         {new Date(post.createdAt).toLocaleDateString("en-US", {
                           day: "2-digit",
@@ -163,12 +162,13 @@ export default async function Page({
               </Link>
 
               {/* edit and delete button */}
-
-              <div className="grid grid-col-1 items-center  justify-center max-md:hidden ">
+                  
+            { (session?.user?.role === "ADMIN" ? (    <div className="grid grid-col-1 items-center  justify-center max-md:hidden ">
                 <EditButton slug={post.slug} />
 
                 <DeleteButton slug={post.slug} />
-              </div>
+              </div> ) : "") }
+             
             </div>
           ))}
         </div>

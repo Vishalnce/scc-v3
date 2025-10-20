@@ -6,7 +6,7 @@ import React, { useRef, useState } from "react";
 import { FaRegCommentDots } from "react-icons/fa";
 
 type Props = {
-  parentType: "postId" | "conceptId" | "quizId" | "blogId";
+  parentType: "postId" | "conceptId" | "quizId" | "blogId" | "linerId";
   parentId: number | undefined;
   onSuccess: () => void;
 };
@@ -23,6 +23,7 @@ export default function CommentForm({
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   async function handleSubmit() {
+
     try {
       if (!parentId) return;
 
@@ -63,13 +64,13 @@ export default function CommentForm({
 
   return (
     <>
-      <div className="bg-white ">
-        <div className="w-[90%] mx-auto  flex flex-col border-2 border-[#E6F1F1] bg-[#FAFCFC] rounded-2xl px-2">
+      <div className="bg-white dark:bg-black pt-4  ">
+        <div className="w-[95%] mx-auto  flex flex-col border-2 border-[#E6F1F1] bg-[#FAFCFC] dark:bg-[#313131] dark:border-[#E6F1F1] rounded-2xl px-2">
           {/* icon and heading */}
 
           <div className="flex flex-row   gap-3 py-4">
             <FaRegCommentDots className="my-auto size-8 text-[#007076] " />
-            <p className="font-montserrat font-bold text-2xl"> Comments</p>
+            <p className="font-montserrat font-bold text-2xl dark:text-white"> Comments</p>
           </div>
 
           {/* inpur box and form  */}
@@ -78,14 +79,14 @@ export default function CommentForm({
             <textarea
               rows={4}
               placeholder="Write your comment here..."
-              className="py-2 border-2 rounded-2xl bg-white text-my-text-color focus:outline-none  px-2 border-none"
+              className="py-2 border-2 rounded-2xl bg-white text-my-text-color focus:outline-none  px-2 border-none dark:bg-[#313131]"
               ref={contentRef}
             />
 
             <div className="">
               <button
                 onClick={handleSubmit}
-                className="px-4 py-2 bg-[#007076]  rounded-full text-white border-2"
+                className="px-4 py-2 bg-[#007076]  rounded-full text-white border-2 border-[#007076]"
               >
                 Submmit
               </button>

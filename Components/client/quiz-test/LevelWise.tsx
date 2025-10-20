@@ -54,7 +54,7 @@ export default function LevelWise({ questions, answers }: Props) {
 
           <div className="flex flex-col py-4">
             {/* Header */}
-            <div className="flex flex-row justify-between py-2 text-sm  text-center bg-[#E6F1F1] dark:bg-gray-700 font-bold px-4 rounded-t-2xl">
+            <div className="flex flex-row justify-between py-2 max-sm:text-sm  text-center bg-[#E6F1F1] dark:bg-gray-700 font-bold px-4 rounded-t-2xl text-lg">
               <p className="w-[20%]">Level</p>
               <p className="w-[20%]">Total </p>
               <p className="w-[20%]">Attempt</p>

@@ -49,7 +49,7 @@ export default function QuizQuestion({
   onFinish: (answers: { questionId: string; answer: number | null }[]) => void;
 }) {
   const [current, setCurrent] = useState(0);
-
+ 
   const [answers, setAnswers] = useState<
     { questionId: string; answer: number | null }[]
   >(questions.map((q) => ({ questionId: q.id, answer: null })));
@@ -107,7 +107,7 @@ export default function QuizQuestion({
   answersRef.current = answers; // always have latest answers
   const startTimeRef = useRef<number>(Date.now());
   const q: quiz = questions[current];
-  console.log("saiufdhidsu", q);
+  
   const handleSelect = (optionIndex: number) => {
     setAnswers((prev) => {
       const copy = [...prev];
@@ -165,15 +165,15 @@ export default function QuizQuestion({
   return (
     <>
       <div className=" dark:bg-black ">
-        <div className="w-[95%] mx-auto flex flex-row max-sm:flex-col-reverse justify-between border-2  ">
+        <div className="w-[95%] py-10 max-sm:py-2 mx-auto flex flex-row max-sm:flex-col-reverse justify-between  ">
           {/* Left div of questiona and option  */}
 
-          <div className="flex flex-col justify-start items-center  w-[65%] max-sm:w-full  ">
+          <div className="flex flex-col justify-start items-center  w-[65%] max-sm:w-full dark:bg-[#313131] border-2  bg-[#FAFCFC] border-[#E6F1F1] rounded-2xl max-sm:pb-4">
             {/* top heaeding */}
-            <div className=" border-2 flex flex-row justify-around items-center gap-12 w-full max-sm:py-4 max-sm:mt-4">
+            <div className=" py-3 flex flex-row justify-around items-center gap-12 w-full max-sm:py-4 max-sm:mt-4">
               {/* timer and marks */}
               <div className="flex flex-row justify-between items-center  w-[42%] ">
-                <div className="flex flex-row justify-between items-center -mt-8  ">
+                <div className="flex flex-row justify-between items-center -mt-14 max-sm:-mt-24 ">
                   <div
                     className="  min-w-[60px]  bg-white py-1  "
                     style={{
@@ -210,18 +210,18 @@ export default function QuizQuestion({
               </div>
             </div>
 
-            <div className="border-2 w-full flex flex-row justify-between items-stretch h-full">
+            <div className=" w-full flex flex-row justify-between items-stretch h-full">
               {/* question and options  */}
 
               <div className="flex flex-col justify-between items-start   flex-1  ">
                 {/* question  */}
 
-                <div className="w-full px-4  min-h-[40vh] py-3 flex flex-row justify-between gap-2 border-2 max-sm:flex-col ">
-                  <p className={`font-bold dark:text-white border-2 ${q.questionImage? " w-[55%] max-sm:w-full" : "null" } `}>{q.questionText}</p>
+                <div className={`w-full px-4   ${q.questionImage? "min-h-[40vh]" : "min-h-[30vh]" } py-3 flex flex-row justify-between gap-2  max-sm:flex-col `}>
+                  <p className={`font-bold dark:text-white  ${q.questionImage? " w-[55%] max-sm:w-full" : "null" } `}>{q.questionText}</p>
 
                   {/* image have to fixed size */}
                   {q.questionImage ? (
-                    <div className="relative  max-w-[400px] w-[40%] max-sm:w-full aspect-[16/9]  border-2 border-pink-500">
+                    <div className="relative  max-w-[400px] w-[40%] max-sm:w-full aspect-[16/9]  ">
                       <Image
                         src={q.questionImage.toString()}
                         alt="question image"
@@ -234,8 +234,8 @@ export default function QuizQuestion({
 
                 {/* option */}
 
-                <div className="flex flex-row justify-between items-stretch border-2 border-red-300 w-full px-4 ">
-                  <div className={`max-sm:py-2 max-sm:w-full   mx-auto gap-6 w-full  py-4 ${q.options[0]?.image ? "flex flex-wrap justify-between " : "grid grid-cols-2"}`}>
+                <div className="flex flex-row justify-between items-stretch  w-full px-4 ">
+                  <div className={`max-sm:py-2 max-sm:w-full   mx-auto gap-6 w-full  py-4 ${q.options[0]?.image ? "flex flex-wrap justify-between " : "grid grid-cols-2 max-sm:grid-cols-1"}`}>
                     {q.options.map(
                       (opt: { text: string; image: string }, idx: number) =>
                         opt.text ? (
@@ -261,7 +261,7 @@ export default function QuizQuestion({
                           </button>
                         ) : (
                           <div
-                            className="relative  max-w-[400px] w-[40%] aspect-[16/9]  hover:cursor-pointer border-2 border-[#6C6C6C] "
+                            className="relative  max-w-[400px] w-[40%] aspect-[16/9]  hover:cursor-pointer   "
                             key={idx}
                             onClick={() => handleSelect(idx)}
                           >
@@ -271,7 +271,7 @@ export default function QuizQuestion({
                               fill
                               className={`object-contain ${
                                 answers[current].answer === idx
-                                  ? "border-4 border-[#6C6C6C] "
+                                  ? "border-4 border-[#6C6C6C] dark:border-white "
                                   : ""
                               }`}
                             />
@@ -286,9 +286,9 @@ export default function QuizQuestion({
 
           {/* right div of question and option */}
 
-          <div className="border-2 border-red-500 w-[32%] self-stretch flex flex-col  max-sm:w-full  ">
+          <div className=" dark:border-white dark:bg-[#313131] rounded-2xl w-[32%] self-stretch flex flex-col  max-sm:w-full px-2 py-2 max-sm:mb-10 border-2 max-sm:mt-4 bg-[#FAFCFC] border-[#E6F1F1]">
             {/* Timer and SubTopics */}
-            <div className="border-2 flex flex-row  justify-between items-center pb-3 ">
+            <div className=" flex flex-row  justify-between items-center pb-3 dark:text-white">
               <CountdownTimer
                 minutes={timeLimit}
                 onFinish={handleTimerFinish}
@@ -296,7 +296,7 @@ export default function QuizQuestion({
               />
 
               <div className=" flex items-end ">
-                <button className="px-4 py-2 bg-[#95DC7F]  rounded-full text-sm">
+                <button className="px-4 py-2 bg-[#95DC7F]  rounded-full text-sm dark:text-black capitalize">
                   {topic}
                 </button>
               </div>
@@ -305,7 +305,7 @@ export default function QuizQuestion({
             {/* navigation  */}
 
             <div className=" h-full  overflow-y-auto  ">
-              <div className="flex flex-row sm:flex-wrap overflow-x-auto sm:justify-center items-center gap-3 border-2 ">
+              <div className="flex flex-row sm:flex-wrap overflow-x-auto sm:justify-center items-center gap-3  ">
                 {Array.from({ length: questions.length }, (_, idx) => {
                   const m = mark[idx]; // status of this question
 
@@ -313,9 +313,9 @@ export default function QuizQuestion({
                     <div key={idx}>
                       <button
                         onClick={() => handleOnClick(idx)}
-                        className={`px-4 py-2 min-w-[50px] border border-[#6C6C6C] rounded
-                          ${m.notVisited ? "" : m.answered ? "bg-[#2CBB01] text-white" : "bg-[#FF0000] text-white"}
-                             // highlight current question
+                        className={`px-4 py-2 min-w-[50px] border-1 border-[#C2C2C2] dark:text-white rounded
+                          ${m.notVisited ? "" : m.answered ? "bg-[#2CBB01] dark:border-[#2CBB01] text-white" : "bg-[#FF0000] dark:border-[#FF0000]   text-white"}
+                             
                            `}
                       >
                         {idx + 1}
@@ -329,35 +329,35 @@ export default function QuizQuestion({
         </div>
 
         {/* navigation box  */}
-        <div className="w-[95%] mx-auto flex flex-row  justify-between  mt-4 border-2 max-sm:flex-col-reverse">
+        <div className="w-[95%] mx-auto flex flex-row  justify-between   max-sm:flex-col-reverse bg-[#FAFCFC] border-2 border-[#E6F1F1] rounded-2xl dark:bg-black ">
           {/* left box  */}
 
-          <div className="border-2 w-[65%] max-sm:w-full flex flex-row justify-between items-center px-2 py-2">
+          <div className=" w-[65%] max-sm:w-full flex flex-row justify-between items-center px-2 py-2">
             <div className="flex flex-row items-center gap-2">
               <button className="px-4 py-2  min-w-[50px] rounded bg-[#2CBB01] text-white">
                 {counts.answered}
               </button>
-              <p className="max-sm:hidden">Answer</p>
+              <p className="max-sm:hidden dark:text-[#C2C2C2]">Answer</p>
             </div>
 
             <div className="flex flex-row items-center gap-2">
               <button className="px-4 py-2  min-w-[50px]  rounded bg-[#FF0000] text-white">
                 {counts.notAnswered}
               </button>
-              <p className="max-sm:hidden">Not Answer</p>
+              <p className="max-sm:hidden dark:text-[#C2C2C2]">Not Answer</p>
             </div>
 
             <div className="flex flex-row items-center gap-2">
-              <button className="px-4 py-2  min-w-[50px] border-1  rounded bg-white text-black">
+              <button className="px-4 py-2  min-w-[50px] border-1  rounded bg-white dark:bg-black  dark:text-[#C2C2C2] border-[#C2C2C2]">
                 {counts.notVisited}
               </button>
-              <p  className="max-sm:hidden">Not Visted</p>
+              <p  className="max-sm:hidden dark:text-[#C2C2C2]">Not Visted</p>
             </div>
           </div>
 
           {/* rightbox  */}
 
-          <div className="border-2 w-[32%] max-sm:w-full flex flex-row justify-between items-center py-2 px-2">
+          <div className=" w-[32%] max-sm:w-full flex flex-row justify-between items-center py-2 px-2">
             <button
               onClick={handlePrev}
               disabled={current === 0}
@@ -384,104 +384,7 @@ export default function QuizQuestion({
         </div>
       </div>
 
-      {/*  <div className=" dark:bg-black pb-14 pt-20 ">
-        <div className=" w-[90%] py-4 dark:bg-[#313131] bg-[#FAFCFC] rounded-2xl mx-auto px-6 ">
-           question number and timer 
-          <div className="flex flex-row justify-between items-center  w-[90%] mx-auto -mt-10">
-            <div
-              className="  min-w-[60px]  bg-white py-1  "
-              style={{
-                boxShadow:
-                  "0 4px 10px rgba(0,0,0,0.25), 0 8px 20px rgba(0,0,0,0.15)",
-              }}
-            >
-              <p className="font-montserrat font-bold text-3xl max-sm:text-2xl shadow-black/80 text-[#007076] text-center">
-                {current < 10 ? "0" + Number(current+1) : current}
-              </p>
-            </div>
 
-            <div>
-              <CountdownTimer
-                minutes={timeLimit}
-                onFinish={handleTimerFinish}
-                setTimeTaken={setTimeTaken}
-              />
-            </div>
-          </div>
-
-          {/* question  and topics 
-
-          <div className="flex flex-row justify-between items-start min-h-[20vh]   mt-6 ">
-            <div className="w-[60%] ">
-              <p className="font-bold dark:text-white">{q.questionText}</p>
-            </div>
-
-            <div className=" flex items-end ">
-              <button className="px-4 py-2 bg-[#FFE332]  rounded-full text-sm">
-                {topic}
-              </button>
-            </div>
-          </div>
-
-          {/* question and buttons 
-          <div className="flex flex-row justify-between items-stretch  border-red-300">
-         
-
-            <div className="max-sm:py-2 max-sm:w-full grid grid-cols-2 gap-6 w-[60%] ">
-              {q.options.map((opt: { text: string }, idx: number) => (
-                <button
-                  key={idx}
-                  onClick={() => handleSelect(idx)}
-                  className={`px-3 py-3 border dark:border-white rounded-full flex flex-row justify-between `}
-                >
-                  <p className="text-my-text-color max-lg:text-sm">
-                    {opt.text}
-                  </p>
-
-                  <div className=" my-auto">
-                    <FaRegCircle
-                      size="22"
-                      className={`text-my-text-color rounded-full ${
-                        answers[current].answer === idx
-                          ? "bg-[#6C6C6C]"
-                          : ""
-                      } `}
-                    />
-                  </div>
-                </button>
-              ))}
-            </div>
-
-            {/* right box  
-            <div className=" w-[30%] flex flex-col justify-end">
-              <div className="flex flex-row justify-between gap-2">
-                <button
-                  onClick={handlePrev}
-                  disabled={current === 0}
-                  className="bg-[#FFE332] py-2 px-4 rounded-full  flex flex-row items-center disabled:opacity-50 pl-2"
-                >
-                  <MdKeyboardArrowLeft className="my-auto size-6" /> Prev
-                </button>
-
-                <button
-                  onClick={handleNext}
-                  disabled={current === questions.length - 1}
-                  className="bg-[#FFE332] py-2 px-4 rounded-full  flex flex-row items-center disabled:opacity-50 pr-2"
-                >
-                  Next <MdKeyboardArrowRight className="my-auto size-6" />
-                </button>
-
-                <button
-                  onClick={handleSubmit}
-                  className="px-4 py-2  rounded-full bg-[#007076] text-white"
-                >
-                  Submit
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>  */}
     </>
   );
 }
