@@ -15,16 +15,22 @@ function DateWise() {
     setSelectedDate(currentSelectedDate);
   }, [currentSelectedDate]);
 
-  const getLast10Dates = () => {
+const getLast10Dates = () => {
     const dates: string[] = [];
     const today = new Date();
     for (let i = 0; i < 10; i++) {
       const date = new Date();
       date.setDate(today.getDate() - i);
-      dates.push(date.toISOString().split("T")[0]); // Format: YYYY-MM-DD
+
+      // ✅ Format: DD-MM-YYYY
+      const day = String(date.getDate()).padStart(2, "0");
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const year = date.getFullYear();
+      dates.push(`${day}-${month}-${year}`);
     }
     return dates;
   };
+
 
   const handleClick = (date: string) => {
     if (selectedDate === date) {

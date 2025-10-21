@@ -49,7 +49,7 @@ const FilterOneLiner = () => {
   const handleSubmit = () => {
     const params = new URLSearchParams();
     if (date) {
-      const formattedDate = format(date, "yyyy-MM-dd");
+      const formattedDate = format(date, "dd-MM-yyyy" );
       params.set("date", formattedDate);
       console.log(formattedDate); // ✅ formatted date
     }
@@ -70,7 +70,7 @@ const FilterOneLiner = () => {
         <div className="relative w-[160px]">
           <DatePicker
           isClearable
-            className="w-full pl-8 pr-4 py-2 text-md border-2 rounded-full bg-transparent dark:border-white placeholder:text-[#6C6C6C] dark:placeholder:text-[#C2C2C2] focus:outline-none focus:ring-0"
+            className="w-full pl-8 pr-4 py-2 text-md border-2 rounded-full bg-transparent dark:border-white placeholder:text-[#6C6C6C] dark:placeholder:text-[#C2C2C2] focus:outline-none focus:ring-0 dark:text-white"
             selected={date}
             onChange={handleDateChange}
             closeOnScroll={false}
@@ -81,7 +81,7 @@ const FilterOneLiner = () => {
             scrollableYearDropdown
             calendarClassName="z-50 "
           />
-          <FiCalendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-600 pointer-events-none" />
+          <FiCalendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-600 pointer-events-none dark:text-white" />
         </div>
 
         
