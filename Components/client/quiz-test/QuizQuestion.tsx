@@ -165,7 +165,7 @@ export default function QuizQuestion({
   return (
     <>
       <div className=" dark:bg-black ">
-        <div className="w-[95%] py-10 max-sm:py-2 mx-auto flex flex-row max-sm:flex-col-reverse justify-between  ">
+        <div className="w-[90%] py-10 max-sm:py-2 mx-auto flex flex-row max-sm:flex-col-reverse justify-between  ">
           {/* Left div of questiona and option  */}
 
           <div className="flex flex-col justify-start items-center  w-[65%] max-sm:w-full dark:bg-[#313131] border-2  bg-[#FAFCFC] border-[#E6F1F1] rounded-2xl max-sm:pb-4">
@@ -261,7 +261,7 @@ export default function QuizQuestion({
                           </button>
                         ) : (
                           <div
-                            className="relative  max-w-[400px] w-[40%] aspect-[16/9]  hover:cursor-pointer   "
+                            className="relative  max-w-[400px] w-[40%] aspect-[16/9]  hover:cursor-pointer    "
                             key={idx}
                             onClick={() => handleSelect(idx)}
                           >
@@ -329,7 +329,7 @@ export default function QuizQuestion({
         </div>
 
         {/* navigation box  */}
-        <div className="w-[95%] mx-auto flex flex-row  justify-between   max-sm:flex-col-reverse bg-[#FAFCFC] border-2 border-[#E6F1F1] rounded-2xl dark:bg-black ">
+        <div className="w-[90%] mx-auto flex flex-row  justify-between   max-sm:flex-col-reverse bg-[#FAFCFC] border-2 border-[#E6F1F1] rounded-2xl dark:bg-black ">
           {/* left box  */}
 
           <div className=" w-[65%] max-sm:w-full flex flex-row justify-between items-center px-2 py-2">

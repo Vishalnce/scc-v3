@@ -24,13 +24,13 @@ export default function Explanation({ questions, answers, topic }: Props) {
 
   if (userAnswerIndex === correctAnswerIndex) {
     marksEarned = q.marksPositive ?? 0;
-    status = "✅ Correct";
+    status = " Correct";
   } else if (userAnswerIndex == null) {
     marksEarned = 0;
-    status = "⚪ Not Attempted";
+    status = " Not Attempted";
   } else {
     marksEarned = q.marksNegative ?? 0;
-    status = "❌ Incorrect";
+    status = " Incorrect";
   }
 
   const handlePrev = () => {
@@ -45,16 +45,16 @@ export default function Explanation({ questions, answers, topic }: Props) {
   };
 
   const handleSelect = (optionIndex: number) => {};
-  console.log(questions)
+  console.log(questions);
   return (
     <>
-      <div className="max-sm:w-[100%] w-[95%]  dark:bg-[#313131]  rounded-2xl mx-auto px-6 mt-14  ">
+      <div className="max-sm:w-[100%] w-[95%]    rounded-2xl mx-auto px-6 mt-14  ">
         {/* vi qwuestrion asn wer  */}
 
         <div className="w-full mx-auto flex flex-row max-sm:flex-col-reverse justify-between   ">
           {/* Left div  */}
 
-          <div className="flex flex-col border-2 border-[#E6F1F1] justify-start items-center  w-[65%] max-sm:w-full  max-sm:mt-6 rounded-2xl">
+          <div className="flex flex-col border-2 border-[#E6F1F1] justify-start items-center  w-[65%] max-sm:w-full  max-sm:mt-6 rounded-2xl dark:bg-[#313131]">
             {/* top heaeding */}
             <div className="  flex flex-row justify-around items-center gap-12 w-full py-2">
               {/* timer and marks */}
@@ -159,10 +159,10 @@ export default function Explanation({ questions, answers, topic }: Props) {
                             onClick={() => handleSelect(idx)}
                             className={`relative max-w-[400px] w-[40%] aspect-[16/9]  rounded-xl overflow-hidden hover:cursor-pointer transition-all duration-200 ${
                               correctAnswerIndex === idx
-                                ? "border-[#2CBB01] border-3" 
+                                ? "border-[#2CBB01] border-3"
                                 : userAnswerIndex === idx
-                                  ? "border-[#FF0000] border-3" 
-                                  : "" 
+                                  ? "border-[#FF0000] border-3"
+                                  : ""
                             }`}
                           >
                             <Image
@@ -182,7 +182,7 @@ export default function Explanation({ questions, answers, topic }: Props) {
 
           {/* right div */}
 
-          <div className=" w-[32%] sm:self-stretch max-sm:w-full flex flex-col border-2 rounded-2xl border-[#E6F1F1]  ">
+          <div className=" w-[32%] sm:self-stretch max-sm:w-full flex flex-col border-2 rounded-2xl border-[#E6F1F1]  dark:bg-[#313131] ">
             {/* topic and navigation */}
             <div className=" flex flex-row  justify-between items-center pb-3 px-4 py-4">
               <div className=" flex items-end ">
@@ -209,7 +209,7 @@ export default function Explanation({ questions, answers, topic }: Props) {
                   } else if (userAnswer != null) {
                     statusClass = "bg-[#FF0000] text-white";
                   } else {
-                    statusClass = "bg-white";
+                    statusClass = "bg-white dark:bg-[#313131]";
                   }
 
                   return (
@@ -231,7 +231,7 @@ export default function Explanation({ questions, answers, topic }: Props) {
         <div className="w-full mx-auto flex flex-row sm:justify-end  py-6 ">
           {/* rightbox  */}
 
-          <div className="border-2 rounded-2xl border-[#E6F1F1] w-[32%] max-sm:w-full flex flex-row justify-between items-center py-2 px-2">
+          <div className="border-2 rounded-2xl border-[#E6F1F1] w-[32%] max-sm:w-full flex flex-row justify-between items-center py-2 px-2 dark:bg-[#313131]">
             <button
               onClick={handlePrev}
               disabled={current === 0}
@@ -254,71 +254,97 @@ export default function Explanation({ questions, answers, topic }: Props) {
       {/* detail explanation  */}
 
       {/* Correct & User Chosen Answer */}
-<div className="w-[90%] py-4 dark:bg-[#313131] bg-[#FAFCFC] rounded-2xl mx-auto px-6 border-2 border-[#E6F1F1]">
-  <div className="flex flex-col gap-4">
-    {/* Correct Answer */}
-    <div className="flex flex-col dark:text-white font-bold">
-      <span>Correct Answer:</span>
-      {q.options[correctAnswerIndex]?.image ? (
-        <div className="relative max-w-[250px] aspect-[16/9] rounded-xl overflow-hidden border-2 border-green-600">
-          <Image
-            src={q.options[correctAnswerIndex].image.toString()}
-            alt="Correct answer image"
-            fill
-            className="object-contain"
-          />
-        </div>
-      ) : (
-        <span className="italic text-gray-500">
-          {q.options[correctAnswerIndex]?.text || "No answer available"}
-        </span>
-      )}
-    </div>
+      <div className="w-[90%] py-4 dark:bg-[#313131] bg-[#FAFCFC] rounded-2xl mx-auto px-6 border-2 border-[#E6F1F1]">
+        <div className={`flex flex-col  gap-4 `}>
+          {/* Correct Answer */}
+          <div className="flex flex-row items-center gap-3 dark:text-white font-bold">
+            <span>Correct Answer:</span>
+            {q.options[correctAnswerIndex]?.image ? (
+              <div className="relative w-[250px] max-sm:w-[220px] h-[140px] rounded-xl overflow-hidden border-2 border-green-600 flex-shrink-0">
+                <Image
+                  src={q.options[correctAnswerIndex].image.toString()}
+                  alt="Correct answer image"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+            ) : (
+              <span className="italic text-gray-500">
+                {q.options[correctAnswerIndex]?.text || "No answer available"}
+              </span>
+            )}
+          </div>
 
-    {/* User's Chosen Answer */}
-    <div className="flex flex-col dark:text-white font-bold">
-      <span>Your Chosen Answer:</span>
-      {userAnswerIndex == null ? (
-        <span className="italic text-gray-500">Not Attempted</span>
-      ) : q.options[userAnswerIndex - 1]?.image ? (
-        <div
-          className={`relative max-w-[250px] aspect-[16/9] rounded-xl overflow-hidden border-2 ${
-            userAnswerIndex === q.correctOption ? "border-green-600" : "border-red-600"
-          }`}
-        >
-          <Image
-            src={q.options[userAnswerIndex - 1].image.toString()}
-            alt="User chosen answer image"
-            fill
-            className="object-contain"
-          />
-        </div>
-      ) : (
-        <span
-          className={userAnswerIndex === q.correctOption ? "text-green-600" : "text-red-600"}
-        >
-          {q.options[userAnswerIndex - 1]?.text || "No answer available"}
-        </span>
-      )}
-    </div>
-  </div>
+          {/* User's Chosen Answer */}
+          <div className="flex flex-row items-center gap-3 dark:text-white font-bold">
+            <span>Your Chosen Answer:</span>
 
-  {/* Explanation Section - KEEP AS IS */}
-  <div className="py-4">
-    <p className="dark:text-white">Explanation: {q.solutionText}</p>
-    {q.solutionImage ? (
-      <div className="relative max-w-[400px] w-[40%] max-sm:w-full aspect-[16/9] border-2 border-pink-500">
-        <Image
-          src={q.solutionImage.toString()}
-          alt="solution image"
-          fill
-          className="object-contain"
-        />
+            {userAnswerIndex == null ? (
+              <span className="italic text-gray-500">Not Attempted</span>
+            ) : q.options[userAnswerIndex]?.image ? (
+              <div
+                className={`relative w-[250px] max-sm:w-[220px] h-[140px] rounded-xl overflow-hidden border-2 flex-shrink-0 ${
+                  userAnswerIndex === correctAnswerIndex
+                    ? "border-green-600"
+                    : "border-red-600"
+                }`}
+              >
+                <Image
+                  src={q.options[userAnswerIndex].image.toString()}
+                  alt="User chosen answer image"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+            ) : (
+              <span
+                className={
+                  userAnswerIndex === correctAnswerIndex
+                    ? "text-green-600"
+                    : "text-red-600"
+                }
+              >
+                {q.options[userAnswerIndex]?.text || "No answer available"}
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* Explanation Section - KEEP AS IS */}
+        <div className="py-4">
+          <p className="dark:text-white text-lg">Explanation: {q.solutionText}</p>
+          {q.solutionImage ? (
+            <div className="relative max-w-[400px] w-[40%] max-sm:w-full aspect-[16/9] ">
+              <Image
+                src={q.solutionImage.toString()}
+                alt="solution image"
+                fill
+                className="object-contain"
+              />
+            </div>
+          ) : null}
+        </div>
       </div>
-    ) : null}
-  </div>
+
+      {/* 
+      <div className="flex flex-row items-center gap-3 dark:text-white font-bold">
+  <span>Correct Answer:</span>
+  {q.options[correctAnswerIndex]?.image ? (
+    <Image
+      src={q.options[correctAnswerIndex].image.toString()}
+      alt="Correct answer image"
+      width={250}
+      height={140}
+      className="rounded-xl border-2 border-green-600 object-contain flex-shrink-0"
+    />
+  ) : (
+    <span className="italic text-gray-500">
+      {q.options[correctAnswerIndex]?.text || "No answer available"}
+    </span>
+  )}
 </div>
 
+      */}
     </>
   );
 }

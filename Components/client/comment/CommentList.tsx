@@ -53,7 +53,7 @@ export default function CommentList({ parentType, parentId }: Props) {
   return (
     <>
       <div className="dark:bg-black">
-        <div className="w-[95%]  mx-auto py-6 space-y-5">
+        <div className="w-[90%]  mx-auto py-6 space-y-5">
           {/* individual card  */}
 
           {comments

@@ -65,7 +65,7 @@ export default function CommentForm({
   return (
     <>
       <div className="bg-white dark:bg-black pt-4  ">
-        <div className="w-[95%] mx-auto  flex flex-col border-2 border-[#E6F1F1] bg-[#FAFCFC] dark:bg-[#313131] dark:border-[#E6F1F1] rounded-2xl px-2">
+        <div className="w-[90%] mx-auto  flex flex-col border-2 border-[#E6F1F1] bg-[#FAFCFC] dark:bg-[#313131] dark:border-[#E6F1F1] rounded-2xl px-2">
           {/* icon and heading */}
 
           <div className="flex flex-row   gap-3 py-4">

@@ -48,11 +48,11 @@ export default function RankCard({ quizId }: RankProps) {
   return (
     <>
       <div className=" mx-auto w-[90%] ">
-        <p className="font-bold text-lg text-center">Quiz Rank Card</p>
+        <p className="font-bold text-lg text-center dark:text-white">Quiz Rank Card</p>
 
-        <div className="flex flex-col  py-4 ">
+        <div className="flex flex-col  dark:border-2 dark:border-white rounded-2xl">
           {/* heading */}
-          <div className="flex flex-row justify-between  py-2 text-lg text-center bg-[#E6F1F1] font-bold px-4 rounded-t-2xl ">
+          <div className="flex flex-row justify-between  py-2 text-lg text-center bg-[#E6F1F1] font-bold px-4 rounded-t-2xl dark:text-white dark:bg-[#191919] ">
             <p className="w-[20%] ">Position</p>
             <p className="w-[20%] ">Name</p>
             <p className="w-[20%]">Duration</p>
@@ -61,7 +61,7 @@ export default function RankCard({ quizId }: RankProps) {
 
           {/* boady */}
 
-          <div className=" flex flex-col gap-2 text-center max-h-[120px] overflow-y-auto py-2">
+          <div className=" flex flex-col gap-2 text-center max-h-[120px] overflow-y-auto py-2 dark:bg-[#313131] rounded-b-2xl dark:text-white ">
             {ranks.map((rank, index) => {
               const rankImage =
                 index === 0
@@ -111,7 +111,7 @@ export default function RankCard({ quizId }: RankProps) {
            {/* instruction */}
           <div className="flex flex-row  gap-2">
             <FaStar className="text-[#FFE332] my-auto" />
-            <p>Rank will be displayed only for your first attempt. </p>
+            <p className="dark:text-white">Rank will be displayed only for your first attempt. </p>
           </div>
       </div>
     </>

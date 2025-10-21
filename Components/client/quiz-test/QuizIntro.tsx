@@ -58,7 +58,7 @@ export default function QuizIntro({ onStart ,subject, timeLimt,noOfQuestion }:  
 
           <div className="  flex flex-row max-sm:flex-col gap-4 justify-between pt-6 pb-4">
             <div className="">
-              <p className="font-bold">Intructions</p>
+              <p className="font-bold dark:text-white">Intructions</p>
               <ul className=" space-y-2 text-my-text-color">
                 <li>Click "Start Quiz" to begin.</li>
                 <li>Negative marking is applicable, so choose wisely</li>

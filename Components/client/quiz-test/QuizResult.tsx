@@ -29,7 +29,7 @@ export default function QuizResult({
   
   console.log(timeLimit)
   return (
-    <div className="max-w-[1400px] mx-auto dark:bg-black  py-14">
+    <div className="max-w-[1400px] mx-auto dark:bg-black  sm:py-14 pt-14 pb-4 ">
       {/* Header card */}
       <MarksCard  questions= {questions} answers = {answers} timeTaken={timeTaken} timeLimit={timeLimit} onRestart= {onRestart} quizId= {quizId} />
 

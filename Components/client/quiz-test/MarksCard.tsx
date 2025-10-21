@@ -7,6 +7,8 @@ import { FaRegCircle } from "react-icons/fa";
 import { IoCheckmarkCircleOutline } from "react-icons/io5";
 import { RxCrossCircled } from "react-icons/rx";
 import { useEffect } from "react";
+import { GoClock } from "react-icons/go";
+import { CiStopwatch } from "react-icons/ci";
 type Props = {
   questions: any;
   answers: any;
@@ -47,7 +49,7 @@ export default function MarksCard({
 
     return { totalMarks, correctMarks, incorrectMarks };
   };
- console.log("sdkfb iusdjf" , timeLimit)
+
   const { data, status } = useSession();
   const { totalMarks, correctMarks, incorrectMarks } = calculateScore();
   // Calculate overall stats
@@ -149,14 +151,9 @@ export default function MarksCard({
         </div>
 
         <div className="flex flex-row max-sm:flex-col gap-4 items-center justify-center ">
-          <div className="flex flex-row gap-1">
-            <Image
-              src="/typing-test/icons/taken.svg"
-              alt="typing-test"
-              width={24}
-              height={24}
-            />
-            <p className="text-lg">
+          <div className="flex flex-row gap-1  dark:text-white">
+            <CiStopwatch className="size-7 my-auto " />
+            <p className="text-lg ">
               Time Taken:{" "}
               {Number(timeTaken) < 60
                 ? `${Number(timeTaken).toFixed(2)} seconds`
@@ -164,13 +161,8 @@ export default function MarksCard({
             </p>
           </div>
 
-          <div className="flex flex-row gap-1 ">
-            <Image
-              src="/typing-test/icons/taken.svg"
-              alt="typing-test"
-              width={24}
-              height={24}
-            />
+          <div className="flex flex-row gap-1 dark:text-white ">
+              <GoClock className="size-6 my-auto " />
             <p className="text-lg"> Time Duration: {timeLimit} m</p>
           </div>
 
@@ -178,9 +170,9 @@ export default function MarksCard({
         </div>
 
         {/* report card */}
-        <div className="w-[90%] mx-auto flex flex-row max-sm:flex-col justify-around items-center py-8">
+        <div className="w-[90%] mx-auto flex flex-row max-sm:flex-col justify-around items-center py-8 max-sm:gap-4">
           {/* left div  */}
-          <div className="w-[35%] flex flex-col px-2 gap-1 bg-white rounded-2xl py-2  max-sm:w-full ">
+          <div className="w-[35%] flex flex-col px-4 gap-1 bg-white rounded-2xl py-2  max-sm:w-full dark:bg-black dark:text-white ">
             <div className="flex flex-row justify-between items-center py-1">
               <div className="flex flex-row  gap-1">
                 <FaRegCircle className="my-auto   size-5" /> <p>Total Marks</p>
@@ -208,7 +200,7 @@ export default function MarksCard({
           </div>
           {/* right div  */}
 
-          <div className="w-[35%] px-2 py-2 flex flex-col gap-1   bg-white rounded-2xl max-sm:w-full ">
+          <div className="w-[35%] px-2 py-2 flex flex-col gap-1   bg-white rounded-2xl max-sm:w-full dark:bg-black dark:text-white ">
             <div className="flex flex-row justify-between items-center">
               <div className="flex flex-row justify-between items-center  py-1">
                 <div className="flex flex-row gap-1 ">
@@ -227,7 +219,7 @@ export default function MarksCard({
               <p>{incorrectCount}</p>
             </div>
             <div className="flex flex-row justify-between items-center  py-1">
-              <div className="flex flex-row gap-1 ">
+              <div className="flex flex-row gap-2 ">
                 <FaRegCircle className="my-auto  bg-[#6C6C6C]  size-5 rounded-full text-[#6C6C6C]" />{" "}
                 <p>Not Attempted</p>
               </div>

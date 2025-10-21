@@ -49,12 +49,12 @@ export default function LevelWise({ questions, answers }: Props) {
           Level wise Performance Report Card
         </h2>
 
-        <div className="mx-auto w-full max-sm:w-full">
-          <p className="font-bold text-lg text-center">Performance by Level</p>
+        <div className="mx-auto w-full max-sm:w-full space-y-4 ">
+          <p className="font-bold text-lg text-center dark:text-white">Performance by Level</p>
 
-          <div className="flex flex-col py-4">
+          <div className="flex flex-col rounded-2xl dark:border-2 border-white">
             {/* Header */}
-            <div className="flex flex-row justify-between py-2 max-sm:text-sm  text-center bg-[#E6F1F1] dark:bg-gray-700 font-bold px-4 rounded-t-2xl text-lg">
+            <div className="flex flex-row justify-between py-2 max-sm:text-sm  text-center bg-[#E6F1F1] dark:bg-[#191919] font-bold px-4 rounded-t-2xl text-lg dark:text-white ">
               <p className="w-[20%]">Level</p>
               <p className="w-[20%]">Total </p>
               <p className="w-[20%]">Attempt</p>
@@ -63,13 +63,13 @@ export default function LevelWise({ questions, answers }: Props) {
             </div>
 
             {/* Body */}
-            <div className="flex flex-col gap-2 text-center bg-[#FAFCFC] py-2 rounded-b-2xl">
+            <div className="flex flex-col gap-2 text-center bg-[#FAFCFC] py-2 rounded-b-2xl dark:bg-[#313131]">
               {Object.entries(performanceByLevel).map(([level, data]) => (
                 <div
                   key={level}
-                  className="flex flex-row justify-between items-center px-4 py-1  "
+                  className="flex flex-row justify-between items-center px-4 py-1  dark:text-white "
                 >
-                  <p className="w-[20%] capitalize">
+                  <p className="w-[20%] capitalize ">
                     {level === "easy"
                       ? "Easy"
                       : level === "medium"
