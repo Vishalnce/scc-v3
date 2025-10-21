@@ -538,7 +538,7 @@ function Nav() {
       {/* menu for small screen */}
 
       {!isOpen && (
-        <div className=" fixed  top-[52px] max-md:top-12 left-0  z-50 max-lg:w-[40%] max-sm:w-full  bg-[image:var(--color-my-gradient)]  flex flex-col items-center lg:hidden overflow-y-auto h-[70vh] pb-2">
+        <div className=" fixed  top-[52px] max-md:top-12 left-0  z-50 max-lg:w-[40%] max-sm:w-full  bg-[image:var(--color-my-gradient)]  flex flex-col items-center lg:hidden overflow-y-auto h-[70vh] pb-2 ">
           {/* cureent affais */}
           <div className=" w-[80%] ">
             <div
@@ -796,8 +796,8 @@ function Nav() {
       )}
 
       {/* bottom nav */}
-      <div className="w-full  bg-[image:var(--color-my-gradient)] fixed z-50 bottom-0 md:hidden ">
-        <div className="flex flex-row  max-md:w-[90%] mx-auto justify-between  ">
+      <div className="w-full  bg-[image:var(--color-my-gradient)] fixed z-50 bottom-0 md:hidden  rounded-t-lg ">
+        <div className="flex flex-row  max-md:w-[90%] mx-auto justify-between py-1 ">
           <div className="flex flex-col">
             <div>
               <Image
