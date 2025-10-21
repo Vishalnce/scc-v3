@@ -111,7 +111,7 @@ export default function Current() {
             ) : (
               affairs.map((item, index) => (
                 <div
-                  className="min-w-[33.333%] max-sm:min-w-[85%] px-2 max-sm:pr-8  "
+                  className="min-w-[33.333%] max-sm:min-w-[90%] px-2 max-sm:pr-8  "
                   key={index}
                 >
                   {/* iimage */}
@@ -129,7 +129,7 @@ export default function Current() {
 
                   {/* boady */}
 
-                  <div className="flex flex-col rounded-b-2xl shadow-2xl items-stretch px-2 min-h-84 sm:min-h-80 ">
+                  <div className="flex flex-col rounded-b-2xl shadow-2xl items-stretch px-2 min-h-70 sm:min-h-80  ">
                     <div className="flex flex-row justify-between items-center py-2 pt-4 ">
                       <div className="text-sm p-2 rounded-full bg-[#FFE332]">
                         Updated
@@ -144,9 +144,10 @@ export default function Current() {
                         {item.title}
                       </p>
                     </div>
-                    <div className="text-fade dark:text-white ">
-                      {item.summary.slice(0, 150)}...
-                    </div>
+                    <div className="text-fade dark:text-white line-clamp-3 sm:line-clamp-5">
+  {item.summary}
+</div>
+
 
                     <div className="py-2">
                       <p className="dark:text-white">Read more</p>

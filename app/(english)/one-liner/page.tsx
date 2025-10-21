@@ -72,7 +72,9 @@ export default async function ({
               <h2 className="text-xl text-my-text-color font-bold ">
                 One-Liner Current Affairs
               </h2>
-              <p className="text-sm text-gray-500 max-sm:hidden ">Updated Daily</p>
+              <div className="text-sm text-gray-500 max-sm:hidden "> {params? (
+                <p>{ date} </p>
+              ) : <p> Updated Daily  </p>} </div>
             </div>
 
             {/* main content */}

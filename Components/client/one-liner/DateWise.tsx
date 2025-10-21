@@ -44,11 +44,16 @@ const getLast10Dates = () => {
     }
   };
 
+  // function reset() {
+  //    router.push("/one-liner") 
+  // }
+
   const last10Dates = getLast10Dates();
 
   return (
     <div className="w-full bg-[#FAFCFC] border-1 border-[#E6F1F1] dark:bg-[#313131]   rounded-lg shadow-2xl ">
       <h2 className="text-center font-bold py-4 dark:text-white">Date Wise Record</h2>
+      {/* <button onClick={ () => reset()} > Reset </button> */}
       <div className="flex flex-col gap-2">
         {last10Dates.map((date) => (
           <div key={date} className="w-full ">
