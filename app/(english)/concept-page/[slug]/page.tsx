@@ -1,5 +1,6 @@
 import CommentWrapper from "@/Components/client/comment/CommentWrapper";
 import NextPrev from "@/Components/ui/client/nextPrevButton/NextPrev";
+import SideBar from "@/Components/ui/client/sidebar/SideBar";
 import Image from "next/image";
 import Link from "next/link";
 import { NextResponse } from "next/server";
@@ -37,7 +38,7 @@ async function fetchPost(slug: string) {
   return post;
 }
 
-async function fetchCurrentAffairs(pageNumber: number): Promise<FetchResponse> {
+async function fetchConceptAll(pageNumber: number): Promise<FetchResponse> {
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/concept/client/?page=${pageNumber}`,
@@ -60,26 +61,6 @@ async function fetchCurrentAffairs(pageNumber: number): Promise<FetchResponse> {
   }
 }
 
-// fetch onr liner
-
-async function fetchOneLiner() {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/one-liner/client/`,
-      { cache: "no-store" }
-    );
-
-    if (!res.ok) return [];
-
-    const raw = await res.json();
-
-    // return only the array inside "contents"
-    return raw.contents;
-  } catch (error) {
-    console.log(`error while fetching ${error}`);
-    return [];
-  }
-}
 // genrate metadata for the page
 
 export async function generateMetadata({
@@ -148,9 +129,8 @@ export default async function ConceptPage({
   const post = await fetchPost(slug);
 
   let pageNumber = (await searchParams).page ?? 1;
-  const { posts, page } = await fetchCurrentAffairs(pageNumber);
+  const { posts, page } = await fetchConceptAll(pageNumber);
 
-  const oneLiner = await fetchOneLiner();
 
   //
 
@@ -284,37 +264,8 @@ export default async function ConceptPage({
                 })()}
             </div>
 
-            {/* latest current affaris  */}
-            <div className="border-2 bg-[#FAFCFC] rounded-2xl border-[#E6F1F1] px-4 dark:border-[#E6F1F1] dark:bg-[#313131] py-2 pb-4">
-              <div className="">
-                <p className="py-2 font-bold dark:text-white">
-                  Latest Current Affairs
-                </p>
-              </div>
-              <ul className=" marker:text-black dark:marker:text-white space-y-1 text-my-text-color text-sm">
-                {posts.map((post: any) => (
-                  <li key={post.id} className="py-1">
-                    {post.title}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* one liner */}
-            <div className="border-2 bg-[#FAFCFC] rounded-2xl border-[#E6F1F1] px-4 dark:border-[#E6F1F1] dark:bg-[#313131] py-2 pb-4">
-              <div className="">
-                <p className="py-2 font-bold dark:text-white">
-                  Latest One Liner
-                </p>
-              </div>
-              <ul className=" marker:text-black space-y-1 dark:marker:text-white text-my-text-color text-sm">
-                {oneLiner.map((post: any) => (
-                  <li key={post.id} className="py-1">
-                    {post.content}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {/* latest current affaris and one liner side bar  */}
+            <SideBar/>
           </div>
 
           {/* right box  */}

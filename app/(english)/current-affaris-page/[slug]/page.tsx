@@ -3,6 +3,7 @@ import Image from "next/image";
 import React from "react";
 import QuizWrapper from "@/Components/client/post-quiz/QuizWrapper";
 import CommentWrapper from "@/Components/client/comment/CommentWrapper";
+import SideBar from "@/Components/ui/client/sidebar/SideBar";
 // Type for the related quiz items
 type QuizPostItem = {
   id: number;
@@ -50,10 +51,10 @@ async function fetchPost(slug: string) {
 }
 
 // fetch all current affaris by number return posts and current page number
-async function fetchCurrentAffairs(pageNumber: number): Promise<FetchResponse> {
+async function fetchCurrentAffairs(): Promise<FetchResponse> {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/current-affaris/client/?page=${pageNumber}`,
+      `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/current-affaris/client/?limit=5`,
       { cache: "no-store" }
     );
 
@@ -73,24 +74,6 @@ async function fetchCurrentAffairs(pageNumber: number): Promise<FetchResponse> {
   }
 }
 
-async function fetchOneLiner() {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/one-liner/client/`,
-      { cache: "no-store" }
-    );
-
-    if (!res.ok) return [];
-
-    const raw = await res.json();
-
-    // return only the array inside "contents"
-    return raw.contents;
-  } catch (error) {
-    console.log(`error while fetching ${error}`);
-    return [];
-  }
-}
 
 // genrate metadata for the page
 export async function generateMetadata({
@@ -162,12 +145,12 @@ export default async function CurrentAffarisPage({
 
   const post = await fetchPost(slug);
 
-  const { posts, page } = await fetchCurrentAffairs(pageNumber);
+  const { posts, page } = await fetchCurrentAffairs();
 
   // console.log("Page:", page);
   // console.log("Posts:", posts);
 
-  const oneLiner = await fetchOneLiner();
+
 
   // 3️⃣ Compute prev/next
   const currentIndex = posts.findIndex((p) => p.slug === slug);
@@ -305,37 +288,7 @@ export default async function CurrentAffarisPage({
 
             {/* Latest Current Affaris */}
 
-            <div className="border-2 bg-[#FAFCFC] rounded-2xl border-[#E6F1F1] px-4 dark:border-[#E6F1F1] dark:bg-[#313131] py-2 pb-4">
-              <div className="">
-                <p className="py-2 font-bold dark:text-white">
-                  Latest Current Affairs
-                </p>
-              </div>
-              <ul className=" marker:text-black dark:marker:text-white space-y-1 text-my-text-color text-sm">
-                {posts.map((post: any) => (
-                  <li key={post.id} className="py-1">
-                    {post.title}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* one liner */}
-
-            <div className="border-2 bg-[#FAFCFC] rounded-2xl border-[#E6F1F1] px-4 dark:border-[#E6F1F1] dark:bg-[#313131] py-2 pb-4">
-              <div className="">
-                <p className="py-2 font-bold dark:text-white">
-                  Latest One Liner
-                </p>
-              </div>
-              <ul className=" marker:text-black space-y-1 dark:marker:text-white text-my-text-color text-sm">
-                {oneLiner.map((post: any) => (
-                  <li key={post.id} className="py-1">
-                    {post.content}
-                  </li>
-                ))}
-              </ul>
-            </div>
+           <SideBar/>
           </div>
 
           {/* right box  */}

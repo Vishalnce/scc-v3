@@ -6,8 +6,17 @@ export async function GET(req: NextRequest) {
     // ✅ Get date from query params
     const { searchParams } = new URL(req.url);
     const dateParam = searchParams.get("date"); // expected format: dd-mm-yyyy
-
+    const limit = searchParams.get("limit");
     let contents;
+
+    if(limit){
+        contents = await db.liner.findMany({
+        orderBy: { id: "desc" },
+        take: parseInt(limit),
+      });
+
+      return NextResponse.json({ contents }, { status: 200 });
+    }
 
     if (dateParam) {
       // Parse dateParam ("dd-mm-yyyy") → actual Date range
@@ -27,10 +36,10 @@ export async function GET(req: NextRequest) {
         orderBy: { id: "desc" },
       });
     } else {
-      // Default: last 5 records
+      // Default: last 10 records
       contents = await db.liner.findMany({
         orderBy: { id: "desc" },
-        take: 5,
+        take: 10,
       });
     }
 

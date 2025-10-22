@@ -66,6 +66,10 @@ export default async function Page({
   const { posts, totalCount } = await fetchPosts(page, limit, topic, date);
   const totalPages = Math.ceil(totalCount / limit);
 
+
+  console.log("Posts:", posts);
+
+
   return (
     <>
       {/* Header */}
