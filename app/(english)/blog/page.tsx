@@ -1,17 +1,14 @@
 import DeleteButton from "@/Components/client/blog/DeleteButton";
 import EditButton from "@/Components/client/blog/EditButton";
-import Filter from "@/Components/client/Filter";
-
+import Filter from "@/Components/client/current-affaris/CurrentAffarisFilter";
 
 import Image from "next/image";
 import Link from "next/link";
 import { FaRegCalendarMinus } from "react-icons/fa6";
 
-
 import NextAuth, { getServerSession } from "next-auth/next";
 import { NEXT_AUTH } from "@/lib/auth"; // your NextAuth config
 import BlogFilter from "@/Components/ui/client/blogfilter/BlogFilter";
-
 
 type Post = {
   id: number;
@@ -73,9 +70,7 @@ export default async function Page({
   const { posts, totalCount } = await fetchPosts(page, limit, topic, date);
   const totalPages = Math.ceil(totalCount / limit);
 
-  const session  = await getServerSession(NEXT_AUTH);
-
- 
+  const session = await getServerSession(NEXT_AUTH);
 
   return (
     <>
@@ -83,8 +78,7 @@ export default async function Page({
       <header className="bg-[image:var(--color-my-gradient)] ">
         <div className="flex flex-col justify-center items-center min-h-[150px] mx-auto max-w-[1400px] max-sm:w-[90%] text-center">
           <h1 className="text-3xl font-bold max-sm:text-2xl ">
-            Blogs for <span className="text-my-green">SSC CGL</span>{" "}
-            Success
+            Blogs for <span className="text-my-green">SSC CGL</span> Success
           </h1>
           <p className="mt-1 text-sm text-my-text-color">
             Stay Ahead with latest blog updates and resources
@@ -95,7 +89,7 @@ export default async function Page({
       <div className="dark:bg-[#191919]">
         {/* Filter + Alert */}
         <div className="flex dark:bg-[#191919] flex-row justify-between items-center mx-auto w-[90%] pt-2">
-          <BlogFilter/>
+          <BlogFilter />
           <div className="max-md:hidden">
             <p className="bg-[image:var(--color-my-yellow-alert)] dark:text-black max-lg:text-sm px-4 py-2 rounded-4xl text-center">
               New Blogs Just Dropped!
@@ -103,16 +97,19 @@ export default async function Page({
           </div>
         </div>
 
-       {/* admin roiute button for adding blog  */}
+        {/* admin roiute button for adding blog  */}
 
-        { (session?.user?.role === "ADMIN" ? (  <div className="w-[90%] dark:bg-[#191919] mx-auto m-6">
-          <Link href="/admin/blog-editor ">
-            <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
-              Add Blog
-            </button>
-          </Link>
-        </div> ) : "") }
-      
+        {session?.user?.role === "ADMIN" ? (
+          <div className="w-[90%] dark:bg-[#191919] mx-auto m-6">
+            <Link href="/admin/blog-editor ">
+              <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
+                Add Blog
+              </button>
+            </Link>
+          </div>
+        ) : (
+          ""
+        )}
 
         {/* post boady */}
         <div className="flex flex-col w-[90%] mx-auto">
@@ -154,7 +151,7 @@ export default async function Page({
                       <p className="font-semibold text-sm  dark:text-[#FFFFFF]">
                         {new Date(post.createdAt).toLocaleDateString("en-US", {
                           day: "2-digit",
-                          month: "long", 
+                          month: "long",
                           year: "numeric",
                         })}
                       </p>
@@ -165,13 +162,15 @@ export default async function Page({
 
               {/* edit and delete button */}
 
-                
-            { (session?.user?.role === "ADMIN" ? (    <div className="grid grid-col-1 items-center  justify-center max-md:hidden ">
-                <EditButton slug={post.slug} />
+              {session?.user?.role === "ADMIN" ? (
+                <div className="grid grid-col-1 items-center  justify-center max-md:hidden ">
+                  <EditButton slug={post.slug} />
 
-                <DeleteButton slug={post.slug} />
-              </div> ) : "") }          
-            
+                  <DeleteButton slug={post.slug} />
+                </div>
+              ) : (
+                ""
+              )}
             </div>
           ))}
         </div>

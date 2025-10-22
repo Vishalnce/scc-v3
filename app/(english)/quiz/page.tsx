@@ -1,6 +1,6 @@
 import DeleteButton from "@/Components/client/quiz/DeleteButton";
 import EditButton from "@/Components/client/quiz/EditButton";
-import Filter from "@/Components/client/concept/Filter";
+import QuizFilter from "@/Components/client/quiz/QuizFilter";
 import Image from "next/image";
 import Link from "next/link";
 import { FaRegCalendarMinus } from "react-icons/fa6";
@@ -28,7 +28,6 @@ async function fetchPosts(
   topic?: string,
   date?: string
 ): Promise<{ posts: Post[]; totalCount: number }> {
-
   const params = new URLSearchParams({
     page: String(page),
     limit: String(limit),
@@ -79,21 +78,18 @@ export default async function Page({
   );
   const totalPages = Math.ceil(totalCount / limit);
 
-
-
- const session  = await getServerSession(NEXT_AUTH);
+  const session = await getServerSession(NEXT_AUTH);
 
   // Subject Images Map
 
   const subjectImages: Record<string, string> = {
-  "quantitative-apptitude": "/ui/client/quiz/math.svg",
-  "reasoning-general": "/ui/client/quiz/reso.svg",
-  "english-comprehension": "/ui/client/quiz/english.svg",
-  "general-awareness": "/ui/client/quiz/general.svg",
-  "mathematical-abilities": "/ui/client/quiz/math.svg",
-  "computer-knowledge": "/ui/client/quiz/computer.svg",
-};
-
+    "quantitative-apptitude": "/ui/client/quiz/math.svg",
+    "reasoning-general": "/ui/client/quiz/reso.svg",
+    "english-comprehension": "/ui/client/quiz/english.svg",
+    "general-awareness": "/ui/client/quiz/general.svg",
+    "mathematical-abilities": "/ui/client/quiz/math.svg",
+    "computer-knowledge": "/ui/client/quiz/computer.svg",
+  };
 
   return (
     <>
@@ -101,10 +97,12 @@ export default async function Page({
       <header className="bg-[image:var(--color-my-gradient)]">
         <div className="flex flex-col justify-center items-center min-h-[150px] mx-auto max-w-[1400px] max-sm:w-[90%] text-center">
           <h1 className="text-3xl font-bold max-sm:text-2xl">
-           Elevate Your SSC CGL Success with <span className="text-my-green"> Expert Quizzes</span> 
+            Elevate Your SSC CGL Success with{" "}
+            <span className="text-my-green"> Expert Quizzes</span>
           </h1>
           <p className="mt-1 text-sm text-my-text-color">
-           Practice Smarter by Choosing Quizzes Tailored to Your Strengths and Weaknesses!
+            Practice Smarter by Choosing Quizzes Tailored to Your Strengths and
+            Weaknesses!
           </p>
         </div>
       </header>
@@ -112,7 +110,7 @@ export default async function Page({
       <div className="dark:bg-[#191919]">
         {/* Filter + Alert */}
         <div className="flex dark:bg-[#191919] flex-row justify-between items-center mx-auto w-[90%] pt-2 ">
-          <Filter />
+          <QuizFilter  />
           <div className="max-md:hidden">
             <p className="bg-[image:var(--color-my-yellow-alert)] dark:text-black max-lg:text-sm px-4 py-2 rounded-4xl text-center">
               New Quiz Just Dropped!
@@ -120,23 +118,24 @@ export default async function Page({
           </div>
         </div>
 
-      
-
         {/* Add Post Button */}
 
-         { (session?.user?.role === "ADMIN" ? (   <div className="w-[90%] dark:bg-[#191919] mx-auto m-6">
-          <Link href="/admin/quiz-editor">
-            <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
-              Add Quiz
-            </button>
-          </Link>
-        </div> ) : "") }
-       
+        {session?.user?.role === "ADMIN" ? (
+          <div className="w-[90%] dark:bg-[#191919] mx-auto m-6">
+            <Link href="/admin/quiz-editor">
+              <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
+                Add Quiz
+              </button>
+            </Link>
+          </div>
+        ) : (
+          ""
+        )}
 
         {/* Post List */}
         <div className="flex flex-col w-[90%] mx-auto">
           {posts.map((post) => (
-             <div
+            <div
               key={post.id}
               className="flex flex-row  rounded-2xl  md:max-h-[288px] m-3 justify-center dark:bg-[#313131] "
             >
@@ -149,19 +148,16 @@ export default async function Page({
               >
                 {/* images */}
                 <div className="   rounded-xl  m-2   ">
-
-                    <Image
-                      src={subjectImages[post.subject]}
-                      alt={"ssc"}
-                      width={60}
-                      height={60}
-                      className="object-cover rounded-xl"
-                    />
-                 
+                  <Image
+                    src={subjectImages[post.subject]}
+                    alt={"ssc"}
+                    width={60}
+                    height={60}
+                    className="object-cover rounded-xl"
+                  />
                 </div>
                 {/* info */}
                 <div className="flex flex-col  w-[90%] m-2 justify-start    ">
-
                   <h2 className="text-xl font-bold dark:text-[#FFFFFF] ">
                     {post.title}
                   </h2>
@@ -172,7 +168,9 @@ export default async function Page({
 
                   {/* nav button */}
                   <div className="flex flex-row justify-between mt-3 ">
-                    <p className="text-sm dark:text-[#FFFFFF] px-4 py-2 bg-[#007076] rounded-full text-white">Start Quiz</p>
+                    <p className="text-sm dark:text-[#FFFFFF] px-4 py-2 bg-[#007076] rounded-full text-white">
+                      Start Quiz
+                    </p>
 
                     <div className="flex flex-row gap-1 ">
                       <FaRegCalendarMinus className="max-sm:my-auto dark:text-my-text-color" />
@@ -190,14 +188,15 @@ export default async function Page({
 
               {/* edit and delete button */}
 
-                          
-         { (session?.user?.role === "ADMIN" ? (  <div className="grid grid-col-1 items-center  justify-center max-md:hidden ">
-                <EditButton id={post.id} />
+              {session?.user?.role === "ADMIN" ? (
+                <div className="grid grid-col-1 items-center  justify-center max-md:hidden ">
+                  <EditButton id={post.id} />
 
-                <DeleteButton id={post.id} />
-              </div> ) : "") }
-       
-              
+                  <DeleteButton id={post.id} />
+                </div>
+              ) : (
+                ""
+              )}
             </div>
           ))}
         </div>

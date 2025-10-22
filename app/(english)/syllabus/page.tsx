@@ -1,10 +1,9 @@
 import DeleteButton from "@/Components/client/syllabus/DeleteButton";
 import EditButton from "@/Components/client/syllabus/EditButton";
-import Filter from "@/Components/client/Filter";
+import Filter from "@/Components/client/current-affaris/CurrentAffarisFilter";
 import Image from "next/image";
 import Link from "next/link";
 import { FaRegCalendarMinus } from "react-icons/fa6";
-
 
 type Post = {
   id: number;
@@ -66,9 +65,7 @@ export default async function Page({
   const { posts, totalCount } = await fetchPosts(page, limit, topic, date);
   const totalPages = Math.ceil(totalCount / limit);
 
-
   console.log("Posts:", posts);
-
 
   return (
     <>
@@ -76,8 +73,7 @@ export default async function Page({
       <header className="bg-[image:var(--color-my-gradient)] ">
         <div className="flex flex-col justify-center items-center min-h-[150px] mx-auto max-w-[1400px] max-sm:w-[90%] text-center">
           <h1 className="text-3xl font-bold max-sm:text-2xl">
-            Syllabus for <span className="text-my-green">SSC CGL</span>{" "}
-            Success
+            Syllabus for <span className="text-my-green">SSC CGL</span> Success
           </h1>
           <p className="mt-1 text-sm text-my-text-color">
             Stay Ahead with latest syllabus updates and resources

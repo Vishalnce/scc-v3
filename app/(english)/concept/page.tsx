@@ -1,6 +1,6 @@
 import DeleteButton from "@/Components/client/concept/DeleteButton";
 import EditButton from "@/Components/client/concept/EditButton";
-import Filter from "@/Components/client/concept/Filter";
+import ConceptFilter from "@/Components/client/concept/ConceptFilter";
 import Image from "next/image";
 import Link from "next/link";
 import { FaRegCalendarMinus } from "react-icons/fa6";
@@ -68,7 +68,14 @@ export default async function Page({
   const date = params.date;
   const limit = Number(params.limit) || 5;
 
-  const { posts, totalCount } = await fetchPosts(page, limit, category, subject, topic, date);
+  const { posts, totalCount } = await fetchPosts(
+    page,
+    limit,
+    category,
+    subject,
+    topic,
+    date
+  );
   const totalPages = Math.ceil(totalCount / limit);
 
   return (
@@ -88,7 +95,7 @@ export default async function Page({
       <div className="dark:bg-[#191919]">
         {/* Filter + Alert */}
         <div className="flex dark:bg-[#191919] flex-row justify-between items-center mx-auto w-[90%] pt-2 ">
-          <Filter />
+          < ConceptFilter  />
           <div className="max-md:hidden">
             <p className="bg-[image:var(--color-my-yellow-alert)] dark:text-black max-lg:text-sm px-4 py-2 rounded-4xl text-center">
               New Current Affairs Just Dropped!
@@ -121,12 +128,14 @@ export default async function Page({
               className="flex flex-row  rounded-2xl  md:max-h-[288px] m-3 justify-center dark:bg-[#313131]"
             >
               {/* Image */}
-              <Link href={{
-                pathname :`/concept-page/${post.slug}`,
-                 query: { page:page },
-                }} className="flex flex-row w-full max-md:flex-col">
-
-                  {/* images */}
+              <Link
+                href={{
+                  pathname: `/concept-page/${post.slug}`,
+                  query: { page: page },
+                }}
+                className="flex flex-row w-full max-md:flex-col"
+              >
+                {/* images */}
                 <div className="w-[35%] max-md:w-[90%] max-md:h-[200px] max-md:mx-auto  relative  rounded-xl  m-2  h-[224px] ">
                   {post.image && (
                     <Image
@@ -140,8 +149,12 @@ export default async function Page({
 
                 {/* Info */}
                 <div className="flex flex-col  w-[60%] m-2 justify-start   max-md:mx-auto max-md:w-[90%]">
-                  <h2 className="text-xl font-bold dark:text-[#FFFFFF]  min-h-[64px]">{post.title}</h2>
-                  <p className="text-my-text-color  mt-3  text-fade h-[100px]  overflow-hidden">Summary: {post.summary}</p>
+                  <h2 className="text-xl font-bold dark:text-[#FFFFFF]  min-h-[64px]">
+                    {post.title}
+                  </h2>
+                  <p className="text-my-text-color  mt-3  text-fade h-[100px]  overflow-hidden">
+                    Summary: {post.summary}
+                  </p>
 
                   <div className="flex flex-row justify-between mt-3">
                     <p className="text-sm dark:text-[#FFFFFF]">Read More</p>

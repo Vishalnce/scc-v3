@@ -1,6 +1,6 @@
 import DeleteButton from "@/Components/client/upcoming-exam/DeleteButton";
 import EditButton from "@/Components/client/upcoming-exam/EditButton";
-import Filter from "@/Components/client/Filter";
+import Filter from "@/Components/client/current-affaris/CurrentAffarisFilter";
 import Image from "next/image";
 import Link from "next/link";
 import { FaRegCalendarMinus } from "react-icons/fa6";
@@ -22,8 +22,6 @@ type Post = {
   toc: string;
   createdAt: string;
 };
-
-
 
 async function fetchPosts(
   page: number = 1,
@@ -69,7 +67,7 @@ export default async function Page({
 
   const { posts, totalCount } = await fetchPosts(page, limit, topic, date);
   const totalPages = Math.ceil(totalCount / limit);
-  const session =await getServerSession(NEXT_AUTH)
+  const session = await getServerSession(NEXT_AUTH);
   return (
     <>
       {/* Header */}
@@ -88,7 +86,7 @@ export default async function Page({
       <div className="dark:bg-[#191919]">
         {/* Filter + Alert */}
         <div className="flex dark:bg-[#191919] flex-row justify-between items-center mx-auto w-[90%] pt-2">
-          <UpcomingFilter/>
+          <UpcomingFilter />
           <div className="max-md:hidden">
             <p className="bg-[image:var(--color-my-yellow-alert)] dark:text-black max-lg:text-sm px-4 py-2 rounded-4xl text-center">
               Check Upcoming Exams
@@ -98,30 +96,34 @@ export default async function Page({
 
         {/* Posts */}
 
-      { (session?.user?.role === "ADMIN" ? (  <div className="w-[90%] dark:bg-[#191919] mx-auto m-6">
-          <Link href="/admin/upcoming-exam-editor ">
-            <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
-              Add Upcoming Exam
-            </button>
-          </Link>
-        </div> ) : "") }
-        
-        
+        {session?.user?.role === "ADMIN" ? (
+          <div className="w-[90%] dark:bg-[#191919] mx-auto m-6">
+            <Link href="/admin/upcoming-exam-editor ">
+              <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
+                Add Upcoming Exam
+              </button>
+            </Link>
+          </div>
+        ) : (
+          ""
+        )}
 
         {/* post boady */}
-       <div className="flex flex-col w-[90%] mx-auto">
+        <div className="flex flex-col w-[90%] mx-auto">
           {posts.map((post) => (
             <div
               key={post.id}
               className="flex flex-row  rounded-2xl  md:max-h-[288px] m-3 justify-center dark:bg-[#313131]"
             >
               {/* Image */}
-              <Link href={{
-                pathname :`/upcoming-exam-page/${post.slug}`,
-                 query: { page:page },
-                }} className="flex flex-row w-full max-md:flex-col">
-
-                  {/* images */}
+              <Link
+                href={{
+                  pathname: `/upcoming-exam-page/${post.slug}`,
+                  query: { page: page },
+                }}
+                className="flex flex-row w-full max-md:flex-col"
+              >
+                {/* images */}
                 <div className="w-[35%] max-md:w-[90%] max-md:h-[200px] max-md:mx-auto  relative  rounded-xl  m-2  h-[224px] ">
                   {post.image && (
                     <Image
@@ -135,8 +137,12 @@ export default async function Page({
 
                 {/* Info */}
                 <div className="flex flex-col  w-[60%] m-2 justify-start   max-md:mx-auto max-md:w-[90%]">
-                  <h2 className="text-xl font-bold dark:text-[#FFFFFF]  min-h-[64px]">{post.title}</h2>
-                  <p className="text-my-text-color  mt-3  text-fade h-[100px]  overflow-hidden">Summary: {post.summary}</p>
+                  <h2 className="text-xl font-bold dark:text-[#FFFFFF]  min-h-[64px]">
+                    {post.title}
+                  </h2>
+                  <p className="text-my-text-color  mt-3  text-fade h-[100px]  overflow-hidden">
+                    Summary: {post.summary}
+                  </p>
 
                   <div className="flex flex-row justify-between mt-3">
                     <p className="text-sm dark:text-[#FFFFFF]">Read More</p>
@@ -156,13 +162,14 @@ export default async function Page({
 
               {/* Edit & Delete */}
 
-
-               { (session?.user?.role === "ADMIN" ? ( <div className="grid grid-col-1 items-center  justify-center max-md:hidden">
-                <EditButton slug={post.slug} />
-                <DeleteButton slug={post.slug} />
-              </div> ) : "") }
-        
-              
+              {session?.user?.role === "ADMIN" ? (
+                <div className="grid grid-col-1 items-center  justify-center max-md:hidden">
+                  <EditButton slug={post.slug} />
+                  <DeleteButton slug={post.slug} />
+                </div>
+              ) : (
+                ""
+              )}
             </div>
           ))}
         </div>

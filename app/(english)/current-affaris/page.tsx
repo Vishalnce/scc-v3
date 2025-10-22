@@ -1,6 +1,6 @@
 import DeleteButton from "@/Components/client/current-affaris/DeleteButton";
 import EditButton from "@/Components/client/current-affaris/EditButton";
-import Filter from "@/Components/client/Filter";
+import CurrentAffarisFilter from "@/Components/client/current-affaris/CurrentAffarisFilter";
 import { NEXT_AUTH } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
@@ -66,16 +66,16 @@ export default async function Page({
 
   const { posts, totalCount } = await fetchPosts(page, limit, topic, date);
   const totalPages = Math.ceil(totalCount / limit);
-  const session  = await getServerSession(NEXT_AUTH);
+  const session = await getServerSession(NEXT_AUTH);
 
- 
   return (
     <>
       {/* Header */}
       <header className="bg-[image:var(--color-my-gradient)] ">
         <div className="flex flex-col justify-center items-center min-h-[150px] mx-auto max-w-[1400px] max-sm:w-[90%] text-center">
           <h1 className="text-3xl font-bold max-sm:text-2xl  ">
-            Current Affairs for <span className="text-my-green dark:text-my-green">SSC CGL</span>{" "}
+            Current Affairs for{" "}
+            <span className="text-my-green dark:text-my-green">SSC CGL</span>{" "}
             Success
           </h1>
           <p className="mt-1 text-sm text-my-text-color">
@@ -88,7 +88,7 @@ export default async function Page({
       <div className="dark:bg-[#191919]">
         {/* Filter + Alert */}
         <div className="flex dark:bg-[#191919] flex-row justify-between items-center mx-auto w-[90%] pt-2">
-          <Filter />
+          <CurrentAffarisFilter />
           <div className="max-md:hidden">
             <p className="bg-[image:var(--color-my-yellow-alert)] dark:text-black max-lg:text-sm px-4 py-2 rounded-4xl text-center">
               New Current Affairs Just Dropped!
@@ -98,15 +98,17 @@ export default async function Page({
 
         {/* Posts */}
 
-
-            { (session?.user?.role === "ADMIN" ? (   <div className="w-[90%] dark:bg-[#191919] mx-auto m-6 max-md:hidden">
-          <Link href="/admin/current-affaris-editor ">
-            <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
-              Add Current Affaris
-            </button>
-          </Link>
-        </div> ) : "") }
-        
+        {session?.user?.role === "ADMIN" ? (
+          <div className="w-[90%] dark:bg-[#191919] mx-auto m-6 max-md:hidden">
+            <Link href="/admin/current-affaris-editor ">
+              <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
+                Add Current Affaris
+              </button>
+            </Link>
+          </div>
+        ) : (
+          ""
+        )}
 
         {/* post boady */}
         <div className="flex flex-col w-[90%] mx-auto #191919">
@@ -118,7 +120,7 @@ export default async function Page({
               <Link
                 href={{
                   pathname: `/current-affaris-page/${post.slug}`,
-                  query: { page:page }, // pass your page variable here
+                  query: { page: page }, // pass your page variable here
                 }}
                 className="flex flex-row w-full max-md:flex-col"
               >
@@ -162,13 +164,16 @@ export default async function Page({
               </Link>
 
               {/* edit and delete button */}
-                  
-            { (session?.user?.role === "ADMIN" ? (    <div className="grid grid-col-1 items-center  justify-center max-md:hidden ">
-                <EditButton slug={post.slug} />
 
-                <DeleteButton slug={post.slug} />
-              </div> ) : "") }
-             
+              {session?.user?.role === "ADMIN" ? (
+                <div className="grid grid-col-1 items-center  justify-center max-md:hidden ">
+                  <EditButton slug={post.slug} />
+
+                  <DeleteButton slug={post.slug} />
+                </div>
+              ) : (
+                ""
+              )}
             </div>
           ))}
         </div>
