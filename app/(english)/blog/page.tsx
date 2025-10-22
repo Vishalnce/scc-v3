@@ -10,6 +10,7 @@ import { FaRegCalendarMinus } from "react-icons/fa6";
 
 import NextAuth, { getServerSession } from "next-auth/next";
 import { NEXT_AUTH } from "@/lib/auth"; // your NextAuth config
+import BlogFilter from "@/Components/ui/client/blogfilter/BlogFilter";
 
 
 type Post = {
@@ -94,7 +95,7 @@ export default async function Page({
       <div className="dark:bg-[#191919]">
         {/* Filter + Alert */}
         <div className="flex dark:bg-[#191919] flex-row justify-between items-center mx-auto w-[90%] pt-2">
-          <Filter />
+          <BlogFilter/>
           <div className="max-md:hidden">
             <p className="bg-[image:var(--color-my-yellow-alert)] dark:text-black max-lg:text-sm px-4 py-2 rounded-4xl text-center">
               New Blogs Just Dropped!

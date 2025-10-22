@@ -6,7 +6,7 @@ import Link from "next/link";
 import { FaRegCalendarMinus } from "react-icons/fa6";
 import { getServerSession } from "next-auth";
 import { NEXT_AUTH } from "@/lib/auth";
-
+import UpcomingFilter from "@/Components/ui/client/upcomingfilter/UpcomingFilter";
 
 type Post = {
   id: number;
@@ -88,7 +88,7 @@ export default async function Page({
       <div className="dark:bg-[#191919]">
         {/* Filter + Alert */}
         <div className="flex dark:bg-[#191919] flex-row justify-between items-center mx-auto w-[90%] pt-2">
-          <Filter />
+          <UpcomingFilter/>
           <div className="max-md:hidden">
             <p className="bg-[image:var(--color-my-yellow-alert)] dark:text-black max-lg:text-sm px-4 py-2 rounded-4xl text-center">
               Check Upcoming Exams
