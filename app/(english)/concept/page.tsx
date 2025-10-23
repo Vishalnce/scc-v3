@@ -22,7 +22,7 @@ type Post = {
 
 async function fetchPosts(
   page: number = 1,
-  limit: number = 3,
+  limit: number = 10,
   category?: string,
   subject?: string,
   topic?: string,
@@ -66,7 +66,7 @@ export default async function Page({
   const category = params.category;
   const subject = params.subject;
   const date = params.date;
-  const limit = Number(params.limit) || 5;
+  const limit = Number(params.limit) || 10;
 
   const { posts, totalCount } = await fetchPosts(
     page,

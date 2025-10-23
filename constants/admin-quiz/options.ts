@@ -13,6 +13,8 @@ export const subjectOptions = [
   { value: "mathematical-abilities", label: "Mathematical Abilities" },
 
   { value: "computer-knowledge", label: "Computer Knowledge" },
+  { value: "pyq", label: "PYQs" },
+
 ];
 
 export const topicOptions = [
@@ -318,4 +320,37 @@ export const topicOptions = [
     label: "Miscellaneous GK",
     value: "miscellaneous-gk",
   },
+
+  // for pyq
+  {
+    subject: "pyq",
+    label: "Quantitative Aptitude",
+    value: "quantitative-apptitude",
+  },
+  {
+    subject: "pyq",
+    label: "Reasoning & General Intelligence",
+    value: "reasoning-general",
+  },
+  
+    {
+    subject: "pyq",
+    label: "General Awareness",
+    value: "general-awareness",
+  },
+      {
+    subject: "pyq",
+    label: "Mathematical Abilities",
+    value: "mathematical-abilities",
+  },
+        {
+    subject: "pyq",
+    label: "Computer Knowledge",
+    value: "computer-knowledge",
+  },
+  {
+    subject: "pyq",
+    label: "English Comprehension",
+    value: "english-comprehension",
+  }
 ];

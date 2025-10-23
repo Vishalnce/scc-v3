@@ -128,5 +128,17 @@ export const topicOptionsBySubject: Record<string, TopicOption[]> = {
     { label: "Trigonometry", value: "trigonometry" },
     { label: "Statistics", value: "statistics" },
     { label: "Geometry", value: "geometry" },
+
+    
+  ],
+
+    "pyq": [
+    { label: "Quantitative Aptitude", value: "quantitative-apptitude" },
+    { label: "Reasoning & General Intelligence", value: "reasoning-general" },
+    { label: "General Awareness", value: "general-awareness" },
+    { label: "Mathematical Abilities", value: "mathematical-abilities" },
+    { label: "Computer Knowledge", value: "computer-knowledge" },
+    { label: "English Comprehension", value: "english-comprehension" },
+   
   ],
 };

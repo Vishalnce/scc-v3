@@ -25,7 +25,7 @@ type Post = {
 
 async function fetchPosts(
   page: number = 1,
-  limit: number = 3,
+  limit: number = 10,
   topic?: string,
   date?: string
 ): Promise<{ posts: Post[]; totalCount: number }> {
@@ -63,7 +63,7 @@ export default async function Page({
   const page = Number(params.page) || 1;
   const topic = params.topic;
   const date = params.date;
-  const limit = Number(params.limit) || 3;
+  const limit = Number(params.limit) || 10;
 
   const { posts, totalCount } = await fetchPosts(page, limit, topic, date);
   const totalPages = Math.ceil(totalCount / limit);

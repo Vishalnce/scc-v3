@@ -1,8 +1,6 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
-
-
 :root {
   --font-default: var(--font-lato);
   --font-secondary: var(--font-montserrat);
@@ -22,7 +20,6 @@ body {
 
   --color-my-text-color: #6c6c6c;
   --color-my-yellow-alert: linear-gradient(to right, #fff095, #ffe332);
-
 }
 
 @layer base {
@@ -30,30 +27,23 @@ body {
     --active-background: white;
     --color-my-text-color: #6c6c6c;
     --color-my-gradient: linear-gradient(to right, #fafcfc, #e6f1f1);
-
   }
 
   .dark {
     --active-background: #313131;
     --color-my-text-color: white;
     --color-my-gradient: linear-gradient(to right, #313131, #313131);
-
   }
 }
-
 
 .capitalize-first-letter::first-letter {
   text-transform: uppercase;
 }
 
-
-
-
 /* Apply scroll margin to all elements with an id */
 [id] {
   scroll-margin-top: 100px; /* adjust this number to match navbar height */
 }
-
 
 /* Disable default password reveal icon */
 input[type="password"]::-ms-reveal,
@@ -65,8 +55,6 @@ input[type="password"]::-webkit-textfield-decoration-container {
   display: none;
 }
 
-
-
 /* Hide scrollbar for Chrome, Safari and Edge */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
@@ -77,20 +65,18 @@ input[type="password"]::-webkit-textfield-decoration-container {
   scrollbar-width: none;
 }
 
-
 /* font added in theme editor css */
- .PlaygroundEditorTheme__textBase {
-  font-family: var(--font-lato), sans-serif;  /* 👈 default = Lato */
-   --color-my-text-color: #6c6c6c;
+.PlaygroundEditorTheme__textBase {
+  font-family: var(--font-lato), sans-serif; /* 👈 default = Lato */
+  --color-my-text-color: #6c6c6c;
 }
-
 
 .list-circle {
   list-style-type: circle;
 }
 
 .list-circle li::before {
-  content: "◉";  /* thicker hollow circle glyph */
+  content: "◉"; /* thicker hollow circle glyph */
   color: red;
   font-size: 1.2em;
   margin-right: 0.5rem;
@@ -103,10 +89,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
    z-index: 1;
 } */
 
-
 /* globals.css */
-
-
 
 .text-fade {
   mask-image: linear-gradient(
@@ -150,8 +133,10 @@ ol {
   text-align: right;
 }
 .PlaygroundEditorTheme__paragraph {
-  margin: 0;
+  margin: 0 0 12px 0; /* top=0, right=0, bottom=12px, left=0 */
   position: relative;
+  color: var(--color-my-text-color);
+  line-height: 1.6; /* optional, improves text readability */
 }
 .PlaygroundEditorTheme__quote {
   margin: 0;
@@ -165,22 +150,27 @@ ol {
   padding-left: 16px;
 }
 .PlaygroundEditorTheme__h1 {
-  font-size: 24px;
- 
+  font-size: 28px;
+
   font-weight: 400;
-  margin: 0;
+
+  margin: 0 0 12px 0;
+  line-height: 1.3;
 }
 .PlaygroundEditorTheme__h2 {
-  font-size: 18px;
-  
+  font-size: 24px;
+
   font-weight: 400;
-  margin: 0;
+  line-height: 1.3;
+
+  margin: 0 0 12px 0;
 }
 .PlaygroundEditorTheme__h3 {
-   font-size: 12px;
-  
+  font-size: 12px;
+
   font-weight: 400;
-  margin: 0;
+  line-height: 1.3;
+  margin: 12px 0 12px 0;
 }
 .PlaygroundEditorTheme__indent {
   --lexical-indent-base-value: 40px;
@@ -552,7 +542,6 @@ ol {
 }
 .PlaygroundEditorTheme__characterLimit {
   display: inline;
- 
 }
 .PlaygroundEditorTheme__ol1 {
   padding: 0;

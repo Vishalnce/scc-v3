@@ -412,7 +412,7 @@ function Nav() {
               <Link
                 href={{
                   pathname: "/quiz",
-                  query: { category: "pre", subject: "" },
+                  query: { category: "pre", subject: "pyq" },
                 }}
                 onClick={() => setActiveTag(null)}
               >
@@ -796,7 +796,7 @@ function Nav() {
       )}
 
       {/* bottom nav */}
-      <div className="w-full  bg-[image:var(--color-my-gradient)] fixed z-50 bottom-0 md:hidden  rounded-t-lg ">
+      <div className="w-full  bg-[image:var(--color-my-gradient)] fixed z-50 bottom-0 md:hidden  rounded-t-2xl  ">
         <div className="flex flex-row  max-md:w-[90%] mx-auto justify-between py-1 ">
           <div className="flex flex-col">
             <div>

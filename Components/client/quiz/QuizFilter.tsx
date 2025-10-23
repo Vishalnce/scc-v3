@@ -1,13 +1,11 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import DatePicker from "react-datepicker";
 
-import { FiCalendar } from "react-icons/fi";
 import "react-datepicker/dist/react-datepicker.css";
 import { useTheme } from "next-themes";
 import Select from "react-select";
 import { useRouter, useSearchParams } from "next/navigation";
-import { format } from "date-fns";
+
 import { topicOptionsBySubject } from "@/constants/concepts/topicOptionsBySubject";
 type OptionType = { value: string; label: string };
 
@@ -151,7 +149,7 @@ function handleSubmit(): void {
     menu: (base) => ({
       ...base,
       width: "240px",
-      right: "1px",
+      left: "5px",
     }),
   }}
   className="w-[160px]"
