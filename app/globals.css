@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
+
+
 :root {
   --font-default: var(--font-lato);
   --font-secondary: var(--font-montserrat);
@@ -39,6 +41,27 @@ body {
 .capitalize-first-letter::first-letter {
   text-transform: uppercase;
 }
+
+/* Override Lexical table header background for both light and dark mode */
+/* Default light mode table header */
+/* Table header in light mode */
+.PlaygroundEditorTheme__tableCellHeader {
+  background-color: var(--active-background) !important; /* overrides inline background */
+  border: 1px solid black !important; /* enforce light mode border */
+}
+
+/* All table cells in light mode */
+.PlaygroundEditorTheme__tableCell {
+  background-color: var(--active-background) !important;
+  border: 1px solid black !important;
+}
+
+/* Dark mode overrides */
+.dark .PlaygroundEditorTheme__tableCellHeader,
+.dark .PlaygroundEditorTheme__tableCell {
+  border: 1px solid white !important; /* enforce white border in dark mode */
+}
+
 
 /* Apply scroll margin to all elements with an id */
 [id] {
@@ -362,7 +385,7 @@ ol {
 }
 .PlaygroundEditorTheme__tableFrozenRow tr:nth-of-type(1) > th {
   overflow: clip;
-  background-color: #f2f3f5;
+  background-color: var(--active-background);
   position: sticky;
   z-index: 2;
   top: 44px;
@@ -383,7 +406,7 @@ ol {
   left: 0;
 }
 .PlaygroundEditorTheme__tableFrozenColumn tr > th:first-child {
-  background-color: #f2f3f5;
+  background-color: var(--active-background);
   position: sticky;
   z-index: 2;
   left: 0;
@@ -437,7 +460,7 @@ ol {
   top: 0;
 }
 .PlaygroundEditorTheme__tableCellHeader {
-  background-color: #f2f3f5;
+  background-color: var(--active-background);
   text-align: start;
 }
 .PlaygroundEditorTheme__tableCellSelected {
