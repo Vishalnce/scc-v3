@@ -8,8 +8,7 @@ import { useState, useCallback, useEffect } from "react";
 import Editor from "@/Components/admin/editor-page"; // adjust path if needed
 import type { TocItem } from "@/Components/admin/toc";
 import Image from "next/image";
-import PostFormQuiz from "./PostQuizForm";
-import QuestionWarpper from "./PostQuestionWarpper";
+
 
 type PostType = {
   title: string;

@@ -309,7 +309,7 @@ export default async function CurrentAffarisPage({
               </div>
             )}
 
-            <div className="sm:px-2 pt-6 text-my-text-color max-sm:text-xl  max-sm:w-[100%] mt-8 rounded-2xl dark:bg-[#313131] border-white border-2 px-2">
+            <div className="sm:px-2 pt-6 text-my-text-color max-sm:text-xl  max-sm:w-[100%] mt-8 rounded-2xl dark:bg-[#313131] border-white relative border-2 px-2">
               <div
                 dangerouslySetInnerHTML={{ __html: post?.editorHtml || "" }}
               />

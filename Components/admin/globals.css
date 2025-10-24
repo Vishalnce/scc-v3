@@ -1512,13 +1512,14 @@ button.action-button:disabled {
   padding: 4px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  vertical-align: middle;
   overflow: auto;
   height: 36px;
   position: sticky;
   top: 0;
   z-index: 2;
-  overflow-y: hidden; /* disable vertical scroll*/
+  overflow-y: hidden; /* disable vertical scroll */
+  align-items: center; /* vertically center items */
+  justify-content: center; /* horizontally center items */
 }
 
 button.toolbar-item {

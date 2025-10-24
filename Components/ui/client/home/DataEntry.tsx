@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link';
 import React from 'react'
 import { GoClock } from "react-icons/go";
 export default function DataEntry() {
@@ -14,7 +15,10 @@ export default function DataEntry() {
 
           </div>
           <div className='my-auto'>
+            <Link href ="/typing-test/intro">
             <p className='text-2xl max-sm:text-sm text-white font-bold'>Explore our new Data Entry Speed Test</p>
+            </Link>
+            
           </div>
         </div>
 

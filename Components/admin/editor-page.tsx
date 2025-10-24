@@ -33,7 +33,7 @@ export default function Editor({ value = "", onSync }: EditorProps) {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className="w-full max-w-4xl">
+      <div className="w-full max-w-[1400px]  border-2">
         <LexicalEditorClientWrapper
           value={editorValue} // pass prefilled value
           onChange={(newValue) => {

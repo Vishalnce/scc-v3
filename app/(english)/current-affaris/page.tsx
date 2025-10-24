@@ -115,7 +115,7 @@ export default async function Page({
           {posts.map((post) => (
             <div
               key={post.id}
-              className="flex flex-row  rounded-2xl  md:max-h-[288px] m-3 justify-center dark:bg-[#313131] "
+              className="flex flex-row  rounded-2xl  md:max-h-[288px] m-3 justify-center dark:bg-[#313131] shadow-2xl "
             >
               <Link
                 href={{
@@ -147,7 +147,7 @@ export default async function Page({
 
                   {/* nav button */}
                   <div className="flex flex-row justify-between mt-3 ">
-                    <p className="text-sm dark:text-[#FFFFFF]">Read More</p>
+                    <p className="text-sm dark:text-[#FFFFFF] px-4 py-2 bg-my-green rounded-full text-white">Read More</p>
 
                     <div className="flex flex-row gap-1">
                       <FaRegCalendarMinus className="dark:text-my-text-color" />

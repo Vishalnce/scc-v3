@@ -92,6 +92,8 @@ input[type="password"]::-webkit-textfield-decoration-container {
 .PlaygroundEditorTheme__textBase {
   font-family: var(--font-lato), sans-serif; /* 👈 default = Lato */
   --color-my-text-color: #6c6c6c;
+   margin: 0 0 12px 0;
+  font-size: 17px;  /* change for font size global = 17px */
 }
 
 .list-circle {

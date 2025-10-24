@@ -1,7 +1,7 @@
 "use client";
 import CountdownTimer from "@/Components/client/typing-test/CountdownTimer";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 
 export default function Page() {
@@ -58,12 +58,16 @@ export default function Page() {
   const targetWords = targetText.split(" ");
 
   // Handle typing
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (!startTime) {
-      // Start timer at first keystroke
       setStartTime(Date.now());
     }
     setInput(e.target.value);
+
+    // Auto-scroll to bottom
+    if (textareaRef.current) {
+      textareaRef.current.scrollTop = textareaRef.current.scrollHeight;
+    }
   };
 
   /**  Save results to localStorage */
@@ -180,6 +184,8 @@ export default function Page() {
       </div>
     );
   }
+
+  const textareaRef = useRef<HTMLTextAreaElement>(null); 
 
   return (
     <>

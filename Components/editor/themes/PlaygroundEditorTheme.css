@@ -13,6 +13,7 @@
   font-family: var(--font-lato), sans-serif;  /* 👈 default = Lato */
   color: var(--color-my-text-color);
   margin: 0 0 12px 0;
+  font-size: 17px; /* change for font size global = 17px */
 }
 
 .dark .PlaygroundEditorTheme__textBase {
@@ -29,6 +30,7 @@
 .PlaygroundEditorTheme__paragraph {
   margin: 0 0 12px 0; /* top=0, right=0, bottom=12px, left=0 */
   position: relative;
+
   color: var(--color-my-text-color);
   line-height: 1.6; /* optional, improves text readability */
 }
