@@ -93,7 +93,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
   font-family: var(--font-lato), sans-serif; /* 👈 default = Lato */
   --color-my-text-color: #6c6c6c;
    margin: 0 0 12px 0;
-  font-size: 17px;  /* change for font size global = 17px */
+  /* change for font size global = 17px */
 }
 
 .list-circle {
@@ -162,6 +162,7 @@ ol {
   position: relative;
   color: var(--color-my-text-color);
   line-height: 1.6; /* optional, improves text readability */
+  font-size: 17px; /* change for font size global = 17px */
 }
 .PlaygroundEditorTheme__quote {
   margin: 0;
@@ -603,7 +604,7 @@ ol {
   list-style-position: outside;
 }
 .PlaygroundEditorTheme__listItem {
-  margin: 0 32px;
+  margin: 0 0 12px 32px; /* change for btween gap top=0, right=0, bottom=12px, left=32px */
   font-family: var(--listitem-marker-font-family);
   font-size: var(--listitem-marker-font-size);
   background-color: var(--listitem-marker-background-color);

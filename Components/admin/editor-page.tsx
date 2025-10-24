@@ -27,8 +27,8 @@ export default function Editor({ value = "", onSync }: EditorProps) {
     const rawHtml = editorContentRef.current;
     const { toc, html: updatedHtml } = extractTocFromHtml(rawHtml);
     onSync({ html: updatedHtml, toc });
-    console.log("TOC:", toc);
-    console.log("HTML:", updatedHtml);
+    // console.log("TOC:", toc);
+    // console.log("HTML:", updatedHtml);
   };
 
   return (

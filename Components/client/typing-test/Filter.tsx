@@ -62,7 +62,7 @@ const router = useRouter();
               width={24}
               height={24}
             />
-            <p>Time Limit</p>
+            <p className="dark:text-white">Time Limit</p>
           </div>
 
           <Select
@@ -125,7 +125,7 @@ const router = useRouter();
               width={24}
               height={24}
             />
-            <p>Difficulty Level</p>
+            <p className="dark:text-white">Difficulty Level</p>
           </div>
 
           <Select

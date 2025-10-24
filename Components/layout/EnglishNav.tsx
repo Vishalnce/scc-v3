@@ -334,7 +334,7 @@ function Nav() {
                 </p>
               </Link>
 
-              <Link href={"/typing-test"}>
+              <Link href={"/typing-test/intro"} onClick={() => setActiveTag(null)}>
                 <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
                   Data Entry Speed Test{" "}
                 </p>
@@ -517,7 +517,7 @@ function Nav() {
               </Link>
 
 
-                <Link href={"/typing test"}>
+                <Link href={"/typing-test/intro"} onClick={() => setActiveTag(null)}>
                    
               <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
                 Data Entry Speed Test{" "}

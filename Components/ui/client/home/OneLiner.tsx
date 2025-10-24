@@ -11,7 +11,7 @@ export default async function OneLiner() {
   async function fetchOneLiner() {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/one-liner/client`,
+        `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/one-liner/client/?limit=5`,
         { cache: "no-store" }
       );
 

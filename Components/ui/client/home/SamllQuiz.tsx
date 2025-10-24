@@ -1,5 +1,7 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import React, { useState, useEffect, use } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 interface QuizOption {
@@ -20,6 +22,7 @@ interface QuizItem {
 }
 
 export default function Quiz() {
+      const session = useSession();
   const [quizData, setQuizData] = useState<QuizItem[]>([]);
   const [currentQ, setCurrentQ] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
@@ -98,11 +101,29 @@ export default function Quiz() {
     return <p className="text-white p-4">Loading quiz...</p>;
   }
 
+
+  // auth
+
+
+
+
+
   return (
     <div className="bg-[#007076]">
       <div className="w-[90%] mx-auto pt-14 max-sm:pt-10 max-sm:py-24 pb-8 flex flex-row max-sm:flex-col justify-between ">
         {/* Heading */}
         <div className="w-[33%] max-sm:w-[95%] flex flex-col items-start max-sm:pb-8  pt-2 max-sm:justify-between">
+            {session?.data?.user?.role === "ADMIN" ? (
+          <div className="w-[90%] dark:bg-[#191919]  max-md:hidden">
+            <Link href="/admin/small-quiz ">
+              <button className=" bg-[#FFE332] rounded-full text-center px-2 py-2">
+                Edit Quiz
+              </button>
+            </Link>
+          </div>
+        ) : (
+          ""
+        )}
           <p className="bg-[#2CBB0180] text-white rounded-full p-2 text-sm py-2 my-2">
             <span className="px-2 rounded-full bg-[#FFFFFF] mr-2"></span>
             Don't Miss The Live Quizzes

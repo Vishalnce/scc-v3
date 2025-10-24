@@ -3,6 +3,8 @@ import React, { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 type CurrentAffair = {
   title: string;
@@ -38,7 +40,7 @@ export default function Current() {
         const res = await fetch("/api/en/current-affaris/client");
         if (!res.ok) throw new Error("Failed to fetch current affairs");
         const data = await res.json();
-        
+
         setAffairs(data.posts); // ✅ adjust based on API shape
       } catch (err) {
         console.error(err);
@@ -91,6 +93,9 @@ export default function Current() {
               for SSC CGL Success!
             </p>
           </div>
+
+         
+          
           <div>
             <button className="p-2 px-3 bg-[#007076] text-white rounded-full text-sm">
               View All
@@ -145,15 +150,13 @@ export default function Current() {
                       </p>
                     </div>
                     <div className="text-fade dark:text-white line-clamp-3 sm:line-clamp-5">
-  {item.summary}
-</div>
-
+                      {item.summary}
+                    </div>
 
                     <div className="py-2">
                       <p className="dark:text-white">Read more</p>
                     </div>
                   </div>
-
                 </div>
               ))
             )}
@@ -167,7 +170,7 @@ export default function Current() {
           className={`max-sm:hidden  absolute left-2 top-1/2 -translate-y-1/2  
           ${canPrev ? "bg-white p-3 text-2xl max-sm:p-2 max-sm:text-xl rounded-full text-[#007076]" : "bg-white p-3 text-2xl max-sm:p-2 max-sm:text-xl rounded-full text-[#007076] cursor-not-allowed opacity-50"}`}
         >
-           <IoIosArrowBack />
+          <IoIosArrowBack />
         </button>
 
         <button

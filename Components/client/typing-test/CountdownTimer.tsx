@@ -21,7 +21,7 @@ export default function CountdownTimer({ minutes }: { minutes: number }) {
   const sec = secondsLeft % 60;
 
   return (
-    <div className="text-2xl font-bold ">
+    <div className="text-2xl font-bold dark:text-white ">
       {min}:{sec.toString().padStart(2, "0")}
     </div>
   );

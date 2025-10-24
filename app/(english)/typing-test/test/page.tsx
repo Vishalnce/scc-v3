@@ -3,6 +3,7 @@ import CountdownTimer from "@/Components/client/typing-test/CountdownTimer";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import { GoStopwatch } from "react-icons/go";
 
 export default function Page() {
   const router = useRouter();
@@ -22,10 +23,9 @@ export default function Page() {
   /** States */
   const [input, setInput] = useState("");
   const [startTime, setStartTime] = useState<number | null>(null);
- const [posts, setPosts] = useState<{ title: string; id: number }[]>([]);
-   const [targetText, setTargetText] = useState("");
+  const [posts, setPosts] = useState<{ title: string; id: number }[]>([]);
+  const [targetText, setTargetText] = useState("");
   const fetchText = async () => {
-    
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/typing/client?level=${validLevel}`
@@ -34,11 +34,9 @@ export default function Page() {
       if (data.success && data.post.length > 0) {
         setPosts(data.post);
 
-  
         const randomIndex = Math.floor(Math.random() * data.post.length);
         setTargetText(data.post[randomIndex].title);
       } else {
-     
         setTargetText(
           "The quick brown fox jumps over the lazy dog. This sentence contains every letter of the alphabet."
         );
@@ -48,17 +46,16 @@ export default function Page() {
     }
   };
 
-  useEffect(( ) => {
-    fetchText()
-  },[])
+  useEffect(() => {
+    fetchText();
+  }, []);
 
   /**  Target text */
-
 
   const targetWords = targetText.split(" ");
 
   // Handle typing
-const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (!startTime) {
       setStartTime(Date.now());
     }
@@ -145,7 +142,7 @@ const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       errorPercentage: errorPercentage.toFixed(2), // in %
       grossWPM: grossWPM.toFixed(2),
       netWPM: netWPM.toFixed(2),
-        speedWPM: speedWPM.toFixed(2),
+      speedWPM: speedWPM.toFixed(2),
       keystrokes: keystrokes,
       level: validLevel,
       duration: validTime,
@@ -185,56 +182,53 @@ const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     );
   }
 
-  const textareaRef = useRef<HTMLTextAreaElement>(null); 
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   return (
     <>
-      <div className="flex flex-col items-center bg-[#FAFCFC] w-[90%] mx-auto m-2 ">
-        {/* Level And Timer */}
-        <div className="flex flex-row items-center justify-between w-[90%]">
-          <div className="bg-[#007076] px-3 py-2 rounded mr-4">
-            <p className="text-white">{validLevel}</p>
+      <div className="dark:bg-black pt-18">
+        <div className="flex flex-col items-center bg-[#FAFCFC] w-[90%] mx-auto py-2 dark:bg-[#313131] rounded-2xl ">
+          {/* Level And Timer */}
+          <div className="flex flex-row items-center justify-between w-[90%] pt-4">
+            <div className="bg-[#007076] px-3 py-2 rounded mr-4">
+              <p className="text-white">{validLevel}</p>
+            </div>
+
+            <div>
+              <p className="text-2xl font-bold dark:text-white">Typing Test</p>
+            </div>
+
+            <div className="flex flex-row items-center gap-1">
+              <GoStopwatch size={48} className="dark:text-white" />
+              <CountdownTimer minutes={Number(validTime)} />
+            </div>
           </div>
 
-          <div>
-            <p className="text-2xl font-bold">Typing Test</p>
+          {/* Typing paragraph */}
+          <div className="mt-8 p-4 bg-white dark:bg-[#191919] rounded shadow dark:border-1 dark:border-white h-[200px] overflow-y-auto w-[95%]">
+            <p className="text-lg leading-relaxed dark:text-white">{targetText}</p>
           </div>
 
-          <div className="flex flex-row items-center">
-            <Image
-              src="/typing-test/stop-watch-black.svg"
-              alt="Stop Watch"
-              width={40}
-              height={40}
+          {/* Input box */}
+          <div className="mt-4 w-[95%]">
+            <textarea
+              placeholder="Start typing here..."
+              value={input}
+              onPaste={(e) => e.preventDefault()}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded px-4 py-2 text-lg focus:outline-none focus:ring-2 focus:ring-[#007076] resize-none dark:text-white dark:bg-[#191919]"
+              rows={5}
             />
-            <CountdownTimer minutes={Number(validTime)} />
           </div>
-        </div>
 
-        {/* Typing paragraph */}
-        <div className="mt-8 w-full max-w-3xl p-4 bg-white rounded shadow">
-          <p className="text-lg leading-relaxed">{targetText}</p>
+          {/* Manual finish button (optional) */}
+          <button
+            onClick={finishTest}
+            className="mt-4 px-4 py-2 bg-[#007076] text-white rounded"
+          >
+            Finish Test
+          </button>
         </div>
-
-        {/* Input box */}
-        <div className="mt-4 w-full max-w-3xl">
-          <textarea
-            placeholder="Start typing here..."
-            value={input}
-             onPaste={(e) => e.preventDefault()} 
-            onChange={handleChange}
-            className="w-full border border-gray-300 rounded px-4 py-2 text-lg focus:outline-none focus:ring-2 focus:ring-[#007076] resize-none"
-            rows={5}
-          />
-        </div>
-
-        {/* Manual finish button (optional) */}
-        <button
-          onClick={finishTest}
-          className="mt-4 px-4 py-2 bg-[#007076] text-white rounded"
-        >
-          Finish Test
-        </button>
       </div>
     </>
   );

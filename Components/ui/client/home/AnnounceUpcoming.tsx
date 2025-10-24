@@ -1,3 +1,5 @@
+import { NEXT_AUTH } from "@/lib/auth";
+import { getServerSession } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -38,6 +40,8 @@ export default async function AnnounceUpcoming() {
 
   const noticePost = data.post;
 
+  const session = await getServerSession(NEXT_AUTH);
+
   return (
     <>
       <div className="bg-white dark:bg-black">
@@ -63,6 +67,17 @@ export default async function AnnounceUpcoming() {
               {/* body  */}
 
               <div className=" py-3 space-y-3 max-h-[210px] overflow-y-auto shadow-2xl px-3 rounded-b-lg dark:bg-[#313131]">
+                  {session?.user?.role === "ADMIN" ? (
+          <div className="w-[90%] dark:bg-[#191919] max-md:hidden">
+            <Link href="/admin/announcement ">
+              <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
+                Edit Announcements
+              </button>
+            </Link>
+          </div>
+        ) : (
+          ""
+        )}
                 {post.map((item: any) => (
                   <div
                     key={item.id}
@@ -104,6 +119,18 @@ export default async function AnnounceUpcoming() {
               {/* body  */}
 
               <div className=" py-3 space-y-3 overflow-y-auto max-h-[210px]  px-3 rounded-b-lg shadow-2xl dark:bg-[#313131]">
+
+                {session?.user?.role === "ADMIN" ? (
+          <div className="w-[90%] dark:bg-[#191919] max-md:hidden">
+            <Link href="/admin/upcoming-exam-editor ">
+              <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
+                Edit Upcoming Exams
+              </button>
+            </Link>
+          </div>
+        ) : (
+          ""
+        )}
                 {noticePost.map((item: any) => (
                   <div
                     key={item.id}

@@ -68,11 +68,11 @@ export default async function ({
           <div className="w-[70%]   max-sm:w-[100%]  ">
             {/* small heading */}
 
-            <div className="flex flex-row justify-between my-4">
-              <h2 className="text-xl text-my-text-color font-bold ">
+            <div className="flex flex-row justify-between my-4 ">
+              <h2 className="text-xl text-my-text-color font-bold  ">
                 One-Liner Current Affairs
               </h2>
-              <div className="text-sm text-gray-500 max-sm:hidden "> {params? (
+              <div className="text-md text-gray-500 my-auto "> {params? (
                 <p>{ date} </p>
               ) : <p> Updated Daily  </p>} </div>
             </div>
