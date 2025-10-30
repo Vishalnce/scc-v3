@@ -141,7 +141,7 @@ export default async function CurrentAffarisPage({
         <div className="w-[90%]  mx-auto flex flex-row gap-10 justify-between">
           {/* left box  */}
 
-          <div className="w-[30%] flex flex-col gap-4  max-md:hidden ">
+          <div className="w-[30%] flex flex-col gap-4  max-md:hidden sticky top-24 self-start h-fit ">
             {/* table of content  */}
 
             <div className=" border-2 bg-[#FAFCFC]  rounded-2xl border-[#E6F1F1] px-4 dark:border-[#E6F1F1] dark:bg-[#313131] py-2 pb-4">

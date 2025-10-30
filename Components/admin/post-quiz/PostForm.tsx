@@ -9,7 +9,6 @@ import Editor from "@/Components/admin/editor-page"; // adjust path if needed
 import type { TocItem } from "@/Components/admin/toc";
 import Image from "next/image";
 
-
 type PostType = {
   title: string;
   slug: string;
@@ -20,7 +19,7 @@ type PostType = {
   keywords: string;
   description: string;
   editorHtml: string;
-   timeLimit: number; 
+  timeLimit: number;
   toc: string;
 };
 const options = [
@@ -97,7 +96,6 @@ export default function Page({
   const isEdit = !!post;
 
   const onSubmit = async (data: PostType) => {
-   
     try {
       const method = isEdit ? "PATCH" : "POST";
 
@@ -110,12 +108,9 @@ export default function Page({
       const result = await res.json();
 
       if (res.ok) {
-        
-       console.log("Newly:", result.post.id);
+        console.log("Newly:", result.post.id);
         setPostId(result.post.id); // pass the new post ID to parent
         alert(isEdit ? "Post updated successfully!" : "Post created!");
-        
-  
       } else {
         alert("Failed to save post");
       }
@@ -256,16 +251,15 @@ export default function Page({
 
       <Editor value={value} onSync={setEditorData} />
 
-<input
-  type="number"
-  step="0.000001"          
-  min="0"              
-  max="200"            
-  {...register("timeLimit", { valueAsNumber: true })} 
-  placeholder="Time limit FOR QUIZ"
-  className="w-full p-2 border rounded"
-/>
-
+      <input
+        type="number"
+        step="0.000001"
+        min="0"
+        max="200"
+        {...register("timeLimit", { valueAsNumber: true })}
+        placeholder="Time limit FOR QUIZ"
+        className="w-full p-2 border rounded"
+      />
 
       <input type="hidden" {...register("editorHtml")} />
 

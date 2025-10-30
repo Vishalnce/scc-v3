@@ -238,9 +238,9 @@ export default async function CurrentAffarisPage({
       </header>
 
       <div className="bg-white dark:bg-black pt-12">
-        <div className="w-[90%]  mx-auto flex flex-row gap-10 justify-between">
+        <div className="w-[90%] relative  mx-auto flex flex-row gap-10 justify-between">
           {/* left box */}
-          <div className="w-[30%] flex flex-col gap-4  max-md:hidden ">
+          <div className="w-[30%]  flex flex-col gap-4  max-md:hidden sticky top-24 self-start h-fit ">
             {/* table of content */}
             <div className=" border-2 bg-[#FAFCFC]  rounded-2xl border-[#E6F1F1] px-4 dark:border-[#E6F1F1] dark:bg-[#313131] py-2 pb-4">
               {post?.toc &&
@@ -292,7 +292,7 @@ export default async function CurrentAffarisPage({
           </div>
 
           {/* right box  */}
-          <div className="w-[70%] max-md:w-[100%] max-md:mx-auto   ">
+          <div className="w-[70%]  max-md:w-[100%] max-md:mx-auto   ">
             {/* <div className="h-[100vh]">
 
 
