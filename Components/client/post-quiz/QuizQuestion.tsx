@@ -68,9 +68,9 @@ const handleSelect = (optionIndex: number) => {
   return (
     <>
       <div className=" dark:bg-black pb-14 pt-20 ">
-        <div className=" w-[90%] py-4 dark:bg-[#313131] bg-[#FAFCFC] rounded-2xl mx-auto px-6 border-2">
+        <div className=" w-[90%] py-4 dark:bg-[#313131] bg-[#FAFCFC] rounded-2xl mx-auto px-6 border-2 border-[#E6F1F1] ">
           {/* question number and timer */}
-          <div className="flex flex-row justify-between items-center  w-[90%] mx-auto -mt-10 border-2">
+          <div className="flex flex-row justify-between items-center  w-[90%] mx-auto -mt-10 ">
             <div
               className="  min-w-[60px]  bg-white py-1  "
               style={{
@@ -107,7 +107,7 @@ const handleSelect = (optionIndex: number) => {
           </div>
 
           {/* options and buttons */}
-          <div className="flex flex-row max-sm:flex-col justify-between items-stretch  border-red-300 border-2 max-sm:gap-5">
+          <div className="flex flex-row max-sm:flex-col justify-between items-stretch   max-sm:gap-5">
             {/* left box */}
 
             <div className="max-sm:py-2 max-sm:w-full max-sm:grid-cols-1 grid grid-cols-2 gap-6 w-[60%] ">

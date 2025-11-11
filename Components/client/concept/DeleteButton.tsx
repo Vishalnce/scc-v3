@@ -10,7 +10,7 @@ export default function DeleteButton({ slug }: { slug: string }) {
   async function handleOnDelete() {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/concept/admin?slug=${slug}`,
+        `/api/en/concept/admin?slug=${slug}`,
         { method: "DELETE" }
       );
 

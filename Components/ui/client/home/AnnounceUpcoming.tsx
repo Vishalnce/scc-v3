@@ -10,7 +10,7 @@ export default async function AnnounceUpcoming() {
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/notice/client`,
-        { cache: "no-store" }
+    
       );
       const data = await res.json();
       return data; // { contents: [...] }
@@ -24,7 +24,7 @@ export default async function AnnounceUpcoming() {
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/announcement/client`,
-        { cache: "no-store" }
+      
       );
       const data = await res.json();
       return data; // { contents: [...] }

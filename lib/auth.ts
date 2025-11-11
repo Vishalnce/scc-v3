@@ -1,7 +1,7 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import db from "@/lib/db";
-import GoogleProvider from "next-auth/providers/google"
-
+import GoogleProvider from "next-auth/providers/google";
+import jwt from "jsonwebtoken";
 export const NEXT_AUTH = {
   providers: [
     CredentialsProvider({
@@ -37,9 +37,9 @@ export const NEXT_AUTH = {
       },
     }),
     GoogleProvider({
-    clientId: process.env.GOOGLE_CLIENT_ID || "",
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET || ""
-  })
+      clientId: process.env.GOOGLE_CLIENT_ID || "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+    }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
@@ -58,43 +58,44 @@ export const NEXT_AUTH = {
         session.user.id = token.id;
         session.user.role = token.role || "USER";
       }
-  
+
+      if (!process.env.NEXTAUTH_SECRET) {
+        throw new Error("Missing NEXTAUTH_SECRET in environment variables");
+      }
+
+      session.accessToken = jwt.sign(
+        { id: token.id, role: token.role },
+        process.env.NEXTAUTH_SECRET,
+        { expiresIn: "15m" } // short-lived, secure
+      );
+
       return session;
     },
-async signIn({ account, profile }:any) {
+    async signIn({ account, profile }: any) {
       if (account.provider === "google") {
         // Save or update user in your DB
 
-      
-
-        const existingUser = await db.user.findFirst({ where: { email: profile.email } });
+        const existingUser = await db.user.findFirst({
+          where: { email: profile.email },
+        });
         if (!existingUser) {
           await db.user.create({
             data: {
-              first:profile.given_name,
-              last:profile.family_name,
+              first: profile.given_name,
+              last: profile.family_name,
               email: profile.email,
-              
+
               // add other fields as needed
             },
           });
         }
       }
-      
+
       return true;
     },
-
-
-
-    
-    
-
-
-
-    
   },
 
-   pages: {
-    signIn: '/login',
-   }
-}
+  pages: {
+    signIn: "/login",
+  },
+};

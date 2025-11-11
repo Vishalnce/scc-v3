@@ -42,19 +42,11 @@ function YouTubeComponent({
   nodeKey,
   videoID,
 }: YouTubeComponentProps) {
-  
   return (
     <BlockWithAlignableContents
       className={className}
-       format="center"
+      format={format}
       nodeKey={nodeKey}>
-           <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          border: '4px solid #ccc',
-        }}
-      >
       <iframe
         width="560"
         height="315"
@@ -63,10 +55,7 @@ function YouTubeComponent({
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen={true}
         title="YouTube video"
-        
-        
       />
-      </div>
     </BlockWithAlignableContents>
   );
 }
@@ -118,39 +107,24 @@ export class YouTubeNode extends DecoratorBlockNode {
     this.__id = id;
   }
 
-exportDOM(): DOMExportOutput {
-  const element = document.createElement('iframe');
-  element.setAttribute('data-lexical-youtube', this.__id);
-  element.setAttribute(
-    'src',
-    `https://www.youtube-nocookie.com/embed/${this.__id}`
-  );
-  element.setAttribute('frameborder', '0');
-  element.setAttribute(
-    'allow',
-    'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-  );
-  element.setAttribute('allowfullscreen', 'true');
-  element.setAttribute('title', 'YouTube video');
-
-  // ✅ Responsive + Centered
-  element.setAttribute(
-    'style',
-    `
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-      width: 100%;
-      max-width: 560px;
-      aspect-ratio: 16 / 9;
-      height: auto;
-      border: none;
-    `
-  );
-
-  return { element };
-}
-
+  exportDOM(): DOMExportOutput {
+    const element = document.createElement('iframe');
+    element.setAttribute('data-lexical-youtube', this.__id);
+    element.setAttribute('width', '560');
+    element.setAttribute('height', '315');
+    element.setAttribute(
+      'src',
+      `https://www.youtube-nocookie.com/embed/${this.__id}`,
+    );
+    element.setAttribute('frameborder', '0');
+    element.setAttribute(
+      'allow',
+      'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture',
+    );
+    element.setAttribute('allowfullscreen', 'true');
+    element.setAttribute('title', 'YouTube video');
+    return {element};
+  }
 
   static importDOM(): DOMConversionMap | null {
     return {

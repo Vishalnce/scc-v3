@@ -8,25 +8,35 @@ type Item = {
 };
 
 export default async function OneLiner() {
-  async function fetchOneLiner() {
+async function fetchOneLiner() {
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/one-liner/client/?limit=5`,
-        { cache: "no-store" }
-      );
+      // ✅ Resolve base URL dynamically — works locally, in Docker, and in production
+      const baseUrl =
+        process.env.NEXT_PUBLIC_SITE_URL ||
+        process.env.VERCEL_URL ||
+        "http://localhost:3000";
 
-        if (!res.ok) {
+      // ✅ Fetch with optional revalidation (avoid dynamic errors)
+      const res = await fetch(`${baseUrl}/api/en/one-liner/client/?limit=5`, {
+        next: { revalidate: 60 },
+      });
+
+      if (!res.ok) {
+        console.warn("One-liner fetch failed:", res.statusText);
         return { contents: [] };
       }
 
       const data = await res.json();
-      return data; // { contents: [...] }
+
+      // ✅ Ensure data structure safety
+      return data && Array.isArray(data.contents)
+        ? data
+        : { contents: [] };
     } catch (error) {
-      console.log(`error in one liner: ${error}`);
-      return { contents: [] }; // fallback
+      console.error("error in one liner:", error);
+      return { contents: [] }; // safe fallback
     }
   }
-
   const { contents } = await fetchOneLiner();
 
   return (

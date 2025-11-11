@@ -175,7 +175,9 @@ export default function Editor({value, onChange}:EditorProps): JSX.Element {
         <ClearEditorPlugin />
         {/* <ComponentPickerPlugin /> */}
         {/* <EmojiPickerPlugin /> */}
-        {/* <AutoEmbedPlugin /> */}
+         {/* for adding youtube video */}
+        <AutoEmbedPlugin /> 
+        
         <CustomOnChangePlugin value= {value} onChange={onChange}/>
         <MentionsPlugin />
         {/* <EmojisPlugin /> */}

@@ -11,7 +11,7 @@
   },
   "prisma": {
     "schema": "prisma/schema",
-      "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "dependencies": {
     "@excalidraw/excalidraw": "^0.18.0",
@@ -35,6 +35,8 @@
     "cheerio": "^1.1.0",
     "date-fns": "^4.1.0",
     "embla-carousel-react": "^8.6.0",
+    "html-react-parser": "^5.2.7",
+    "jsonwebtoken": "^9.0.2",
     "katex": "^0.16.22",
     "lexical": "^0.32.1",
     "lodash-es": "^4.17.21",
@@ -58,6 +60,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4.1.11",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^20.19.19",
     "@types/react": "^19",
     "@types/react-dom": "^19",

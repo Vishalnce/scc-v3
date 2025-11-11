@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { FaRegCircle } from "react-icons/fa";
+import { GoStopwatch } from "react-icons/go";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
 export default function QuizResult({
@@ -83,7 +84,7 @@ questions.forEach((question) => {
   
 
   return (
-    <div className="max-w-[1400px] mx-auto dark:bg-black border-2 py-14">
+    <div className="max-w-[1400px] mx-auto dark:bg-black  py-14">
       {/* Header card */}
 
 
@@ -110,13 +111,8 @@ questions.forEach((question) => {
         </div>
 
         <div className="flex flex-row gap-2 items-center justify-center">
-          <Image
-            src="/typing-test/icons/taken.svg"
-            alt="typing-test"
-            width={24}
-            height={24}
-          />
-          <p className="text-xl">
+          <GoStopwatch className="size-6 dark:text-white" />
+          <p className="text-xl dark:text-white">
             Time Taken:{" "}
             {Number(timeTaken) < 60
               ? `${Number(timeTaken).toFixed(2)} seconds`
@@ -127,15 +123,15 @@ questions.forEach((question) => {
         <div className="flex flex-row max-sm:flex-col max-sm:gap-2 justify-around w-full py-12">
           <div className="flex flex-row gap-2 min-w-[160px] justify-center">
             <FaRegCircle className="bg-[#2CBB01] my-auto rounded-full text-[#2CBB01]" />
-            <p className="text-xl">Correct : {correctCount}</p>
+            <p className="text-xl dark:text-white">Correct : {correctCount}</p>
           </div>
           <div className="flex flex-row gap-2 min-w-[160px] justify-center">
             <FaRegCircle className="bg-[#FF0000] my-auto rounded-full text-[#FF0000]" />
-            <p className="text-xl">Incorrect : {incorrectCount}</p>
+            <p className="text-xl dark:text-white">Incorrect : {incorrectCount}</p>
           </div>
           <div className="flex flex-row gap-2 min-w-[160px] justify-center">
             <FaRegCircle className="bg-[#6C6C6C] my-auto rounded-full text-[#6C6C6C]" />
-            <p className="text-xl">Not Attempted: {notAttemptedCount}</p>
+            <p className="text-xl dark:text-white">Not Attempted: {notAttemptedCount}</p>
           </div>
         </div>
 
@@ -168,7 +164,7 @@ questions.forEach((question) => {
 
         {/* question + topic */}
         <div className="flex flex-row justify-between items-start min-h-[20vh] mt-6">
-          <div className="w-[60%] border-2 max-sm:w-full">
+          <div className="w-[60%]  max-sm:w-full">
             <p className="font-bold dark:text-white">{q.questionText}</p>
           </div>
           <div className="flex items-end max-sm:hidden">

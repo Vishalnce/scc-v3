@@ -4,6 +4,7 @@ import React from "react";
 import QuizWrapper from "@/Components/client/post-quiz/QuizWrapper";
 import CommentWrapper from "@/Components/client/comment/CommentWrapper";
 import SideBar from "@/Components/ui/client/sidebar/SideBar";
+import parse from "html-react-parser";
 // Type for the related quiz items
 type QuizPostItem = {
   id: number;

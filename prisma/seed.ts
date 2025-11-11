@@ -6,6 +6,11 @@ const prisma = new PrismaClient();
 async function main() {
   const admins = [
     { email: process.env.ADMIN_EMAIL, password: process.env.ADMIN_PASSWORD },
+    { email: process.env.ADMIN_EMAIL1, password: process.env.ADMIN_PASSWORD2 },
+
+    { email: process.env.ADMIN_EMAIL3, password: process.env.ADMIN_PASSWORD3 },
+    { email: process.env.ADMIN_EMAIL4, password: process.env.ADMIN_PASSWORD4 },
+
   
   ];
 

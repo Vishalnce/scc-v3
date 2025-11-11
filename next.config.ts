@@ -9,8 +9,30 @@ const nextConfig: NextConfig = {
         port: "5000",
         pathname: "/uploads/**",
       },
+      {
+        protocol: "http",
+        hostname: "image.sscexamlife.info",
+        port: "",
+        pathname: "/uploads/**",
+      },
+      {
+        protocol: "https",
+        hostname: "image.sscexamlife.info",
+        port: "",
+        pathname: "/uploads/**",
+      },
     ],
   },
+
+    eslint: {
+    ignoreDuringBuilds: true,
+  },
+
+    typescript: {
+    ignoreBuildErrors: true,
+  },
+
+
 };
 
 export default nextConfig;

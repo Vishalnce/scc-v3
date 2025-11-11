@@ -8,6 +8,7 @@ import { useState, useCallback, useEffect } from "react";
 import Editor from "@/Components/admin/editor-page"; // adjust path if needed
 import type { TocItem } from "@/Components/admin/toc";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 
 type PostType = {
   title: string;
@@ -49,6 +50,8 @@ const options = [
 type OptionType = { value: string; label: string };
 
 export default function Page({ post }: { post?: PostType }) {
+
+   const { data: session } = useSession();
   const { register, handleSubmit, setValue, watch } = useForm<PostType>({
     defaultValues: post || {},
   });
@@ -56,6 +59,8 @@ export default function Page({ post }: { post?: PostType }) {
   const [selectedOption, setSelectedOption] = useState<OptionType | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string>("");
+  const [isUploading, setIsUploading] = useState(false);
+
 
   const [editorData, setEditorData] = useState<{
     html: string;
@@ -116,29 +121,60 @@ export default function Page({ post }: { post?: PostType }) {
   };
 
   // image upload
-  const handleImageUpload = async () => {
+const handleImageUpload = async () => {
+    if (session?.user?.role !== "ADMIN") {
+      alert("Access denied");
+      return;
+    }
     if (!imageFile) return alert("Please select an image to upload");
+
+    setIsUploading(true); // start uploading
 
     const formData = new FormData();
     formData.append("image", imageFile);
 
     try {
-      const res = await fetch("http://localhost:5000/api/upload", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_URL}/api/upload`, {
         method: "POST",
+        headers: {
+          Authorization: `Bearer ${session.accessToken}`,
+        },
         body: formData,
       });
 
       const data = await res.json();
       if (data?.url) {
         setUploadedImageUrl(data.url);
-        setValue("image", data.url); // ✅ Set in form
+        setValue("image", data.url);
       } else {
         alert("Upload failed");
       }
     } catch (err) {
       console.error(err);
       alert("Error uploading image");
+    } finally {
+      setIsUploading(false); // stop uploading
     }
+  };
+
+
+  const handleCancelUpload = async () => {
+    if (!uploadedImageUrl) return;
+
+    try {
+      await fetch(`${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_URL}/api/delete?url=${uploadedImageUrl}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${session?.accessToken}`,
+        },
+      });
+    } catch (error) {
+      console.error("Delete error:", error);
+    }
+
+    setUploadedImageUrl("");
+    setImageFile(null);
+    setValue("image", "");
   };
 
   useEffect(() => {
@@ -188,32 +224,53 @@ export default function Page({ post }: { post?: PostType }) {
 
       {/* image upload  */}
 
-      <input
-        type="file"
-        accept="image/*"
-        onChange={(e) => setImageFile(e.target.files?.[0] || null)}
-        className="border p-2"
-      />
-
-      <button
-        type="button"
-        onClick={handleImageUpload}
-        className="bg-blue-600 text-white px-4 py-2 rounded"
-      >
-        Upload Image
-      </button>
-
-      {uploadedImageUrl && (
-        <div className="relative w-[30%] h-[228px] ">
-          <p className="text-sm text-gray-600">Uploaded Image:</p>
-          <Image
-            src={uploadedImageUrl}
-            alt={watch("alt") || "Uploaded image preview"}
-            fill
-            className="object-cover"
-          />
-        </div>
-      )}
+     <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => setImageFile(e.target.files?.[0] || null)}
+          className="border border-gray-300 p-2 rounded-md w-fit"
+        />
+    
+        {/* Upload button */}
+        <button
+          type="button"
+          onClick={handleImageUpload}
+          disabled={isUploading}
+          className={`px-4 py-2 rounded text-white transition ${
+            isUploading
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-blue-600 hover:bg-blue-700"
+          }`}
+        >
+          {isUploading ? "Uploading..." : "Upload Image"}
+        </button>
+    
+        {/* Uploaded Image Preview */}
+        {uploadedImageUrl && (
+          <div className="relative w-[30%] h-[228px] border border-gray-200 rounded-md overflow-hidden">
+            <div className="flex justify-between items-center px-1 pt-1">
+              <p className="text-sm text-gray-600">Uploaded Image:</p>
+              <button
+                type="button"
+                onClick={handleCancelUpload}
+                className="text-red-500 text-sm hover:underline"
+              >
+                Cancel
+              </button>
+            </div>
+    
+            {/* Image Preview */}
+            <div className="relative w-full h-[200px]">
+              <Image
+                src={uploadedImageUrl}
+                alt={watch("alt") || "Uploaded image preview"}
+                fill
+                className="object-cover rounded-b-md"
+              />
+            </div>
+          </div>
+        )}
+    
 
       <input type="hidden" {...register("image")} value={uploadedImageUrl} />
 

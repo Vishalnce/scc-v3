@@ -13,6 +13,7 @@ declare module "next-auth" {
       name?: string | null;
       email?: string | null;
     };
+    accessToken?: string; // 👈 Add this line
   }
 
   interface DefaultSession {
@@ -22,5 +23,11 @@ declare module "next-auth" {
       name?: string | null;
       email?: string | null;
     };
+  }
+}
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    accessToken?: string;
   }
 }

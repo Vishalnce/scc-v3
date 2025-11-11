@@ -4,8 +4,18 @@ import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { GoStopwatch } from "react-icons/go";
+import { Suspense } from "react";
 
 export default function Page() {
+ return (
+    <Suspense fallback={<div>Loading typing test...</div>}>
+      <TypingTestClient />
+    </Suspense>
+  );
+}
+
+
+function TypingTestClient() {
   const router = useRouter();
 
   const searchParams = useSearchParams();

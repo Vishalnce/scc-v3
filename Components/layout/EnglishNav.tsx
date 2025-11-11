@@ -110,7 +110,7 @@ function Nav() {
               <TbLanguageHiragana className="size-5 " />
             </Link>
 
-            <FaBell className="size-5 " />
+            {/* <FaBell className="size-5 " /> */}
 
             <ThemeToggle />
             {status === "authenticated" ? (
@@ -118,7 +118,7 @@ function Nav() {
                 <button
                   className="p-0.5 px-4 border-1 rounded-lg bg-my-green text-white max-lg:text-sm max-sm:px-2  "
                   onClick={() => {
-                    signOut();
+                    signOut({ callbackUrl: process.env.NEXT_PUBLIC_NEXTAUTH_URL  || "/"});
                   }}
                 >
                   Logout
