@@ -27,6 +27,7 @@ export default function Editor({ value = "", onSync }: EditorProps) {
     const rawHtml = editorContentRef.current;
     const { toc, html: updatedHtml } = extractTocFromHtml(rawHtml);
     onSync({ html: updatedHtml, toc });
+    alert("Content synced!");
     // console.log("TOC:", toc);
     // console.log("HTML:", updatedHtml);
   };
@@ -41,7 +42,7 @@ export default function Editor({ value = "", onSync }: EditorProps) {
           }}
         />
       </div>
-      <button type="button" className="p-1 mt-2 bg-blue-500 text-white px-4 py-2 rounded" onClick={tocAndHtml}>
+      <button type="button" className="p-1 mt-2 bg-blue-300 hover:bg-blue-800 text-white px-4 py-2 rounded" onClick={tocAndHtml}>
         Sync Now
       </button>
     </div>

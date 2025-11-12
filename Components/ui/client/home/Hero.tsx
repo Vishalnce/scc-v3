@@ -16,9 +16,9 @@ export default function Hero() {
           className={`relative bg-[#2CBB01] max-sm:gap-4 flex items-center justify-center py-2 px-4 ${smallBanner ? "hidden" : ""} }`}
         >
           {/* Center text content */}
-          <div className="flex flex-row items-center sm:gap-2  ">
+          <div className="flex flex-row items-center sm:gap-2 gap-3  ">
             <p className="text-center text-[#FFFFFF] text-sm max-sm:text-[12px] ">
-              Exclusive SSC Test Series that Blends Quality with Affordability!
+             Only Exclusive SSC CGL Test Series
             </p>
             <p className="p-1 px-2 bg-[#FFE332] rounded-full text-xs max-sm:text-[10px] max-sm:hidden  max-sm:text-center">
               Coming soon
@@ -47,13 +47,12 @@ export default function Hero() {
             <div className="flex flex-col  w-[55%] items-start gap-2 max-sm:w-full  ">
               <div className="  max-sm:w-full">
                 <p className="bg-[#FFE332] rounded-full p-2 text-sm py-2  max-sm:text-center">
-                  New Quizzes and Current Affairs Just Dropped!
+                  New Quizzes and Current Affairs!
                 </p>
               </div>
 
-              <h1 className="text-4xl font-montserrat max-sm:text-3xl font-bold dark:text-[#FFFFFF] pt-2  leading-snug">
-                Conquer the <span className="text-[#007076]">SSC CGL</span> Exam
-                and Secure Your Dream Career!
+              <h1 className="text-4xl font-montserrat max-sm:text-2xl font-bold dark:text-[#FFFFFF] pt-2  leading-snug">
+                Crack  <span className="text-[#007076]">SSC CGL</span> Secure Dream Government Career!
               </h1>
               <p className="text-my-text-color py-2 max-sm:text-sm">
                 Empower Your Prep with Top-Notch Study Materials, Mock Tests,
@@ -86,7 +85,7 @@ export default function Hero() {
                   height={150}
                 />
                 <p className="text-sm text-my-text-color">
-                  Trusted by over 1,00,000+ students
+                	Trsuted by SSC Aspirants!
                 </p>
               </div>
             </div>

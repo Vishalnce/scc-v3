@@ -92,6 +92,14 @@ export default function Page({
     }
   }, [title, slugTransform, setValue]);
 
+  useEffect(() => {
+  if (post?.image) {
+    setUploadedImageUrl(post.image);
+    setValue("image", post.image);
+  }
+}, [post, setValue]);
+
+
   const value = post?.editorHtml || "";
 
   // const value = `<p class="PlaygroundEditorTheme__paragraph" dir="ltr"><span style="white-space: pre-wrap;">asdsadasdasdasdassszzzzzzzzzzz</span></p>;`;

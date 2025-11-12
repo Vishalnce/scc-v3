@@ -105,7 +105,7 @@ export default function Current() {
 
         {/* main body */}
         <div
-          className="overflow-hidden  my-8 dark:bg-black  pb-6"
+          className="overflow-hidden  my-8 dark:bg-black pb-6"
           ref={emblaRef}
         >
           <div className="flex">
@@ -115,8 +115,9 @@ export default function Current() {
               <p className="p-4">No current affairs available</p>
             ) : (
               affairs.map((item, index) => (
-                <div
-                  className="min-w-[33.333%] max-sm:min-w-[90%] px-2 max-sm:pr-8  "
+                <Link
+                href={`/current-affaris-page/${item.slug}`}
+                  className="min-w-[33.333%] max-sm:min-w-[90%] px-2 max-sm:pr-8 "
                   key={index}
                 >
                   {/* iimage */}
@@ -157,7 +158,7 @@ export default function Current() {
                       <p className="dark:text-white">Read more</p>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))
             )}
           </div>

@@ -31,7 +31,7 @@ export default function QuizSection({
   async function fetchQuizPost(postId: number) {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/post-quiz/client?postId=${postId}`,
+        `/api/en/post-quiz/client?postId=${postId}`,
         { cache: "no-store" } // optional: to avoid stale data in Next.js
       );
 
