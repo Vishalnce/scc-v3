@@ -122,7 +122,7 @@ export default async function AnnounceUpcoming() {
 
                 {session?.user?.role === "ADMIN" ? (
           <div className="w-[90%] dark:bg-[#191919] max-md:hidden">
-            <Link href="/admin/upcoming-exam-editor ">
+            <Link href="/admin/notice ">
               <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
                 Edit Upcoming Exams
               </button>

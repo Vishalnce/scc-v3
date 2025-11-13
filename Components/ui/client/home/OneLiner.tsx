@@ -8,7 +8,7 @@ type Item = {
 };
 
 export default async function OneLiner() {
-async function fetchOneLiner() {
+  async function fetchOneLiner() {
     try {
       // ✅ Resolve base URL dynamically — works locally, in Docker, and in production
       const baseUrl =
@@ -29,9 +29,7 @@ async function fetchOneLiner() {
       const data = await res.json();
 
       // ✅ Ensure data structure safety
-      return data && Array.isArray(data.contents)
-        ? data
-        : { contents: [] };
+      return data && Array.isArray(data.contents) ? data : { contents: [] };
     } catch (error) {
       console.error("error in one liner:", error);
       return { contents: [] }; // safe fallback
@@ -50,8 +48,15 @@ async function fetchOneLiner() {
                 One-Liner Current Affairs for Quick Revision
               </p>
               <div className="w-[34%] max-lg:hidden">
-                <p className="bg-[#2CBB0180] rounded-full   py-1 px-2 my-2 text-black text-xs max-w-[250px]">
-                  <span className="px-2 rounded-full bg-[#FFFFFF] mr-2 "></span>
+                <p className="bg-[#2CBB0180] rounded-full py-2 px-2 my-2 text-black text-xs flex items-center max-w-[250px]">
+                  {/* White circle container */}
+                  <span className="relative mr-2 w-5 h-5 rounded-full bg-white flex items-center justify-center">
+                    {/* Blinking green dot centered inside */}
+                    <span
+                      className="w-3 h-3 rounded-full bg-green-600 animate-pulse"
+                      aria-label="live indicator"
+                    ></span>
+                  </span>
                   Don't Miss The Live Quizzes
                 </p>
               </div>
@@ -75,8 +80,6 @@ async function fetchOneLiner() {
                   <p className="dark:text-white">{item.content}</p>
                 </div>
               ))}
-
-             
             </div>
 
             {/* image */}

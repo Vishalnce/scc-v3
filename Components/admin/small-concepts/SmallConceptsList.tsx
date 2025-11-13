@@ -6,7 +6,7 @@ import DeleteButton from "./DeleteButton";
 type Announce = {
   id: number;
   title: string;
-  content:string;
+  content: string;
   topic: string;
 };
 
@@ -28,29 +28,28 @@ export default function AnnounceList() {
   }, []);
 
   return (
-    <div className="w-[90%] mx-auto border-2">
-      {/* jst text  */}
-      <div className="flex flex-row justify-between my-4">
-        <h2 className="text-xl text-my-text-color font-bold ">smallConcepts</h2>
+    <div className="w-[90%] mx-auto border-2 border-gray-300 rounded-lg p-6 bg-white shadow-sm mt-4">
+      {/* Header text */}
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-xl font-bold text-gray-800">smallConcepts</h2>
       </div>
 
-      {/* content */}
-
-      <div className="">
+      {/* Content list */}
+      <div className="space-y-4">
         {announces.map((item) => (
           <div
             key={item.id}
-            className="border-2 m-2 flex flex-row justify-between"
+            className="border border-gray-200 rounded-lg flex justify-between items-start bg-[#FAFCFC] shadow-sm hover:shadow-md transition p-4"
           >
-            <div >
-           
-              <p className="p-2 bg-[#FAFCFC]">{item.title}</p>
-              <p className="p-2 bg-[#FAFCFC]">{item.content}</p>
-
-              <p className="p-2 bg-[#FAFCFC]">{item.topic}</p>{" "}
+            <div className="space-y-2">
+              <p className="font-semibold text-gray-900">
+                Title: {item.title}
+              </p>
+              <p className="text-gray-700"> Concept: {item.content}</p>
+              <p className="text-sm text-gray-500"> Topic: {item.topic}</p>
             </div>
 
-            <div className="flex flex-row gap-2  p-2">
+            <div className="flex gap-3">
               <EditButton id={item.id} />
               <DeleteButton id={item.id} onDelete={fetchAnnounces} />
             </div>

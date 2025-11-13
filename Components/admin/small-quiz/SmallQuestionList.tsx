@@ -67,53 +67,50 @@ const QuestionList = ({ setQuesId }: QuestionWrapperProps) => {
 
 
   return (
-    <div>
-      <h2>Questions List</h2>
-      <ul>
-        {questions.map((q) => (
-          <div className="flex flex-row justify-between mb-4" key={q.id}>
-            <li>
-              <div>
-                {q.questionText && <p>{q.questionText}</p>}
-               
-              </div>
+    <div className="max-w-[90%] mx-auto bg-white p-6 rounded-xl shadow space-y-8 border mt-5">
+  <h2 className="text-3xl font-bold mb-6 text-gray-800 border-b pb-3">Questions List</h2>
+  <ul className="space-y-6">
+    {questions.map((q) => (
+      <li
+        key={q.id}
+        className="flex justify-between items-start bg-gray-50 p-4 rounded-lg shadow-sm border hover:shadow-md transition"
+      >
+        <div className="w-full">
+          {q.questionText && (
+            <p className="text-lg font-semibold text-gray-900 mb-3">{q.questionText}</p>
+          )}
 
-              <ul className="mt-2">
-                {q.options.map((opt, idx) => (
-                  <li key={idx} className="mb-1">
-                    {opt.text && (
-                      <span>
-                        {idx + 1}. {opt.text}
-                      </span>
-                    )}
-                  
-                  </li>
-                ))}
-              </ul>
+          <ul className="list-decimal list-inside space-y-1 text-gray-700">
+            {q.options.map((opt, idx) => (
+              <li key={idx} className="">
+                {opt.text && <span>{opt.text}</span>}
+              </li>
+            ))}
+          </ul>
 
-                   <div>
-                <p>
-                  Correct Option number {q.correctOption}
-                </p>
-               
-              </div>
+          <p className="mt-3 font-medium text-green-700">
+            Correct Option number: <span className="font-bold">{q.correctOption}</span>
+          </p>
+        </div>
 
+        <div className="flex flex-col items-center ml-6 space-y-3">
+          <button
+            onClick={() => setQuesId(q.id)}
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition w-20"
+          >
+            Edit
+          </button>
+          <DeleteButton
+            quesId={q.id}
+            onDeleted={() => fetchQuestions()}
+            
+          />
+        </div>
+      </li>
+    ))}
+  </ul>
+</div>
 
-
-              
-            </li>
-
-            {/* edit and delete */}
-            <div className="flex flex-col ml-4">
-              <button onClick={() => setQuesId(q.id)} className="btn-edit mb-2">
-                Edit
-              </button>
-              <DeleteButton quesId={q.id} onDeleted={() => fetchQuestions()} />
-            </div>
-          </div>
-        ))}
-      </ul>
-    </div>
   );
 };
 

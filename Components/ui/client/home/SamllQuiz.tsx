@@ -113,17 +113,7 @@ export default function Quiz() {
       <div className="w-[90%] mx-auto pt-14 max-sm:pt-10 max-sm:py-24 pb-8 flex flex-row max-sm:flex-col justify-between ">
         {/* Heading */}
         <div className="w-[33%] max-sm:w-[95%] flex flex-col items-start max-sm:pb-8  pt-2 max-sm:justify-between">
-            {session?.data?.user?.role === "ADMIN" ? (
-          <div className="w-[90%] dark:bg-[#191919]  max-md:hidden">
-            <Link href="/admin/small-quiz ">
-              <button className=" bg-[#FFE332] rounded-full text-center px-2 py-2">
-                Edit Quiz
-              </button>
-            </Link>
-          </div>
-        ) : (
-          ""
-        )}
+           
           <p className="bg-[#2CBB0180] text-white rounded-full p-2 text-sm py-2 my-2">
             <span className="px-2 rounded-full bg-[#FFFFFF] mr-2"></span>
             Don't Miss The Live Quizzes
@@ -135,6 +125,18 @@ export default function Quiz() {
             Engage with Us to Explore Subject-Wise Quizzes and Practice 1000+
             Questions for Comprehensive Preparation!
           </p>
+
+           {session?.data?.user?.role === "ADMIN" ? (
+          <div className="w-[90%] dark:bg-[#191919]  max-md:hidden">
+            <Link href="/admin/small-quiz ">
+              <button className=" bg-[#FFE332] rounded-full text-center px-4 py-2">
+                Edit Quiz
+              </button>
+            </Link>
+          </div>
+        ) : (
+          ""
+        )}
         </div>
 
         {/* Quiz body */}

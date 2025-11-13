@@ -19,10 +19,7 @@ type QuestionFormData = {
     // image?: string;
   }[]; // matches Json array of options in model
 
-
-
-correctOption: number | "";
-
+  correctOption: number | "";
 };
 
 type FormDataType = {};
@@ -36,22 +33,14 @@ function QuestionForm({ onSuccess, quesId, setQuesId }: QuestionFormProps) {
   } = useForm<QuestionFormData>({
     defaultValues: {
       questionText: "",
-      
-      options: [
-        { text: "" },
-        { text: "" },
-        { text: "" },
-        { text: "" },
-      ],
 
-  
+      options: [{ text: "" }, { text: "" }, { text: "" }, { text: "" }],
+
       correctOption: undefined,
- 
     },
   });
 
   async function onSubmitQuestion(data: any) {
-  
     console.log("Submitting question data:", data);
 
     try {
@@ -74,20 +63,11 @@ function QuestionForm({ onSuccess, quesId, setQuesId }: QuestionFormProps) {
       onSuccess();
       resetQ({
         questionText: "",
-   
-        options: [
-          { text: "" },
-          { text: "" },
-          { text: "" },
-          { text: "" },
-        ],
 
+        options: [{ text: "" }, { text: "" }, { text: "" }, { text: "" }],
 
         correctOption: "",
-
       });
-
-
     } catch (error) {
       console.error("Error submitting question:", error);
       // Optionally show error notification to user
@@ -97,7 +77,7 @@ function QuestionForm({ onSuccess, quesId, setQuesId }: QuestionFormProps) {
   useEffect(() => {
     if (!quesId) {
       resetQ();
-  
+
       return;
     }
 
@@ -111,29 +91,22 @@ function QuestionForm({ onSuccess, quesId, setQuesId }: QuestionFormProps) {
           options: [
             {
               text: data.options?.[0]?.text ?? "",
-   
             },
             {
               text: data.options?.[1]?.text ?? "",
-      
             },
             {
               text: data.options?.[2]?.text ?? "",
-      
             },
             {
               text: data.options?.[3]?.text ?? "",
-     
             },
           ],
 
- 
           correctOption: data.correctOption ?? undefined,
-
         });
 
         // Update preview states
-     
       })
       .catch(console.error);
   }, [quesId, resetQ]);
@@ -146,7 +119,6 @@ function QuestionForm({ onSuccess, quesId, setQuesId }: QuestionFormProps) {
       return;
     }
 
-   
     // Get current form values
     const data = getValues();
 
@@ -176,16 +148,9 @@ function QuestionForm({ onSuccess, quesId, setQuesId }: QuestionFormProps) {
       resetQ({
         questionText: "",
 
-        options: [
-          { text: "" },
-          { text: ""},
-          { text: "" },
-          { text: "" },
-        ],
-  
+        options: [{ text: "" }, { text: "" }, { text: "" }, { text: "" }],
 
         correctOption: "",
-
       });
 
       // Reset image previews and file states
@@ -196,53 +161,64 @@ function QuestionForm({ onSuccess, quesId, setQuesId }: QuestionFormProps) {
     }
   }
 
-
   return (
     <>
       <form
         onSubmit={handleSubmitQ(onSubmitQuestion)}
-        className="p-4 space-y-4 border rounded-md"
+        className="max-w-[90%] mx-auto bg-white p-8 rounded-xl shadow space-y-6 border"
       >
-        <h2 className="font-bold text-lg">Add Question</h2>
-        <textarea
-          {...registerQ("questionText")}
-          placeholder="Question text"
-          className="w-full p-2 border rounded"
-        />
-        
+        <h2 className="font-bold text-2xl mb-6 text-gray-800">Add Question To Home Page</h2>
 
-        {Array.from({ length: 4 }).map((_, idx) => (
-          <div key={idx} className="space-y-2">
-            <input
-              {...registerQ(`options.${idx}.text`)}
-              placeholder={`Option ${idx + 1} text`}
-              className="w-full p-2 border rounded"
-            />
+        <label className="block mb-2 font-medium text-gray-700">
+          Question text
+          <textarea
+            {...registerQ("questionText")}
+            placeholder="Enter your question here"
+            className="w-full mt-1 p-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:outline-none transition"
+            rows={3}
+          />
+        </label>
 
+        <div className="grid grid-cols-2 gap-6">
+          {Array.from({ length: 4 }).map((_, idx) => (
+            <div key={idx}>
+              <label className="block mb-1 font-medium text-gray-700">
+                Option {idx + 1}
+              </label>
+              <input
+                {...registerQ(`options.${idx}.text`)}
+                placeholder={`Option ${idx + 1} text`}
+                className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:outline-none transition"
+              />
+            </div>
+          ))}
+        </div>
 
-          
-          </div>
-        ))}
+        <label className="block font-medium text-gray-700">
+          Correct option number
+          <input
+            type="number"
+            {...registerQ("correctOption", { valueAsNumber: true })}
+            placeholder="Enter the correct option number"
+            className="w-full mt-1 p-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:outline-none transition"
+          />
+        </label>
 
-        <input
-          type="number"
-          {...registerQ("correctOption", { valueAsNumber: true })}
-          placeholder="Correct option number "
-          className="w-full p-2 border rounded"
-        />
-
-        {/* for solution imaeg upload  */}
-
-
-
-     
-        <button
-          type="submit"
-          className="bg-green-600 text-white px-4 py-2 rounded"
-        >
-          Add Question
-        </button>
-        <button onClick={updateQuestion}>Upadate question</button>
+        <div className="flex space-x-4">
+          <button
+            type="submit"
+            className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition"
+          >
+            Add Question
+          </button>
+          <button
+            type="button"
+            onClick={updateQuestion}
+            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
+          >
+            Update Question
+          </button>
+        </div>
       </form>
     </>
   );

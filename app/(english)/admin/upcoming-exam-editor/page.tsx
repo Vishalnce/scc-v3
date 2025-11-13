@@ -1,5 +1,5 @@
 import PostFormUpcomingExam from "@/Components/admin/PostFormUpcomingExam";
-import  db  from "@/lib/db";
+import db from "@/lib/db";
 import { notFound } from "next/navigation";
 
 export default async function AdminEditorPage({
@@ -7,8 +7,8 @@ export default async function AdminEditorPage({
 }: {
   searchParams: Promise<{ slug?: string }>;
 }) {
-   let post = undefined
-   const params =  (await searchParams).slug
+  let post = undefined;
+  const params = (await searchParams).slug;
   if (params) {
     post = await db.exam.findUnique({
       where: { slug: params },
@@ -16,7 +16,6 @@ export default async function AdminEditorPage({
 
     if (!post) return notFound();
   }
-  
 
   return <PostFormUpcomingExam post={post} />;
 }
