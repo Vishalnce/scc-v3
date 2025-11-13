@@ -17,7 +17,7 @@ export default async function AdminEditorPage({
     if (!post) return notFound();
   }
 
-  console.log("Post data:", post);
+
 
   return <PostFormConcepts post={post} />;
 }

@@ -27,30 +27,32 @@ export default function AnnounceList() {
   }, []);
 
   return (
-    <div className="w-[90%] mx-auto border-2">
-      {/* jst text  */}
-      <div className="flex flex-row justify-between my-4">
-        <h2 className="text-xl text-my-text-color font-bold ">Notice</h2>
+   <div className="w-[90%] mx-auto border-2 border-gray-300 rounded-lg p-6 bg-white shadow-sm mt-4">
+  {/* Header */}
+  <div className="flex justify-between my-4">
+    <h2 className="text-xl font-bold text-my-text-color">Upcoming Exam</h2>
+  </div>
+
+  {/* Content list */}
+  <div className="space-y-4">
+    {announces.map((item) => (
+      <div
+        key={item.id}
+        className="border border-gray-200 rounded-lg bg-[#FAFCFC] p-4 flex justify-between items-center shadow-sm hover:shadow-md transition "
+      >
+        <div className="flex-1 flex flex-col md:flex-col md:space-x-6">
+          <p className="p-2 bg-white rounded mb-2 md:mb-0 flex-1">  Title: {item.title}</p>
+          <p className="p-2 bg-white rounded flex-1 break-words">Link: {item.link}</p>
+        </div>
+
+        <div className="flex flex-col gap-3 p-2">
+          <EditButton id={item.id} />
+          <DeleteButton id={item.id} onDelete={fetchAnnounces} />
+        </div>
       </div>
+    ))}
+  </div>
+</div>
 
-      {/* content */}
-
-      <div className="">
-        {announces.map((item) => (
-          <div
-            key={item.id}
-            className="border-2 m-2 flex flex-row justify-between"
-          >
-            <p className="p-2 bg-[#FAFCFC]">{item.title}</p>
-            <p className="p-2 bg-[#FAFCFC]">{item.link}</p>
-
-            <div className="flex flex-row gap-2  p-2">
-              <EditButton id={item.id} />
-              <DeleteButton id={item.id}  onDelete={fetchAnnounces}/>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
   );
 }
