@@ -128,52 +128,98 @@ export default function Explanation({ questions, answers, topic }: Props) {
                   <div
                     className={`max-sm:py-2 max-sm:w-full   mx-auto gap-6 w-full  py-4 ${q.options[0]?.image ? "flex flex-wrap justify-between " : "grid grid-cols-2"}`}
                   >
-                    {q.options.map(
-                      (opt: { text: string; image: string }, idx: number) =>
-                        opt.text ? (
-                          <button
-                            onClick={() => handleSelect(idx)}
-                            className={`px-3 py-3 border dark:border-white rounded-full flex flex-row justify-between text-my-text-color ${
-                              correctAnswerIndex === idx
-                                ? "bg-[#2CBB0126] border-[#2CBB0126]"
-                                : userAnswerIndex === idx
-                                  ? "bg-[#FF000026] border-[#FF000026]"
-                                  : "bg-transparent"
-                            }`}
-                          >
-                            <p className="text-left">{opt.text}</p>
-                            <FaRegCircle
-                              size={20}
-                              className={`${
-                                correctAnswerIndex === idx
-                                  ? "bg-[#2CBB01] rounded-full text-[#2CBB01]"
-                                  : userAnswerIndex === idx
-                                    ? "bg-[#FF0000] rounded-full text-[#FF0000]"
-                                    : ""
-                              }`}
-                            />
-                          </button>
-                        ) : (
-                          <div
-                            key={idx}
-                            onClick={() => handleSelect(idx)}
-                            className={`relative max-w-[400px] w-[40%] aspect-[16/9]  rounded-xl overflow-hidden hover:cursor-pointer transition-all duration-200 ${
-                              correctAnswerIndex === idx
-                                ? "border-[#2CBB01] border-3"
-                                : userAnswerIndex === idx
-                                  ? "border-[#FF0000] border-3"
-                                  : ""
-                            }`}
-                          >
-                            <Image
-                              src={opt.image.toString()}
-                              alt="question image"
-                              fill
-                              className="object-contain"
-                            />
-                          </div>
-                        )
-                    )}
+                    {q.options.map((opt, idx) => {
+  const hasText = !!opt.text;
+  const hasImage = !!opt.image;
+  const hasBoth = hasText && hasImage;
+
+  // ⭐ CASE 1: TEXT + IMAGE (NEW)
+  if (hasBoth) {
+    return (
+      <div
+        key={idx}
+        onClick={() => handleSelect(idx)}
+        className={`flex flex-col gap-2 max-w-[400px] w-[40%] hover:cursor-pointer`}
+      >
+        {/* TEXT ABOVE */}
+        <p className="text-my-text-color text-left px-2">
+          {opt.text}
+        </p>
+
+        {/* IMAGE BELOW */}
+        <div
+          className={`relative w-full aspect-[16/9] rounded-xl overflow-hidden transition-all duration-200 ${
+            correctAnswerIndex === idx
+              ? "border-[#2CBB01] border-3"
+              : userAnswerIndex === idx
+              ? "border-[#FF0000] border-3"
+              : ""
+          }`}
+        >
+          <Image
+            src={opt.image.toString()}
+            alt="question option"
+            fill
+            className="object-contain"
+          />
+        </div>
+      </div>
+    );
+  }
+
+  // ⭐ CASE 2: TEXT ONLY (unchanged)
+  if (hasText) {
+    return (
+      <button
+        key={idx}
+        onClick={() => handleSelect(idx)}
+        className={`px-3 py-3 border dark:border-white rounded-full flex flex-row justify-between text-my-text-color ${
+          correctAnswerIndex === idx
+            ? "bg-[#2CBB0126] border-[#2CBB0126]"
+            : userAnswerIndex === idx
+            ? "bg-[#FF000026] border-[#FF000026]"
+            : "bg-transparent"
+        }`}
+      >
+        <p className="text-left">{opt.text}</p>
+
+        <FaRegCircle
+          size={20}
+          className={`${
+            correctAnswerIndex === idx
+              ? "bg-[#2CBB01] rounded-full text-[#2CBB01]"
+              : userAnswerIndex === idx
+              ? "bg-[#FF0000] rounded-full text-[#FF0000]"
+              : ""
+          }`}
+        />
+      </button>
+    );
+  }
+
+  // ⭐ CASE 3: IMAGE ONLY (unchanged)
+  return (
+    <div
+      key={idx}
+      onClick={() => handleSelect(idx)}
+      className={`relative max-w-[400px] w-[40%] aspect-[16/9] rounded-xl overflow-hidden hover:cursor-pointer transition-all duration-200 ${
+        correctAnswerIndex === idx
+          ? "border-[#2CBB01] border-3"
+          : userAnswerIndex === idx
+          ? "border-[#FF0000] border-3"
+          : ""
+      }`}
+    >
+      <Image
+        src={opt.image.toString()}
+        alt="question image"
+        fill
+        className="object-contain"
+      />
+    </div>
+  );
+})}
+
                   </div>
                 </div>
               </div>
