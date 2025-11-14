@@ -1,10 +1,31 @@
 import React from "react";
 import Link from "next/link";
+import { NEXT_AUTH } from "@/lib/auth";
+import { getServerSession } from "next-auth";
 
-function page() {
+export default async function page() {
+
+
+    const session = await getServerSession(NEXT_AUTH);
+
+
   return (
     <>
     <div className="dark:bg-black ">
+
+     {session?.user?.role === "ADMIN" ? (
+          <div className="w-[90%] dark:bg-[#191919] mx-auto m-6 max-md:hidden">
+            <Link href="/admin/typing ">
+              <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
+                Add Typing Test
+              </button>
+            </Link>
+          </div>
+        ) : (
+          ""
+        )}
+
+
  <div className="w-[90%] mx-auto flex flex-col  gap-4 py-4">
         {Array.from({ length: 6 }).map((_, index) => (
           <div
@@ -29,4 +50,4 @@ function page() {
   );
 }
 
-export default page;
+
