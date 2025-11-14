@@ -49,7 +49,7 @@ export default function QuizQuestion({
   onFinish: (answers: { questionId: string; answer: number | null }[]) => void;
 }) {
   const [current, setCurrent] = useState(0);
- 
+
   const [answers, setAnswers] = useState<
     { questionId: string; answer: number | null }[]
   >(questions.map((q) => ({ questionId: q.id, answer: null })));
@@ -107,7 +107,7 @@ export default function QuizQuestion({
   answersRef.current = answers; // always have latest answers
   const startTimeRef = useRef<number>(Date.now());
   const q: quiz = questions[current];
-  
+
   const handleSelect = (optionIndex: number) => {
     setAnswers((prev) => {
       const copy = [...prev];
@@ -192,14 +192,16 @@ export default function QuizQuestion({
                 <div className="">
                   <p className=" text-sm text-green-600 font-semibold">
                     {" "}
-                    {q.marksPositive} <span className="max-sm:hidden">Marks </span>
+                    {q.marksPositive}{" "}
+                    <span className="max-sm:hidden">Marks </span>
                   </p>
                 </div>
 
                 <div className="">
                   <p className="text-sm  text-red-600  font-semibold">
                     {" "}
-                    {q.marksNegative} <span className="max-sm:hidden"> Negative Marks </span>
+                    {q.marksNegative}{" "}
+                    <span className="max-sm:hidden"> Negative Marks </span>
                   </p>
                 </div>
               </div>
@@ -216,8 +218,14 @@ export default function QuizQuestion({
               <div className="flex flex-col justify-between items-start   flex-1  ">
                 {/* question  */}
 
-                <div className={`w-full px-4   ${q.questionImage? "min-h-[40vh]" : "min-h-[30vh]" } py-3 flex flex-row justify-between gap-2  max-sm:flex-col `}>
-                  <p className={`font-bold dark:text-white  ${q.questionImage? " w-[55%] max-sm:w-full" : "null" } `}>{q.questionText}</p>
+                <div
+                  className={`w-full px-4   ${q.questionImage ? "min-h-[40vh]" : "min-h-[30vh]"} py-3 flex flex-row justify-between gap-2  max-sm:flex-col `}
+                >
+                  <p
+                    className={`font-bold dark:text-white  ${q.questionImage ? " w-[55%] max-sm:w-full" : "null"} `}
+                  >
+                    {q.questionText}
+                  </p>
 
                   {/* image have to fixed size */}
                   {q.questionImage ? (
@@ -235,49 +243,89 @@ export default function QuizQuestion({
                 {/* option */}
 
                 <div className="flex flex-row justify-between items-stretch  w-full px-4 ">
-                  <div className={`max-sm:py-2 max-sm:w-full   mx-auto gap-6 w-full  py-4 ${q.options[0]?.image ? "flex flex-wrap justify-between " : "grid grid-cols-2 max-sm:grid-cols-1"}`}>
-                    {q.options.map(
-                      (opt: { text: string; image: string }, idx: number) =>
-                        opt.text ? (
+                  <div
+                    className={`max-sm:py-2 max-sm:w-full   mx-auto gap-6 w-full  py-4 ${q.options[0]?.image ? "flex flex-wrap justify-between " : "grid grid-cols-2 max-sm:grid-cols-1"}`}
+                  >
+                    {q.options.map((opt, idx) => {
+                      const selected = answers[current].answer === idx;
+                      const hasText = !!opt.text;
+                      const hasImage = !!opt.image;
+                      const hasBoth = hasText && hasImage;
+
+                      // CASE 1: BOTH TEXT + IMAGE
+                      if (hasBoth) {
+                        return (
+                          <div
+                            key={idx}
+                            onClick={() => handleSelect(idx)}
+                            className="relative max-w-[400px] w-[40%] hover:cursor-pointer flex flex-col gap-2"
+                          >
+                            {/* TEXT ABOVE */}
+                            <p className="text-my-text-color max-lg:text-sm font-medium ">
+                              {opt.text}
+                            </p>
+
+                            {/* IMAGE BELOW */}
+                            <div className="relative w-full aspect-[16/9]">
+                              <Image
+                                src={opt.image.toString()}
+                                alt="option"
+                                fill
+                                className={`object-contain ${
+                                  selected
+                                    ? "border-4 border-[#6C6C6C] dark:border-white "
+                                    : ""
+                                }`}
+                              />
+                            </div>
+                          </div>
+                        );
+                      }
+
+                      // CASE 2: TEXT ONLY
+                      if (hasText) {
+                        return (
                           <button
                             key={idx}
                             onClick={() => handleSelect(idx)}
-                            className={`px-3 py-3 border dark:border-white rounded-full flex flex-row justify-between `}
+                            className="px-3 py-3 border dark:border-white rounded-full flex flex-row justify-between"
                           >
                             <p className="text-my-text-color max-lg:text-sm">
                               {opt.text}
                             </p>
 
-                            <div className=" my-auto">
+                            <div className="my-auto">
                               <FaRegCircle
                                 size="22"
                                 className={`text-my-text-color rounded-full ${
-                                  answers[current].answer === idx
-                                    ? "bg-[#6C6C6C]"
-                                    : ""
-                                } `}
+                                  selected ? "bg-[#6C6C6C]" : ""
+                                }`}
                               />
                             </div>
                           </button>
-                        ) : (
-                          <div
-                            className="relative  max-w-[400px] w-[40%] aspect-[16/9]  hover:cursor-pointer    "
-                            key={idx}
-                            onClick={() => handleSelect(idx)}
-                          >
-                            <Image
-                              src={opt.image.toString()}
-                              alt="question image"
-                              fill
-                              className={`object-contain ${
-                                answers[current].answer === idx
-                                  ? "border-4 border-[#6C6C6C] dark:border-white "
-                                  : ""
-                              }`}
-                            />
-                          </div>
-                        )
-                    )}
+                        );
+                      }
+
+                      // CASE 3: IMAGE ONLY
+                      return (
+                        <div
+                          key={idx}
+                          onClick={() => handleSelect(idx)}
+                          className="relative max-w-[400px] w-[40%] aspect-[16/9] hover:cursor-pointer"
+                        >
+                          <Image
+                            src={opt.image.toString()}
+                            alt="question image"
+                            fill
+                            className={`object-contain ${
+                              selected
+                                ? "border-4 border-[#6C6C6C] dark:border-white"
+                                : ""
+                            }`}
+                          />
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
@@ -351,7 +399,7 @@ export default function QuizQuestion({
               <button className="px-4 py-2  min-w-[50px] border-1  rounded bg-white dark:bg-black  dark:text-[#C2C2C2] border-[#C2C2C2]">
                 {counts.notVisited}
               </button>
-              <p  className="max-sm:hidden dark:text-[#C2C2C2]">Not Visted</p>
+              <p className="max-sm:hidden dark:text-[#C2C2C2]">Not Visted</p>
             </div>
           </div>
 
@@ -383,8 +431,6 @@ export default function QuizQuestion({
           </div>
         </div>
       </div>
-
-
     </>
   );
 }

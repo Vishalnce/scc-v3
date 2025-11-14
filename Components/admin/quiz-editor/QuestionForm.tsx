@@ -57,6 +57,8 @@ function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
   });
 
   async function onSubmitQuestion(data: any) {
+
+    console.log("Submitting question data:", data);
     if (id === null) {
       console.error("Quiz ID is missing");
       return;

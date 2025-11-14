@@ -546,7 +546,7 @@ function Nav() {
               className="border-b-2 border-[#007076] flex flex-row justify-between mt-2"
               onClick={() => handleClick("mini-current-affairs")}
             >
-              <p className="py-1 text-center text-my-text-color hover:text-[#007076]">
+              <p className="py-1  text-xl text-center text-my-text-color hover:text-[#007076]">
                 {" "}
                 Current Affaris{" "}
               </p>
@@ -554,13 +554,13 @@ function Nav() {
             </div>
 
             {activeTag === "mini-current-affairs" && (
-              <div className="flex flex-col items-center w-[80%] mt-2 togle">
+              <div className="flex flex-col items-center w-[90%] mt-2 togle">
                 <div className="w-[80%] text-sm  ">
-                  <p className=" hover:text-[#007076] mt-2">
+                  <p className=" hover:text-[#007076]  text-lg mt-2">
                     Details Current Affairs
                   </p>
 
-                  <p className=" hover:text-[#007076] mt-2">
+                  <p className=" hover:text-[#007076] text-lg  mt-2">
                     One Liner Current Affaris
                   </p>
                 </div>
@@ -574,7 +574,7 @@ function Nav() {
               className="border-b-2 border-[#007076] flex flex-row justify-between mt-2"
               onClick={() => handleClick("mini-pre-concepts")}
             >
-              <p className="py-1 text-center text-my-text-color hover:text-[#007076]">
+              <p className="py-1 text-center text-xl text-my-text-color hover:text-[#007076]">
                 Concepts
               </p>
               <MdKeyboardArrowRight className="my-auto" />
@@ -589,12 +589,12 @@ function Nav() {
                       handleSubClick("pre");
                     }}
                   >
-                    <p>For pre</p>
+                    <p className="text-lg">For pre</p>
                     <MdKeyboardArrowRight className="my-auto" />
                   </div>
                   {subMenu === "pre" && (
                     <div className="fle flex-col ">
-                      <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] ">
+                      <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] text-md ">
                         Quantitative Apptitude
                       </p>
                       <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] ">
