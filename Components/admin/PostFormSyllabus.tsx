@@ -189,63 +189,77 @@ const handleImageUpload = async () => {
   }, [post]);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-6">
-      <input
-        {...register("title")}
-        value="Syllabus for SSC CGL"
-        readOnly
-        placeholder="Title"
-        className="border p-2 w-full"
-      />
+<form onSubmit={handleSubmit(onSubmit)} className="space-y-6 p-6 max-w-[95%] mx-auto bg-white border border-gray-300 rounded-lg shadow-sm">
 
-      <input
-        {...register("slug", { required: true })}
-        value="syllabus-for-ssc-cgl"
-  
-        placeholder="Slug"
-        className="border p-2 w-full bg-gray-100"
-        readOnly // Optional: make it read-only since it's auto-generated
-      />
-      <textarea
-        {...register("summary")}
-        placeholder="Summary"
-        className="border p-2 w-full"
-      />
+  <div>
+    <label htmlFor="title" className="block mb-2 font-semibold text-gray-700">Title</label>
+    <input
+      id="title"
+      {...register("title")}
+      value="Syllabus for SSC CGL"
+      readOnly
+      placeholder="Title"
+      className="border border-gray-300 p-3 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+    />
+  </div>
 
-      <Select<OptionType>
-        options={options}
-        value={selectedOption}
-        onChange={handleChange} // ✅ this will call setSelectedOption + setValue("category", ...)
-        instanceId="topic-select"
-        placeholder="Select a topic"
-      />
-      <input type="hidden" {...register("topic")} />
+  <div>
+    <label htmlFor="slug" className="block mb-2 font-semibold text-gray-700">Slug</label>
+    <input
+      id="slug"
+      {...register("slug", { required: true })}
+      value="syllabus-for-ssc-cgl"
+      placeholder="Slug"
+      className="border border-gray-300 p-3 w-full bg-gray-100 cursor-not-allowed rounded-md focus:outline-none"
+      readOnly
+    />
+  </div>
 
-      {/* image upload  */}
- <input
+  <div>
+    <label htmlFor="summary" className="block mb-2 font-semibold text-gray-700">Summary</label>
+    <textarea
+      id="summary"
+      {...register("summary")}
+      placeholder="Summary"
+      rows={4}
+      className="border border-gray-300 p-3 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+    />
+  </div>
+
+  <div>
+    <label htmlFor="topic-select" className="block mb-2 font-semibold text-gray-700">Select a topic</label>
+    <Select<OptionType>
+      options={options}
+      value={selectedOption}
+      onChange={handleChange}
+      instanceId="topic-select"
+      placeholder="Select a topic"
+      className="w-full"
+    />
+    <input type="hidden" {...register("topic")} />
+  </div>
+
+  <div>
+    <label className="block mb-2 font-semibold text-gray-700">Upload Image</label>
+    <input
       type="file"
       accept="image/*"
       onChange={(e) => setImageFile(e.target.files?.[0] || null)}
       className="border border-gray-300 p-2 rounded-md w-fit"
     />
-
-    {/* Upload button */}
     <button
       type="button"
       onClick={handleImageUpload}
       disabled={isUploading}
-      className={`px-4 py-2 rounded text-white transition ${
-        isUploading
-          ? "bg-gray-400 cursor-not-allowed"
-          : "bg-blue-600 hover:bg-blue-700"
+      className={`mt-2 px-4 py-2 rounded text-white transition ${
+        isUploading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
       }`}
     >
       {isUploading ? "Uploading..." : "Upload Image"}
     </button>
 
-    {/* Uploaded Image Preview */}
     {uploadedImageUrl && (
-      <div className="relative w-[30%] h-[228px] border border-gray-200 rounded-md overflow-hidden">
+      <div className="relative w-[30%] h-[228px] border border-gray-200 rounded-md overflow-hidden mt-4">
         <div className="flex justify-between items-center px-1 pt-1">
           <p className="text-sm text-gray-600">Uploaded Image:</p>
           <button
@@ -256,8 +270,6 @@ const handleImageUpload = async () => {
             Cancel
           </button>
         </div>
-
-        {/* Image Preview */}
         <div className="relative w-full h-[200px]">
           <Image
             src={uploadedImageUrl}
@@ -268,42 +280,55 @@ const handleImageUpload = async () => {
         </div>
       </div>
     )}
-      <input type="hidden" {...register("image")} value={uploadedImageUrl} />
+    <input type="hidden" {...register("image")} value={uploadedImageUrl} />
+  </div>
 
-      {/* alt tag */}
+  <div>
+    <label htmlFor="alt" className="block mb-2 font-semibold text-gray-700">Alt tag for image</label>
+    <input
+      id="alt"
+      {...register("alt")}
+      placeholder="Alt tag for image"
+      className="border border-gray-300 p-3 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+    />
+  </div>
 
-      <input
-        {...register("alt")}
-        placeholder="Alt tag for image"
-        className="border p-2 w-full"
-      />
+  <div>
+    <label htmlFor="keywords" className="block mb-2 font-semibold text-gray-700">Keywords</label>
+    <input
+      id="keywords"
+      {...register("keywords")}
+      placeholder="Keywords"
+      className="border border-gray-300 p-3 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+    />
+  </div>
 
-      {/* key word and description */}
-      <div className=" norder-2 border-green-600">
-        <input
-          {...register("keywords")}
-          placeholder="keywords"
-          className="border p-2 w-full"
-        />
+  <div>
+    <label htmlFor="description" className="block mb-2 font-semibold text-gray-700">Description</label>
+    <textarea
+      id="description"
+      {...register("description")}
+      placeholder="Description"
+      rows={4}
+      className="border border-gray-300 p-3 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+    />
+  </div>
 
-        <textarea
-          {...register("description")}
-          placeholder="Description"
-          className="border p-2 w-full"
-        />
-      </div>
+  <div>
+    <Editor value={value} onSync={setEditorData} />
+  </div>
 
-      <Editor value={value} onSync={setEditorData} />
+  <input type="hidden" {...register("editorHtml")} />
+  <input type="hidden" {...register("toc")} />
 
-      <input type="hidden" {...register("editorHtml")} />
+  <button
+    type="submit"
+    className="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition"
+  >
+    Save
+  </button>
+</form>
 
-      <input type="hidden" {...register("toc")} />
-      <button
-        type="submit"
-        className="bg-green-600 text-white px-4 py-2 rounded"
-      >
-        Save
-      </button>
-    </form>
+
   );
 }

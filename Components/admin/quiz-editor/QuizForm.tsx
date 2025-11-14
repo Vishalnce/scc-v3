@@ -47,31 +47,30 @@ function PostFormQuiz({ post, editId }: { post?: PostFormQuizProps; editId?: str
 
   const [filteredTopics, setFilteredTopics] = useState<OptionType[]>([]);
 
-  const onSubmitQuiz = async (data: PostFormQuizProps) => {
+const onSubmitQuiz = async (data: PostFormQuizProps) => {
+  try {
+    const res = await fetch("/api/en/quiz/admin", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
 
+    const result = await res.json();
 
-    try {
-      const res = await fetch("/api/en/quiz/admin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!res.ok) {
-        throw new Error(`Failed to submit quiz: ${res.statusText}`);
-      }
-
-      const result = await res.json();
-     
-      setPostId(result.id)
-
-
-    } catch (error) {
-      console.error("Error submitting quiz:", error);
+    if (res.status === 200 && result.message === "Quiz already exists") {
+      alert("⚠️ Quiz already exists!");
+      setPostId(result.quiz.id);
+    } else if (res.status === 201) {
+      alert("✅ Quiz created successfully!");
+      setPostId(result.quiz.id);
+    } else {
+      alert("❌ Failed to create quiz. Please try again.");
     }
-  };
+  } catch (error) {
+    console.error("Error submitting quiz:", error);
+    alert("❌ Something went wrong while submitting the quiz.");
+  }
+};
 
  
 
@@ -120,7 +119,7 @@ function PostFormQuiz({ post, editId }: { post?: PostFormQuizProps; editId?: str
     }
   }, [post, setValue]);
 
-  async function updateQuiz(e: React.MouseEvent<HTMLButtonElement>) {
+async function updateQuiz(e: React.MouseEvent<HTMLButtonElement>) {
   e.preventDefault();
   try {
     const formData = {
@@ -142,102 +141,164 @@ function PostFormQuiz({ post, editId }: { post?: PostFormQuizProps; editId?: str
       body: JSON.stringify(formData),
     });
 
-    if (!res.ok) {
-      throw new Error(`Failed to update quiz: ${res.statusText}`);
-    }
-
     const result = await res.json();
-    console.log("Quiz updated:", result);
-    alert("Quiz updated successfully!");
+
+    if (res.ok) {
+      alert("✅ Quiz updated successfully!");
+      console.log("Quiz updated:", result);
+    } else {
+      alert(result.message || "❌ Failed to update quiz.");
+    }
   } catch (error) {
     console.error("Error updating quiz:", error);
-    alert("Failed to update quiz.");
+    alert("❌ Something went wrong while updating.");
   }
 }
 
 
   return (
-    <div className="max-w-[80%] mx-auto space-y-8 p-4">
-      {/* QUIZ FORM */}
-      <form
-        onSubmit={handleSubmit(onSubmitQuiz)}
-        className="p-4 space-y-4 border rounded-md"
-      >
-        <input
-          {...register("title")}
-          placeholder="Enter quiz title"
-          className="w-full p-2 border rounded"
-        />
-        <textarea
-          {...register("summary")}
-          placeholder="Short summary"
-          className="w-full p-2 border rounded"
-        />
-        <input
-          {...register("keywords")}
-          placeholder="Keywords"
-          className="w-full p-2 border rounded"
-        />
-        <textarea
-          {...register("description")}
-          placeholder="Description"
-          className="w-full p-2 border rounded"
-        />
-
-        <Select<OptionType>
-          options={categoryOptions}
-          value={selectedCategory}
-          onChange={handleCategoryChange} // ✅ this will call setSelectedOption + setValue("category", ...)
-          instanceId="category-select"
-          placeholder="Select Category"
-        />
-        <Select<OptionType>
-          options={subjectOptions}
-          value={selectedSubject}
-          onChange={handleSubjectChange}
-          instanceId="subject-select"
-          placeholder="Select Subject"
-        />
-
-        <Select<OptionType>
-          options={filteredTopics}
-          value={selectedTopic}
-          onChange={(option) => {
-            setSelectedTopic(option);
-            setValue("topic", option?.value ?? "");
-          }}
-          instanceId="topic-select"
-          placeholder="Select Topic"
-        />
-        <input type="hidden" {...register("category")} />
-        <input type="hidden" {...register("subject")} />
-        <input type="hidden" {...register("topic")} />
-
-        <input
-          type="number"
-          {...register("timeLimit", { valueAsNumber: true })}
-          placeholder="Time limit"
-          className="w-full p-2 border rounded"
-        />
-        <button
-          type="submit"
-          className="bg-indigo-600 text-white px-4 py-2 rounded"
-        >
-         Save Quiz
-        </button>
-
-        <button onClick={updateQuiz}>Upadate question</button>
-      </form>
-
-      <h2>Before adding question Click save quiz button</h2>
-
-      {/* QUESTION EDITOR */}
-      
-      <QuestionWarpper id={editId ? Number(editId) : postId}   />
-
-
-      
+   <div className="max-w-[90%] mx-auto space-y-8 p-4">
+  {/* QUIZ FORM */}
+  <form
+    onSubmit={handleSubmit(onSubmitQuiz)}
+    className="p-4 space-y-6 border border-gray-500 rounded-md"
+  >
+    <div>
+      <label htmlFor="title" className="block mb-2 font-semibold text-gray-700">
+        Quiz Title
+      </label>
+      <input
+        id="title"
+        {...register("title")}
+        placeholder="Enter quiz title"
+        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+      />
     </div>
+
+    <div>
+      <label htmlFor="summary" className="block mb-2 font-semibold text-gray-700">
+        Short Summary
+      </label>
+      <textarea
+        id="summary"
+        {...register("summary")}
+        placeholder="Short summary"
+        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+      />
+    </div>
+
+    <div>
+      <label htmlFor="keywords" className="block mb-2 font-semibold text-gray-700">
+        Keywords
+      </label>
+      <input
+        id="keywords"
+        {...register("keywords")}
+        placeholder="Keywords"
+        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+      />
+    </div>
+
+    <div>
+      <label htmlFor="description" className="block mb-2 font-semibold text-gray-700">
+        Description
+      </label>
+      <textarea
+        id="description"
+        {...register("description")}
+        placeholder="Description"
+        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+      />
+    </div>
+
+    <div>
+      <label htmlFor="category-select" className="block mb-2 font-semibold text-gray-700">
+        Select Category
+      </label>
+      <Select<OptionType>
+        options={categoryOptions}
+        value={selectedCategory}
+        onChange={handleCategoryChange}
+        instanceId="category-select"
+        placeholder="Select Category"
+        className="w-full"
+      />
+    </div>
+
+    <div>
+      <label htmlFor="subject-select" className="block mb-2 font-semibold text-gray-700">
+        Select Subject
+      </label>
+      <Select<OptionType>
+        options={subjectOptions}
+        value={selectedSubject}
+        onChange={handleSubjectChange}
+        instanceId="subject-select"
+        placeholder="Select Subject"
+        className="w-full"
+      />
+    </div>
+
+    <div>
+      <label htmlFor="topic-select" className="block mb-2 font-semibold text-gray-700">
+        Select Topic
+      </label>
+      <Select<OptionType>
+        options={filteredTopics}
+        value={selectedTopic}
+        onChange={(option) => {
+          setSelectedTopic(option);
+          setValue("topic", option?.value ?? "");
+        }}
+        instanceId="topic-select"
+        placeholder="Select Topic"
+        className="w-full"
+      />
+      <input type="hidden" {...register("category")} />
+      <input type="hidden" {...register("subject")} />
+      <input type="hidden" {...register("topic")} />
+    </div>
+
+    <div>
+      <label htmlFor="timeLimit" className="block mb-2 font-semibold text-gray-700">
+        Time limit
+      </label>
+      <input
+        id="timeLimit"
+        type="number"
+        {...register("timeLimit", { valueAsNumber: true })}
+        placeholder="Time limit"
+        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+      />
+    </div>
+
+    <div className="flex flex-row gap-4">
+   <button
+      type="submit"
+      className="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-700 transition w-full"
+    >
+      Save Quiz
+    </button>
+
+    <button
+      type="button"
+      onClick={updateQuiz}
+      className="w-full  px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-700 transition"
+    >
+      Update quiz
+    </button>
+
+    </div>
+
+ 
+  </form>
+
+  <h2 className="text-lg font-semibold">Before adding question Click save quiz button</h2>
+
+  {/* QUESTION EDITOR */}
+  <QuestionWarpper id={editId ? Number(editId) : postId} />
+</div>
+
   );
 }
 

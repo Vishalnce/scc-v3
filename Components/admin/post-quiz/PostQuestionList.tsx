@@ -70,67 +70,71 @@ const QuestionList = ({ id, setQuesId }: QuestionWrapperProps) => {
   if (questions.length === 0) return <div>No questions found.</div>;
 
   return (
-    <div>
-      <h2>Questions List</h2>
-      <ul>
-        {questions.map((q) => (
-          <div className="flex flex-row justify-between mb-4" key={q.id}>
-            <li>
-              <div>
-                {q.questionText && <p>{q.questionText}</p>}
-                {q.questionImage && (
+   <div className="max-w-[95%] mx-auto p-6 bg-white border border-gray-300 rounded-lg shadow-sm mt-4">
+  <h2 className="text-2xl font-bold mb-6 text-gray-800">Questions List</h2>
+  <ul className="space-y-8">
+    {questions.map((q) => (
+      <li key={q.id} className="flex justify-between items-start border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition">
+        <div className="flex-1">
+          <label className="block text-lg font-medium text-gray-700 mb-2">Question:</label>
+          {q.questionText && <p className="mb-3 text-gray-900">{q.questionText}</p>}
+          {q.questionImage && (
+            <img
+              src={q.questionImage}
+              alt="Question"
+              className="w-[200px] h-[150px] object-cover rounded mb-4"
+            />
+          )}
+
+          <label className="block font-semibold text-gray-700 mb-1">Options:</label>
+          <ul className="list-decimal list-inside space-y-2 mb-4">
+            {q.options.map((opt, idx) => (
+              <li key={idx} className="flex items-center space-x-2">
+                {opt.text && <span className="text-gray-800">{opt.text}</span>}
+                {opt.image && (
                   <img
-                    src={q.questionImage}
-                    alt="Question"
-                    className="w-[200px] h-[150px] object-cover rounded"
+                    src={opt.image}
+                    alt={`Option ${idx + 1}`}
+                    className="w-[150px] h-[100px] object-cover rounded"
                   />
                 )}
-              </div>
+              </li>
+            ))}
+          </ul>
 
-              <ul className="mt-2">
-                {q.options.map((opt, idx) => (
-                  <li key={idx} className="mb-1">
-                    {opt.text && (
-                      <span>
-                        {idx + 1}. {opt.text}
-                      </span>
-                    )}
-                    {opt.image && (
-                      <img
-                        src={opt.image}
-                        alt={`Option ${idx + 1}`}
-                        className="w-[150px] h-[100px] object-cover rounded ml-2"
-                      />
-                    )}
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-2">
-                {q.solutionText && <p>Solution: {q.solutionText}</p>}
-                {q.solutionText && <p>Correct option number {q.correctOption}</p>}
-
-                {q.solutionImage && (
-                  <img
-                    src={q.solutionImage}
-                    alt="Solution"
-                    className="w-[200px] h-[150px] object-cover rounded"
-                  />
-                )}
-              </div>
-            </li>
-
-            {/* edit and delete */}
-            <div className="flex flex-col ml-4">
-              <button onClick={() => setQuesId(q.id)} className="btn-edit mb-2">
-                Edit
-              </button>
-              <DeleteButton quesId={q.id} onDeleted={() => fetchQuestions()} />
-            </div>
+          <div>
+            {q.solutionText && (
+              <p className="mb-2 text-green-700 font-semibold">Solution: {q.solutionText}</p>
+            )}
+            {q.solutionText && (
+              <p className="mb-2 font-semibold">
+                Correct option number: <span className="text-green-600">{q.correctOption}</span>
+              </p>
+            )}
+            {q.solutionImage && (
+              <img
+                src={q.solutionImage}
+                alt="Solution"
+                className="w-[200px] h-[150px] object-cover rounded"
+              />
+            )}
           </div>
-        ))}
-      </ul>
-    </div>
+        </div>
+
+        <div className="flex flex-col ml-6 space-y-3">
+          <button
+            onClick={() => setQuesId(q.id)}
+            className="btn-edit bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          >
+            Edit
+          </button>
+          <DeleteButton quesId={q.id} onDeleted={() => fetchQuestions()} />
+        </div>
+      </li>
+    ))}
+  </ul>
+</div>
+
   );
 };
 

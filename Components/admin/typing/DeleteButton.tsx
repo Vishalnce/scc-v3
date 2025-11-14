@@ -16,7 +16,7 @@ export default function DeleteButton({
   async function handleOnDelete() {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/typing/admin?id=${id}`,
+        `/api/en/typing/admin?id=${id}`,
         {
           method: "DELETE",
         }

@@ -21,7 +21,7 @@ export default function SignUpForm() {
   const signupFormData = async (data: SignupFormProps) => {
     try {
     
-      const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/signup/client`, {
+      const res = await fetch(`/api/en/signup/client`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

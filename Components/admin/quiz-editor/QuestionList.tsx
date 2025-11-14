@@ -70,71 +70,116 @@ const QuestionList = ({ id, setQuesId }: QuestionWrapperProps) => {
   if (questions.length === 0) return <div>No questions found.</div>;
 
   return (
-    <div>
-      <h2>Questions List</h2>
-      <ul>
-        {questions.map((q) => (
-          <div className="flex flex-row justify-between mb-4 border-2" key={q.id}>
-            <li>
-              <div>
-                {q.questionText && <p>{q.questionText}</p>}
+   <div>
+  <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">
+    Questions List
+  </h2>
 
-                {q.questionImage && (
-                  <div className="relative  max-w-[400px] w-[200px] h-[150px] aspect-[16/9]  border-2 border-pink-500">
-                    <Image
-                      src={q.questionImage}
-                      alt="question image"
-                      fill
-                      className="object-contain"
-                    />
-                  </div>
+  <ul className="space-y-8">
+    {questions.map((q, index) => (
+      <li
+        key={q.id}
+        className="border rounded-xl p-5 bg-gray-50 dark:bg-[#1c1c1c] shadow-sm"
+      >
+        {/* Question Header */}
+        <div className="flex justify-between items-start mb-4">
+          <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100">
+            Question {index + 1}
+          </h3>
+          <div className="flex gap-2">
+            <button
+              onClick={() => setQuesId(q.id)}
+              className="px-4 py-1 rounded-lg bg-yellow-500 hover:bg-yellow-600 text-white text-sm"
+            >
+              Edit
+            </button>
+            <DeleteButton quesId={q.id} onDeleted={() => fetchQuestions()} />
+          </div>
+        </div>
+
+        {/* Question Text & Image */}
+        <div className="space-y-3">
+          {q.questionText && (
+            <p className="text-gray-800 dark:text-gray-300 text-base">
+              {q.questionText}
+            </p>
+          )}
+
+          {q.questionImage && (
+            <div className="relative w-full max-w-[500px] aspect-[16/9] rounded-lg overflow-hidden border border-gray-300 dark:border-gray-700">
+              <Image
+                src={q.questionImage}
+                alt="Question image"
+                fill
+                className="object-contain bg-white dark:bg-[#111]"
+              />
+            </div>
+          )}
+        </div>
+
+        {/* Options (2x2 grid) */}
+        <div className="mt-5">
+          <h4 className="text-md font-semibold text-gray-800 dark:text-gray-200 mb-2">
+            Options
+          </h4>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {q.options.map((opt, idx) => (
+              <div
+                key={idx}
+                className={`flex flex-col gap-2 p-4 rounded-lg border ${
+                  q.correctOption === idx + 1
+                    ? "border-green-500 bg-green-50 dark:bg-green-950/20"
+                    : "border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-[#2a2a2a]"
+                }`}
+              >
+                <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
+                  Option {idx + 1}
+                </p>
+                {opt.text && (
+                  <p className="text-gray-700 dark:text-gray-300">{opt.text}</p>
                 )}
-              </div>
-
-              <ul className="mt-2">
-                {q.options.map((opt, idx) => (
-                  <li key={idx} className="mb-1">
-                    {opt.text && (
-                      <span>
-                        {idx + 1}. {opt.text}
-                      </span>
-                    )}
-                    {opt.image && (
-                      <img
-                        src={opt.image}
-                        alt={`Option ${idx + 1}`}
-                        className="w-[150px] h-[100px] object-cover rounded ml-2"
-                      />
-                    )}
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-2">
-                <p> Solution : {q.correctOption} </p>
-
-                {q.solutionText && <p>Solution: {q.solutionText}</p>}
-                {q.solutionImage && (
+                {opt.image && (
                   <img
-                    src={q.solutionImage}
-                    alt="Solution"
-                    className="w-[200px] h-[150px] object-cover rounded"
+                    src={opt.image}
+                    alt={`Option ${idx + 1}`}
+                    className="w-full max-w-[250px] h-[180px] object-contain rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-[#1e1e1e]"
                   />
                 )}
               </div>
-            </li>
-
-            {/* edit and delete */}
-            <div className="flex flex-col ml-4">
-              <button onClick={() => setQuesId(q.id)} className="btn-edit mb-2">
-                Edit
-              </button>
-              <DeleteButton quesId={q.id} onDeleted={() => fetchQuestions()} />
-            </div>
+            ))}
           </div>
-        ))}
-      </ul>
-    </div>
+        </div>
+
+        {/* Solution Section */}
+        <div className="mt-5 border-t pt-4">
+          <p className="text-sm text-gray-700 dark:text-gray-300">
+            <span className="font-semibold">Correct Option:</span>{" "}
+            {q.correctOption}
+          </p>
+
+          {q.solutionText && (
+            <p className="mt-2 text-gray-800 dark:text-gray-200">
+              <span className="font-semibold">Solution:</span>{" "}
+              {q.solutionText}
+            </p>
+          )}
+
+          {q.solutionImage && (
+            <div className="mt-3">
+              <img
+                src={q.solutionImage}
+                alt="Solution"
+                className="w-[300px] h-[200px] object-contain rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#111]"
+              />
+            </div>
+          )}
+        </div>
+      </li>
+    ))}
+  </ul>
+</div>
+
   );
 };
 

@@ -38,7 +38,7 @@ export default function CommentForm({
       const comment = contentRef.current?.value;
 
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/comment/client?${parentType}=${parentId}`,
+        `/api/en/comment/client?${parentType}=${parentId}`,
         {
           method: "POST",
           headers: {

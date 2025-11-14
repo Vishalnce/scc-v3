@@ -227,77 +227,129 @@ function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
 
   return (
     <>
-      <form
-        onSubmit={handleSubmitQ(onSubmitQuestion)}
-        className="p-4 space-y-4 border rounded-md"
-      >
-        <h2 className="font-bold text-lg">Add Question</h2>
-        <textarea
-          {...registerQ("questionText")}
-          placeholder="Question text"
-          className="w-full p-2 border rounded"
-        />
-      
+    <p className="text-xl text-center text-red-500 mt-4"> Before adding Question save the Quiz*</p>
+     <form
+  onSubmit={handleSubmitQ(onSubmitQuestion)}
+  className="p-6 space-y-6 rounded-md max-w-[95%] mx-auto bg-white shadow-sm mt-4 border border-gray-300 "
+>
+  <h2 className="font-bold text-xl text-gray-800">Add Question</h2>
 
-        {Array.from({ length: 4 }).map((_, idx) => (
-          <div key={idx} className="space-y-2">
-            <input
-              {...registerQ(`options.${idx}.text`)}
-              placeholder={`Option ${idx + 1} text`}
-              className="w-full p-2 border rounded"
-            />
+  <div>
+    <label htmlFor="questionText" className="block mb-2 font-semibold text-gray-700">
+      Question text
+    </label>
+    <textarea
+      id="questionText"
+      {...registerQ("questionText")}
+      placeholder="Question text"
+      className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+      rows={4}
+    />
+  </div>
 
-            
-          </div>
-        ))}
+  {Array.from({ length: 4 }).map((_, idx) => (
+    <div key={idx}>
+      <label htmlFor={`option-${idx}`} className="block mb-2 font-semibold text-gray-700">
+        Option {idx + 1} text
+      </label>
+      <input
+        id={`option-${idx}`}
+        {...registerQ(`options.${idx}.text`)}
+        placeholder={`Option ${idx + 1} text`}
+        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+        type="text"
+      />
+    </div>
+  ))}
 
-        <input
-          type="number"
-          {...registerQ("correctOption", { valueAsNumber: true })}
-          placeholder="Correct option number "
-          className="w-full p-2 border rounded"
-        />
+  <div>
+    <label htmlFor="correctOption" className="block mb-2 font-semibold text-gray-700">
+      Correct option number
+    </label>
+    <input
+      id="correctOption"
+      type="number"
+      {...registerQ("correctOption", { valueAsNumber: true })}
+      placeholder="Correct option number"
+      className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+    />
+  </div>
 
-        <textarea
-          {...registerQ("solutionText")}
-          placeholder="Solution"
-          className="w-full p-2 border rounded"
-        />
-        {/* for solution imaeg upload  */}
+  <div>
+    <label htmlFor="solutionText" className="block mb-2 font-semibold text-gray-700">
+      Solution
+    </label>
+    <textarea
+      id="solutionText"
+      {...registerQ("solutionText")}
+      placeholder="Solution"
+      className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+      rows={3}
+    />
+  </div>
 
-   
-        <input
-          type="number"
-          {...registerQ("marksPositive", { valueAsNumber: true })}
-          placeholder="Marks Positive"
-          className="w-full p-2 border rounded"
-        />
-        <input
-          type="number"
-          {...registerQ("marksNegative", { valueAsNumber: true })}
-          placeholder="Marks Negative"
-          className="w-full p-2 border rounded"
-        />
-          <select
-          {...registerQ("level")}
-          className="w-full p-2 border rounded"
-          defaultValue=""
-        >
-          <option value="" disabled>
-            Select difficulty level
-          </option>
-          <option value="easy">Easy</option>
-          <option value="medium">Medium</option>
-          <option value="hard">Hard</option>
-        </select>
-        <button
-          type="submit"
-          className="bg-green-600 text-white px-4 py-2 rounded"
-        >
-          Add Question
-        </button>
-        <button onClick={updateQuestion}>Upadate question</button>
-      </form>
+  <div>
+    <label htmlFor="marksPositive" className="block mb-2 font-semibold text-gray-700">
+      Marks Positive
+    </label>
+    <input
+      id="marksPositive"
+      type="number"
+      {...registerQ("marksPositive", { valueAsNumber: true })}
+      placeholder="Marks Positive"
+      className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+    />
+  </div>
+
+  <div>
+    <label htmlFor="marksNegative" className="block mb-2 font-semibold text-gray-700">
+      Marks Negative
+    </label>
+    <input
+      id="marksNegative"
+      type="number"
+      {...registerQ("marksNegative", { valueAsNumber: true })}
+      placeholder="Marks Negative"
+      className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+    />
+  </div>
+
+  <div>
+    <label htmlFor="level" className="block mb-2 font-semibold text-gray-700">
+      Difficulty level
+    </label>
+    <select
+      id="level"
+      {...registerQ("level")}
+      className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+      defaultValue=""
+    >
+      <option value="" disabled>
+        Select difficulty level
+      </option>
+      <option value="easy">Easy</option>
+      <option value="medium">Medium</option>
+      <option value="hard">Hard</option>
+    </select>
+  </div>
+
+  <div className="flex space-x-4">
+    <button
+      type="submit"
+      className="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition flex-1"
+    >
+      Add Question
+    </button>
+    <button
+      type="button"
+      onClick={updateQuestion}
+      className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition flex-1"
+    >
+      Update Question
+    </button>
+  </div>
+</form>
+
     </>
   );
 }

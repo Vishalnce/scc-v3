@@ -21,7 +21,7 @@ export default function CommentList({ parentType, parentId }: Props) {
       if (!parentId) return;
 
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/comment/client?${parentType}=${parentId}`,
+        `/api/en/comment/client?${parentType}=${parentId}`,
         {
           method: "GET",
           headers: {

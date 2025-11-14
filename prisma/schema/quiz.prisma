@@ -1,6 +1,6 @@
 model Quiz {
-  id          Int    @id @default(autoincrement())
-  title       String
+  id          Int    @id @default(autoincrement()) @unique
+  title       String @unique
   summary     String
   keywords    String
   description String
@@ -19,7 +19,7 @@ model Quiz {
 }
 
 model Question {
-  id            String   @id @default(uuid())
+  id            String   @id @default(uuid()) @unique
   quizId        Int
   quiz          Quiz     @relation(fields: [quizId], references: [id],onDelete: Cascade)
 

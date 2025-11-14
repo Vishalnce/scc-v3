@@ -32,6 +32,7 @@ function Nav() {
     setSubMenu((prev) => (prev === menu ? null : menu));
   };
 
+
   return (
     <>
       <nav className="bg-[image:var(--color-my-gradient)]  w-full sticky z-50   top-0 ">
@@ -118,7 +119,7 @@ function Nav() {
                 <button
                   className="p-0.5 px-4 border-1 rounded-lg bg-my-green text-white max-lg:text-sm max-sm:px-2  "
                   onClick={() => {
-                    signOut({ callbackUrl: process.env.NEXT_PUBLIC_NEXTAUTH_URL  || "/"});
+                    signOut();
                   }}
                 >
                   Logout

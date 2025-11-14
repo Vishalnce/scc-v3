@@ -8,51 +8,70 @@ export async function GET() {
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json(); // ✅ await here
+    const body = await req.json();
+    const { title } = body;
 
-    const quiz = await db.quiz.create({
-      data: body, // ✅ should be "data", not "body"
+    // Check if quiz with same title exists
+    const existingQuiz = await db.quiz.findUnique({
+      where: { title },
     });
 
-    return NextResponse.json(quiz);
+    if (existingQuiz) {
+      return NextResponse.json(
+        { message: "Quiz already exists", quiz: existingQuiz },
+        { status: 200 }
+      );
+    }
+
+    // Create a new quiz
+    const newQuiz = await db.quiz.create({
+      data: body,
+    });
+
+    return NextResponse.json(
+      { message: "Quiz created successfully", quiz: newQuiz },
+      { status: 201 }
+    );
   } catch (error) {
     console.error("Create quiz error:", error);
-    return NextResponse.json({ error: "Create failed" }, { status: 500 });
+    return NextResponse.json({ message: "Create failed" }, { status: 500 });
   }
 }
 
-export async function PATCH(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
-  const id = searchParams.get("id");
-
-  if (!id) {
-    return NextResponse.json({ error: "Missing id" }, { status: 400 });
-  }
-
+export async function PATCH(req: Request) {
   try {
+    const { searchParams } = new URL(req.url);
+    const idParam = searchParams.get("id");
+
+    if (!idParam) {
+      return NextResponse.json({ message: "Quiz ID is required" }, { status: 400 });
+    }
+
+    const id = Number(idParam); // ✅ convert string to number
+
+    if (isNaN(id)) {
+      return NextResponse.json({ message: "Invalid quiz ID or For edit Go to the dashboard and click edit" }, { status: 400 });
+    }
+
     const body = await req.json();
 
     const updatedQuiz = await db.quiz.update({
-      where: { id: Number(id) },
-      data: {
-        title: body.title,
-        summary: body.summary,
-        keywords: body.keywords,
-        description: body.description,
-        category: body.category,
-        subject: body.subject,
-        topic: body.topic,
-        timeLimit: body.timeLimit,
-      },
+      where: { id }, // ✅ now it's a number
+      data: body,
     });
 
-    return NextResponse.json(updatedQuiz);
-  } catch (error) {
-    console.error("Update failed:", error);
-    return NextResponse.json({ error: "Update failed" }, { status: 500 });
+    return NextResponse.json(
+      { message: "Quiz updated successfully", quiz: updatedQuiz },
+      { status: 200 }
+    );
+  } catch (error: any) {
+    console.error("Error updating quiz:", error);
+    if (error.code === "P2025") {
+      return NextResponse.json({ message: "Quiz not found" }, { status: 404 });
+    }
+    return NextResponse.json({ message: "Failed to update quiz" }, { status: 500 });
   }
 }
-
 
 
 export async function DELETE(req: NextRequest) {

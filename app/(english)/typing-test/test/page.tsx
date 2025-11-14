@@ -38,7 +38,7 @@ function TypingTestClient() {
   const fetchText = async () => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/typing/client?level=${validLevel}`
+        `/api/en/typing/client?level=${validLevel}`
       );
       const data = await response.json();
       if (data.success && data.post.length > 0) {
