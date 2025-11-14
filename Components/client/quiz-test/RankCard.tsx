@@ -1,5 +1,7 @@
 "use client";
 
+import SignInModal from "@/Components/ui/client/signin/SignInModal";
+import { stat } from "fs";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -21,6 +23,8 @@ type RankProps = {
 export default function RankCard({ quizId }: RankProps) {
   const [ranks, setRanks] = useState<Rank[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { status } = useSession();
 
   async function fetchRank() {
     try {
@@ -38,17 +42,17 @@ export default function RankCard({ quizId }: RankProps) {
   }
 
   useEffect(() => {
-    if (quizId) fetchRank();
-  }, [quizId]);
-
-  if (loading) return <p>Loading ranks...</p>;
-
-  if (ranks.length === 0) return <p>No rank data available yet.</p>;
+    if (quizId && status === "authenticated") {
+      fetchRank();
+    }
+  }, [quizId, status]);
 
   return (
     <>
       <div className=" mx-auto w-[90%] ">
-        <p className="font-bold text-lg text-center dark:text-white">Quiz Rank Card</p>
+        <p className="font-bold text-lg text-center dark:text-white">
+          Quiz Rank Card
+        </p>
 
         <div className="flex flex-col  dark:border-2 dark:border-white rounded-2xl">
           {/* heading */}
@@ -59,60 +63,71 @@ export default function RankCard({ quizId }: RankProps) {
             <p className="w-[20%]">Score</p>
           </div>
 
-          {/* boady */}
-
+          {isModalOpen && <SignInModal onClose={() => setIsModalOpen(false)} />}
           <div className=" flex flex-col gap-2 text-center max-h-[120px] overflow-y-auto py-2 dark:bg-[#313131] rounded-b-2xl dark:text-white ">
-            {ranks.map((rank, index) => {
-              const rankImage =
-                index === 0
-                  ? "/ui/client/rankCard/1.svg"
-                  : index === 1
-                    ? "/ui/client/rankCard/2.svg"
-                    : index === 2
-                      ? "/ui/client/rankCard/3.svg"
-                      : null;
-
-              return (
-                <div
-                  key={index}
-                  className=" flex flex-row justify-between items-center px-4"
+            {status === "unauthenticated" ? (
+              <div>
+                <p> Login to see your Rank</p>
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  className="mt-2 px-4 py-2 bg-[#007076] text-white rounded-lg w-[10%] mx-auto"
                 >
+                  Login
+                </button>
+              </div>
+            ) : (
+              ranks.map((rank, index) => {
+                const rankImage =
+                  index === 0
+                    ? "/ui/client/rankCard/1.svg"
+                    : index === 1
+                      ? "/ui/client/rankCard/2.svg"
+                      : index === 2
+                        ? "/ui/client/rankCard/3.svg"
+                        : null;
+
+                return (
                   <div
-                    className={`flex flex-row justify-center items-center w-[20%] ${
-                      rankImage ? "" : ""
-                    }`}
+                    key={index}
+                    className=" flex flex-row justify-between items-center px-4"
                   >
-                    {rankImage && (
-                      <Image
-                        src={rankImage}
-                        alt={`Position ${index + 1}`}
-                        height={30}
-                        width={30}
-                      />
-                    )}
+                    <div
+                      className={`flex flex-row justify-center items-center w-[20%] ${
+                        rankImage ? "" : ""
+                      }`}
+                    >
+                      {rankImage && (
+                        <Image
+                          src={rankImage}
+                          alt={`Position ${index + 1}`}
+                          height={30}
+                          width={30}
+                        />
+                      )}
 
-                    <p className="font-medium">{index + 1}</p>
+                      <p className="font-medium">{index + 1}</p>
+                    </div>
+
+                    <p className="w-[20%]">{rank.name}</p>
+                    <p className=" w-[20%] text-center">{rank.timeTaken}</p>
+
+                    <p className="w-[20%]">
+                      {rank.score}/{rank.maxMarks}
+                    </p>
                   </div>
-
-                  <p className="w-[20%]">{rank.name}</p>
-                  <p className=" w-[20%] text-center">{rank.timeTaken}</p>
-
-                  <p className="w-[20%]">
-                    {rank.score}/{rank.maxMarks}
-                  </p>
-                </div>
-              );
-            })}
+                );
+              })
+            )}
           </div>
-
-       
         </div>
 
-           {/* instruction */}
-          <div className="flex flex-row  gap-2">
-            <FaStar className="text-[#FFE332] my-auto" />
-            <p className="dark:text-white">Rank will be displayed only for your first attempt. </p>
-          </div>
+        {/* instruction */}
+        <div className="flex flex-row  gap-2">
+          <FaStar className="text-[#FFE332] my-auto" />
+          <p className="dark:text-white">
+            Rank will be displayed only for your first attempt.{" "}
+          </p>
+        </div>
       </div>
     </>
   );

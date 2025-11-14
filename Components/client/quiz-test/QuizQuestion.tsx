@@ -246,7 +246,7 @@ export default function QuizQuestion({
                   <div
                     className={`max-sm:py-2 max-sm:w-full   mx-auto gap-6 w-full  py-4 ${q.options[0]?.image ? "flex flex-wrap justify-between " : "grid grid-cols-2 max-sm:grid-cols-1"}`}
                   >
-                    {q.options.map((opt, idx) => {
+                    {q.options.map((opt:{ text?: string; image?: string }, idx:number) => {
                       const selected = answers[current].answer === idx;
                       const hasText = !!opt.text;
                       const hasImage = !!opt.image;
@@ -268,7 +268,7 @@ export default function QuizQuestion({
                             {/* IMAGE BELOW */}
                             <div className="relative w-full aspect-[16/9]">
                               <Image
-                                src={opt.image.toString()}
+                             src={(opt.image ?? "").toString()}
                                 alt="option"
                                 fill
                                 className={`object-contain ${
@@ -314,7 +314,7 @@ export default function QuizQuestion({
                           className="relative max-w-[400px] w-[40%] aspect-[16/9] hover:cursor-pointer"
                         >
                           <Image
-                            src={opt.image.toString()}
+                         src={(opt.image ?? "").toString()}
                             alt="question image"
                             fill
                             className={`object-contain ${

@@ -26,8 +26,7 @@ export default function QuizResult({
   answers: { questionId: string; answer: number | null }[];
   onRestart: () => void;
 }) {
-  
-  console.log(timeLimit)
+
   return (
     <div className="max-w-[1400px] mx-auto dark:bg-black  sm:py-14 pt-14 pb-4 ">
       {/* Header card */}
