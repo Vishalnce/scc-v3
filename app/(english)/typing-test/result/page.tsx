@@ -50,11 +50,11 @@ function Page() {
             </p>
           </div>
           {/* body  */}
-          <div className="flex flex-row  justify-around items-center pb-6">
+          <div className="flex flex-row max-sm:flex-col  justify-around items-center pb-6">
             {/* left half
              */}
 
-            <div className="flex flex-col w-[42%] dark:border-1 dark:border-white dark:bg-[#191919] px-4 rounded-2xl dark:text-white">
+            <div className="flex flex-col w-[42%] max-sm:w-[90%] dark:border-1 dark:border-white dark:bg-[#191919] px-4 rounded-2xl dark:text-white">
               <div className="flex flex-row justify-between items-center  my-2 ">
                 <div className="flex flex-row  min-w-[41%] gap-2">
                   <GoClock className="my-auto size-6"/>
@@ -109,7 +109,7 @@ function Page() {
             </div>
 
             {/* right half */}
-            <div className="flex flex-col w-[42%] dark:border-1   dark:border-white dark:bg-[#191919] px-4 rounded-2xl dark:text-white ">
+            <div className="flex flex-col w-[42%] max-sm:w-[90%] dark:border-1   dark:border-white dark:bg-[#191919] px-4 rounded-2xl dark:text-white ">
               <div className="flex flex-row justify-between  my-2">
                 <div className="flex flex-row  min-w-[41%] gap-2">
                   <TbTargetArrow className="my-auto size-6 "/>

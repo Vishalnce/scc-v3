@@ -52,7 +52,7 @@ const router = useRouter();
 
   return (
     <>
-      <div className="w-full flex flex-row items-center justify-center gap-12">
+      <div className="w-full flex flex-row max-sm:flex-col items-center justify-center gap-12">
         {/* Left side: Time */}
         <div className="flex flex-col m-2">
           <div className="flex flex-row pb-4">

@@ -54,33 +54,43 @@ export default function OneLinerForm({ onSuccess, content, id }: Props) {
   };
 
   return (
-    <div className="border-2 w-[80%] mx-auto">
-      <h2 className="text-xl font-bold mb-4">
-        {id ? "Update One-Liner" : "Add One-Liner"}
-      </h2>
-      <form className="space-y-4">
-        <textarea
-          {...register("text", { required: "One-liner is required" })}
-          placeholder="Enter a one-liner..."
-          className="w-full p-2 border border-gray-300 rounded"
-        />
+   <div className=" w-[90%] mx-auto p-6 rounded-md shadow-sm bg-white">
+  <h2 className="text-xl font-bold mb-4">
+    {id ? "Update One-Liner" : "Add One-Liner"}
+  </h2>
+  <form className="space-y-4">
+    <label htmlFor="oneLiner" className="block mb-2 font-semibold text-gray-700">
+      One-Liner
+    </label>
+    <textarea
+      id="oneLiner"
+      {...register("text", { required: "One-liner is required" })}
+      placeholder="Enter a one-liner..."
+      className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+    />
 
-        <button
-          type="button"
-          onClick={handleSubmit(handleAdd)}
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-        >
-          Add
-        </button>
+    <div className="flex gap-4">
+<button
+      type="button"
+      onClick={handleSubmit(handleAdd)}
+      className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+    >
+      Add
+    </button>
 
-        <button
-          type="button"
-          onClick={handleSubmit(handleUpdate)}
-          className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
-        >
-          Update
-        </button>
-      </form>
+    <button
+      type="button"
+      onClick={handleSubmit(handleUpdate)}
+      className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition"
+    >
+      Update
+    </button>
+
     </div>
+
+    
+  </form>
+</div>
+
   );
 }

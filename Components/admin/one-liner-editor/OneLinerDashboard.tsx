@@ -25,35 +25,37 @@ function OneLinerDashboard() {
 
   return (
     <>
-      <div className="w-[90%] mx-auto border-2">
-        {/* jst text  */}
-        <div className="flex flex-row justify-between my-4">
-          <h2 className="text-xl text-my-text-color font-bold ">
-            One-Liner Current Affairs
-          </h2>
-          <p className="text-sm text-gray-500 ">Updated Daily</p>
-        </div>
+     <div className="w-[90%] mx-auto mt-4 rounded-md p-4 shadow-sm bg-white">
+  {/* Section Title as label */}
+  <div className="flex flex-row justify-between my-4 items-center">
+    <h2 className="text-xl font-bold text-my-text-color" aria-label="One-Liner Current Affairs">
+      One-Liner Current Affairs
+    </h2>
+    <p className="text-sm text-gray-500" aria-label="Data update frequency">
+      Updated Daily
+    </p>
+  </div>
 
-        {/* content */}
+  {/* Content List */}
+  <div>
+    {liners.map((item) => (
+      <div
+        key={item.id}
+        className=" m-2 flex flex-row justify-between rounded-md bg-[#FAFCFC]"
+      >
+        <p className="p-2">
+          {item.content}
+        </p>
 
-        <div className="">
-          {liners.map((item) => (
-            <div
-              key={item.id}
-              className="border-2 m-2 flex flex-row justify-between"
-            >
-              <p key={item.id} className="p-2 bg-[#FAFCFC]">
-                {item.content}
-              </p>
-
-              <div className="flex flex-row gap-2  p-2">
-                <EditButton id={item.id} />
-                <DeleteButton id={item.id}  onDelete={fetchLiners}/>
-              </div>
-            </div> 
-          ))}
+        <div className="flex flex-row gap-4 p-2">
+          <EditButton id={item.id} />
+          <DeleteButton id={item.id} onDelete={fetchLiners} />
         </div>
       </div>
+    ))}
+  </div>
+</div>
+
     </>
   );
 }
