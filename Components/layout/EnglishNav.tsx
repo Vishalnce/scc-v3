@@ -32,7 +32,6 @@ function Nav() {
     setSubMenu((prev) => (prev === menu ? null : menu));
   };
 
-
   return (
     <>
       <nav className="bg-[image:var(--color-my-gradient)]  w-full sticky z-50   top-0 ">
@@ -277,6 +276,7 @@ function Nav() {
                   Mathematical Abilities{" "}
                 </p>
               </Link>
+
               <Link
                 href={{
                   pathname: "/concept",
@@ -335,12 +335,14 @@ function Nav() {
                 </p>
               </Link>
 
-              <Link href={"/typing-test/intro"} onClick={() => setActiveTag(null)}>
+              <Link
+                href={"/typing-test/intro"}
+                onClick={() => setActiveTag(null)}
+              >
                 <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
                   Data Entry Speed Test{" "}
                 </p>
               </Link>
-
             </div>
           </div>
         </div>
@@ -499,8 +501,6 @@ function Nav() {
                 </p>
               </Link>
 
-
-              
               <Link
                 href={{
                   pathname: "/quiz",
@@ -513,24 +513,30 @@ function Nav() {
               >
                 {" "}
                 <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
-                 Computer Knowledge{" "}
+                  Computer Knowledge{" "}
                 </p>
               </Link>
 
+              <Link
+                href={"/typing-test/intro"}
+                onClick={() => setActiveTag(null)}
+              >
+                <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
+                  Data Entry Speed Test{" "}
+                </p>
+              </Link>
 
-                <Link href={"/typing-test/intro"} onClick={() => setActiveTag(null)}>
-                   
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
-                Data Entry Speed Test{" "}
-              </p>
-
-                </Link>
-
-             
-          
-              <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
-                PYQs{" "}
-              </p>
+              <Link
+                href={{
+                  pathname: "/quiz",
+                  query: { category: "mains", subject: "pyq" },
+                }}
+                onClick={() => setActiveTag(null)}
+              >
+                <p className="p-3 hover:bg-[#E6F1F1] dark:hover:bg-black rounded-lg">
+                  PYQs{" "}
+                </p>
+              </Link>
             </div>
           </div>
         </div>
@@ -556,13 +562,29 @@ function Nav() {
             {activeTag === "mini-current-affairs" && (
               <div className="flex flex-col items-center w-[90%] mt-2 togle">
                 <div className="w-[80%] text-sm  ">
-                  <p className=" hover:text-[#007076]  text-lg mt-2">
-                    Details Current Affairs
-                  </p>
+                  <Link href={"/current-affaris"}>
+                    <button
+                      onClick={() => {
+                        setIsOpen(!isOpen);
+                      }}
+                      className=" hover:text-[#007076]  text-lg mt-2"
+                    >
+                      {" "}
+                      Details Current Affairs{" "}
+                    </button>
+                  </Link>
 
-                  <p className=" hover:text-[#007076] text-lg  mt-2">
-                    One Liner Current Affaris
-                  </p>
+                  <Link href={"/one-liner"}>
+                    <button
+                      onClick={() => {
+                        setIsOpen(!isOpen);
+                      }}
+                      className=" hover:text-[#007076]  text-lg mt-2"
+                    >
+                      {" "}
+                      One Liner Current Affaris
+                    </button>
+                  </Link>
                 </div>
               </div>
             )}
@@ -594,24 +616,67 @@ function Nav() {
                   </div>
                   {subMenu === "pre" && (
                     <div className="fle flex-col ">
-                      <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] text-md ">
-                        Quantitative Apptitude
-                      </p>
-                      <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] ">
-                        Reasoning & General Intelligence
-                      </p>
+                      <Link
+                        href={{
+                          pathname: "/concept",
+                          query: {
+                            category: "pre",
+                            subject: "quantitative-apptitude",
+                          },
+                        }}
+                        onClick={() => setIsOpen(!isOpen)}
+                      >
+                        {" "}
+                        <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131]">
+                          Quantitative Apptitude{" "}
+                        </p>
+                      </Link>
 
-                      <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] ">
-                        English Comprehension
-                      </p>
+                      <Link
+                        href={{
+                          pathname: "/concept",
+                          query: {
+                            category: "pre",
+                            subject: "reasoning-general",
+                          },
+                        }}
+                        onClick={() => setIsOpen(!isOpen)}
+                      >
+                        <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131]">
+                          {" "}
+                          Reasoning & General Intelligence
+                        </p>
+                      </Link>
 
-                      <p className="p-2 hover:bg-[#E6F1F1]  dark:hover:bg-[#313131] ">
-                        General Awareness
-                      </p>
+                      <Link
+                        href={{
+                          pathname: "/concept",
+                          query: {
+                            category: "pre",
+                            subject: "english-comprehension",
+                          },
+                        }}
+                        onClick={() => setIsOpen(!isOpen)}
+                      >
+                        <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] ">
+                          English Comprehension{" "}
+                        </p>
+                      </Link>
 
-                      <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] ">
-                        PYQs
-                      </p>
+                      <Link
+                        href={{
+                          pathname: "/concept",
+                          query: {
+                            category: "pre",
+                            subject: "general-awareness",
+                          },
+                        }}
+                        onClick={() => setIsOpen(!isOpen)}
+                      >
+                        <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] ">
+                          General Awareness{" "}
+                        </p>
+                      </Link>
                     </div>
                   )}
 
@@ -627,34 +692,89 @@ function Nav() {
                   </div>
                   {subMenu === "mini-concepts-main" && (
                     <div className="fle flex-col ">
-                      <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131]  ">
-                        Quantitative Apptitude
-                      </p>
-                      <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] ">
-                        Quantitative Apptitude
-                      </p>
-                      <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] ">
-                        Reasoning & General Intelligence
-                      </p>
+                      <Link
+                        href={{
+                          pathname: "/concept",
+                          query: {
+                            category: "mains",
+                            subject: "mathematics-ability",
+                          },
+                        }}
+                        onClick={() => setIsOpen(!isOpen)}
+                      >
+                        <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131]">
+                          Mathematical Abilities{" "}
+                        </p>
+                      </Link>
 
-                      <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] ">
-                        English Comprehension
-                      </p>
+                      <Link
+                        href={{
+                          pathname: "/concept",
+                          query: {
+                            category: "mains",
+                            subject: "reasoning-general",
+                          },
+                        }}
+                        onClick={() => setIsOpen(!isOpen)}
+                      >
+                        <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131]">
+                          {" "}
+                          Reasoning & General Intelligence
+                        </p>
+                      </Link>
 
-                      <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131]  ">
-                        General Awareness
-                      </p>
+                      <Link
+                        href={{
+                          pathname: "/concept",
+                          query: {
+                            category: "mains",
+                            subject: "english-comprehension",
+                          },
+                        }}
+                        onClick={() => setIsOpen(!isOpen)}
+                      >
+                        <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131]">
+                          English Comprehension{" "}
+                        </p>
+                      </Link>
+                      <Link
+                        href={{
+                          pathname: "/concept",
+                          query: {
+                            category: "mains",
+                            subject: "general-awareness",
+                          },
+                        }}
+                        onClick={() => setIsOpen(!isOpen)}
+                      >
+                        <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131]">
+                          General Awareness{" "}
+                        </p>
+                      </Link>
 
-                      <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] ">
-                        Computer Knowledge
-                      </p>
-                      <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] ">
-                        Data Entry Speed Test
-                      </p>
+                      <Link
+                        href={{
+                          pathname: "/concept",
+                          query: {
+                            category: "mains",
+                            subject: "computer-knowledge",
+                          },
+                        }}
+                        onClick={() => setIsOpen(!isOpen)}
+                      >
+                        <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131]">
+                          Computer Knowledge{" "}
+                        </p>
+                      </Link>
 
-                      <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] ">
-                        PYQs
-                      </p>
+                      <Link
+                        href={"/typing-test/intro"}
+                        onClick={() => setIsOpen(!isOpen)}
+                      >
+                        <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131]">
+                          Data Entry Speed Test{" "}
+                        </p>
+                      </Link>
                     </div>
                   )}
                 </div>
@@ -688,24 +808,77 @@ function Nav() {
                   </div>
                   {subMenu === "pre-quiz" && (
                     <div className="fle flex-col ">
-                      <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] ">
-                        Quantitative Apptitude
-                      </p>
-                      <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] ">
-                        Reasoning & General Intelligence
-                      </p>
+                      <Link
+                        href={{
+                          pathname: "/quiz",
+                          query: {
+                            category: "pre",
+                            subject: "quantitative-apptitude",
+                          },
+                        }}
+                        onClick={() => setIsOpen(!isOpen)}
+                      >
+                        <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131]">
+                          Quantitative Apptitude{" "}
+                        </p>
+                      </Link>
+                      <Link
+                        href={{
+                          pathname: "/quiz",
+                          query: {
+                            category: "pre",
+                            subject: "reasoning-general",
+                          },
+                        }}
+                        onClick={() => setIsOpen(!isOpen)}
+                      >
+                        <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131]">
+                          {" "}
+                          Reasoning & General Intelligence
+                        </p>
+                      </Link>
 
-                      <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] ">
-                        English Comprehension
-                      </p>
+                      <Link
+                        href={{
+                          pathname: "/quiz",
+                          query: {
+                            category: "pre",
+                            subject: "english-comprehension",
+                          },
+                        }}
+                        onClick={() => setIsOpen(!isOpen)}
+                      >
+                        <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131]">
+                          English Comprehension{" "}
+                        </p>
+                      </Link>
 
-                      <p className="p-2 hover:bg-[#E6F1F1]  dark:hover:bg-[#313131] ">
-                        General Awareness
-                      </p>
+                      <Link
+                        href={{
+                          pathname: "/quiz",
+                          query: {
+                            category: "pre",
+                            subject: "general-awareness",
+                          },
+                        }}
+                        onClick={() => setIsOpen(!isOpen)}
+                      >
+                        <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131]">
+                          General Awareness{" "}
+                        </p>
+                      </Link>
 
-                      <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] ">
-                        PYQs
-                      </p>
+                      <Link
+                        href={{
+                          pathname: "/quiz",
+                          query: { category: "pre", subject: "pyq" },
+                        }}
+                        onClick={() => setIsOpen(!isOpen)}
+                      >
+                        <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131]">
+                          PYQs{" "}
+                        </p>
+                      </Link>
                     </div>
                   )}
 
@@ -721,34 +894,102 @@ function Nav() {
                   </div>
                   {subMenu === "main-quiz" && (
                     <div className="flex flex-col ">
-                      <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131]  ">
-                        Quantitative Apptitude
-                      </p>
-                      <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] ">
-                        Quantitative Apptitude
-                      </p>
-                      <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] ">
-                        Reasoning & General Intelligence
-                      </p>
+                      <Link
+                        href={{
+                          pathname: "/quiz",
+                          query: {
+                            category: "mains",
+                            subject: "mathematics-ability",
+                          },
+                        }}
+                        onClick={() => setIsOpen(!isOpen)}
+                      >
+                        <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131]">
+                          Mathematical Abilities{" "}
+                        </p>
+                      </Link>
 
-                      <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] ">
-                        English Comprehension
-                      </p>
+                      <Link
+                        href={{
+                          pathname: "/quiz",
+                          query: {
+                            category: "mains",
+                            subject: "reasoning-general",
+                          },
+                        }}
+                        onClick={() => setIsOpen(!isOpen)}
+                      >
+                        <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131]">
+                          {" "}
+                          Reasoning & General Intelligence
+                        </p>
+                      </Link>
 
-                      <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131]  ">
-                        General Awareness
-                      </p>
+                      <Link
+                        href={{
+                          pathname: "/quiz",
+                          query: {
+                            category: "mains",
+                            subject: "english-comprehension",
+                          },
+                        }}
+                        onClick={() => setIsOpen(!isOpen)}
+                      >
+                        <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131]">
+                          English Comprehension{" "}
+                        </p>
+                      </Link>
+                      <Link
+                        href={{
+                          pathname: "/quiz",
+                          query: {
+                            category: "mains",
+                            subject: "general-awareness",
+                          },
+                        }}
+                        onClick={() => setIsOpen(!isOpen)}
+                      >
+                        {" "}
+                        <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131]">
+                          General Awareness{" "}
+                        </p>
+                      </Link>
 
-                      <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] ">
-                        Computer Knowledge
-                      </p>
-                      <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] ">
-                        Data Entry Speed Test
-                      </p>
+                      <Link
+                        href={{
+                          pathname: "/quiz",
+                          query: {
+                            category: "mains",
+                            subject: "computer-knowledge",
+                          },
+                        }}
+                        onClick={() => setIsOpen(!isOpen)}
+                      >
+                        {" "}
+                        <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131]">
+                          Computer Knowledge{" "}
+                        </p>
+                      </Link>
 
-                      <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131] ">
-                        PYQs
-                      </p>
+                      <Link
+                        href={"/typing-test/intro"}
+                        onClick={() => setIsOpen(!isOpen)}
+                      >
+                        <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131]">
+                          Data Entry Speed Test{" "}
+                        </p>
+                      </Link>
+                      <Link
+                        href={{
+                          pathname: "/quiz",
+                          query: { category: "main", subject: "pyq" },
+                        }}
+                        onClick={() => setIsOpen(!isOpen)}
+                      >
+                        <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131]">
+                          PYQs{" "}
+                        </p>
+                      </Link>
                     </div>
                   )}
                 </div>
@@ -758,40 +999,72 @@ function Nav() {
 
           {/* mini Syllabus */}
           <div className="w-[80%]">
-            <div className="border-b-2 border-[#007076] flex flex-row justify-between mt-2">
-              <p className="py-1 text-center text-my-text-color hover:text-[#007076]">
-                Syllabus
-              </p>
-              <MdKeyboardArrowRight className="my-auto" />
-            </div>
+            <Link href={"/syllabus-page/client?slug=syllabus-for-ssc-cgl"}>
+              {" "}
+              <button
+                onClick={() => {
+                  setIsOpen(!isOpen);
+                }}
+                className="border-b-2 border-[#007076] flex flex-row justify-between mt-2 w-full "
+              >
+                <p className="py-1 text-center text-my-text-color hover:text-[#007076]">
+                  Syllabus
+                </p>
+                <MdKeyboardArrowRight className="my-auto" />
+              </button>
+            </Link>
           </div>
 
           {/* Test Series */}
           <div className="w-[80%]">
-            <div className="border-b-2 border-[#007076] flex flex-row justify-between mt-2">
-              <p className="py-1 text-center text-my-text-color hover:text-[#007076]">
-                Test Series
-              </p>
-              <MdKeyboardArrowRight className="my-auto" />
-            </div>
+            <Link href={"/test-series"}>
+              {" "}
+              <button
+                onClick={() => {
+                  setIsOpen(!isOpen);
+                }}
+                className="border-b-2 border-[#007076] flex flex-row justify-between mt-2 w-full "
+              >
+                <p className="py-1 text-center text-my-text-color hover:text-[#007076]">
+                 Test Series
+                </p>
+                <MdKeyboardArrowRight className="my-auto" />
+              </button>
+            </Link>
           </div>
           {/* Upcoming Exams */}
           <div className="w-[80%]">
-            <div className="border-b-2 border-[#007076] flex flex-row justify-between mt-2">
-              <p className="py-1 text-center text-my-text-color hover:text-[#007076]">
-                Upcoming Exams
-              </p>
-              <MdKeyboardArrowRight className="my-auto" />
-            </div>
+            <Link href={"/upcoming-exam"}>
+              {" "}
+              <button
+                onClick={() => {
+                  setIsOpen(!isOpen);
+                }}
+                className="border-b-2 border-[#007076] flex flex-row justify-between mt-2 w-full "
+              >
+                <p className="py-1 text-center text-my-text-color hover:text-[#007076]">
+                Upcoming Exam
+                </p>
+                <MdKeyboardArrowRight className="my-auto" />
+              </button>
+            </Link>
           </div>
           {/* Blogs */}
           <div className="w-[80%]">
-            <div className="border-b-2 border-[#007076] flex flex-row justify-between mt-2">
-              <p className="py-1 text-center text-my-text-color hover:text-[#007076]">
+                <Link href={"/blog"}>
+              {" "}
+              <button
+                onClick={() => {
+                  setIsOpen(!isOpen);
+                }}
+                className="border-b-2 border-[#007076] flex flex-row justify-between mt-2 w-full "
+              >
+                <p className="py-1 text-center text-my-text-color hover:text-[#007076]">
                 Blogs
-              </p>
-              <MdKeyboardArrowRight className="my-auto" />
-            </div>
+                </p>
+                <MdKeyboardArrowRight className="my-auto" />
+              </button>
+            </Link>
           </div>
         </div>
       )}

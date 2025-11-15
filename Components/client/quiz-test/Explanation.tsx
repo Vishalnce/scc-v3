@@ -102,7 +102,7 @@ export default function Explanation({ questions, answers, topic }: Props) {
               <div className="flex flex-col justify-between items-start w-full     ">
                 {/* question  */}
 
-                <div className="w-full px-4  min-h-[40vh] py-3 flex flex-row justify-between gap-2  max-sm:flex-col  ">
+                <div className="w-full px-4   py-3 flex flex-row justify-between gap-2  max-sm:flex-col  ">
                   <p
                     className={`font-bold dark:text-white  ${q.questionImage ? " w-[55%] max-sm:w-full" : "null"} `}
                   >
@@ -126,7 +126,7 @@ export default function Explanation({ questions, answers, topic }: Props) {
 
                 <div className="flex flex-row justify-between items-stretch  border-red-300 w-full px-4 ">
                   <div
-                    className={`max-sm:py-2 max-sm:w-full   mx-auto gap-6 w-full  py-4 ${q.options[0]?.image ? "flex flex-wrap justify-between " : "grid grid-cols-2"}`}
+                    className={`max-sm:py-2 max-sm:w-full   mx-auto gap-6 w-full  py-4 ${q.options[0]?.image ? "flex flex-wrap justify-between " : "grid grid-cols-2 max-sm:grid-cols-1"}`}
                   >
                     {q.options.map(
                       (opt: { text?: string; image?: string }, idx: number) => {

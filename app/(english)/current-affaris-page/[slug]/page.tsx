@@ -228,8 +228,7 @@ export default async function CurrentAffarisPage({
             <span className="hover:underline cursor-pointer text-[#007076]">
               Current Affairs
             </span>{" "}
-            <span className="mx-1 text-[#007076]"> &gt; </span>
-            <span className="font-semibold dark:text-white">{post?.title}</span>
+      
           </p>
 
           <h1 className="text-3xl font-bold max-sm:text-2xl">

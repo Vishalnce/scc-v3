@@ -219,7 +219,7 @@ export default function QuizQuestion({
                 {/* question  */}
 
                 <div
-                  className={`w-full px-4   ${q.questionImage ? "min-h-[40vh]" : "min-h-[30vh]"} py-3 flex flex-row justify-between gap-2  max-sm:flex-col `}
+                  className={`w-full px-4    py-3 flex flex-row justify-between gap-2  max-sm:flex-col `}
                 >
                   <p
                     className={`font-bold dark:text-white  ${q.questionImage ? " w-[55%] max-sm:w-full" : "null"} `}

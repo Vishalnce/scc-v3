@@ -89,6 +89,7 @@ export default async function Page({
     "general-awareness": "/ui/client/quiz/general.svg",
     "mathematical-abilities": "/ui/client/quiz/math.svg",
     "computer-knowledge": "/ui/client/quiz/computer.svg",
+    "pyq": "/ui/client/quiz/computer.svg",
   };
 
   return (

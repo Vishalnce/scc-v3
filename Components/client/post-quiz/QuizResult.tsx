@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaRegCircle } from "react-icons/fa";
 import { GoStopwatch } from "react-icons/go";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
@@ -80,7 +80,18 @@ questions.forEach((question) => {
     if (current < questions.length - 1) setCurrent(current + 1);
   };
 
-   
+    const marksCardRef = useRef<HTMLDivElement | null>(null);
+
+useEffect(() => {
+  if (marksCardRef.current) {
+    const top = marksCardRef.current.getBoundingClientRect().top + window.scrollY;
+
+    window.scrollTo({
+      top: top - 100, // adjust this number (50, 80, 120…)
+      behavior: "smooth",
+    });
+  }
+}, []);
   
 
   return (
@@ -88,7 +99,7 @@ questions.forEach((question) => {
       {/* Header card */}
 
 
-      <div className="w-[90%] bg-[#FAFCFC] border-2 mx-auto flex flex-col items-center dark:bg-[#313131] py-6 border-[#E6F1F1] rounded-2xl ">
+      <div ref={marksCardRef} className="w-[90%] bg-[#FAFCFC] border-2 mx-auto flex flex-col items-center dark:bg-[#313131] py-6 border-[#E6F1F1] rounded-2xl ">
         <div
           className="-mt-14 rounded-full p-3 bg-white"
           style={{
