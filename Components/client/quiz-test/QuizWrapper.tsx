@@ -78,9 +78,6 @@ export default function QuizSection({
       />
     );
 
-  // add login check feature
-  // you add feature same as pass one function result
-
 
 
   if (stage === "result")

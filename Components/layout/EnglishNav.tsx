@@ -35,7 +35,7 @@ function Nav() {
   return (
     <>
       <nav className="bg-[image:var(--color-my-gradient)]  w-full sticky z-50   top-0 ">
-        <div className="  flex flex-row justify-between items-center mx-auto   max-w-[1400px]  ">
+        <div className="  flex flex-row justify-between items-center mx-auto  py-1  w-[90%]  ">
           {/* small screen toggle menu button */}
 
           {/* logo and hamburger icon */}
@@ -64,40 +64,40 @@ function Nav() {
           {/* links */}
           <div className="flex flex-row items-center space-x-8 max-lg:hidden ">
             <div onClick={() => handleClick("current-affairs")}>
-              <div className="flex flex-row items-center justify-center text-my-text-color text-sm hover:text-my-green">
+              <div className="flex flex-row items-center justify-center text-my-text-color  hover:text-my-green gap-1">
                 <p className="">Current Affairs</p> <IoIosArrowDown />
               </div>
             </div>
 
             <div onClick={() => handleClick("concepts")}>
-              <div className="flex flex-row items-center justify-center text-my-text-color text-sm hover:text-my-green ">
+              <div className="flex flex-row items-center justify-center text-my-text-color  hover:text-my-green gap-1 ">
                 <p className="">Concepts</p> <IoIosArrowDown />
               </div>
             </div>
 
             <div onClick={() => handleClick("quiz")}>
-              <div className="flex flex-row items-center justify-center text-my-text-color text-sm hover:text-my-green ">
+              <div className="flex flex-row items-center justify-center text-my-text-color  hover:text-my-green gap-1">
                 <p className="">Quiz</p> <IoIosArrowDown />
               </div>
             </div>
             <Link href="/syllabus-page/client?slug=syllabus-for-ssc-cgl">
-              <div className="flex flex-row items-center justify-center text-my-text-color text-sm hover:text-my-green ">
+              <div className="flex flex-row items-center justify-center text-my-text-color  hover:text-my-green ">
                 <p className="">Syllabus</p>
               </div>
             </Link>
 
             <Link href="/test-series">
-              <div className="flex flex-row items-center justify-center text-my-text-color text-sm hover:text-my-green ">
+              <div className="flex flex-row items-center justify-center text-my-text-color  hover:text-my-green ">
                 <p className="">Test Series</p>
               </div>
             </Link>
             <Link href="/upcoming-exam">
-              <div className="flex flex-row items-center justify-center text-my-text-color text-sm hover:text-my-green ">
+              <div className="flex flex-row items-center justify-center text-my-text-color  hover:text-my-green ">
                 <p className="">Upcoming Exam</p>
               </div>
             </Link>
             <Link href="/blog">
-              <div className="flex flex-row items-center justify-center text-my-text-color text-sm hover:text-my-green ">
+              <div className="flex flex-row items-center justify-center text-my-text-color  hover:text-my-green ">
                 <p className="">Blogs</p>
               </div>
             </Link>
@@ -107,12 +107,12 @@ function Nav() {
 
           <div className="flex flex-row justify-around items-center space-x-2 mx-2">
             <Link href="/hi">
-              <TbLanguageHiragana className="size-5 " />
+              <TbLanguageHiragana className="size-7 dark:text-white " />
             </Link>
 
             {/* <FaBell className="size-5 " /> */}
 
-            <ThemeToggle />
+            <ThemeToggle  />
             {status === "authenticated" ? (
               <div>
                 <button
@@ -131,14 +131,14 @@ function Nav() {
                     onClick={() => {
                       signIn();
                     }}
-                    className="p-0.5 px-4 border-1 rounded-lg max-lg:text-sm max-sm:px-2 "
+                    className=" px-6 py-0.5 pb-1 border-2 rounded-lg  max-sm:px-2 dark:border-white dark:text-white "
                   >
                     Login
                   </button>
                 </Link>
 
                 <Link href={"/signup"}>
-                  <button className="p-0.5 px-4 border-1 rounded-lg bg-my-green text-white max-lg:text-sm max-lg:hidden  ">
+                  <button className="px-6 py-0.5 pb-1 border-2 border-[#007076] rounded-lg bg-my-green text-white max-lg:text-sm max-lg:hidden  ">
                     Signup
                   </button>
                 </Link>

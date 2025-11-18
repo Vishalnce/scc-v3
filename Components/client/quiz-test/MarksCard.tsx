@@ -26,6 +26,11 @@ export default function MarksCard({
   onRestart,
   quizId,
 }: Props) {
+
+
+  console.log("answer",answers);
+  console.log("question",questions)
+
   const calculateScore = () => {
     let correctMarks = 0;
     let incorrectMarks = 0;

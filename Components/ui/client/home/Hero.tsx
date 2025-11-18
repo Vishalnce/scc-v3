@@ -13,7 +13,7 @@ export default function Hero() {
         {/* samll banner */}
 
         <div
-          className={`relative bg-[#2CBB01] max-sm:gap-4 flex items-center justify-center py-2 px-4 ${smallBanner ? "hidden" : ""} }`}
+          className={`relative bg-[#2CBB01] max-sm:gap-4 flex items-center justify-center py-3 px-4 ${smallBanner ? "hidden" : ""} }`}
         >
           {/* Center text content */}
           <div className="flex flex-row items-center sm:gap-2 gap-3  ">
@@ -39,7 +39,7 @@ export default function Hero() {
           </button>
         </div>
 
-        <div className="max-w-[1400px] flex flex-col  mx-auto">
+        <div className=" flex flex-col  mx-auto ">
           {/* main banner */}
 
           <div className="flex flex-row justify-between   py-6 sm:py-8 w-[90%] mx-auto max-md:flex-col ">
@@ -54,14 +54,14 @@ export default function Hero() {
               <h1 className="text-4xl font-montserrat max-sm:text-2xl font-bold dark:text-[#FFFFFF] pt-2  leading-snug">
                 Crack  <span className="text-[#007076]">SSC CGL</span> Secure Dream Government Career!
               </h1>
-              <p className="text-my-text-color py-2 max-sm:text-sm">
+              <p className="text-my-text-color py-2 max-sm:text-sm text-lg">
                 Empower Your Prep with Top-Notch Study Materials, Mock Tests,
                 Quizzes and Exclusive SSC CGL Updates to help you succeed in
                 exam.{" "}
               </p>
 
               {/* button */}
-              <div className="flex flex-row gap-2 py-3 ">
+              <div className="flex flex-row gap-4 py-3 ">
                 <Link href={"/"}>
                   <button className="p-2 px-3 border-black border-2 dark:border-white text-sm rounded-full dark:text-white ">
                     {" "}
@@ -69,7 +69,7 @@ export default function Hero() {
                   </button>
                 </Link>
                 <Link href={"/"}>
-                  <button className="p-2 px-6 text-sm text-white rounded-full bg-[#007076]">
+                  <button className="p-2 px-6 text-sm text-white border-2 border-[#007076] rounded-full bg-[#007076]">
                     {" "}
                     Take Quiz
                   </button>
@@ -110,6 +110,8 @@ export default function Hero() {
                 />
               </div>
             </div>
+
+
           </div>
         </div>
       </div>
