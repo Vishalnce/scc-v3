@@ -7,13 +7,12 @@ import { GoStopwatch } from "react-icons/go";
 import { Suspense } from "react";
 
 export default function Page() {
- return (
+  return (
     <Suspense fallback={<div>Loading typing test...</div>}>
       <TypingTestClient />
     </Suspense>
   );
 }
-
 
 function TypingTestClient() {
   const router = useRouter();
@@ -35,11 +34,16 @@ function TypingTestClient() {
   const [startTime, setStartTime] = useState<number | null>(null);
   const [posts, setPosts] = useState<{ title: string; id: number }[]>([]);
   const [targetText, setTargetText] = useState("");
+  // keystrokes count
+  const [keystrokesCount, setKeystrokesCount] = useState(0);
+
+  const handleKeyDown = () => {
+    setKeystrokesCount((prev) => prev + 1);
+  };
+
   const fetchText = async () => {
     try {
-      const response = await fetch(
-        `/api/en/typing/client?level=${validLevel}`
-      );
+      const response = await fetch(`/api/en/typing/client?level=${validLevel}`);
       const data = await response.json();
       if (data.success && data.post.length > 0) {
         setPosts(data.post);
@@ -137,7 +141,8 @@ function TypingTestClient() {
         : 0;
 
     // Keystrokes = total characters typed including spaces
-    const keystrokes = input.length;
+    const keystrokes = keystrokesCount;
+
     const speedWPM =
       timeTakenSeconds > 0 ? correct / (timeTakenSeconds / 60) : 0;
     // Prepare result object with all stats
@@ -153,7 +158,8 @@ function TypingTestClient() {
       grossWPM: grossWPM.toFixed(2),
       netWPM: netWPM.toFixed(2),
       speedWPM: speedWPM.toFixed(2),
-      keystrokes: keystrokes,
+      keystrokes: keystrokesCount,
+
       level: validLevel,
       duration: validTime,
       date: new Date().toLocaleString(),
@@ -216,8 +222,11 @@ function TypingTestClient() {
 
           {/* Typing paragraph */}
           <div className="mt-8 p-4 bg-white dark:bg-[#191919] rounded shadow dark:border-1 dark:border-white h-[200px] overflow-y-auto w-[95%]">
-            <p className="text-lg leading-relaxed dark:text-white">{targetText}</p>
+            <p className="text-lg leading-relaxed dark:text-white">
+              {targetText}
+            </p>
           </div>
+
 
           {/* Input box */}
           <div className="mt-4 w-[95%]">
@@ -226,8 +235,13 @@ function TypingTestClient() {
               value={input}
               onPaste={(e) => e.preventDefault()}
               onChange={handleChange}
+              onKeyDown={handleKeyDown}
               className="w-full border border-gray-300 rounded px-4 py-2 text-lg focus:outline-none focus:ring-2 focus:ring-[#007076] resize-none dark:text-white dark:bg-[#191919]"
               rows={5}
+              autoComplete="off"
+              autoCorrect="off"
+              autoCapitalize="off"
+              spellCheck={false}
             />
           </div>
 

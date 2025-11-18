@@ -14,6 +14,7 @@ import {
   topicOptions,
 } from "@/constants/admin-quiz/options";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 type PostType = {
   title: string;
@@ -56,7 +57,11 @@ export default function Page({ post }: { post?: PostType }) {
 const [filteredTopics, setFilteredTopics] = useState<OptionType[]>([]);
   const [isUploading, setIsUploading] = useState(false);
 
-  
+    
+const [isEditorTouched, setIsEditorTouched] = useState(false);
+ const router = useRouter();
+
+
 const handleSubjectChange = (option: OptionType | null) => {
   setSelectedSubject(option);
   setValue("subject", option?.value ?? "");
@@ -66,6 +71,16 @@ const handleSubjectChange = (option: OptionType | null) => {
   );
   setFilteredTopics(relevantTopics);
 };
+
+
+useEffect(() => {
+  if (post) {
+    setEditorData({
+      html: post.editorHtml || "",
+      toc: JSON.parse(post.toc || "[]"),
+    });
+  }
+}, [post]);
 
 
   const [editorData, setEditorData] = useState<{
@@ -101,7 +116,19 @@ const handleSubjectChange = (option: OptionType | null) => {
   const isEdit = !!post;
 
   const onSubmit = async (data: PostType) => {
-    console.log("Form data:", data);
+
+
+        if (!isEditorTouched && post) {
+      data.editorHtml = post.editorHtml;
+      data.toc = post.toc;
+    }
+
+    // CASE 2 → Editor touched → user manually clicked Sync Now
+    if (isEditorTouched) {
+      data.editorHtml = editorData.html;
+      data.toc = JSON.stringify(editorData.toc);
+    }
+  
     try {
       const method = isEdit ? "PATCH" : "POST";
 
@@ -115,7 +142,7 @@ const handleSubjectChange = (option: OptionType | null) => {
 
       if (res.ok) {
         alert(isEdit ? "Post updated successfully!" : "Post created!");
-        console.log("Result:", result);
+            router.push("/concept")
       } else {
         alert("Failed to save post");
       }
@@ -398,7 +425,7 @@ const handleImageUpload = async () => {
   </div>
 
   <div>
-    <Editor value={value} onSync={setEditorData} />
+    <Editor value={value} onSync={setEditorData} setIsEditorChange={setIsEditorTouched} />
   </div>
 
   <input type="hidden" {...register("editorHtml")} />

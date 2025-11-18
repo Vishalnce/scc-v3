@@ -10,9 +10,10 @@ import "./globals.css";
 type EditorProps = {
   value?: string; // NEW: make value optional for initial content
   onSync: (data: { html: string; toc: TocItem[] }) => void;
+  setIsEditorChange:(v: boolean) => void;
 };
 
-export default function Editor({ value = "", onSync }: EditorProps) {
+export default function Editor({ value = "", onSync,  setIsEditorChange }: EditorProps) {
   const editorContentRef = useRef<string>(value); // store current content
 
   const [editorValue, setEditorValue] = useState(value); // local state
@@ -39,6 +40,7 @@ export default function Editor({ value = "", onSync }: EditorProps) {
           value={editorValue} // pass prefilled value
           onChange={(newValue) => {
             editorContentRef.current = newValue;
+            setIsEditorChange(true)
           }}
         />
       </div>

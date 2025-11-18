@@ -9,6 +9,7 @@ import Editor from "@/Components/admin/editor-page"; // adjust path if needed
 import type { TocItem } from "@/Components/admin/toc";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 type PostType = {
   title: string;
@@ -62,6 +63,11 @@ export default function Page({ post }: { post?: PostType }) {
   const [isUploading, setIsUploading] = useState(false);
 
 
+    const [isEditorTouched, setIsEditorTouched] = useState(false);
+  
+  
+    const router = useRouter();
+
   const [editorData, setEditorData] = useState<{
     html: string;
     toc: TocItem[];
@@ -69,6 +75,17 @@ export default function Page({ post }: { post?: PostType }) {
     html: "",
     toc: [],
   });
+
+
+  
+useEffect(() => {
+  if (post) {
+    setEditorData({
+      html: post.editorHtml || "",
+      toc: JSON.parse(post.toc || "[]"),
+    });
+  }
+}, [post]);
 
   const title = watch("title"); // 👈 watch the title field
   // const { theme } = useTheme();
@@ -87,11 +104,24 @@ export default function Page({ post }: { post?: PostType }) {
     }
   }, [title, slugTransform, setValue]);
 
-  const value = `<p class="PlaygroundEditorTheme__paragraph" dir="ltr"><span style="white-space: pre-wrap;">asdsadasdasdasdassszzzzzzzzzzz</span></p>;`;
-
+  const value = post?.editorHtml || "";
   const isEdit = !!post;
 
   const onSubmit = async (data: PostType) => {
+
+    
+    if (!isEditorTouched && post) {
+      data.editorHtml = post.editorHtml;
+      data.toc = post.toc;
+    }
+
+    // CASE 2 → Editor touched → user manually clicked Sync Now
+    if (isEditorTouched) {
+      data.editorHtml = editorData.html;
+      data.toc = JSON.stringify(editorData.toc);
+    }
+    console.log("FINAL DATA", data);
+
     try {
       const method = isEdit ? "PATCH" : "POST";
 
@@ -105,7 +135,7 @@ export default function Page({ post }: { post?: PostType }) {
 
       if (res.ok) {
         alert(isEdit ? "Post updated successfully!" : "Post created!");
-        console.log("Result:", result);
+          router.push("/blog")
       } else {
         alert("Failed to save post");
       }
@@ -311,7 +341,7 @@ const handleImageUpload = async () => {
     />
   </div>
 
-  <Editor value={value} onSync={setEditorData} />
+  <Editor value={value} onSync={setEditorData} setIsEditorChange={setIsEditorTouched} />
 
   <input type="hidden" {...register("editorHtml")} />
 
