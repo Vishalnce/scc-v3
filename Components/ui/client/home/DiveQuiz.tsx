@@ -11,7 +11,7 @@ export default function QuizCard() {
       image: "/ui/client/home/quiz/math.svg",
       title: "Quantitative Aptitude",
     },
-   
+
     {
       image: "/ui/client/home/quiz/reasoning.svg",
       title: "Reasoning & GI",
@@ -26,12 +26,12 @@ export default function QuizCard() {
     },
   ];
 
-  const Tier2:any = [
-     {
+  const Tier2: any = [
+    {
       image: "/ui/client/home/quiz/math.svg",
       title: "Quantitative Aptitude",
     },
-   
+
     {
       image: "/ui/client/home/quiz/reasoning.svg",
       title: "Reasoning & GI",
@@ -44,15 +44,15 @@ export default function QuizCard() {
       image: "/ui/client/home/quiz/reasoning.svg",
       title: "General Awareness",
     },
-     {
+    {
       image: "/ui/client/home/quiz/computer.svg",
       title: "Computer Knowledge",
     },
-     {
+    {
       image: "/ui/client/home/quiz/data.svg",
       title: "Data Entry Speed Test",
     },
-  ]
+  ];
 
   const [tierChange, setTierChange] = useState<"for-tier1" | "for-tier2">(
     "for-tier1"
@@ -99,34 +99,39 @@ export default function QuizCard() {
         <div className="max-w-[1400px] pt-8 flex flex-col mx-auto w-[90%]">
           {/* heading */}
 
-          <header className="flex flex-row  justify-between items-center p-4 max-sm:px-0 ">
-            <div className="w-[60%] max-sm:w-[50%]">
-              <p className="text-2xl font-bold dark:text-white">
+          <header className="flex flex-row  justify-between items-center py-4 max-sm:px-0 ">
+            <div className="w-[60%] max-sm:w-[50%]  space-y-2">
+              <p className="text-4xl font-bold dark:text-white">
                 Dive Into Live Quizzes Now
               </p>
-              <p className="text-sm text-my-text-color max-sm:hidden">
+              <p className="text-lg text-my-text-color max-sm:hidden">
                 Test Your Skills in Real-Time with Subject-Wise Live Quizzes for
                 SSC CGL!
               </p>
             </div>
             {/* buttons */}
-            <div className="w-[22%]  max-sm:w-[35%] flex flex-row max-sm:flex-col justify-between gap-2">
-              <button
-                onClick={() => {
-                  setTierChange("for-tier1");
-                }}
-                className={`px-4 py-1.5 border-2 rounded-full text-sm ${tierChange === "for-tier1" ? "bg-[#FFE332] border-[#FFE332]" : "border-2 border-black dark:text-white dark:border-white "}`}
-              >
-                For Tier 1
-              </button>
-              <button
-                onClick={() => {
-                  setTierChange("for-tier2");
-                }}
-                className={`px-4 py-1.5 border-2 rounded-full text-sm ${tierChange === "for-tier2" ? "bg-[#FFE332] border-[#FFE332]" : "border-2 border-black dark:text-white dark:border-white"}`}
-              >
-                For Tier 2
-              </button>
+            <div className="w-[23%]   max-sm:w-[35%] flex flex-row max-sm:flex-col justify-between gap-2">
+              <div>
+                <button
+                  onClick={() => {
+                    setTierChange("for-tier1");
+                  }}
+                  className={`px-6 py-1.5 border-2 rounded-full text-lg ${tierChange === "for-tier1" ? "bg-[#FFE332] border-[#FFE332]" : "border-2 border-black dark:text-white dark:border-white "}`}
+                >
+                  For Tier 1
+                </button>
+              </div>
+
+              <div>
+                <button
+                  onClick={() => {
+                    setTierChange("for-tier2");
+                  }}
+                  className={`px-6 py-1.5 border-2 rounded-full  text-lg ${tierChange === "for-tier2" ? "bg-[#FFE332] border-[#FFE332]" : "border-2 border-black dark:text-white dark:border-white"}`}
+                >
+                  For Tier 2
+                </button>
+              </div>
             </div>
           </header>
 
@@ -154,7 +159,9 @@ export default function QuizCard() {
                         />
                       </div>
                       <div className="min-h-[65px] max-sm:min-h-[50px] w-full ">
-                        <p  className="text-lg font-bold pt-3 text-center">{item.title}</p>
+                        <p className="text-lg font-bold pt-3 text-center">
+                          {item.title}
+                        </p>
                       </div>
                     </div>
 
@@ -205,13 +212,12 @@ export default function QuizCard() {
                                 width={60}
                                 height={60}
                               />
-                            </div >
-                            <div className="min-h-[65px] max-sm:min-h-[50px] w-full " >
+                            </div>
+                            <div className="min-h-[65px] max-sm:min-h-[50px] w-full ">
                               <p className="text-lg font-bold pt-3 text-center">
-                              {item.title}
-                            </p>
-                              </div>
-                            
+                                {item.title}
+                              </p>
+                            </div>
                           </div>
 
                           {/* middle */}
@@ -245,7 +251,7 @@ export default function QuizCard() {
                 <button
                   onClick={scrollPrev}
                   disabled={!canPrev}
-                 className={` max-sm:hidden absolute -left-2 top-34 -translate-y-1/2 p-3 rounded-full 
+                  className={` max-sm:hidden absolute -left-2 top-34 -translate-y-1/2 p-3 rounded-full 
     ${canPrev ? "bg-white text-[#007076]" : "bg-white text-[#007076] opacity-80"}`}
                 >
                   <IoIosArrowBack />

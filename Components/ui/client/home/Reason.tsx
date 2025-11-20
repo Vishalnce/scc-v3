@@ -6,21 +6,21 @@ export default function Reason() {
   return (
     <>
       <div className="bg-[#007076]">
-        <div className=" w-[90%]  mx-auto pt-8 pb-8 flex flex-row max-sm:flex-col justify-between ">
+        <div className=" w-[90%] max-w-[1400px]  mx-auto pt-8 pb-8 flex flex-row max-sm:flex-col justify-between ">
           {/* heading */}
           <div className="w-[25%] max-sm:w-[95%] flex flex-col max-sm:flex-row items-start max-sm:pt-4 pt-8  max-sm:justify-between">
-            <p className="text-white text-4xl font-bold max-sm:w-[70%]">
+            <p className="text-white text-4xl font-bold max-sm:w-[70%] max-sm:text-2xl leading-snug">
               Top 3 Reasons to Prepare with SSC Examlife!
             </p>
             <Link href={"/test-series"}>
-              <button className=" p-2 px-4 rounded-full bg-[#FFE332] my-4">
+              <button className=" p-2  text-lg px-6 rounded-full bg-[#FFE332] my-4">
                 Join US
               </button>
             </Link>
           </div>
           {/* small cards */}
 
-          <div className="flex flex-row justify-around max-sm:flex-col max-sm:items-center sm:gap-4 py-4  w-[70%] border-2 max-sm:w-[95%] ">
+          <div className="flex flex-row justify-between max-sm:flex-col max-sm:items-center sm:gap-4 py-4  w-[64%]  max-sm:w-[95%]  ">
             <div className="bg-[#26858A] border-2 border-white flex flex-col w-[30%] items-center justify-center rounded-2xl p-2 relative sm:mt-8 mt-2 sm:max-w-[230px] max-sm:w-full max-sm:flex-row">
               {/* image */}
               <div className=" sm:absolute sm:-top-10 sm:left-2">

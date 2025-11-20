@@ -35,7 +35,7 @@ function Nav() {
   return (
     <>
       <nav className="bg-[image:var(--color-my-gradient)]  w-full sticky z-50   top-0 ">
-        <div className="  flex flex-row justify-between items-center mx-auto  py-1  w-[90%]  ">
+        <div className="  flex flex-row justify-between items-center mx-auto  py-1  md:w-[95%]  ">
           {/* small screen toggle menu button */}
 
           {/* logo and hamburger icon */}
@@ -116,7 +116,7 @@ function Nav() {
             {status === "authenticated" ? (
               <div>
                 <button
-                  className="p-0.5 px-4 border-1 rounded-lg bg-my-green text-white max-lg:text-sm max-sm:px-2  "
+                  className="px-6 py-0.5 pb-1 border-2 border-[#007076] rounded-lg bg-my-green text-white max-lg:text-sm max-sm:px-2  "
                   onClick={() => {
                     signOut();
                   }}

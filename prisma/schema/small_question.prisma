@@ -1,17 +1,14 @@
-
 model SmallQuiz {
-  id            String   @id @default(uuid())
+  id String @id @default(uuid())
 
-  questionText  String?  // optional text
+  questionText String? // optional text
 
- 
-  options       Json     // Example: [{ text: "Option 1", image: "url" }, { text: "Option 2"// }]
+  options Json // Example: [{ text: "Option 1", image: "url" }, { text: "Option 2"// }]
 
-
+  subject String @default("General")
 
   correctOption Int
- 
- 
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

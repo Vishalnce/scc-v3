@@ -20,7 +20,7 @@ type QuestionType = {
 
   options: OptionType[];
 
-
+  subject:string;
   correctOption: number | "";
 
  
@@ -67,49 +67,70 @@ const QuestionList = ({ setQuesId }: QuestionWrapperProps) => {
 
 
   return (
-    <div className="max-w-[90%] mx-auto bg-white p-6 rounded-xl shadow space-y-8 border mt-5">
-  <h2 className="text-3xl font-bold mb-6 text-gray-800 border-b pb-3">Questions List</h2>
-  <ul className="space-y-6">
+<div className="max-w-[90%] mx-auto bg-white p-4 rounded-xl shadow space-y-4 border mt-5">
+  <h2 className="text-2xl font-bold mb-4 text-gray-800 border-b pb-2">
+    Questions List
+  </h2>
+
+  <ul className="space-y-4">
     {questions.map((q) => (
       <li
         key={q.id}
-        className="flex justify-between items-start bg-gray-50 p-4 rounded-lg shadow-sm border hover:shadow-md transition"
+        className="flex justify-between items-start bg-gray-50 p-4 rounded-xl border shadow-sm hover:shadow-md transition"
       >
-        <div className="w-full">
-          {q.questionText && (
-            <p className="text-lg font-semibold text-gray-900 mb-3">{q.questionText}</p>
-          )}
+        <div className="w-full space-y-3">
 
-          <ul className="list-decimal list-inside space-y-1 text-gray-700">
-            {q.options.map((opt, idx) => (
-              <li key={idx} className="">
-                {opt.text && <span>{opt.text}</span>}
-              </li>
-            ))}
-          </ul>
+          {/* Question Row */}
+          <div className="flex gap-3">
+            <span className="font-semibold text-gray-500 ">Question:</span>
+            <p className="text-gray-900 font-medium">{q.questionText}</p>
+          </div>
 
-          <p className="mt-3 font-medium text-green-700">
-            Correct Option number: <span className="font-bold">{q.correctOption}</span>
-          </p>
+          {/* Subject Row */}
+          <div className="flex gap-3">
+            <span className="font-semibold text-gray-500 ">Subject:</span>
+            <p className="text-gray-800 capitalize">{q.subject}</p>
+          </div>
+
+          {/* Options Row */}
+          <div className="flex gap-3 items-start">
+            <span className="font-semibold text-gray-500">Options:</span>
+            <ul className="space-y-0.5 text-gray-700">
+              {q.options.map((opt, idx) => (
+                <li key={idx} className="flex gap-1">
+                  <span className="font-semibold">{idx + 1}.</span>
+                  <span>{opt.text}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Correct Option Row */}
+          <div className="flex gap-3">
+            <span className="font-semibold text-gray-500 w-28">Correct:</span>
+            <p className="font-bold text-green-700">{q.correctOption}</p>
+          </div>
         </div>
 
-        <div className="flex flex-col items-center ml-6 space-y-3">
+        {/* Buttons */}
+        <div className="flex flex-col items-center ml-4 space-y-2">
           <button
             onClick={() => setQuesId(q.id)}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition w-20"
+            className="bg-blue-600 text-white px-3 py-1.5 rounded-lg hover:bg-blue-700 transition w-20 text-sm"
           >
             Edit
           </button>
+
           <DeleteButton
             quesId={q.id}
             onDeleted={() => fetchQuestions()}
-            
           />
         </div>
       </li>
     ))}
   </ul>
 </div>
+
 
   );
 };

@@ -50,7 +50,7 @@ export default async function AnnounceUpcoming() {
             {/* announcment card */}
             <div className=" w-[46%] max-md:w-[100%] ">
               {/* heading */}
-              <div className="  bg-[#007076] rounded-t-xl flex flex-row items-center justify-center gap-4  py-1 w-full">
+              <div className="  bg-[#007076] rounded-t-xl flex flex-row items-center justify-center gap-4  py-2  w-full">
                 <div className="my-auto ">
                   <Image
                     src={"/ui/client/home/announce.svg"}
@@ -60,7 +60,7 @@ export default async function AnnounceUpcoming() {
                   />
                 </div>
                 <div>
-                  <p className="text-white text-xl"> Announcement</p>
+                  <p className="text-white text-2xl"> Announcement</p>
                 </div>
               </div>
 
@@ -68,7 +68,7 @@ export default async function AnnounceUpcoming() {
 
               <div className=" py-3 space-y-3 max-h-[210px] overflow-y-auto shadow-2xl px-3 rounded-b-lg dark:bg-[#313131]">
                   {session?.user?.role === "ADMIN" ? (
-          <div className="w-[90%] dark:bg-[#191919] max-md:hidden">
+          <div className="w-[90%]  max-md:hidden">
             <Link href="/admin/announcement ">
               <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
                 Edit Announcements
@@ -102,7 +102,7 @@ export default async function AnnounceUpcoming() {
             {/* upcoming exam as notice */}
             <div className=" w-[46%] max-md:w-[100%] ">
               {/* heading */}
-              <div className="  bg-[#007076] rounded-t-xl flex flex-row items-center justify-center gap-4  py-1 w-full ">
+              <div className="  bg-[#007076] rounded-t-xl flex flex-row items-center justify-center gap-4  py-2 w-full ">
                 <div className="my-auto ">
                   <Image
                     src={"/ui/client/home/upcoming.svg"}
@@ -112,7 +112,7 @@ export default async function AnnounceUpcoming() {
                   />
                 </div>
                 <div>
-                  <p className="text-white text-xl"> Upcoming Exam</p>
+                  <p className="text-white text-2xl"> Upcoming Exam</p>
                 </div>
               </div>
 
@@ -121,7 +121,7 @@ export default async function AnnounceUpcoming() {
               <div className=" py-3 space-y-3 overflow-y-auto max-h-[210px]  px-3 rounded-b-lg shadow-2xl dark:bg-[#313131]">
 
                 {session?.user?.role === "ADMIN" ? (
-          <div className="w-[90%] dark:bg-[#191919] max-md:hidden">
+          <div className="w-[90%]  max-md:hidden">
             <Link href="/admin/notice ">
               <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
                 Edit Upcoming Exams

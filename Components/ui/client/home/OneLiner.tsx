@@ -1,5 +1,7 @@
 import Image from "next/image";
 import React from "react";
+import { MdKeyboardArrowRight } from "react-icons/md";
+import { PiCircleBold } from "react-icons/pi";
 
 type Item = {
   id: number;
@@ -40,15 +42,15 @@ export default async function OneLiner() {
   return (
     <>
       <div className="bg-white dark:bg-[black]">
-        <div className="max-w-[1400px] pt-10 max-sm:pt-6 flex flex-col mx-auto b w-[90%]">
+        <div className="max-w-[1400px] pt-12 max-sm:pt-6 flex flex-col mx-auto  w-[90%]">
           {/* heading */}
-          <header className="flex flex-row justify-between items-center  p-4">
-            <div className="w-[60%]">
-              <p className="text-2xl max-sm:text-xl font-bold dark:text-white">
+          <header className="flex flex-row justify-between   py-4">
+            <div className="w-[60%] ">
+              <p className="text-4xl max-sm:text-xl font-bold dark:text-white">
                 One-Liner Current Affairs for Quick Revision
               </p>
-              <div className="w-[34%] max-lg:hidden">
-                <p className="bg-[#2CBB0180] rounded-full py-2 px-2 my-2 text-black text-xs flex items-center max-w-[250px]">
+              <div className="w-[40%] max-lg:hidden py-2">
+                <p className="bg-[#2CBB0180] w-full rounded-full py-2 px-6 my-2 text-black text-lg flex items-center ">
                   {/* White circle container */}
                   <span className="relative mr-2 w-5 h-5 rounded-full bg-white flex items-center justify-center">
                     {/* Blinking green dot centered inside */}
@@ -62,29 +64,29 @@ export default async function OneLiner() {
               </div>
             </div>
             <div>
-              <button className="p-2 px-3 bg-[#FFE332]  rounded-full text-sm">
+              <button className="p-2 px-6 bg-[#FFE332]  rounded-full text-lg">
                 Read More
               </button>
             </div>
           </header>
 
-          <main className="w-full  flex flex-row justify-between pb-10">
+          <main className="w-full  flex flex-row justify-between  pb-10 mt-4 ">
             {/* one liner */}
-            <div className="text-fade max-lg:w-[100%] w-[60%]  flex flex-col justify-between mx-auto">
+            <div className="text-fade max-lg:w-[100%] w-[55%]  flex flex-col justify-between ">
               {contents.map((item: Item) => (
                 <div
                   key={item.id}
-                  className="flex flex-row items-center py-1 gap-2"
+                  className="flex flex-row items-center justify-start py-1 gap-2"
                 >
-                  <span className="w-4 h-4 max-sm:w-5 flex items-center justify-center rounded-full border-4 font-bold dark:border-white"></span>
-                  <p className="dark:text-white">{item.content}</p>
+                  <MdKeyboardArrowRight  className="font-bold text-lg size-6 flex-shrink-0 dark:text-white" />
+                  <p className="dark:text-white text-lg">{item.content}</p>
                 </div>
               ))}
             </div>
 
             {/* image */}
 
-            <div className="w-[35%]  max-lg:hidden">
+            <div className="w-[35%]  max-lg:hidden ">
               <Image
                 src={"/ui/client/home/boy.png"}
                 alt="boy-reading"
@@ -92,6 +94,7 @@ export default async function OneLiner() {
                 height={294}
               />
             </div>
+
           </main>
         </div>
       </div>

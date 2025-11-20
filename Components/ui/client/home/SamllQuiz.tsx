@@ -11,12 +11,14 @@ interface QuizOption {
 interface QuizAPI {
   id: string;
   questionText: string;
+  subject:string;
   options: QuizOption[];
   correctOption: number; // 1-based index
 }
 
 interface QuizItem {
   question: string;
+    subject: string,
   options: string[];
   answer: string;
 }
@@ -81,10 +83,11 @@ export default function Quiz() {
         );
         if (!res.ok) throw new Error("Failed to fetch");
         const data: QuizAPI[] = await res.json();
-
+       
         // Transform backend data → UI shape
         const transformed: QuizItem[] = data.map((q) => ({
           question: q.questionText,
+          subject:q.subject,
           options: q.options.map((opt) => opt.text),
           answer: q.options[q.correctOption - 1]?.text || "",
         }));
@@ -97,50 +100,59 @@ export default function Quiz() {
     fetchQuiz();
   }, []);
 
-  if (quizData.length === 0) {
-    return <p className="text-white p-4">Loading quiz...</p>;
-  }
 
 
   // auth
 
 
+// Show loading  until quizData is ready
 
-
+  
 
   return (
-    <div className="bg-[#007076]">
-      <div className="w-[90%] mx-auto pt-14 max-sm:pt-10 max-sm:py-24 pb-8 flex flex-row max-sm:flex-col justify-between ">
-        {/* Heading */}
-        <div className="w-[33%] max-sm:w-[95%] flex flex-col items-start max-sm:pb-8  pt-2 max-sm:justify-between">
-           
-          <p className="bg-[#2CBB0180] text-white rounded-full p-2 text-sm py-2 my-2">
-            <span className="px-2 rounded-full bg-[#FFFFFF] mr-2"></span>
-            Don't Miss The Live Quizzes
-          </p>
-          <p className="text-white text-3xl font-bold  py-2">
-            Master SSC CGL with Live Quizzes!
-          </p>
-          <p className="text-[#FFFFFF] text-sm py-2 max-sm:hidden">
-            Engage with Us to Explore Subject-Wise Quizzes and Practice 1000+
-            Questions for Comprehensive Preparation!
-          </p>
+  <div className="bg-[#007076]">
+  <div className=" max-w-[1400px] w-[90%] mx-auto pt-14 max-sm:pt-10 max-sm:py-24 sm:pb-14 
+    flex flex-row max-sm:flex-col justify-between"
+  >
+    {/* -------------------- LEFT SECTION (Always visible) -------------------- */}
+    <div className="w-[33%] max-sm:w-[95%] flex flex-col items-start max-sm:pb-8 pb-2">
+      <p className="bg-[#2CBB0180] text-white rounded-full p-2 text-sm py-2 my-2">
+        <span className="px-2 rounded-full bg-[#FFFFFF] mr-2"></span>
+        Don't Miss The Live Quizzes
+      </p>
 
-           {session?.data?.user?.role === "ADMIN" ? (
-          <div className="w-[90%] dark:bg-[#191919]  max-md:hidden">
-            <Link href="/admin/small-quiz ">
-              <button className=" bg-[#FFE332] rounded-full text-center px-4 py-2">
-                Edit Quiz
-              </button>
-            </Link>
-          </div>
-        ) : (
-          ""
-        )}
+      <p className="text-white text-4xl font-bold py-2 max-sm:text-2xl max-sm:text-center">
+        Master SSC CGL with Live Quizzes!
+      </p>
+
+      <p className="text-[#FFFFFF] text-lg py-2 max-sm:hidden">
+        Engage with Us to Explore Subject-Wise Quizzes and Practice 1000+
+        Questions for Comprehensive Preparation!
+      </p>
+
+      {session?.data?.user?.role === "ADMIN" && (
+        <div className="w-[90%] dark:bg-[#191919] max-md:hidden">
+          <Link href="/admin/small-quiz">
+            <button className="bg-[#FFE332] rounded-full text-center px-4 py-2">
+              Edit Quiz
+            </button>
+          </Link>
         </div>
+      )}
+    </div>
 
-        {/* Quiz body */}
-        <div className="border-2 border-white bg-[#26858A] rounded-xl w-[60%] py-2 max-sm:w-full">
+    {/* -------------------- RIGHT SECTION -------------------- */}
+
+    {/* Case 1: No questions */}
+    {quizData.length === 0 ? (
+      <div className="border-2 border-white bg-[#26858A] rounded-xl w-[60%] py-10 
+        max-sm:w-full flex items-center justify-center"
+      >
+        <p className="text-white text-xl">No questions available</p>
+      </div>
+    ) : (
+      /* Case 2: Show full quiz body */
+        <div className=" bg-[#26858A] rounded-xl w-[60%] py-2 max-sm:w-full px-2">
           {/* Heading numbers + navigation */}
 
           {/* If quiz is finished → show result */}
@@ -177,12 +189,12 @@ export default function Quiz() {
             <div>
               <div className="flex flex-row relative py-2">
                 <div className="bg-white p-3 max-sm:p-2 absolute -top-8 left-6">
-                  <p className="font-montserrat font-bold text-4xl max-sm:text-2xl text-[#007076]">
+                  <p className="font-montserrat font-bold text-4xl max-sm:text-2xl min-w-12 text-center text-[#007076]">
                     {String(currentQ + 1).padStart(2, "0")}
                   </p>
                 </div>
-                <div className="pl-28 max-sm:pl-18">
-                  <p className="text-sm text-white">Quantitative Aptitude</p>
+                <div className="sm:pl-28   max-sm:w-full max-sm:text-center max-sm:pt-4">
+                  <p className=" text-white capitalize"> {quizData[currentQ]?.subject}</p>
                 </div>
 
                 {!isFinished && (
@@ -203,12 +215,15 @@ export default function Quiz() {
                 )}
               </div>
 
-              <div className=" flex flex-row max-sm:flex-col py-4">
-                <div className="w-[40%] max-sm:w-full max-sm:py-2 max-sm:min-h-20 px-2">
-                  <p className="text-white max-sm:text-center">{quizData[currentQ].question}</p>
+              <div className=" flex flex-row max-sm:flex-col py-4  ">
+                {/* question Div */}
+                <div className="w-[40%] max-sm:w-full max-sm:py-2 max-sm:min-h-20 px-2 ">
+                  <p className="text-white max-sm:text-center text-xl">{quizData[currentQ].question}</p>
                 </div>
 
-                <div className="w-[70%] max-sm:py-2 max-sm:w-full grid grid-cols-2 max-sm:grid-cols-1 gap-6 px-2  ">
+
+                {/* border div */}
+                <div className="w-[70%] max-sm:py-2 max-sm:w-full grid grid-cols-2 max-sm:grid-cols-1 gap-6 px-2 ">
                   {quizData[currentQ].options.map((option, index) => {
                     const isSelected = selected === option;
                     const isAnswer = option === quizData[currentQ].answer;
@@ -223,7 +238,7 @@ export default function Quiz() {
                         onClick={() => handleOptionClick(option)}
                         disabled={!!selected}
                         className={`
-                          flex items-center justify-between py-2 px-2 rounded-full text-left transition w-full border-2
+                          flex items-center justify-between  sm:h-[55px]  py-2 px-2 rounded-full text-left transition w-full border-2
                           ${
                             correctOpt || showCorrect
                               ? "bg-[#2CBB0126] text-white"
@@ -237,7 +252,7 @@ export default function Quiz() {
                           }
                         `}
                       >
-                        <span className="text-xs">{option}</span>
+                        <span className="pl-2  ">{option}</span>
                         <span
                           className={`
                             w-6 h-6 flex items-center justify-center rounded-full border-2 font-bold
@@ -262,7 +277,9 @@ export default function Quiz() {
             </div>
           )}
         </div>
-      </div>
-    </div>
+    )}
+  </div>
+</div>
+
   );
 }

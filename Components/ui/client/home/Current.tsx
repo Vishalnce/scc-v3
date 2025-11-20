@@ -84,8 +84,8 @@ export default function Current() {
       <div className="max-w-[1400px] pt-8 flex flex-col mx-auto  w-[90%]  relative">
         {/* heading */}
         <header className="flex flex-row justify-between items-center  ">
-          <div className="w-[60%] space-y-4">
-            <p className="text-4xl font-bold dark:text-white">
+          <div className="w-[60%] space-y-2">
+            <p className="text-4xl font-bold dark:text-white max-sm:text-2xl">
               Check out the Latest Current Affairs
             </p>
             <p className="text-lg text-my-text-color max-sm:hidden">
@@ -97,15 +97,19 @@ export default function Current() {
          
           
           <div>
-            <button className="p-2 px-4 bg-[#007076] text-white rounded-full ">
+            <Link href={"/cuurent"}>
+                 <button className="p-2 px-6 text-lg bg-[#007076] text-white rounded-full ">
               View All
             </button>
+            
+            </Link>
+       
           </div>
         </header>
 
         {/* main body */}
         <div
-          className="overflow-hidden  my-8 dark:bg-black pb-6 border-2"
+          className="overflow-hidden  my-16 dark:bg-black pb-6 "
           ref={emblaRef}
         >
           <div className="flex">
@@ -168,7 +172,7 @@ export default function Current() {
         <button
           onClick={scrollPrev}
           disabled={!canPrev}
-          className={`max-sm:hidden  absolute -left-3 top-1/2 -translate-y-1/2  
+          className={`max-sm:hidden  absolute -left-3 top-10/25 -translate-y-1/2  
           ${canPrev ? "bg-white p-3 text-2xl max-sm:p-2 max-sm:text-xl rounded-full text-[#007076]" : "bg-white p-3 text-2xl max-sm:p-2 max-sm:text-xl rounded-full text-[#007076] cursor-not-allowed opacity-50"}`}
         >
           <IoIosArrowBack />
@@ -177,7 +181,7 @@ export default function Current() {
         <button
           onClick={scrollNext}
           disabled={!canNext}
-          className={`max-sm:hidden  absolute right-2 top-1/2  -translate-y-1/2  
+          className={`max-sm:hidden  absolute right-2 top-10/25  -translate-y-1/2  
           ${canNext ? "bg-white p-3 text-2xl max-sm:p-2 max-sm:text-xl rounded-full text-[#007076]" : "bg-white p-3 text-2xl max-sm:p-2 max-sm:text-xl rounded-full text-[#007076] cursor-not-allowed opacity-50"}`}
         >
           <IoIosArrowForward />

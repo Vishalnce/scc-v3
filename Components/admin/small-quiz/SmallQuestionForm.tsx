@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
-
+import Select from "react-select";
+import { subjectOptions } from "@/constants/admin-quiz/options";
 type QuestionFormProps = {
   // id: number | null;
   onSuccess: () => void;
@@ -13,7 +14,7 @@ type QuestionFormProps = {
 type QuestionFormData = {
   questionText?: string; // matches optional questionText in model
   // questionImage?: string; // matches optional questionImage in model
-
+  subject?: string; // ✅ ADD THIS
   options: {
     text?: string;
     // image?: string;
@@ -23,6 +24,8 @@ type QuestionFormData = {
 };
 
 type FormDataType = {};
+
+type OptionType = { value: string; label: string };
 
 function QuestionForm({ onSuccess, quesId, setQuesId }: QuestionFormProps) {
   const {
@@ -41,6 +44,10 @@ function QuestionForm({ onSuccess, quesId, setQuesId }: QuestionFormProps) {
   });
 
   async function onSubmitQuestion(data: any) {
+    if ("topic" in data) {
+      delete data.topic;
+    }
+
     console.log("Submitting question data:", data);
 
     try {
@@ -161,13 +168,27 @@ function QuestionForm({ onSuccess, quesId, setQuesId }: QuestionFormProps) {
     }
   }
 
+  const [selectedSubject, setSelectedSubject] = useState<OptionType | null>(
+    null
+  );
+
+  const handleSubjectChange = (option: OptionType | null) => {
+    setSelectedSubject(option);
+    resetQ({
+      ...getValues(),
+      subject: option?.value || "",
+    });
+  };
+
   return (
     <>
       <form
         onSubmit={handleSubmitQ(onSubmitQuestion)}
         className="max-w-[90%] mx-auto bg-white p-8 rounded-xl shadow space-y-6 border"
       >
-        <h2 className="font-bold text-2xl mb-6 text-gray-800">Add Question To Home Page</h2>
+        <h2 className="font-bold text-2xl mb-6 text-gray-800">
+          Add Question To Home Page
+        </h2>
 
         <label className="block mb-2 font-medium text-gray-700">
           Question text
@@ -178,6 +199,20 @@ function QuestionForm({ onSuccess, quesId, setQuesId }: QuestionFormProps) {
             rows={3}
           />
         </label>
+
+        <label className="block mb-2 font-medium text-gray-700">
+          Select Subject
+          <Select
+            options={subjectOptions}
+            value={selectedSubject}
+            onChange={handleSubjectChange}
+            instanceId="subject-select"
+            placeholder="Select Subject"
+            className="w-full"
+          />
+        </label>
+
+        <input type="hidden" {...registerQ("subject")} />
 
         <div className="grid grid-cols-2 gap-6">
           {Array.from({ length: 4 }).map((_, idx) => (

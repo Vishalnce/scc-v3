@@ -9,18 +9,18 @@ export default function Hero() {
   const [smallBanner, setSmallBanner] = useState<boolean>(false);
   return (
     <>
-      <div className="bg-[image:var(--color-my-gradient)]">
+      <div className="bg-[image:var(--color-my-gradient)] ">
         {/* samll banner */}
 
         <div
-          className={`relative bg-[#2CBB01] max-sm:gap-4 flex items-center justify-center py-3 px-4 ${smallBanner ? "hidden" : ""} }`}
+          className={`relative bg-[#2CBB01] max-sm:gap-4 flex items-center justify-center py-3 px-4 ${smallBanner ? "hidden" : ""} } `}
         >
           {/* Center text content */}
           <div className="flex flex-row items-center sm:gap-2 gap-3  ">
-            <p className="text-center text-[#FFFFFF] text-sm max-sm:text-[12px] ">
+            <p className="text-center text-[#FFFFFF]  max-sm:text-[12px] ">
              Only Exclusive SSC CGL Test Series
             </p>
-            <p className="p-1 px-2 bg-[#FFE332] rounded-full text-xs max-sm:text-[10px] max-sm:hidden  max-sm:text-center">
+            <p className="p-1 px-2 bg-[#FFE332] rounded-full  max-sm:text-[10px] max-sm:hidden  max-sm:text-center">
               Coming soon
             </p>
             <Link href={"/"}>
@@ -39,19 +39,19 @@ export default function Hero() {
           </button>
         </div>
 
-        <div className=" flex flex-col  mx-auto ">
+        <div className=" max-w-[1400px] flex flex-row justify-between py-6 sm:pb-14 sm:py-8 w-[90%]  max-md:flex-col mx-auto ">
           {/* main banner */}
 
-          <div className="flex flex-row justify-between   py-6 sm:py-8 w-[90%] mx-auto max-md:flex-col ">
+        
             {/* text section */}
             <div className="flex flex-col  w-[55%] items-start gap-2 max-sm:w-full  ">
               <div className="  max-sm:w-full">
-                <p className="bg-[#FFE332] rounded-full p-2 text-sm py-2  max-sm:text-center">
+                <p className="bg-[#FFE332] rounded-full p-2  px-6 py-2  max-sm:text-center">
                   New Quizzes and Current Affairs!
                 </p>
               </div>
 
-              <h1 className="text-4xl font-montserrat max-sm:text-2xl font-bold dark:text-[#FFFFFF] pt-2  leading-snug">
+              <h1 className="text-5xl font-montserrat max-sm:text-2xl font-bold dark:text-[#FFFFFF] pt-2  leading-snug ">
                 Crack  <span className="text-[#007076]">SSC CGL</span> Secure Dream Government Career!
               </h1>
               <p className="text-my-text-color py-2 max-sm:text-sm text-lg">
@@ -63,13 +63,13 @@ export default function Hero() {
               {/* button */}
               <div className="flex flex-row gap-4 py-3 ">
                 <Link href={"/"}>
-                  <button className="p-2 px-3 border-black border-2 dark:border-white text-sm rounded-full dark:text-white ">
+                  <button className="p-2 px-4 border-black border-2 dark:border-white  rounded-full dark:text-white ">
                     {" "}
                     See Current Affairs
                   </button>
                 </Link>
                 <Link href={"/"}>
-                  <button className="p-2 px-6 text-sm text-white border-2 border-[#007076] rounded-full bg-[#007076]">
+                  <button className="p-2 px-6  text-white border-2 border-[#007076] rounded-full bg-[#007076]">
                     {" "}
                     Take Quiz
                   </button>
@@ -91,7 +91,7 @@ export default function Hero() {
             </div>
 
             {/* image section */}
-            <div className="w-[40%]  max-sm:w-full relative max-sm:py-4 flex items-stretch">
+            <div className="w-[40%]  max-sm:w-full relative max-sm:py-4 flex items-stretch ">
               <div className="relative w-full aspect-[450/477]   max-w-[400px] mx-auto ">
                 <Image
                   src="/ui/client/home/girl.png"
@@ -113,7 +113,7 @@ export default function Hero() {
 
 
           </div>
-        </div>
+     
       </div>
     </>
   );

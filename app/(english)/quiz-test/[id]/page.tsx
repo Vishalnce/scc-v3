@@ -32,7 +32,7 @@ export default async function page({
   return (
     <>
       <header className="bg-[image:var(--color-my-gradient)] ">
-        <div className="flex flex-col justify-center items-center  min-h-[150px] mx-auto max-w-[1400px] max-sm:w-[90%] text-center">
+        <div className=" flex-col justify-center items-center  min-h-[150px] mx-auto max-w-[1400px] max-sm:w-[90%] text-center">
           <p className="text-sm text-gray-600">
             <span className="hover:underline cursor-pointer text-[#007076]">
               Home

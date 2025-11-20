@@ -11,23 +11,22 @@ export default function MasterConcepts() {
       image: "/ui/client/home/quiz/math.svg",
       image2: "/ui/client/home/dive/tier1/quant.png",
       title: "Quantitative Aptitude",
-      
     },
 
     {
       image: "/ui/client/home/quiz/reasoning.svg",
-       image2: "/ui/client/home/dive/tier1/reasoning.png",
+      image2: "/ui/client/home/dive/tier1/reasoning.png",
       title: "Reasoning & GI",
     },
     {
       image: "/ui/client/home/quiz/english.svg",
-       image2: "/ui/client/home/dive/tier1/english.png",
+      image2: "/ui/client/home/dive/tier1/english.png",
 
       title: "English Comprehension",
     },
     {
       image: "/ui/client/home/quiz/reasoning.svg",
-        image2: "/ui/client/home/dive/tier1/general.png",
+      image2: "/ui/client/home/dive/tier1/general.png",
       title: "General Awareness",
     },
   ];
@@ -35,38 +34,38 @@ export default function MasterConcepts() {
   const Tier2: any = [
     {
       image: "/ui/client/home/quiz/math.svg",
-        image2: "/ui/client/home/dive/tier2/math.png",
-     
+      image2: "/ui/client/home/dive/tier2/math.png",
+
       title: "Quantitative Aptitude",
     },
 
     {
       image: "/ui/client/home/quiz/reasoning.svg",
-        image2: "/ui/client/home/dive/tier2/reasoning.png",
+      image2: "/ui/client/home/dive/tier2/reasoning.png",
 
       title: "Reasoning & GI",
     },
     {
       image: "/ui/client/home/quiz/english.svg",
-        image2: "/ui/client/home/dive/tier2/english.png",
+      image2: "/ui/client/home/dive/tier2/english.png",
 
       title: "English Comprehension",
     },
     {
       image: "/ui/client/home/quiz/reasoning.svg",
-        image2: "/ui/client/home/dive/tier2/general.png",
+      image2: "/ui/client/home/dive/tier2/general.png",
 
       title: "General Awareness",
     },
     {
       image: "/ui/client/home/quiz/computer.svg",
-        image2: "/ui/client/home/dive/tier2/computer.png",
+      image2: "/ui/client/home/dive/tier2/computer.png",
 
       title: "Computer Knowledge",
     },
     {
       image: "/ui/client/home/quiz/data.svg",
-        image2: "/ui/client/home/dive/tier2/data.png",
+      image2: "/ui/client/home/dive/tier2/data.png",
 
       title: "Data Entry Speed Test",
     },
@@ -117,34 +116,41 @@ export default function MasterConcepts() {
         <div className="max-w-[1400px] pt-8 flex flex-col mx-auto w-[90%]">
           {/* heading */}
 
-          <header className="flex flex-row  justify-between items-center p-4 max-sm:px-0 ">
-            <div className="w-[60%] max-sm:w-[50%]">
-              <p className="text-2xl font-bold dark:text-white">
+          <header className="flex flex-row  justify-between  p-4 max-sm:px-0  ">
+            <div className="w-[60%] max-sm:w-[50%] space-y-2">
+              <p className="text-4xl font-bold dark:text-white">
                 Master All SSC CGL Concepts
               </p>
-              <p className="text-sm text-my-text-color max-sm:hidden">
+              <p className="text-lg text-my-text-color max-sm:hidden">
                 Access Comprehensive Study Material for Every Subject to Excel
                 in Your SSC CGL Preparation!
               </p>
             </div>
             {/* buttons */}
-            <div className="w-[22%]  max-sm:w-[35%] flex flex-row max-sm:flex-col justify-between gap-2">
-              <button
-                onClick={() => {
-                  setTierChange("for-tier1");
-                }}
-                className={`px-4 py-1.5 border-2 rounded-full text-sm ${tierChange === "for-tier1" ? "bg-[#FFE332] border-[#FFE332]" : "border-2 border-black dark:text-white dark:border-white "}`}
-              >
-                For Tier 1
-              </button>
-              <button
-                onClick={() => {
-                  setTierChange("for-tier2");
-                }}
-                className={`px-4 py-1.5 border-2 rounded-full text-sm ${tierChange === "for-tier2" ? "bg-[#FFE332] border-[#FFE332]" : "border-2 border-black dark:text-white dark:border-white"}`}
-              >
-                For Tier 2
-              </button>
+            <div className="w-[23%]  max-sm:w-[35%] flex flex-row max-sm:flex-col justify-between items-center ">
+              <div>
+                <button
+                  onClick={() => setTierChange("for-tier1")}
+                  className={`px-6 py-1.5 max-sm:px-4 max-sm:w-full border-2 rounded-full text-lg ${
+                    tierChange === "for-tier1"
+                      ? "bg-[#FFE332] border-[#FFE332]"
+                      : "border-black dark:text-white dark:border-white"
+                  }`}
+                >
+                  For Tier 1
+                </button>
+              </div>
+
+              <div>
+                <button
+                  onClick={() => {
+                    setTierChange("for-tier2");
+                  }}
+                  className={`px-6 py-1.5 border-2 rounded-full text-lg ${tierChange === "for-tier2" ? "bg-[#FFE332] border-[#FFE332]" : "border-2 border-black dark:text-white dark:border-white"}`}
+                >
+                  For Tier 2
+                </button>
+              </div>
             </div>
           </header>
 
@@ -185,8 +191,8 @@ export default function MasterConcepts() {
 
                     {/* middle */}
 
-                    <div className="min-h-[65px] max-sm:min-h-[50px] w-full ">
-                      <p className="text-lg font-bold pt-3 text-center">
+                    <div className="min-h-[65px] max-sm:min-h-[50px] w-full dark:bg-white ">
+                      <p className="text-lg font-bold pt-3 text-center ">
                         {item.title}
                       </p>
                     </div>
@@ -210,7 +216,7 @@ export default function MasterConcepts() {
 
                     {/* bottom */}
                     <div className="w-full bg-[#007076] py-4 rounded-b-lg">
-                      <p className="text-center text-white">Start Quiz</p>
+                      <p className="text-center text-white text-lg">Start Quiz</p>
                     </div>
                   </div>
                 ))}
@@ -229,33 +235,33 @@ export default function MasterConcepts() {
                       >
                         <div className="bg-white rounded-t-lg rounded-b-lg max-h-[280px]">
                           {/* top */}
-                            <div className="relative flex justify-center items-center bg-[#F1F7F7] rounded-t-lg  w-full aspect-[21/9] ">
-                      {/* Background image fills rectangle */}
-                      <Image
-                        src={item.image2}
-                        alt={item.title}
-                        fill
-                        className="object-cover rounded-t-lg"
-                      />
+                          <div className="relative flex justify-center items-center bg-[#F1F7F7] rounded-t-lg  w-full aspect-[21/9] ">
+                            {/* Background image fills rectangle */}
+                            <Image
+                              src={item.image2}
+                              alt={item.title}
+                              fill
+                              className="object-cover rounded-t-lg"
+                            />
 
-                      {/* Overlay image on top */}
-                      <div className="absolute -top-6">
-                        <Image
-                          src={item.image}
-                          alt={item.title}
-                          width={60}
-                          height={60}
-                          className="object-contain"
-                        />
-                      </div>
-                    </div>
+                            {/* Overlay image on top */}
+                            <div className="absolute -top-6">
+                              <Image
+                                src={item.image}
+                                alt={item.title}
+                                width={60}
+                                height={60}
+                                className="object-contain"
+                              />
+                            </div>
+                          </div>
 
                           {/* middle */}
-                         <div className="min-h-[65px] max-sm:min-h-[50px] w-full ">
-                      <p className="text-lg font-bold pt-3 text-center">
-                        {item.title}
-                      </p>
-                    </div>
+                          <div className="min-h-[65px] max-sm:min-h-[50px] w-full ">
+                            <p className="text-lg font-bold pt-3 text-center">
+                              {item.title}
+                            </p>
+                          </div>
 
                           {/* bottom */}
                           <div className="w-full bg-[#007076] py-4 rounded-b-lg">
