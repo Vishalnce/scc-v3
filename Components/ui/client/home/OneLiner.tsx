@@ -46,7 +46,7 @@ export default async function OneLiner() {
           {/* heading */}
           <header className="flex flex-row justify-between   py-4">
             <div className="w-[60%] ">
-              <p className="text-4xl max-sm:text-xl font-bold dark:text-white">
+              <p className="text-4xl max-sm:text-2xl font-bold dark:text-white">
                 One-Liner Current Affairs for Quick Revision
               </p>
               <div className="w-[40%] max-lg:hidden py-2">
@@ -64,7 +64,7 @@ export default async function OneLiner() {
               </div>
             </div>
             <div>
-              <button className="p-2 px-6 bg-[#FFE332]  rounded-full text-lg">
+              <button className="p-2 px-6 bg-[#FFE332] max-sm:text-sm  rounded-full text-lg">
                 Read More
               </button>
             </div>

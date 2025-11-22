@@ -97,8 +97,8 @@ export default function Current() {
          
           
           <div>
-            <Link href={"/cuurent"}>
-                 <button className="p-2 px-6 text-lg bg-[#007076] text-white rounded-full ">
+            <Link href={"/current-affaris"}>
+                 <button className="p-2 px-6 text-lg max-sm:text-sm bg-[#007076] text-white rounded-full ">
               View All
             </button>
             

@@ -1,6 +1,7 @@
 "use client";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useCallback, useEffect, useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { MdOutlineEventNote } from "react-icons/md";
@@ -10,19 +11,27 @@ export default function QuizCard() {
     {
       image: "/ui/client/home/quiz/math.svg",
       title: "Quantitative Aptitude",
+      category: "pre",
+      subject: "quantitative-apptitude",
     },
 
     {
       image: "/ui/client/home/quiz/reasoning.svg",
       title: "Reasoning & GI",
+      category: "pre",
+      subject: "reasoning-general",
     },
     {
       image: "/ui/client/home/quiz/english.svg",
       title: "English Comprehension",
+      category: "pre",
+      subject: "english-comprehension",
     },
     {
       image: "/ui/client/home/quiz/reasoning.svg",
       title: "General Awareness",
+      category: "pre",
+      subject: "general-awareness",
     },
   ];
 
@@ -30,23 +39,33 @@ export default function QuizCard() {
     {
       image: "/ui/client/home/quiz/math.svg",
       title: "Quantitative Aptitude",
+      category: "mains",
+      subject: "quantitative-apptitude",
     },
 
     {
       image: "/ui/client/home/quiz/reasoning.svg",
       title: "Reasoning & GI",
+      category: "mains",
+      subject: "reasoning-general",
     },
     {
       image: "/ui/client/home/quiz/english.svg",
       title: "English Comprehension",
+      category: "mains",
+      subject: "english-comprehension",
     },
     {
       image: "/ui/client/home/quiz/reasoning.svg",
       title: "General Awareness",
+      category: "mains",
+      subject: "general-awareness",
     },
     {
       image: "/ui/client/home/quiz/computer.svg",
       title: "Computer Knowledge",
+      category: "mains",
+      subject: "computer-knowledge",
     },
     {
       image: "/ui/client/home/quiz/data.svg",
@@ -99,24 +118,27 @@ export default function QuizCard() {
         <div className="max-w-[1400px] pt-8 flex flex-col mx-auto w-[90%]">
           {/* heading */}
 
-          <header className="flex flex-row  justify-between items-center py-4 max-sm:px-0 ">
-            <div className="w-[60%] max-sm:w-[50%]  space-y-2">
-              <p className="text-4xl font-bold dark:text-white">
+             <header className="flex flex-row  justify-between items-center  p-4 max-sm:px-0  ">
+            <div className="w-[60%] max-sm:w-[50%] space-y-2">
+              <p className="text-4xl max-sm:text-2xl font-bold dark:text-white">
                 Dive Into Live Quizzes Now
               </p>
               <p className="text-lg text-my-text-color max-sm:hidden">
                 Test Your Skills in Real-Time with Subject-Wise Live Quizzes for
                 SSC CGL!
+
               </p>
             </div>
             {/* buttons */}
-            <div className="w-[23%]   max-sm:w-[35%] flex flex-row max-sm:flex-col justify-between gap-2">
+            <div className="w-[23%] max-sm:w-[35%] flex flex-row max-sm:flex-col  justify-between max-sm:items-center items-center max-sm:gap-2 ">
               <div>
                 <button
-                  onClick={() => {
-                    setTierChange("for-tier1");
-                  }}
-                  className={`px-6 py-1.5 border-2 rounded-full text-lg ${tierChange === "for-tier1" ? "bg-[#FFE332] border-[#FFE332]" : "border-2 border-black dark:text-white dark:border-white "}`}
+                  onClick={() => setTierChange("for-tier1")}
+                  className={`px-6 py-1.5 border-2 rounded-full text-lg  max-sm:text-sm whitespace-nowrap min-w-[100px]  ${
+                    tierChange === "for-tier1"
+                      ? "bg-[#FFE332] border-[#FFE332]"
+                      : "border-black dark:text-white dark:border-white"
+                  }`}
                 >
                   For Tier 1
                 </button>
@@ -127,7 +149,7 @@ export default function QuizCard() {
                   onClick={() => {
                     setTierChange("for-tier2");
                   }}
-                  className={`px-6 py-1.5 border-2 rounded-full  text-lg ${tierChange === "for-tier2" ? "bg-[#FFE332] border-[#FFE332]" : "border-2 border-black dark:text-white dark:border-white"}`}
+                  className={`px-6 py-1.5 border-2 rounded-full text-lg  max-sm:text-sm whitespace-nowrap min-w-[100px] ${tierChange === "for-tier2" ? "bg-[#FFE332] border-[#FFE332]" : "border-2 border-black dark:text-white dark:border-white"}`}
                 >
                   For Tier 2
                 </button>
@@ -184,9 +206,19 @@ export default function QuizCard() {
                     </div>
 
                     {/* bottom */}
-                    <div className="w-full bg-[#007076] py-4 rounded-b-lg">
-                      <p className="text-center text-white">Start Quiz</p>
-                    </div>
+                    <Link
+                      href={{
+                        pathname: "/quiz",
+                        query: {
+                          category: item.category,
+                          subject: item.subject,
+                        },
+                      }}
+                    >
+                      <div className="w-full bg-[#007076] py-4 rounded-b-lg">
+                        <p className="text-center text-white">Start Quiz</p>
+                      </div>
+                    </Link>
                   </div>
                 ))}
               </div>
@@ -238,9 +270,25 @@ export default function QuizCard() {
                           </div>
 
                           {/* bottom */}
-                          <div className="w-full bg-[#007076] py-4 rounded-b-lg">
-                            <p className="text-center text-white">Start Quiz</p>
-                          </div>
+                          <Link
+                            href={
+                              item.title === "Data Entry Speed Test"
+                                ? "/typing-test/intro"
+                                : {
+                                    pathname: "/quiz",
+                                    query: {
+                                      category: item.category,
+                                      subject: item.subject,
+                                    },
+                                  }
+                            }
+                          >
+                            <div className="w-full bg-[#007076] py-4 rounded-b-lg">
+                              <p className="text-center text-white">
+                                Start Quiz
+                              </p>
+                            </div>
+                          </Link>
                         </div>
                       </div>
                     ))}

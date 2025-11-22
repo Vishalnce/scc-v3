@@ -1,6 +1,7 @@
 "use client";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useCallback, useEffect, useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { MdOutlineEventNote } from "react-icons/md";
@@ -11,23 +12,31 @@ export default function MasterConcepts() {
       image: "/ui/client/home/quiz/math.svg",
       image2: "/ui/client/home/dive/tier1/quant.png",
       title: "Quantitative Aptitude",
+      category: "pre",
+      subject: "quantitative-apptitude",
     },
 
     {
       image: "/ui/client/home/quiz/reasoning.svg",
       image2: "/ui/client/home/dive/tier1/reasoning.png",
       title: "Reasoning & GI",
+      category: "pre",
+      subject: "reasoning-general",
     },
     {
       image: "/ui/client/home/quiz/english.svg",
       image2: "/ui/client/home/dive/tier1/english.png",
 
       title: "English Comprehension",
+      category: "pre",
+      subject: "english-comprehension",
     },
     {
       image: "/ui/client/home/quiz/reasoning.svg",
       image2: "/ui/client/home/dive/tier1/general.png",
       title: "General Awareness",
+      category: "pre",
+      subject: "general-awareness",
     },
   ];
 
@@ -37,6 +46,9 @@ export default function MasterConcepts() {
       image2: "/ui/client/home/dive/tier2/math.png",
 
       title: "Quantitative Aptitude",
+
+      category: "mains",
+      subject: "quantitative-apptitude",
     },
 
     {
@@ -44,30 +56,39 @@ export default function MasterConcepts() {
       image2: "/ui/client/home/dive/tier2/reasoning.png",
 
       title: "Reasoning & GI",
+      category: "mains",
+      subject: "reasoning-general",
     },
     {
       image: "/ui/client/home/quiz/english.svg",
       image2: "/ui/client/home/dive/tier2/english.png",
 
       title: "English Comprehension",
+      category: "mains",
+      subject: "english-comprehension",
     },
     {
       image: "/ui/client/home/quiz/reasoning.svg",
       image2: "/ui/client/home/dive/tier2/general.png",
 
       title: "General Awareness",
+      category: "mains",
+      subject: "general-awareness",
     },
     {
       image: "/ui/client/home/quiz/computer.svg",
       image2: "/ui/client/home/dive/tier2/computer.png",
 
       title: "Computer Knowledge",
+      category: "mains",
+      subject: "computer-knowledge",
     },
     {
       image: "/ui/client/home/quiz/data.svg",
       image2: "/ui/client/home/dive/tier2/data.png",
 
       title: "Data Entry Speed Test",
+   
     },
   ];
 
@@ -116,9 +137,9 @@ export default function MasterConcepts() {
         <div className="max-w-[1400px] pt-8 flex flex-col mx-auto w-[90%]">
           {/* heading */}
 
-          <header className="flex flex-row  justify-between  p-4 max-sm:px-0  ">
+          <header className="flex flex-row  justify-between items-center  p-4 max-sm:px-0  ">
             <div className="w-[60%] max-sm:w-[50%] space-y-2">
-              <p className="text-4xl font-bold dark:text-white">
+              <p className="text-4xl max-sm:text-2xl font-bold dark:text-white">
                 Master All SSC CGL Concepts
               </p>
               <p className="text-lg text-my-text-color max-sm:hidden">
@@ -127,11 +148,11 @@ export default function MasterConcepts() {
               </p>
             </div>
             {/* buttons */}
-            <div className="w-[23%]  max-sm:w-[35%] flex flex-row max-sm:flex-col justify-between items-center ">
+            <div className="w-[23%] max-sm:w-[35%] flex flex-row max-sm:flex-col  justify-between max-sm:items-center items-center max-sm:gap-2 ">
               <div>
                 <button
                   onClick={() => setTierChange("for-tier1")}
-                  className={`px-6 py-1.5 max-sm:px-4 max-sm:w-full border-2 rounded-full text-lg ${
+                  className={`px-6 py-1.5 border-2 rounded-full text-lg  max-sm:text-sm whitespace-nowrap min-w-[100px]  ${
                     tierChange === "for-tier1"
                       ? "bg-[#FFE332] border-[#FFE332]"
                       : "border-black dark:text-white dark:border-white"
@@ -146,7 +167,7 @@ export default function MasterConcepts() {
                   onClick={() => {
                     setTierChange("for-tier2");
                   }}
-                  className={`px-6 py-1.5 border-2 rounded-full text-lg ${tierChange === "for-tier2" ? "bg-[#FFE332] border-[#FFE332]" : "border-2 border-black dark:text-white dark:border-white"}`}
+                  className={`px-6 py-1.5 border-2 rounded-full text-lg  max-sm:text-sm whitespace-nowrap min-w-[100px] ${tierChange === "for-tier2" ? "bg-[#FFE332] border-[#FFE332]" : "border-2 border-black dark:text-white dark:border-white"}`}
                 >
                   For Tier 2
                 </button>
@@ -197,26 +218,21 @@ export default function MasterConcepts() {
                       </p>
                     </div>
 
-                    {/* <div className="flex flex-row justify-between py-3 w-full px-2 bg-white  ">
-                      <div className="w-[30%]">
-                        <p className="text-sm">Questions</p>
-                        <p className="text-sm font-bold">1000+</p>
-                      </div>
-
-                      <div className="w-[35%]">
-                        <div className="flex flex-row gap-1 justify-end">
-                          <MdOutlineEventNote className="my-auto" />
-                          <p className="text-sm">Updated</p>
-                        </div>
-                        <p className="text-sm text-end font-bold">
-                          {new Date().getFullYear()}
-                        </p>
-                      </div>
-                    </div> */}
-
                     {/* bottom */}
+
+                    <Link
+                      href={{
+                        pathname: "/concept",
+                        query: {
+                          category: item.category,
+                          subject: item.subject,
+                        },
+                      }}
+                    ></Link>
                     <div className="w-full bg-[#007076] py-4 rounded-b-lg">
-                      <p className="text-center text-white text-lg">Start Quiz</p>
+                      <p className="text-center text-white text-lg">
+                        Start Quiz
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -264,9 +280,27 @@ export default function MasterConcepts() {
                           </div>
 
                           {/* bottom */}
-                          <div className="w-full bg-[#007076] py-4 rounded-b-lg">
-                            <p className="text-center text-white">Start Quiz</p>
-                          </div>
+
+                          <Link
+                            href={
+                              item.title === "Data Entry Speed Test"
+                                ? "/typing-test/intro"
+                                : {
+                                    pathname: "/concept",
+                                    query: {
+                                      category: item.category,
+                                      subject: item.subject,
+                                    },
+                                  }
+                            }
+                          >
+                            <div className="w-full bg-[#007076] py-4 rounded-b-lg">
+                              <p className="text-center text-white">
+                                Start Quiz
+                              </p>
+                            </div>{" "}
+                            {/* Your clickable content here */}
+                          </Link>
                         </div>
                       </div>
                     ))}

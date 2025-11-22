@@ -21,7 +21,7 @@ export default function DataEntry() {
 
           <div className="flex justify-end w-[50%]  ">
             <Link href="/typing-test/intro">
-              <button className="bg-[#FFE332] max-lg:py-1.5 max-md:text-xs px-6 py-2 max-sm:px-5 rounded-full text-lg">
+              <button className="bg-[#FFE332] max-lg:py-1.5 max-md:text-xs px-6 py-2 max-sm:px-5 rounded-full text-lg max-sm:text-sm">
                 Start Typing
               </button>
             </Link>

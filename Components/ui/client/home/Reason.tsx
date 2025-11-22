@@ -13,7 +13,7 @@ export default function Reason() {
               Top 3 Reasons to Prepare with SSC Examlife!
             </p>
             <Link href={"/test-series"}>
-              <button className=" p-2  text-lg px-6 rounded-full bg-[#FFE332] my-4">
+              <button className=" p-2  text-lg px-6 max-sm:text-sm rounded-full bg-[#FFE332] my-4">
                 Join US
               </button>
             </Link>
