@@ -12,11 +12,11 @@ export default function About() {
           {/* left card */}
 
           <div className=" w-[60%]  max-md:w-[90%] max-md:mx-auto flex flex-col items-start  justify-center">
-            <p className="font-bold font-montserrat text-3xl py-4 dark:text-white">
+            <p className="font-bold font-montserrat text-4xl max-sm:text-3xl py-4 dark:text-white">
               About SSC CGL Examlife Test Series
             </p>
 
-            <p className="text-sm  text-my-text-color py-2 pb-8 lg:w-[80%] ">
+            <p className="text-lg max-sm:text-sm  text-my-text-color py-2 pb-8 lg:w-[80%] ">
               Transform Your SSC CGL Preparation with Expert-Designed Mock Tests
               and In-Depth Performance Insights to Achieve Your Dream Rank.
             </p>
@@ -27,7 +27,7 @@ export default function About() {
                   <IoMdCheckmark className="text-white bg-[#007076] rounded-full w-7 h-7 p-1" />
                 </span>{" "}
                 <p className="dark:text-white">
-                  <span className="font-bold "> Real Exam Experience: </span>{" "}
+                  <span className="font-bold text-lg"> Real Exam Experience: </span>{" "}
                   Expert-designed mock tests.
                 </p>
               </div>
@@ -37,7 +37,7 @@ export default function About() {
                   <IoMdCheckmark className="text-white bg-[#007076] rounded-full w-7 h-7 p-1" />
                 </span>{" "}
                 <p className="dark:text-white">
-                  <span className="font-bold"> Wide Coverage: </span> Mocks,
+                  <span className="font-bold  text-lg"> Wide Coverage: </span> Mocks,
                   past papers, & topic-wise tests.
                 </p>
               </div>
@@ -46,7 +46,7 @@ export default function About() {
                   <IoMdCheckmark className="text-white bg-[#007076] rounded-full w-7 h-7 p-1" />
                 </span>{" "}
                 <p className="dark:text-white">
-                  <span className="font-bold"> Performance Analysis: </span>{" "}
+                  <span className="font-bold  text-lg"> Performance Analysis: </span>{" "}
                   Track progress & improve.
                 </p>
               </div>
@@ -56,7 +56,7 @@ export default function About() {
                   <IoMdCheckmark className="text-white bg-[#007076] rounded-full w-7 h-7 p-1" />
                 </span>{" "}
                 <p className="dark:text-white">
-                  <span className="font-bold"> Expert-Designed Questions </span>{" "}
+                  <span className="font-bold  text-lg"> Expert-Designed Questions </span>{" "}
                   :Based on the latest SSC CGL trends.
                 </p>
               </div>
@@ -64,14 +64,15 @@ export default function About() {
 
             {/* button  */}
 
-            <div className="self-start max-sm:flex flex-row space-x-6 py-2">
+            <div className="self-start max-sm:flex flex-row space-x-6 py-2 border-2 max-sm:w-full max-sm:justify-between">
               <Link href="/">
-                <button className="border-2 px-4 py-2 max-sm:text-xs rounded-full dark:border-white dark:text-white  ">
+                <button className="border-2 px-4 py-2  flex-shrink-0 max-sm:text-sm  rounded-full dark:border-white dark:text-white  ">
                   Free Mock Test
                 </button>
               </Link>
               <Link href="/">
-                <button className=" px-4 py-2 rounded-full max-sm:text-xs  bg-[#007076] text-white">
+                <button className=" px-4 py-2 rounded-full max-sm:text-sm flex-shrink-0
+ bg-[#007076] text-white">
                   Join Test Series
                 </button>
               </Link>

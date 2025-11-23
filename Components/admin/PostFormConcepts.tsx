@@ -40,6 +40,7 @@ type OptionType = { value: string; label: string };
 export default function Page({ post }: { post?: PostType }) {
   const { register, handleSubmit, setValue, watch } = useForm<PostType>({
     defaultValues: post || {},
+     shouldUseNativeValidation: true,
   });
 
   const [selectedCategory, setSelectedCategory] = useState<OptionType | null>(
@@ -155,6 +156,7 @@ useEffect(() => {
   const handleCategoryChange = (option: OptionType | null) => {
     setSelectedCategory(option);
     setValue("category", option?.value || "");
+
   };
 
 
@@ -271,10 +273,10 @@ const handleImageUpload = async () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 p-6 max-w-[95%] mx-auto bg-white border border-gray-300 rounded-lg shadow-sm">
   <div>
-    <label htmlFor="title" className="block mb-2 font-semibold text-gray-700">Title</label>
+    <label htmlFor="title" className="block mb-2 font-semibold text-gray-700">Title <span className="text-red-500"> *</span></label>
     <input
       id="title"
-      {...register("title")}
+      {...register("title" , { required: "Title is required" })}
       placeholder="Title"
       className="border border-gray-300 p-2 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
       type="text"
@@ -294,10 +296,10 @@ const handleImageUpload = async () => {
   </div>
 
   <div>
-    <label htmlFor="summary" className="block mb-2 font-semibold text-gray-700">Summary</label>
+    <label htmlFor="summary" className="block mb-2 font-semibold text-gray-700">Summary <span className="text-red-500"> *</span></label>
     <textarea
       id="summary"
-      {...register("summary")}
+      {...register("summary" , { required: "Summary is required" })}
       placeholder="Summary"
       className="border border-gray-300 p-2 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
       rows={4}
@@ -305,9 +307,10 @@ const handleImageUpload = async () => {
   </div>
 
   <div>
-    <label htmlFor="category-select" className="block mb-2 font-semibold text-gray-700">Select Category</label>
+    <label htmlFor="category-select" className="block mb-2 font-semibold text-gray-700">Select Category <span className="text-red-500"> *</span></label>
     <Select<OptionType>
       options={categoryOptions}
+      
       value={selectedCategory}
       onChange={handleCategoryChange}
       instanceId="category-select"
@@ -317,7 +320,7 @@ const handleImageUpload = async () => {
   </div>
 
   <div>
-    <label htmlFor="subject-select" className="block mb-2 font-semibold text-gray-700">Select Subject</label>
+    <label htmlFor="subject-select" className="block mb-2 font-semibold text-gray-700">Select Subject <span className="text-red-500"> *</span></label>
     <Select<OptionType>
       options={subjectOptions}
       value={selectedSubject}
@@ -329,7 +332,7 @@ const handleImageUpload = async () => {
   </div>
 
   <div>
-    <label htmlFor="topic-select" className="block mb-2 font-semibold text-gray-700">Select Topic</label>
+    <label htmlFor="topic-select" className="block mb-2 font-semibold text-gray-700">Select Topic <span className="text-red-500"> *</span></label>
     <Select<OptionType>
       options={filteredTopics}
       value={selectedTopic}
@@ -341,13 +344,13 @@ const handleImageUpload = async () => {
       placeholder="Select Topic"
       className="w-full"
     />
-    <input type="hidden" {...register("category")} />
-    <input type="hidden" {...register("subject")} />
-    <input type="hidden" {...register("topic")} />
+    <input type="hidden" {...register("category" , { required: "Category is required" })} />
+    <input type="hidden" {...register("subject" , { required: "Subject is required" })} />
+    <input type="hidden" {...register("topic" , { required: "Topic is required" })} />
   </div>
 
   <div>
-    <label htmlFor="image-upload" className="block mb-2 font-semibold text-gray-700">Upload Image</label>
+    <label htmlFor="image-upload" className="block mb-2 font-semibold text-gray-700">Upload Image <span className="text-red-500"> *</span></label>
     <input
       id="image-upload"
       type="file"
@@ -403,10 +406,10 @@ const handleImageUpload = async () => {
   </div>
 
   <div>
-    <label htmlFor="keywords" className="block mb-2 font-semibold text-gray-700">Enter Keywords separated by commas</label>
+    <label htmlFor="keywords" className="block mb-2 font-semibold text-gray-700">Enter Keywords separated by commas <span className="text-red-500"> *</span></label>
     <input
       id="keywords"
-      {...register("keywords")}
+      {...register("keywords" , { required: "Keywords is required" })}
       placeholder=" Keywords "
       className="border border-gray-300 p-2 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
       type="text"
@@ -414,10 +417,10 @@ const handleImageUpload = async () => {
   </div>
 
   <div>
-    <label htmlFor="description" className="block mb-2 font-semibold text-gray-700">Description</label>
+    <label htmlFor="description" className="block mb-2 font-semibold text-gray-700">Description <span className="text-red-500"> *</span></label>
     <textarea
       id="description"
-      {...register("description")}
+      {...register("description" , { required: "Description is required" })}
       placeholder="Description"
       className="border border-gray-300 p-2 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
       rows={4}

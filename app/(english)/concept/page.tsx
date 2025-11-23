@@ -83,10 +83,10 @@ export default async function Page({
       {/* Header */}
       <header className="bg-[image:var(--color-my-gradient)]">
         <div className="flex flex-col justify-center items-center min-h-[150px] mx-auto max-w-[1400px] max-sm:w-[90%] text-center">
-          <h1 className="text-3xl font-bold max-sm:text-2xl">
+          <h1 className="text-4xl font-bold max-sm:text-2xl">
             Concept for <span className="text-my-green">SSC CGL</span> Success
           </h1>
-          <p className="mt-1 text-sm text-my-text-color">
+          <p className="mt-1 text-lg max-md:text-sm text-my-text-color">
             Stay Ahead with latest syllabus updates and resources
           </p>
         </div>
@@ -149,10 +149,10 @@ export default async function Page({
 
                 {/* Info */}
                 <div className="flex flex-col  w-[60%] m-2 justify-start   max-md:mx-auto max-md:w-[90%]">
-                  <h2 className="text-xl font-bold dark:text-[#FFFFFF]  min-h-[64px]">
+                  <h2 className="text-2xl font-bold dark:text-[#FFFFFF]  min-h-[64px]">
                     {post.title}
                   </h2>
-                  <p className="text-my-text-color  mt-3  text-fade h-[100px]  overflow-hidden">
+                  <p className="text-my-text-color   mt-3  text-fade h-[100px]  overflow-hidden">
                     Summary: {post.summary}
                   </p>
 

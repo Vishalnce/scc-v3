@@ -72,10 +72,10 @@ export default async function Page({
       {/* Header */}
       <header className="bg-[image:var(--color-my-gradient)] ">
         <div className="flex flex-col justify-center items-center min-h-[150px] mx-auto max-w-[1400px] max-sm:w-[90%] text-center">
-          <h1 className="text-3xl font-bold max-sm:text-2xl">
+          <h1 className="text-4xl font-bold max-sm:text-2xl">
             Syllabus for <span className="text-my-green">SSC CGL</span> Success
           </h1>
-          <p className="mt-1 text-sm text-my-text-color">
+          <p className="mt-1 text-lg text-my-text-color">
             Stay Ahead with latest syllabus updates and resources
           </p>
         </div>

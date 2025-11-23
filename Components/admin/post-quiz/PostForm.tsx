@@ -11,7 +11,6 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-
 type PostType = {
   title: string;
   slug: string;
@@ -61,6 +60,7 @@ export default function Page({
 }) {
   const { register, handleSubmit, setValue, watch } = useForm<PostType>({
     defaultValues: post || {},
+    shouldUseNativeValidation: true,
   });
 
   const [selectedOption, setSelectedOption] = useState<OptionType | null>(null);
@@ -68,9 +68,7 @@ export default function Page({
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string>("");
   const [isUploading, setIsUploading] = useState(false);
 
-
   const [isEditorTouched, setIsEditorTouched] = useState(false);
-
 
   const router = useRouter();
 
@@ -82,15 +80,14 @@ export default function Page({
     toc: [],
   });
 
-
-useEffect(() => {
-  if (post) {
-    setEditorData({
-      html: post.editorHtml || "",
-      toc: JSON.parse(post.toc || "[]"),
-    });
-  }
-}, [post]);
+  useEffect(() => {
+    if (post) {
+      setEditorData({
+        html: post.editorHtml || "",
+        toc: JSON.parse(post.toc || "[]"),
+      });
+    }
+  }, [post]);
 
   const title = watch("title"); // 👈 watch the title field
   // const { theme } = useTheme();
@@ -123,8 +120,6 @@ useEffect(() => {
   const isEdit = !!post;
 
   const onSubmit = async (data: PostType) => {
-
-
     if (!isEditorTouched && post) {
       data.editorHtml = post.editorHtml;
       data.toc = post.toc;
@@ -137,7 +132,6 @@ useEffect(() => {
     }
     console.log("FINAL DATA", data);
 
-    
     try {
       const method = isEdit ? "PATCH" : "POST";
 
@@ -153,7 +147,7 @@ useEffect(() => {
         console.log("Newly:", result.post.id);
         setPostId(result.post.id); // pass the new post ID to parent
         alert(isEdit ? "Post updated successfully!" : "Post created!");
-          router.push("/current-affaris")
+        router.push("/current-affaris");
       } else {
         alert("Failed to save post");
       }
@@ -258,11 +252,11 @@ useEffect(() => {
           htmlFor="title"
           className="block mb-2 font-semibold text-gray-700"
         >
-          Title
+          Title <span className="text-red-500"> *</span>
         </label>
         <input
           id="title"
-          {...register("title")}
+          {...register("title", { required: "Title is required" })}
           placeholder="Title"
           className="border border-gray-300 p-3 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
         />
@@ -289,11 +283,11 @@ useEffect(() => {
           htmlFor="summary"
           className="block mb-2 font-semibold text-gray-700"
         >
-          Summary
+          Summary <span className="text-red-500"> *</span>
         </label>
         <textarea
           id="summary"
-          {...register("summary")}
+          {...register("summary", { required: "Summary is  is required" })}
           placeholder="Summary"
           rows={4}
           className="border border-gray-300 p-3 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
@@ -305,7 +299,7 @@ useEffect(() => {
           htmlFor="topic-select"
           className="block mb-2 font-semibold text-gray-700"
         >
-          Select a topic
+          Select a topic <span className="text-red-500"> *</span>
         </label>
         <Select<OptionType>
           options={options}
@@ -315,12 +309,12 @@ useEffect(() => {
           placeholder="Select a topic"
           className="w-full"
         />
-        <input type="hidden" {...register("topic")} />
+        <input type="hidden" {...register("topic" , { required: "Topic is required" })} />
       </div>
 
       <div>
         <label className="block mb-2 font-semibold text-gray-700">
-          Upload Image
+          Upload Image <span className="text-red-500"> *</span>
         </label>
         <input
           type="file"
@@ -384,12 +378,13 @@ useEffect(() => {
           htmlFor="keywords"
           className="block mb-2 font-semibold text-gray-700"
         >
-          Keywords
+          Keywords (Enter in comma seprated){" "}
+          <span className="text-red-500"> *</span>
         </label>
         <input
           id="keywords"
-          {...register("keywords")}
-          placeholder="Keywords"
+          {...register("keywords"  , { required: "Keyword is required" })}
+          placeholder="Keywords enter in comma seprated"
           className="border border-gray-300 p-3 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
         />
       </div>
@@ -399,11 +394,11 @@ useEffect(() => {
           htmlFor="description"
           className="block mb-2 font-semibold text-gray-700"
         >
-          Description
+          Description <span className="text-red-500"> *</span>
         </label>
         <textarea
           id="description"
-          {...register("description")}
+          {...register("description"  , { required: "Description is required" })}
           placeholder="Description"
           rows={4}
           className="border border-gray-300 p-3 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
@@ -439,7 +434,7 @@ useEffect(() => {
 
       <input type="hidden" {...register("editorHtml")} />
       <input type="hidden" {...register("toc")} />
-        
+
       <button
         type="submit"
         className="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition"

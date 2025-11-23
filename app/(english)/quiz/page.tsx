@@ -97,11 +97,11 @@ export default async function Page({
       {/* Header */}
       <header className="bg-[image:var(--color-my-gradient)]">
         <div className="flex flex-col justify-center items-center min-h-[150px] mx-auto max-w-[1400px] max-sm:w-[90%] text-center">
-          <h1 className="text-3xl font-bold max-sm:text-2xl">
+          <h1 className="text-4xl font-bold max-sm:text-2xl">
             Elevate Your SSC CGL Success with{" "}
             <span className="text-my-green"> Expert Quizzes</span>
           </h1>
-          <p className="mt-1 text-sm text-my-text-color">
+          <p className="mt-1 text-lg text-my-text-color">
             Practice Smarter by Choosing Quizzes Tailored to Your Strengths and
             Weaknesses!
           </p>
@@ -159,7 +159,7 @@ export default async function Page({
                 </div>
                 {/* info */}
                 <div className="flex flex-col  w-[90%] m-2 justify-start    ">
-                  <h2 className="text-xl font-bold dark:text-[#FFFFFF] ">
+                  <h2 className="text-2xl font-bold dark:text-[#FFFFFF] ">
                     {post.title}
                   </h2>
 

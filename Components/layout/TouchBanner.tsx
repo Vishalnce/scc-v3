@@ -43,11 +43,11 @@ export default function TouchBanner() {
         <div className="max-w-[1400px] mx-auto   w-[90%]">
           {/* heading */}
           <div className="flex flex-col py-12 max-md:py-10 justify-center items-center">
-            <p className="text-3xl font-bold max-md:text-lg max-md:text-center dark:text-white ">
+            <p className="text-4xl font-bold max-md:text-lg max-md:text-center dark:text-white ">
               {" "}
               Get in Touch - We’re Here to Help and Chat!
             </p>
-            <p className="py-2 text-[#6C6C6C] text-sm max-md:hidden dark:text-[#C2C2C2]">
+            <p className="py-2 text-[#6C6C6C] text-lg max-md:hidden dark:text-[#C2C2C2]">
               Together, Let’s Turn Your SSC CGL Dreams into Reality – Join Us
               Today
             </p>

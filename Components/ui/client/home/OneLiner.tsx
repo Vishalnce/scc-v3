@@ -57,6 +57,7 @@ export default async function OneLiner() {
                     <span
                       className="w-3 h-3 rounded-full bg-green-600 animate-pulse"
                       aria-label="live indicator"
+                       style={{ animationDuration: '0.7s' }}
                     ></span>
                   </span>
                   Don't Miss The Live Quizzes

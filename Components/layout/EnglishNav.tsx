@@ -1073,7 +1073,7 @@ function Nav() {
       <div className="w-full  bg-[image:var(--color-my-gradient)] fixed z-50 bottom-0 md:hidden  rounded-t-2xl  ">
         <div className="flex flex-row  max-md:w-[90%] mx-auto justify-between py-1 ">
           <div className="flex flex-col">
-            <div>
+            <Link href={"/current-affaris"}>
               <Image
                 alt="News"
                 src="/layout/mobile/news.svg"
@@ -1081,23 +1081,23 @@ function Nav() {
                 height={30}
               />
               <p className="text-my-text-color text-[12px] text-center">News</p>
-            </div>
+            </Link>
           </div>
 
           <div className="flex flex-col">
-            <div>
+            <Link href={"/quiz"}>
               <Image
                 alt="test"
                 src="/layout/mobile/bulb.svg"
                 width={30}
                 height={30}
               />
-              <p className="text-my-text-color text-[12px] text-center">Test</p>
-            </div>
+              <p className="text-my-text-color text-[12px] text-center">Quiz</p>
+            </Link>
           </div>
 
           <div className="flex flex-col">
-            <div className="-m-4 ">
+            <Link href={"/"} className="-m-4 ">
               <Image
                 alt="home"
                 src="/layout/mobile/home.svg"
@@ -1107,10 +1107,10 @@ function Nav() {
               <p className="text-my-text-color text-[12px] text-center pt-1">
                 Home
               </p>
-            </div>
+            </Link>
           </div>
           <div className="flex flex-col">
-            <div>
+            <Link href={"/test-series"}>
               <Image
                 alt="task"
                 src="/layout/mobile/task.svg"
@@ -1119,10 +1119,10 @@ function Nav() {
                 className="h-auto w-auto"
               />
               <p className="text-my-text-color text-[12px] text-center">Test</p>
-            </div>
+            </Link>
           </div>
           <div className="flex flex-col">
-            <div>
+            <div onClick={() => setIsOpen(!isOpen)} className="cursor-pointer">
               <Image
                 alt="menu"
                 src="/layout/mobile/menu.svg"

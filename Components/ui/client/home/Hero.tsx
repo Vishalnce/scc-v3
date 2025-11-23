@@ -44,7 +44,7 @@ export default function Hero() {
 
         
             {/* text section */}
-            <div className="flex flex-col  w-[55%] items-start gap-2 max-sm:w-full  ">
+            <div className="flex flex-col  w-[55%] items-start gap-2 max-md:w-full   ">
               <div className="  max-sm:w-full">
                 <p className="bg-[#FFE332] rounded-full p-2  px-6 py-2  max-sm:text-center">
                   New Quizzes and Current Affairs!
@@ -91,7 +91,7 @@ export default function Hero() {
             </div>
 
             {/* image section */}
-            <div className="w-[40%]  max-sm:w-full relative max-sm:py-4 flex items-stretch ">
+            <div className="w-[40%]  max-md:w-full relative max-sm:py-4 flex items-stretch ">
               <div className="relative w-full aspect-[450/477]   max-w-[400px] mx-auto ">
                 <Image
                   src="/ui/client/home/girl.png"

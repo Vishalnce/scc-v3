@@ -14,12 +14,12 @@ export default function Hero() {
      
 
           {/* text */}
-        <div className='w-[55%] max-md:w-[90%] max-md:mx-auto flex flex-col items-center justify-center max-sm:my-8  my-14  md:ml-14'>
+        <div className='w-[50%] max-md:w-[90%] max-md:mx-auto flex flex-col items-center justify-center max-sm:my-8  my-14   space-y-2'>
          
-          <p className='text-4xl max-sm:text-2xl font-bold font-montserrat py-2 dark:text-white'>
+          <p className='text-5xl max-sm:text-2xl font-bold font-montserrat py-2 dark:text-white'>
             Conquer  <span className='text-[#007076] '>SSC CGL </span>with Our Power-Packed Test Series
           </p>
-          <p className='text-my-text-color py-2 max-sm:text-sm'>
+          <p className='text-my-text-color  text-lg py-2 max-sm:text-sm'>
             Sharpen Your Skills and Track Your Progress with Realistic Mock Tests Designed for SSC CGL Excellence
           </p>
 
@@ -40,9 +40,9 @@ Free Mock Test
 
         {/* image */}
 
-        <div className='w-[40%] mask-l-from-10% mask-l-to-100% max-md:hidden   max-lg:my-14'>
+        <div className='w-[40%]  mask-l-from-10% mask-l-to-100% max-md:hidden   max-lg:my-14'>
           <Image
-          src="/ui/client/test-series/Trophy.png"
+          src="/ui/client/test-series/trophy.png"
           alt='Trophy'
           width={527}
           height={440}

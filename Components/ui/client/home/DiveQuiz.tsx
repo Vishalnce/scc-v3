@@ -130,7 +130,7 @@ export default function QuizCard() {
               </p>
             </div>
             {/* buttons */}
-            <div className="w-[23%] max-sm:w-[35%] flex flex-row max-sm:flex-col  justify-between max-sm:items-center items-center max-sm:gap-2 ">
+            <div className="w-[23%] max-sm:w-[35%] flex flex-row max-md:flex-col  justify-between max-sm:items-center items-center max-sm:gap-2 ">
               <div>
                 <button
                   onClick={() => setTierChange("for-tier1")}

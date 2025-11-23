@@ -2,16 +2,42 @@
 
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { FaRegCircle } from "react-icons/fa";
 import { IoCheckmarkCircleOutline } from "react-icons/io5";
 import { RxCrossCircled } from "react-icons/rx";
-import { useEffect } from "react";
 import { GoClock } from "react-icons/go";
 import { CiStopwatch } from "react-icons/ci";
+
+type Option = {
+  text: string;
+  image: string;
+};
+
+type Question = {
+  id: string;
+  quizId: number;
+  questionText: string;
+  questionImage: string;
+  options: Option[];
+  solutionText: string;
+  solutionImage: string;
+  correctOption: number; // 1-based index
+  marksPositive: number;
+  marksNegative: number; // negative value
+  level: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+type Answer = {
+  questionId: string;
+  answer: number | null; // 0-based index or null
+};
+
 type Props = {
-  questions: any;
-  answers: any;
+  questions: Question[];
+  answers: Answer[];
   timeTaken: number;
   timeLimit: number;
   quizId: number;
@@ -26,110 +52,81 @@ export default function MarksCard({
   onRestart,
   quizId,
 }: Props) {
+  // Calculate total maximum positive marks
+  const totalMarks = questions.reduce(
+    (sum, q) => sum + (q.marksPositive ?? 0),
+    0
+  );
 
+let correctMarks = 0;
+let incorrectMarks = 0;
+let correctCount = 0;
+let incorrectCount = 0;
+let notAttemptedCount = 0;
 
-  console.log("answer",answers);
-  console.log("question",questions)
+questions.forEach((question) => {
+  const userAnswer = answers.find((a) => a.questionId === question.id)?.answer;
+  const correctIndex = question.correctOption - 1;
 
-  const calculateScore = () => {
-    let correctMarks = 0;
-    let incorrectMarks = 0;
-    let totalMarks = questions.reduce(
-      (sum: any, q: any) => sum + q.marksPositive,
-      0
-    );
-
-    answers.forEach((ans: any) => {
-      const q = questions.find((qq: any) => qq.id === ans.questionId);
-      if (!q) return;
-
-      if (ans.answer !== null) {
-        if (ans.answer === q.correctOption - 1) {
-          correctMarks += q.marksPositive;
-        } else {
-          incorrectMarks += Math.abs(q.marksNegative);
-        }
-      }
-    });
-
-    return { totalMarks, correctMarks, incorrectMarks };
-  };
-
-  const { data, status } = useSession();
-  const { totalMarks, correctMarks, incorrectMarks } = calculateScore();
-  // Calculate overall stats
-  let totalScore = 0;
-  let totalPossibleScore = 0;
-  let correctCount = 0;
-  let incorrectCount = 0;
-  let notAttemptedCount = 0;
-
-  questions.forEach((question: any) => {
-    // Add the maximum possible marks for this question
-    totalPossibleScore += question.marksPositive ?? 0;
-
-    // Find the user's answer for this question
-    const userAnswer = answers.find(
-      (a: any) => a.questionId === question.id
-    )?.answer;
-
-    // Adjust the correct option index (DB uses 1-based index)
-    const correctIndex = question.correctOption - 1;
-
-    if (userAnswer === correctIndex) {
-      // Correct answer
-      totalScore += question.marksPositive ?? 0;
-      correctCount++;
-    } else if (userAnswer != null) {
-      // Wrong answer
-      totalScore += question.marksNegative ?? 0;
-      incorrectCount++;
-    } else {
-      // Not attempted
-      notAttemptedCount++;
-    }
-  });
-
-  
-  // 
-
-
-        const didSaveRank = useRef(false);
-//learn this 
-    useEffect(() => {
-  if (didSaveRank.current) return;
-  if (!data?.user?.name || !questions?.length || correctMarks === undefined || totalMarks === undefined || timeTaken === undefined) return;
-
-  didSaveRank.current = true; // mark immediately to avoid double call
-
-  async function rankCard() {
-    const rankObj = {
-      name: data?.user?.name,
-      quizId,
-      score: correctMarks,
-      maxMarks: totalMarks,
-      timeTaken,
-    };
-
-    try {
-      const res = await fetch("/api/en/rankCard/client", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(rankObj),
-      });
-
-      if (!res.ok) throw new Error("Failed to save rank");
-
-      const savedRank = await res.json();
-      console.log("Rank saved successfully:", savedRank);
-    } catch (error) {
-      console.error("Error saving rank:", error);
-      didSaveRank.current = false; // allow retry on error
-    }
+  if (userAnswer === correctIndex) {
+    correctMarks += question.marksPositive ?? 0;
+    correctCount++;
+  } else if (userAnswer != null) {
+    incorrectMarks += question.marksNegative ?? 0; // negative value
+    incorrectCount++;
+  } else {
+    notAttemptedCount++;
   }
+});
 
-  rankCard();
-}, [data, questions, correctMarks, totalMarks, timeTaken, quizId]);
+const totalScore = correctMarks + incorrectMarks;
+
+
+  const { data } = useSession();
+  const didSaveRank = useRef(false);
+
+  useEffect(() => {
+    if (didSaveRank.current) return;
+    if (
+      !data?.user?.name ||
+      !questions.length ||
+      correctMarks === undefined ||
+      totalMarks === undefined ||
+      timeTaken === undefined
+    )
+      return;
+
+    didSaveRank.current = true;
+
+    async function rankCard() {
+      const rankObj = {
+        name: data?.user.name,
+        quizId,
+        score: totalScore,
+        maxMarks: totalMarks,
+        timeTaken,
+      };
+
+      try {
+        const res = await fetch("/api/en/rankCard/client", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(rankObj),
+        });
+        if (!res.ok) throw new Error("Failed to save rank");
+        const savedRank = await res.json();
+        console.log("Rank saved successfully:", savedRank);
+      } catch (error) {
+        console.error("Error saving rank:", error);
+        didSaveRank.current = false;
+      }
+    }
+
+    rankCard();
+  }, [data, questions, correctMarks, totalMarks, timeTaken, quizId, totalScore]);
+
+  // Format numbers with two decimal places
+  const formatNumber = (num: number) => num.toFixed(2);
 
   return (
     <>
@@ -160,18 +157,16 @@ export default function MarksCard({
             <CiStopwatch className="size-7 my-auto " />
             <p className="text-lg ">
               Time Taken:{" "}
-              {Number(timeTaken) < 60
-                ? `${Number(timeTaken).toFixed(2)} seconds`
-                : `${Math.floor(Number(timeTaken) / 60)} minutes`}
+              {timeTaken < 60
+                ? `${timeTaken.toFixed(2)} seconds`
+                : `${Math.floor(timeTaken / 60)} minutes`}
             </p>
           </div>
 
           <div className="flex flex-row gap-1 dark:text-white ">
-              <GoClock className="size-6 my-auto " />
+            <GoClock className="size-6 my-auto " />
             <p className="text-lg"> Time Duration: {timeLimit} m</p>
           </div>
-
-       
         </div>
 
         {/* report card */}
@@ -183,7 +178,7 @@ export default function MarksCard({
                 <FaRegCircle className="my-auto   size-5" /> <p>Total Marks</p>
               </div>
 
-              <p>{totalMarks}</p>
+              <p>{formatNumber(totalMarks)}</p>
             </div>
 
             <div className="flex flex-row justify-between items-center  py-1">
@@ -192,7 +187,7 @@ export default function MarksCard({
                 <p>Marks Obtained</p>
               </div>
 
-              <p>{correctMarks}</p>
+              <p>{formatNumber(totalScore)}</p>
             </div>
             <div className="flex flex-row justify-between items-center  py-1">
               <div className="flex flex-row gap-1 ">
@@ -200,7 +195,7 @@ export default function MarksCard({
                 <p>Negative Marks</p>
               </div>
 
-              <p>{incorrectMarks}</p>
+              <p>{formatNumber(incorrectMarks)}</p>
             </div>
           </div>
           {/* right div  */}
