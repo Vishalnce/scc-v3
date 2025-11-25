@@ -39,7 +39,7 @@ export default function JoinNow() {
         <div className="w-[90%] mx-auto max-w-[1400px]   py-16">
           <div className="flex flex-row justify-between items-center max-md:flex-col max-md:gap-8">
             {/* announcment card */}
-            <div className=" w-[46%] max-md:w-[100%] shadow-2xl   ">
+            <div className=" w-[46%] max-md:w-[100%] shadow-2xl rounded-2xl overflow-hidden ">
               {/* heading */}
               <div className="  bg-[#007076] rounded-t-xl flex flex-row items-center justify-center gap-4  py-1 w-full">
                 <div className="my-auto ">
@@ -71,7 +71,7 @@ export default function JoinNow() {
                 ))}
               </div>
 
-              <div className="w-full  shadow-2xl">
+              <div className="w-full   shadow-2xl">
                 <Link href="/">
                   <p className="text-center py-4  rounded-b-lg bg-[#FFE332]  text-lg font-bold">
                     {" "}
@@ -83,7 +83,7 @@ export default function JoinNow() {
 
             {/* upcoming exam as notice */}
 
-            <div className=" w-[46%] max-md:w-[100%] shadow-2xl ">
+            <div className=" w-[46%] max-md:w-[100%] shadow-2xl  rounded-2xl overflow-hidden">
               {/* heading */}
               <div className="  bg-[#007076] rounded-t-xl flex flex-row items-center justify-center gap-4  py-1 w-full ">
                 <div className="my-auto ">
@@ -114,7 +114,7 @@ export default function JoinNow() {
                   </div>
                 ))}
               </div>
-              <div className="w-full  shadow-2xl">
+              <div className="w-full    shadow-2xl">
                 <Link href="/">
                   <p className="text-center py-4 rounded-b-lg text-lg bg-[#FFE332] font-bold">
                     {" "}

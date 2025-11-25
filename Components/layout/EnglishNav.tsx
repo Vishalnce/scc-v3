@@ -8,12 +8,14 @@ import { FaBell } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 import Link from "next/link";
 
-import { MdKeyboardArrowRight } from "react-icons/md";
+import { MdKeyboardArrowRight, MdOutlineLightbulb } from "react-icons/md";
 
 import ThemeToggle from "@/utils/theme/ThemeToggle";
 import { IoClose } from "react-icons/io5";
-import { RiMenu2Fill } from "react-icons/ri";
+import { RiMenu2Fill, RiMore2Fill } from "react-icons/ri";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { LuClipboardList, LuNewspaper } from "react-icons/lu";
+import { CiCircleMore } from "react-icons/ci";
 
 function Nav() {
   const [activeTag, setActiveTag] = useState<string | null>(null);
@@ -45,9 +47,9 @@ function Nav() {
               onClick={() => setIsOpen(!isOpen)}
             >
               {isOpen ? (
-                <RiMenu2Fill className="size-8 " />
+                <RiMenu2Fill className="size-8 dark:text-white " />
               ) : (
-                <IoClose className="size-8" />
+                <IoClose className="size-8  dark:text-white " />
               )}
             </div>
             <Link href="/">
@@ -1071,27 +1073,17 @@ function Nav() {
 
       {/* bottom nav */}
       <div className="w-full  bg-[image:var(--color-my-gradient)] fixed z-50 bottom-0 md:hidden  rounded-t-2xl  ">
-        <div className="flex flex-row  max-md:w-[90%] mx-auto justify-between py-1 ">
+        <div className="flex flex-row  max-md:w-[90%] mx-auto justify-between py-1  ">
           <div className="flex flex-col">
             <Link href={"/current-affaris"}>
-              <Image
-                alt="News"
-                src="/layout/mobile/news.svg"
-                width={30}
-                height={30}
-              />
+             <LuNewspaper className="size-6 dark:text-white text-[#6C6C6C]"/>
               <p className="text-my-text-color text-[12px] text-center">News</p>
             </Link>
           </div>
 
           <div className="flex flex-col">
             <Link href={"/quiz"}>
-              <Image
-                alt="test"
-                src="/layout/mobile/bulb.svg"
-                width={30}
-                height={30}
-              />
+              <MdOutlineLightbulb className="size-7 dark:text-white text-[#6C6C6C]"/>
               <p className="text-my-text-color text-[12px] text-center">Quiz</p>
             </Link>
           </div>
@@ -1104,32 +1096,20 @@ function Nav() {
                 width={40}
                 height={40}
               />
-              <p className="text-my-text-color text-[12px] text-center pt-1">
+              <p className="text-my-text-color text-[12px] text-center pt-2">
                 Home
               </p>
             </Link>
           </div>
           <div className="flex flex-col">
             <Link href={"/test-series"}>
-              <Image
-                alt="task"
-                src="/layout/mobile/task.svg"
-                width={30}
-                height={30}
-                className="h-auto w-auto"
-              />
+               <LuClipboardList className="size-7 dark:text-white text-[#6C6C6C]"/>
               <p className="text-my-text-color text-[12px] text-center">Test</p>
             </Link>
           </div>
           <div className="flex flex-col">
             <div onClick={() => setIsOpen(!isOpen)} className="cursor-pointer">
-              <Image
-                alt="menu"
-                src="/layout/mobile/menu.svg"
-                width={30}
-                height={30}
-                className="h-auto w-auto"
-              />
+             <RiMore2Fill className="size-7 dark:text-white text-[#6C6C6C]" />
               <p className="text-my-text-color text-[12px] text-center">More</p>
             </div>
           </div>

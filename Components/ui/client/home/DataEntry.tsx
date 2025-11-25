@@ -13,15 +13,15 @@ export default function DataEntry() {
               <GoClock className="text-white max-sm:size-12 size-16 bg-[#26858A] p-3  rounded-full" />
             </div>
             <div className="my-auto">
-              <p className="text-3xl max-sm:text-sm text-white font-bold">
+              <p className="text-xl max-sm:text-lg text-white font-bold">
                 Explore our new Data Entry Speed Test
               </p>
             </div>
           </div>
 
-          <div className="flex justify-end w-[50%]  ">
+          <div className="flex justify-end w-[50%] ">
             <Link href="/typing-test/intro">
-              <button className="bg-[#FFE332] max-lg:py-1.5 max-md:text-xs px-6 py-2 max-sm:px-5 rounded-full text-lg max-sm:text-sm">
+              <button className="bg-[#FFE332] whitespace-nowrap  max-lg:py-1.5 max-sm:py-2 max-md:text-xs px-6 py-2 max-sm:px-5 rounded-full text-lg max-sm:text-sm">
                 Start Typing
               </button>
             </Link>

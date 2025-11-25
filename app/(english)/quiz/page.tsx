@@ -101,7 +101,7 @@ export default async function Page({
             Elevate Your SSC CGL Success with{" "}
             <span className="text-my-green"> Expert Quizzes</span>
           </h1>
-          <p className="mt-1 text-lg text-my-text-color">
+          <p className="mt-1 text-lg max-sm:text-sm text-my-text-color">
             Practice Smarter by Choosing Quizzes Tailored to Your Strengths and
             Weaknesses!
           </p>

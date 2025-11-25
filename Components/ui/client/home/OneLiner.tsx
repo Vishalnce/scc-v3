@@ -77,7 +77,7 @@ export default async function OneLiner() {
               {contents.map((item: Item) => (
                 <div
                   key={item.id}
-                  className="flex flex-row items-center justify-start py-1 gap-2"
+                  className="flex flex-row items-start justify-start py-1 gap-2"
                 >
                   <MdKeyboardArrowRight  className="font-bold text-lg size-6 flex-shrink-0 dark:text-white" />
                   <p className="dark:text-white text-lg">{item.content}</p>

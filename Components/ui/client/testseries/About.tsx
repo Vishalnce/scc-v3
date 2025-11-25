@@ -64,7 +64,7 @@ export default function About() {
 
             {/* button  */}
 
-            <div className="self-start max-sm:flex flex-row space-x-6 py-2 border-2 max-sm:w-full max-sm:justify-between">
+            <div className="self-start max-sm:flex flex-row space-x-6 py-2  max-sm:w-full max-sm:justify-between">
               <Link href="/">
                 <button className="border-2 px-4 py-2  flex-shrink-0 max-sm:text-sm  rounded-full dark:border-white dark:text-white  ">
                   Free Mock Test
