@@ -77,9 +77,9 @@ export default function SignUpModals({ onClose }: { onClose: () => void }) {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center py-8 w-full max-md:w-[90%] border-2 mx-auto">
+      <div className="flex flex-col items-center justify-center py-8 w-full max-md:w-[90%] mx-auto">
         <p className="py-2 font-bold text-3xl font-montserrat dark:text-white max-md:text-center max-md:text-2xl">
-          Sign in to SSC ExamLife
+         Login in to SSC ExamLife
         </p>
 
         <div className="flex flex-row items-center gap-8 py-2">
@@ -131,7 +131,7 @@ export default function SignUpModals({ onClose }: { onClose: () => void }) {
             </button>
           </div>
 
-          <Link href={"/signup"} className="border-2 text-center">
+          <Link href={"/signup"} className=" text-center">
             <p className="underline py-2 text-my-text-color">
               Create An Account
             </p>

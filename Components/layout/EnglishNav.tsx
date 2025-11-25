@@ -133,14 +133,14 @@ function Nav() {
                     onClick={() => {
                       signIn();
                     }}
-                    className=" px-6 py-0.5 pb-1 border-2 rounded-lg  max-sm:px-2 dark:border-white dark:text-white "
+                    className=" px-6 py-0.5 pb-1 border-2 rounded-lg  max-sm:px-2 dark:border-white dark:text-white transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg "
                   >
                     Login
                   </button>
                 </Link>
 
                 <Link href={"/signup"}>
-                  <button className="px-6 py-0.5 pb-1 border-2 border-[#007076] rounded-lg bg-my-green text-white max-lg:text-sm max-lg:hidden  ">
+                  <button className="px-6 py-0.5 pb-1 border-2 border-[#007076] rounded-lg bg-my-green text-white max-lg:text-sm max-lg:hidden transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg ">
                     Signup
                   </button>
                 </Link>

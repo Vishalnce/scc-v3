@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash, FaFacebook, FaRegUser } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { MdLockOutline, MdOutlineMail } from "react-icons/md";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 type SignupFormProps = {
   first: string;
@@ -13,14 +15,21 @@ type SignupFormProps = {
   email: string;
   password: string;
 };
+
 export default function SignUpForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const { register, handleSubmit, setValue, getValues, reset } =
-    useForm<SignupFormProps>();
+
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm<SignupFormProps>();
+
+  const router = useRouter();
 
   const signupFormData = async (data: SignupFormProps) => {
     try {
-    
       const res = await fetch(`/api/en/signup/client`, {
         method: "POST",
         headers: {
@@ -29,61 +38,65 @@ export default function SignUpForm() {
         body: JSON.stringify(data),
       });
 
+      const result = await res.json();
+
+      // ❌ EMAIL ALREADY EXISTS
       if (!res.ok) {
-        throw new Error("Failed to signup");
+        if (result.error === "Email already exists") {
+          setError("email", {
+            type: "manual",
+            message: "Email already exists",
+          });
+        }
+        return; // STOP HERE
       }
 
-      const result = await res.json();
-      console.log("Signup response:", result);
-
-      return result; // you can use this in UI (e.g. success message)
+      // ✅ SUCCESS → redirect
+      router.push("/login");
     } catch (error) {
-      console.error("Error while signup is:", error);
+      console.error("Signup error:", error);
     }
   };
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center  py-8 w-[60%] max-md:w-[90%] ">
-        <div className=" ">
-          <p className="py-2 font-bold text-3xl font-montserrat dark:text-white max-md:text-center max-md:text-2xl">
-            Create an Account
-          </p>
-        </div>
+      <div className="flex flex-col items-center justify-center py-8 w-[60%] max-md:w-[90%]">
+        <p className="py-2 font-bold text-3xl font-montserrat dark:text-white max-md:text-center max-md:text-2xl">
+          Create an Account
+        </p>
 
-        <div className="flex flex-row items-center  gap-8 py-2">
-          <div className="  rounded-full p-2  bg-white shadow-2xl dark:bg-black">
-            <Link href={"/"}>
+        <div className="flex flex-row items-center gap-8 py-2">
+          <div className="rounded-full p-2 bg-white shadow-2xl dark:bg-black">
+            <div
+              onClick={() => signIn("google", { callbackUrl: "/" })}
+              className="rounded-full p-2 bg-white shadow-2xl dark:bg-black"
+            >
               <FcGoogle className="text-[#0E76FD] size-6" />
-            </Link>
+            </div>
           </div>
 
-          <div className="  rounded-full p-2  bg-white shadow-2xl dark:bg-black">
+          <div className="rounded-full p-2 bg-white shadow-2xl dark:bg-black">
             <Link href={"/"}>
               <FaFacebook className="text-[#0E76FD] size-6" />
             </Link>
           </div>
         </div>
 
-        <div className="py-2">
-          <p className="text-my-text-color ">
-            or use your email for Registration
-          </p>
-        </div>
+        <p className="py-2 text-my-text-color">
+          or use your email for Registration
+        </p>
+
         <form onSubmit={handleSubmit(signupFormData)}>
           <div className="flex flex-col gap-4 w-full max-w-sm pt-4">
-            {/* name  */}
-
-            <div className="flex flex-row  gap-5">
-              {/* first anem  */}
-
+            {/* First + Last name */}
+            <div className="flex flex-row gap-5">
               <div className="relative">
                 <FaRegUser className="absolute left-3 top-1/2 -translate-y-1/2 text-my-text-color size-5" />
                 <input
                   type="text"
                   {...register("first")}
                   placeholder="First Name"
-                  className="p-2 pl-10 pr-10 w-full bg-white  rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-black dark:placeholder-[#C2C2C2]"
+                  className="p-2 pl-10 pr-10 w-full bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-black dark:placeholder-[#C2C2C2]"
                 />
               </div>
 
@@ -93,7 +106,7 @@ export default function SignUpForm() {
                   type="text"
                   {...register("last")}
                   placeholder="Last Name"
-                  className="p-2 pl-10 pr-10 w-full bg-white  rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-black dark:placeholder-[#C2C2C2]"
+                  className="p-2 pl-10 pr-10 w-full bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-black dark:placeholder-[#C2C2C2]"
                 />
               </div>
             </div>
@@ -105,19 +118,31 @@ export default function SignUpForm() {
                 type="email"
                 {...register("email")}
                 placeholder="Email"
-                className="p-2 pl-10 pr-10 w-full bg-white  rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-black dark:placeholder-[#C2C2C2]"
+                className={`p-2 pl-10 pr-10 w-full bg-white rounded-md focus:outline-none focus:ring-2 ${
+                  errors.email
+                    ? "focus:ring-red-500 border-red-500"
+                    : "focus:ring-blue-500"
+                } dark:bg-black dark:placeholder-[#C2C2C2]`}
               />
+
+              {/* ❌ Display Email Error */}
+              {errors.email && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
 
             {/* Password */}
             <div className="relative">
-              <MdLockOutline className="absolute left-3 top-1/2 -translate-y-1/2  size-5 text-my-text-color " />
+              <MdLockOutline className="absolute left-3 top-1/2 -translate-y-1/2 size-5 text-my-text-color" />
               <input
                 type={showPassword ? "text" : "password"}
                 {...register("password")}
                 placeholder="Password"
-                className="p-2 pl-10 pr-10 w-full bg-white  rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-black dark:placeholder-[#C2C2C2]"
+                className="p-2 pl-10 pr-10 w-full bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-black dark:placeholder-[#C2C2C2]"
               />
+
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
@@ -127,14 +152,10 @@ export default function SignUpForm() {
               </button>
             </div>
 
-            {/* <button>
-                <Link href = "/">
-                  <p className="underline py-2 text-my-text-color">Forgot Your Password</p>
-                </Link>
-              
-              </button> */}
-
-            <button type="submit" className=" bg-[#FFE332] rounded-3xl py-2">
+            <button
+              type="submit"
+              className="bg-[#FFE332] rounded-3xl py-2 transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
+            >
               <p className="font-bold">Sign Up</p>
             </button>
           </div>

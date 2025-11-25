@@ -1,5 +1,5 @@
-import db from "@/lib/db"
-import { NextRequest, NextResponse } from "next/server"
+import db from "@/lib/db";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
@@ -11,8 +11,8 @@ export async function POST(req: NextRequest) {
 
     if (existingUser) {
       return NextResponse.json(
-        { success: false, message: "User already exists" },
-        { status: 409 } // Conflict status code
+        { error: "Email already exists" },
+        { status: 409 }
       );
     }
 
@@ -25,7 +25,10 @@ export async function POST(req: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("Create quiz error:", error);
-    return NextResponse.json({ error: "Create failed" }, { status: 500 });
+    console.error("Signup error:", error);
+    return NextResponse.json(
+      { error: "Create failed" },
+      { status: 500 }
+    );
   }
 }

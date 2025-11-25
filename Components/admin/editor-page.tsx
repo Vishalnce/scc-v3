@@ -35,7 +35,7 @@ export default function Editor({ value = "", onSync,  setIsEditorChange }: Edito
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className="w-full max-w-[1400px]  border-2">
+      <div className="w-full max-w-[1400px]  border-2 max-h-[80vh] overflow-y-auto   ">
         <LexicalEditorClientWrapper
           value={editorValue} // pass prefilled value
           onChange={(newValue) => {
