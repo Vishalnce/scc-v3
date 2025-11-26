@@ -106,7 +106,7 @@ export default function SignUpModals({ onClose }: { onClose: () => void }) {
     const left = window.screen.width / 2 - width / 2;
     const top = window.screen.height / 2 - height / 2;
     const newPopup = window.open(
-      `${process.env.NEXT_PUBLIC_SITE_URL}/signup-modal`,
+      `/signup-modal`,
       "signupPopup", // Name is required to avoid new tab behavior
       `width=${width},height=${height},top=${top},left=${left},resizable=yes,scrollbars=yes`
     );

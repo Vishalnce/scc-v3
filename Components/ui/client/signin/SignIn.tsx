@@ -22,7 +22,7 @@ export default function SignIn() {
     const password = passwordRef.current?.value || "";
   
     // 1️⃣ Check if user exists
-    const check = await fetch("/api/check-user", {
+    const check = await fetch("/api/en/login/client", {
       method: "POST",
       body: JSON.stringify({ email }),
       headers: { "Content-Type": "application/json" },
