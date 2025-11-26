@@ -61,7 +61,7 @@ export default function SignUpForm() {
   return (
     <>
       <div className="flex flex-col items-center justify-center py-8 w-[60%] max-md:w-[90%]">
-        <p className="py-2 font-bold text-3xl font-montserrat dark:text-white max-md:text-center max-md:text-2xl">
+        <p className="py-2 font-bold text-4xl font-montserrat dark:text-white max-md:text-center max-md:text-2xl">
           Create an Account
         </p>
 
@@ -69,7 +69,7 @@ export default function SignUpForm() {
           <div className="rounded-full p-2 bg-white shadow-2xl dark:bg-black">
             <div
               onClick={() => signIn("google", { callbackUrl: "/" })}
-              className="rounded-full p-2 bg-white shadow-2xl dark:bg-black"
+              className="rounded-full p-1 bg-white shadow-2xl dark:bg-black hover:cursor-pointer"
             >
               <FcGoogle className="text-[#0E76FD] size-6" />
             </div>
@@ -82,7 +82,7 @@ export default function SignUpForm() {
           </div>
         </div>
 
-        <p className="py-2 text-my-text-color">
+        <p className="py-2 text-lg text-my-text-color">
           or use your email for Registration
         </p>
 
@@ -96,7 +96,7 @@ export default function SignUpForm() {
                   type="text"
                   {...register("first")}
                   placeholder="First Name"
-                  className="p-2 pl-10 pr-10 w-full bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-black dark:placeholder-[#C2C2C2]"
+                  className="p-4 pl-10 pr-10 w-full bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-black dark:placeholder-[#C2C2C2]"
                 />
               </div>
 
@@ -106,7 +106,7 @@ export default function SignUpForm() {
                   type="text"
                   {...register("last")}
                   placeholder="Last Name"
-                  className="p-2 pl-10 pr-10 w-full bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-black dark:placeholder-[#C2C2C2]"
+                  className="p-4 pl-10 pr-10 w-full bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-black dark:placeholder-[#C2C2C2]"
                 />
               </div>
             </div>
@@ -118,7 +118,7 @@ export default function SignUpForm() {
                 type="email"
                 {...register("email")}
                 placeholder="Email"
-                className={`p-2 pl-10 pr-10 w-full bg-white rounded-md focus:outline-none focus:ring-2 ${
+                className={`p-4 pl-10 pr-10 w-full bg-white rounded-md focus:outline-none focus:ring-2 ${
                   errors.email
                     ? "focus:ring-red-500 border-red-500"
                     : "focus:ring-blue-500"
@@ -140,7 +140,7 @@ export default function SignUpForm() {
                 type={showPassword ? "text" : "password"}
                 {...register("password")}
                 placeholder="Password"
-                className="p-2 pl-10 pr-10 w-full bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-black dark:placeholder-[#C2C2C2]"
+                className="p-4 pl-10 pr-10 w-full bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-black dark:placeholder-[#C2C2C2]"
               />
 
               <button
@@ -156,7 +156,7 @@ export default function SignUpForm() {
               type="submit"
               className="bg-[#FFE332] rounded-3xl py-2 transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
             >
-              <p className="font-bold">Sign Up</p>
+              <p className="font-bold text-xl">Sign Up</p>
             </button>
           </div>
         </form>

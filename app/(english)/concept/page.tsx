@@ -149,7 +149,7 @@ export default async function Page({
 
                 {/* Info */}
                 <div className="flex flex-col  w-[60%] m-2 justify-start   max-md:mx-auto max-md:w-[90%]">
-                  <h2 className="text-2xl font-bold dark:text-[#FFFFFF]  min-h-[64px]">
+                  <h2 className="text-2xl max-sm:text-lg font-bold dark:text-[#FFFFFF]  min-h-[64px]">
                     {post.title}
                   </h2>
                   <p className="text-my-text-color   mt-3  text-fade h-[100px]  overflow-hidden">

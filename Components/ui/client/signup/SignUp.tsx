@@ -27,13 +27,13 @@ export default function SignUp() {
 
             <div className="absolute flex flex-col items-center justify-between">
               <div>
-                <p className="font-bold text-white text-3xl font-montserrat">
+                <p className="font-bold text-white text-4xl font-montserrat">
                   Welcome back
                 </p>
               </div>
 
               <div className=" w-[70%] pt-3 pb-3">
-                <p className="text-white text-center">
+                <p className="text-white text-center text-xl">
                   To keep connected with SSC Examlife please login with your
                   personal info.
                 </p>
@@ -41,7 +41,7 @@ export default function SignUp() {
 
               <div className=" py-4">
                 <Link href={"/login"}>
-                  <p className="underline text-white">
+                  <p className="underline text-white text-xl">
                     Already have an account?
                   </p>
                 </Link>
@@ -49,7 +49,7 @@ export default function SignUp() {
             <Link href={"/login"} className="border-white border-2 w-[60%] rounded-4xl py-1">
               <button className=" w-full">
                 
-                  <p className="text-white pointer">Login </p>
+                  <p className="text-white pointer text-xl">Login </p>
                
               </button>
                </Link>

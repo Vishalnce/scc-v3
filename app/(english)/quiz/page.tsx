@@ -159,7 +159,7 @@ export default async function Page({
                 </div>
                 {/* info */}
                 <div className="flex flex-col  w-[90%] m-2 justify-start    ">
-                  <h2 className="text-2xl font-bold dark:text-[#FFFFFF] ">
+                  <h2 className="text-2xl max-sm:text-lg font-bold dark:text-[#FFFFFF] ">
                     {post.title}
                   </h2>
 
