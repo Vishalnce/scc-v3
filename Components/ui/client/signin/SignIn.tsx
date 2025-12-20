@@ -67,12 +67,12 @@ export default function SignIn() {
             >
               <FcGoogle className="text-[#0E76FD] size-8" />
             </div>
-
+{/* 
             <div className="rounded-full p-2 bg-white shadow-2xl dark:bg-black">
               <Link href={"/"}>
                 <FaFacebook className="text-[#0E76FD] size-8" />
               </Link>
-            </div>
+            </div> */}
           </div>
 
           <p className="py-2 text-lg text-my-text-color">or use your email for Registration</p>

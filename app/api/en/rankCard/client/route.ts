@@ -63,7 +63,7 @@ export async function GET(req: Request) {
 
     const allRank = await db.rank.findMany({
       where: { quizId: Number(quizId) },
-      orderBy: { createdAt:"asc" }, // make sure Rank model has createdAt
+      orderBy: { score:"desc" }, // make sure Rank model has createdAt
     });
 
     return NextResponse.json(allRank, { status: 200 });

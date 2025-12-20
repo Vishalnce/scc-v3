@@ -16,6 +16,8 @@ model Quiz {
    comment Comment[]
 
    rank Rank[]
+
+   notifications Notification[]
 }
 
 model Question {

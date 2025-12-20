@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import Image from "next/image";
 
 import { TbLanguageHiragana } from "react-icons/tb";
-import { FaBell } from "react-icons/fa";
 
 import { IoIosArrowDown } from "react-icons/io";
 import Link from "next/link";
@@ -15,7 +14,8 @@ import { IoClose } from "react-icons/io5";
 import { RiMenu2Fill, RiMore2Fill } from "react-icons/ri";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { LuClipboardList, LuNewspaper } from "react-icons/lu";
-import { CiCircleMore } from "react-icons/ci";
+import { FaRegArrowAltCircleUp } from "react-icons/fa";
+
 
 function Nav() {
   const [activeTag, setActiveTag] = useState<string | null>(null);
@@ -1071,19 +1071,28 @@ function Nav() {
         </div>
       )}
 
+      {/* scroll up */}
+
+      <div className="fixed z-50 bottom-10 right-15">
+
+        <FaRegArrowAltCircleUp className="text-white bg-amber-600    size-10" />
+
+     
+      </div>
+
       {/* bottom nav */}
       <div className="w-full  bg-[image:var(--color-my-gradient)] fixed z-50 bottom-0 md:hidden  rounded-t-2xl  ">
         <div className="flex flex-row  max-md:w-[90%] mx-auto justify-between py-1  ">
           <div className="flex flex-col">
             <Link href={"/current-affaris"}>
-             <LuNewspaper className="size-6 dark:text-white text-[#6C6C6C]"/>
+             <LuNewspaper className="size-7 dark:text-white text-[#6C6C6C] "/>
               <p className="text-my-text-color text-[12px] text-center">News</p>
             </Link>
           </div>
 
           <div className="flex flex-col">
             <Link href={"/quiz"}>
-              <MdOutlineLightbulb className="size-7 dark:text-white text-[#6C6C6C]"/>
+              <MdOutlineLightbulb className="size-7 dark:text-white text-[#6C6C6C] "/>
               <p className="text-my-text-color text-[12px] text-center">Quiz</p>
             </Link>
           </div>
@@ -1096,7 +1105,7 @@ function Nav() {
                 width={40}
                 height={40}
               />
-              <p className="text-my-text-color text-[12px] text-center pt-2">
+              <p className="text-my-text-color text-[12px] text-center pt-1">
                 Home
               </p>
             </Link>

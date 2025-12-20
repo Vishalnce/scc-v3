@@ -127,11 +127,11 @@ export default function SignUpModals({ onClose }: { onClose: () => void }) {
             <FcGoogle className="text-[#0E76FD] size-6" />
           </div>
 
-          <div className="rounded-full p-2 bg-white shadow-2xl dark:bg-black">
+          {/* <div className="rounded-full p-2 bg-white shadow-2xl dark:bg-black">
             <Link href={"/"}>
               <FaFacebook className="text-[#0E76FD] size-6" />
             </Link>
-          </div>
+          </div> */}
         </div>
 
         <p className="py-2 text-my-text-color">

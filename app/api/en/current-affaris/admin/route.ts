@@ -2,8 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import db from "@/lib/db";
 
-import { NEXT_AUTH } from "@/lib/auth";
-import { getServerSession } from "next-auth";
+
 import { requireAdmin } from "@/lib/adminCheck";
 
 // GET handler: Fetch all posts or a single post by `slug`
