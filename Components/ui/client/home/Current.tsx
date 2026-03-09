@@ -109,7 +109,7 @@ export default function Current() {
 
         {/* main body */}
         <div
-          className="overflow-hidden  my-16 dark:bg-black pb-6 "
+          className="overflow-hidden  my-16 dark:bg-black pb-6 border-2  text-fade-right"
           ref={emblaRef}
         >
           <div className="flex">

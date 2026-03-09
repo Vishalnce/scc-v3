@@ -7,7 +7,7 @@ import Quiz from "@/Components/ui/client/home/SamllQuiz";
 import { CiClock1 } from "react-icons/ci";
 import { set } from "date-fns";
 import Image from "next/image";
-
+import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md";
 type quiz = {
   id: string;
   quizId: number;
@@ -161,7 +161,7 @@ export default function QuizQuestion({
   const handleTimerFinish = useCallback(() => {
     onFinish(answersRef.current); // read latest answers from ref
   }, [onFinish]);
-
+const [isNavOpen, setIsNavOpen] = useState(false);
   return (
     <>
       <div className=" dark:bg-black ">
@@ -246,86 +246,88 @@ export default function QuizQuestion({
                   <div
                     className={`max-sm:py-2 max-sm:w-full   mx-auto gap-6 w-full  py-4 ${q.options[0]?.image ? "flex flex-wrap justify-between " : "grid grid-cols-2 max-sm:grid-cols-1"}`}
                   >
-                    {q.options.map((opt:{ text?: string; image?: string }, idx:number) => {
-                      const selected = answers[current].answer === idx;
-                      const hasText = !!opt.text;
-                      const hasImage = !!opt.image;
-                      const hasBoth = hasText && hasImage;
+                    {q.options.map(
+                      (opt: { text?: string; image?: string }, idx: number) => {
+                        const selected = answers[current].answer === idx;
+                        const hasText = !!opt.text;
+                        const hasImage = !!opt.image;
+                        const hasBoth = hasText && hasImage;
 
-                      // CASE 1: BOTH TEXT + IMAGE
-                      if (hasBoth) {
+                        // CASE 1: BOTH TEXT + IMAGE
+                        if (hasBoth) {
+                          return (
+                            <div
+                              key={idx}
+                              onClick={() => handleSelect(idx)}
+                              className="relative max-w-[400px] w-[40%] hover:cursor-pointer flex flex-col gap-2"
+                            >
+                              {/* TEXT ABOVE */}
+                              <p className="text-my-text-color max-lg:text-sm font-medium ">
+                                {opt.text}
+                              </p>
+
+                              {/* IMAGE BELOW */}
+                              <div className="relative w-full aspect-[16/9]">
+                                <Image
+                                  src={(opt.image ?? "").toString()}
+                                  alt="option"
+                                  fill
+                                  className={`object-contain ${
+                                    selected
+                                      ? "border-4 border-[#6C6C6C] dark:border-white "
+                                      : ""
+                                  }`}
+                                />
+                              </div>
+                            </div>
+                          );
+                        }
+
+                        // CASE 2: TEXT ONLY
+                        if (hasText) {
+                          return (
+                            <button
+                              key={idx}
+                              onClick={() => handleSelect(idx)}
+                              className="px-3 py-3 border dark:border-white rounded-full flex flex-row justify-between"
+                            >
+                              <p className="text-my-text-color max-lg:text-sm">
+                                {opt.text}
+                              </p>
+
+                              <div className="my-auto">
+                                <FaRegCircle
+                                  size="22"
+                                  className={`text-my-text-color rounded-full ${
+                                    selected ? "bg-[#6C6C6C]" : ""
+                                  }`}
+                                />
+                              </div>
+                            </button>
+                          );
+                        }
+
+                        // CASE 3: IMAGE ONLY
                         return (
                           <div
                             key={idx}
                             onClick={() => handleSelect(idx)}
-                            className="relative max-w-[400px] w-[40%] hover:cursor-pointer flex flex-col gap-2"
+                            className="relative max-w-[400px] w-[40%] aspect-[16/9] hover:cursor-pointer"
                           >
-                            {/* TEXT ABOVE */}
-                            <p className="text-my-text-color max-lg:text-sm font-medium ">
-                              {opt.text}
-                            </p>
-
-                            {/* IMAGE BELOW */}
-                            <div className="relative w-full aspect-[16/9]">
-                              <Image
-                             src={(opt.image ?? "").toString()}
-                                alt="option"
-                                fill
-                                className={`object-contain ${
-                                  selected
-                                    ? "border-4 border-[#6C6C6C] dark:border-white "
-                                    : ""
-                                }`}
-                              />
-                            </div>
+                            <Image
+                              src={(opt.image ?? "").toString()}
+                              alt="question image"
+                              fill
+                              className={`object-contain ${
+                                selected
+                                  ? "border-4 border-[#6C6C6C] dark:border-white"
+                                  : ""
+                              }`}
+                            />
                           </div>
                         );
                       }
-
-                      // CASE 2: TEXT ONLY
-                      if (hasText) {
-                        return (
-                          <button
-                            key={idx}
-                            onClick={() => handleSelect(idx)}
-                            className="px-3 py-3 border dark:border-white rounded-full flex flex-row justify-between"
-                          >
-                            <p className="text-my-text-color max-lg:text-sm">
-                              {opt.text}
-                            </p>
-
-                            <div className="my-auto">
-                              <FaRegCircle
-                                size="22"
-                                className={`text-my-text-color rounded-full ${
-                                  selected ? "bg-[#6C6C6C]" : ""
-                                }`}
-                              />
-                            </div>
-                          </button>
-                        );
-                      }
-
-                      // CASE 3: IMAGE ONLY
-                      return (
-                        <div
-                          key={idx}
-                          onClick={() => handleSelect(idx)}
-                          className="relative max-w-[400px] w-[40%] aspect-[16/9] hover:cursor-pointer"
-                        >
-                          <Image
-                         src={(opt.image ?? "").toString()}
-                            alt="question image"
-                            fill
-                            className={`object-contain ${
-                              selected
-                                ? "border-4 border-[#6C6C6C] dark:border-white"
-                                : ""
-                            }`}
-                          />
-                        </div>
-                      );
-                    })}
+                    )}
                   </div>
                 </div>
               </div>
@@ -334,46 +336,88 @@ export default function QuizQuestion({
 
           {/* right div of question and option */}
 
-          <div className=" dark:border-white dark:bg-[#313131] rounded-2xl w-[32%] self-stretch flex flex-col  max-sm:w-full px-2 py-2 max-sm:mb-10 border-2 max-sm:mt-4 bg-[#FAFCFC] border-[#E6F1F1]">
-            {/* Timer and SubTopics */}
-            <div className=" flex flex-row  justify-between items-center pb-3 dark:text-white">
-              <CountdownTimer
-                minutes={timeLimit}
-                onFinish={handleTimerFinish}
-                setTimeTaken={setTimeTaken}
-              />
 
-              <div className=" flex items-end ">
-                <button className="px-4 py-2 bg-[#95DC7F]  rounded-full text-sm dark:text-black capitalize">
-                  {topic}
-                </button>
-              </div>
+
+
+       <div
+  className={`
+    dark:border-white dark:bg-[#313131] rounded-2xl w-[32%] self-stretch flex flex-col
+    max-sm:w-full px-2 py-2 border-2 bg-[#FAFCFC] border-[#E6F1F1]
+
+    max-sm:fixed max-sm:left-0 max-sm:z-[999]
+    max-sm:rounded-none max-sm:border-x-0 max-sm:border-b-0
+    transition-all duration-300 ease-in-out
+
+    ${
+      isNavOpen
+        ? "max-sm:bottom-[64px] max-sm:h-[55vh]"
+        : "max-sm:bottom-[64px] max-sm:h-[80px]"
+    }
+  `}
+>
+  {/* HEADER BAR (Always Visible) */}
+  <div className="flex flex-row justify-between items-center pb-2 dark:text-white">
+    <CountdownTimer
+      minutes={timeLimit}
+      onFinish={handleTimerFinish}
+      setTimeTaken={setTimeTaken}
+    />
+
+    <div className="flex items-center gap-2">
+      <button className="px-4 py-2 bg-[#95DC7F] rounded-full text-sm dark:text-black capitalize">
+        {topic}
+      </button>
+
+      {/* Toggle Button */}
+      <button
+        onClick={() => setIsNavOpen((p) => !p)}
+        className="p-2 rounded-full border border-gray-300 dark:border-white"
+      >
+        {isNavOpen ? (
+          <MdKeyboardArrowDown className="size-6" />
+        ) : (
+          <MdKeyboardArrowUp className="size-6" />
+        )}
+      </button>
+    </div>
+  </div>
+
+  {/* BODY (only visible when open) */}
+  <div
+    className={`
+      overflow-hidden transition-all duration-300 ease-in-out
+      ${isNavOpen ? "opacity-100 max-sm:flex-1" : "opacity-0 max-sm:h-0"}
+    `}
+  >
+    <div className="h-full overflow-y-auto">
+      <div className="flex flex-row sm:flex-wrap overflow-x-auto sm:justify-center items-center gap-3">
+        {Array.from({ length: questions.length }, (_, idx) => {
+          const m = mark[idx];
+
+          return (
+            <div key={idx}>
+              <button
+                onClick={() => handleOnClick(idx)}
+                className={`px-4 py-2 min-w-[50px] border-1 border-[#C2C2C2] dark:text-white rounded
+                ${
+                  m.notVisited
+                    ? ""
+                    : m.answered
+                    ? "bg-[#2CBB01] dark:border-[#2CBB01] text-white"
+                    : "bg-[#FF0000] dark:border-[#FF0000] text-white"
+                }
+              `}
+              >
+                {idx + 1}
+              </button>
             </div>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+</div>
 
-            {/* navigation  */}
-
-            <div className=" h-full  overflow-y-auto  ">
-              <div className="flex flex-row sm:flex-wrap overflow-x-auto sm:justify-center items-center gap-3  ">
-                {Array.from({ length: questions.length }, (_, idx) => {
-                  const m = mark[idx]; // status of this question
-
-                  return (
-                    <div key={idx}>
-                      <button
-                        onClick={() => handleOnClick(idx)}
-                        className={`px-4 py-2 min-w-[50px] border-1 border-[#C2C2C2] dark:text-white rounded
-                          ${m.notVisited ? "" : m.answered ? "bg-[#2CBB01] dark:border-[#2CBB01] text-white" : "bg-[#FF0000] dark:border-[#FF0000]   text-white"}
-                             
-                           `}
-                      >
-                        {idx + 1}
-                      </button>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* navigation box  */}

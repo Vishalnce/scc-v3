@@ -5,7 +5,7 @@
 
 // });
 
-import EnglishNav from "@/Components/layout/EnglishNav";
+import EnglishNav from "@/Components/layout/Nav/EnglishNav";
 import Footer from "@/Components/layout/Footer";
 import TouchBanner from "@/Components/layout/TouchBanner";
 

@@ -64,6 +64,10 @@ export default function Page({ post }: { post?: PostType }) {
 
 
     const [isEditorTouched, setIsEditorTouched] = useState(false);
+    const [isEditorTouchedd, setIsEditorTouchedd] = useState(false);
+
+
+     console.log("isEditorTouchedd", isEditorTouchedd);
   
   
     const router = useRouter();
@@ -75,6 +79,20 @@ export default function Page({ post }: { post?: PostType }) {
     html: "",
     toc: [],
   });
+
+ 
+
+    const [editorDatad, setEditorDatad] = useState<{
+    html: string;
+    toc: TocItem[];
+  }>({
+    html: "",
+    toc: [],
+  });
+
+  console.log("editorDatad", editorDatad);
+  
+  
 
 
   
@@ -105,6 +123,9 @@ useEffect(() => {
   }, [title, slugTransform, setValue]);
 
   const value = post?.editorHtml || "";
+  const valued = post?.editorHtml || "";
+  console.log("valud", valued);
+
   const isEdit = !!post;
 
   const onSubmit = async (data: PostType) => {
@@ -342,6 +363,9 @@ const handleImageUpload = async () => {
   </div>
 
   <Editor value={value} onSync={setEditorData} setIsEditorChange={setIsEditorTouched} />
+
+  <Editor value={valued} onSync={setEditorDatad} setIsEditorChange={setIsEditorTouchedd} />
+
 
   <input type="hidden" {...register("editorHtml")} />
 

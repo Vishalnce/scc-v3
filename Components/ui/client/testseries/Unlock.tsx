@@ -4,7 +4,7 @@ export default function Unlock() {
   return (
     <>
       <div className="bg-[#007076]">
-        <div className=" w-[90%]  mx-auto py-10 flex flex-row max-sm:flex-col justify-between  max-w-[1400px] ">
+        <div className=" w-[90%]  mx-auto py-10 flex flex-row max-sm:flex-col justify-between border-2  max-w-[1400px] ">
           {/* heading */}
           <div className="w-[30%] max-sm:w-[95%] flex flex-col max-sm:flex-row items-start max-sm:pt-4 pt-4  max-sm:justify-between ">
             <p className="text-white text-4xl font-bold max-sm:text-2xl max-sm:w-[70%] font-montserrat">

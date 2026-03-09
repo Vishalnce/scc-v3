@@ -1,26 +1,34 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { FaMoon } from "react-icons/fa";
-import { IoSunnyOutline } from "react-icons/io5";
+import { FaCircle, FaMoon } from "react-icons/fa";
+import { IoMoon, IoSunnyOutline } from "react-icons/io5";
 export default function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
   return (
-    <button
-      type="button"
-      className="cursor-pointer   p-1.5 [transition:background_20ms_ease-in,_color_0.15s]"
-      title="Toggle theme"
-      aria-label="Toggle theme"
-      onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-    >
+    <div className="border-2 rounded-full px-4 flex gap-4 py-1 bg-[#F4F4FC] max-md:hidden">
 
+  {/* Light Button */}
+  <button
+    onClick={() => setTheme("light")}
+    className={`flex text-xl border-2 rounded-full px-4 gap-2 items-center
+    ${theme === "light" ? "bg-white" : ""}`}
+  >
+    <FaCircle className="text-amber-300" />
+    <p>Light</p>
+  </button>
 
-      <FaMoon className="block dark:hidden size-5"/>
+  {/* Dark Button */}
+  <button
+    onClick={() => setTheme("dark")}
+    className={`flex text-xl  rounded-full px-4  gap-2 items-center border-2
+    ${theme === "dark" ? "bg-white" : ""}`}
+  >
+    <IoMoon className="size-6" />
+    <p>Dark</p>
+  </button>
 
-
-      <IoSunnyOutline  className= "size-6 hidden dark:block dark:text-[#FFFFFF] "/>
-     
-    </button>
+</div>
   );
 }

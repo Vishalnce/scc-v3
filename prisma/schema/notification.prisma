@@ -1,6 +1,6 @@
 model Notification {
   id          String        @id @default(cuid())
-  title       String
+  title       String          @unique //useful for delete
   path String
 
 
@@ -10,10 +10,10 @@ model Notification {
   // relations (optional)
 
   quizId      Int?
-  quiz        Quiz?         @relation(fields: [quizId], references: [id])
+  quiz        Quiz?         @relation(fields: [quizId], references: [id],onDelete: Cascade)
 
   currentAffairId Int?
-  currentAffair    Post? @relation(fields: [currentAffairId], references: [id])
+  currentAffair    Post? @relation(fields: [currentAffairId], references: [id],onDelete: Cascade)
 
 
 }

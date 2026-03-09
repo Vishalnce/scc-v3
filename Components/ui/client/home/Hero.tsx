@@ -1,120 +1,60 @@
 "use client";
 
-import React, { useState } from "react";
-import Image from "next/image";
-import { IoClose } from "react-icons/io5";
-import Link from "next/link";
-import { MdArrowOutward } from "react-icons/md";
-export default function Hero() {
-  const [smallBanner, setSmallBanner] = useState<boolean>(false);
+import React from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
+import SmallNav from "./SmallNav";
+import Card1 from "./HeroCard/Card1";
+import Card3 from "./HeroCard/Card3";
+import Card2 from "./HeroCard/Card2";
+
+export default function HeroCarousel() {
+
+  const slides = [1, 2, 3];
+
+  const [emblaRef] = useEmblaCarousel(
+    { loop: true, align: "center" },
+    [Autoplay({ delay: 2000, stopOnInteraction: false })]
+  
+  );
+
   return (
-    <>
-      <div className="bg-[image:var(--color-my-gradient)] ">
-        {/* samll banner */}
+    <div className="w-full  bg-white">
+      
+      <div>
+        <SmallNav/>
+      </div>
 
-        <div
-          className={`relative bg-[#2CBB01] max-sm:gap-4 flex items-center justify-center py-3 px-4 ${smallBanner ? "hidden" : ""} } `}
-        >
-          {/* Center text content */}
-          <div className="flex flex-row items-center sm:gap-2 gap-3  ">
-            <p className="text-center text-[#FFFFFF]  max-sm:text-[12px] ">
-             Only Exclusive SSC CGL Test Series
-            </p>
-            <p className="p-1 px-2 bg-[#FFE332] rounded-full  max-sm:text-[10px] max-sm:hidden  max-sm:text-center">
-              Coming soon
-            </p>
-            <Link href={"/"}>
-            <MdArrowOutward className=" rounded-2xl  bg-[#FFE332] size-6 text-white sm:hidden" />
-            </Link>
-                 
-          </div>
+      <div className="overflow-hidden px-6" ref={emblaRef}>
 
-          {/* Close button on right */}
-          <button
-            className="sm:absolute right-1"
-            onClick={() => setSmallBanner(true)}
-          >
-            <IoClose className="text-white text-lg" />
-       
-          </button>
+
+        <div className="flex">
+          <Card1/>
+          <Card2/>
+          <Card3/>
+
+          
+
+
         </div>
 
-        <div className=" max-w-[1400px] flex flex-row justify-between py-6 sm:pb-14 sm:py-8 w-[90%]  max-md:flex-col mx-auto ">
-          {/* main banner */}
+        {/* container
+        <div className="flex">
 
-        
-            {/* text section */}
-            <div className="flex flex-col  w-[55%] items-start gap-2 max-md:w-full   ">
-              <div className="  max-sm:w-full">
-                <p className="bg-[#FFE332] rounded-full p-2  px-6 py-2  max-sm:text-center">
-                  New Quizzes and Current Affairs!
-                </p>
+          {slides.map((slide) => (
+            <div key={slide} className="flex-none w-[80%] px-8 ">
+
+              <div className="h-[40vh] bg-gray-100 rounded-xl shadow flex items-center justify-center text-3xl font-bold">
+                Card {slide}
               </div>
 
-              <h1 className="text-5xl font-montserrat max-sm:text-2xl font-bold dark:text-[#FFFFFF] pt-2  leading-snug ">
-                Crack  <span className="text-[#007076]">SSC CGL</span> Secure Dream Government Career!
-              </h1>
-              <p className="text-my-text-color py-2 max-sm:text-sm text-lg">
-                Empower Your Prep with Top-Notch Study Materials, Mock Tests,
-                Quizzes and Exclusive SSC CGL Updates to help you succeed in
-                exam.{" "}
-              </p>
-
-              {/* button */}
-              <div className="flex flex-row gap-4 py-3 ">
-                <Link href={"/"}>
-                  <button className="p-2 px-4 border-black border-2 dark:border-white  rounded-full dark:text-white ">
-                    {" "}
-                    See Current Affairs
-                  </button>
-                </Link>
-                <Link href={"/"}>
-                  <button className="p-2 px-6  text-white border-2 border-[#007076] rounded-full bg-[#007076]">
-                    {" "}
-                    Take Quiz
-                  </button>
-                </Link>
-              </div>
-
-              {/* trusted by banner  */}
-              <div className="py-4 flex flex-row items-center gap-2">
-                <Image
-                  src="/ui/client/home/group.png"
-                  alt="ssc"
-                  width={150}
-                  height={150}
-                />
-                <p className="text-sm text-my-text-color">
-                	Trsuted by SSC Aspirants!
-                </p>
-              </div>
             </div>
+          ))}
 
-            {/* image section */}
-            <div className="w-[40%]  max-md:w-full relative max-sm:py-4 flex items-stretch ">
-              <div className="relative w-full aspect-[450/477]   max-w-[400px] mx-auto ">
-                <Image
-                  src="/ui/client/home/girl.png"
-                  alt="ssc"
-                  fill
-                  className="object-contain border-2"
-                />
-              </div>
+        </div> */}
 
-              <div className="absolute top-12 -left-12 w-[230px] h-[230px] max-sm:w-[200px] max-sm:-left-8  max-sm:top-4">
-                <Image
-                  src="/ui/client/home/small.png"
-                  alt="ssc"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-            </div>
-
-
-          </div>
-     
       </div>
-    </>
+
+    </div>
   );
 }

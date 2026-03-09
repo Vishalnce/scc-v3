@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 import db from "@/lib/db";
 
-
 import { requireAdmin } from "@/lib/adminCheck";
 
 // GET handler: Fetch all posts or a single post by `slug`
@@ -11,7 +10,6 @@ export async function GET(req: NextRequest) {
     const session = await requireAdmin();
     if (session instanceof NextResponse) return session;
 
-    
     const url = new URL(req.url);
     const slug = url.searchParams.get("slug");
 
@@ -44,8 +42,7 @@ export async function GET(req: NextRequest) {
 // Edit handlere
 export async function PATCH(req: NextRequest) {
   try {
-
-     const session = await requireAdmin();
+    const session = await requireAdmin();
     if (session instanceof NextResponse) return session;
     const body = await req.json();
 
@@ -64,11 +61,10 @@ export async function PATCH(req: NextRequest) {
 // POST handler: Create a new post
 export async function POST(req: NextRequest) {
   try {
-
     const session = await requireAdmin();
+
     if (session instanceof NextResponse) return session;
     const body = await req.json();
-    console.log("🔍 Incoming body:", body);
 
     const {
       title,
@@ -98,6 +94,18 @@ export async function POST(req: NextRequest) {
       },
     });
 
+    // for notification panel
+
+    const path = `current-affaris/${slug}`;
+
+    const notiRes = await db.notification.create({
+      data: {
+        title,
+        path,
+        currentAffairId: post.id,
+      },
+    });
+
     console.log("✅ Post created:", post);
     return NextResponse.json({ success: true, post });
   } catch (error: any) {
@@ -113,16 +121,20 @@ export async function POST(req: NextRequest) {
 
 export async function DELETE(req: NextRequest) {
   try {
-
-
     const session = await requireAdmin();
     if (session instanceof NextResponse) return session;
-    
+
     const url = new URL(req.url);
     const slug = url.searchParams.get("slug");
     if (!slug) {
       return NextResponse.json({ error: "Missing slug" }, { status: 400 });
     }
+
+    // const notiRes = await db.notification.delete({
+    //   where:{
+    //     title:slug
+    //   }
+    // })
 
     const post = await db.post.delete({
       where: { slug },

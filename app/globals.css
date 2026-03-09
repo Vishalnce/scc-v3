@@ -24,6 +24,10 @@ body {
   --color-my-yellow-alert: linear-gradient(to right, #fff095, #ffe332);
 }
 
+@utility bg-primary-gradient {
+  background: linear-gradient(to right, #289AA2, #8CD6DB);
+}
+
 @layer base {
   :root {
     --active-background: white;
@@ -115,6 +119,19 @@ input[type="password"]::-webkit-textfield-decoration-container {
 } */
 
 /* globals.css */
+
+.text-fade-right{
+    mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 1) 20%,
+    rgba(0, 0, 0, 0.2) 90%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 1) 20%,
+    rgba(0, 0, 0, 0.2) 90%
+  );
+}
 
 .text-fade {
   mask-image: linear-gradient(

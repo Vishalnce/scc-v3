@@ -16,8 +16,8 @@ model Post {
   quizposts   PostQuiz[]
     comments    Comment[]
 
-    notifications Notification[]
-}
+    notifications Notification[]  
+} 
 
 model PostQuiz {
 

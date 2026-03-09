@@ -2,7 +2,7 @@ version: "2.0"
 services:
   postgres-service:
     image: postgres
-    container_name: postgresdb
+    container_name: postgresdb:17-alpine
     ports:
       - "5432:5432"
     env_file:
