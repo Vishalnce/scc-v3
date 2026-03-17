@@ -3,319 +3,278 @@ import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useCallback, useEffect, useState } from "react";
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import { MdOutlineEventNote } from "react-icons/md";
+import {
+  IoIosArrowBack,
+  IoIosArrowDropright,
+  IoIosArrowForward,
+} from "react-icons/io";
+import { MdKeyboardArrowRight, MdOutlineEventNote } from "react-icons/md";
+import { HiOutlineCalculator, HiOutlineChartSquareBar } from "react-icons/hi";
+import { RiArrowRightWideLine } from "react-icons/ri";
 
+
+import { HiOutlineLightBulb } from "react-icons/hi";
+import { HiOutlineBookOpen } from "react-icons/hi";
+import { HiOutlineGlobe } from "react-icons/hi";
+import { HiOutlineDesktopComputer } from "react-icons/hi";
+import { HiOutlineClock } from "react-icons/hi";
 export default function QuizCard() {
-  const Tier1: any = [
-    {
-      image: "/ui/client/home/quiz/math.svg",
-      title: "Quantitative Aptitude",
-      category: "pre",
-      subject: "quantitative-apptitude",
-    },
+ const Tier1 = [
+  {
+    border: "border-[#87D5E2]",
+    iconBg: "bg-[#24B3CB]",
+    bg: "bg-[#E9F3FF]",
+    textbg: "text-[#24B3CB]",
+    icon: HiOutlineCalculator,
+    title: "Quantitative Aptitude",
+    category: "pre",
+    subject: "quantitative-apptitude",
+  },
+  {
+    border: "border-[#93E4A6]",
+    iconBg: "bg-[#11C352]",
+    bg: "bg-[#EBFFE4]",
+    textbg: "text-[#11C352]",
+    icon: HiOutlineLightBulb,
+    title: "Reasoning & GI",
+    category: "pre",
+    subject: "reasoning-general",
+  },
+  {
+    border: "border-[#E6C69C]",
+    iconBg: "bg-[#F89716]",
+    bg: "bg-[#FFF1DF]",
+    textbg: "text-[#F89716]",
+     icon: HiOutlineBookOpen,
+    title: "English Comprehension",
+    category: "pre",
+    subject: "english-comprehension",
+  },
+  {
+    border: "border-[#E8A2CB]",
+    iconBg: "bg-[#D63895]",
+    bg: "bg-[#FFE5F4]",
+    textbg: "text-[#E8A2CB]",
+      icon: HiOutlineGlobe,
+    title: "General Awareness",
+    category: "pre",
+    subject: "general-awareness",
+  },
+];
 
-    {
-      image: "/ui/client/home/quiz/reasoning.svg",
-      title: "Reasoning & GI",
-      category: "pre",
-      subject: "reasoning-general",
-    },
-    {
-      image: "/ui/client/home/quiz/english.svg",
-      title: "English Comprehension",
-      category: "pre",
-      subject: "english-comprehension",
-    },
-    {
-      image: "/ui/client/home/quiz/reasoning.svg",
-      title: "General Awareness",
-      category: "pre",
-      subject: "general-awareness",
-    },
-  ];
+const Tier2: any = [
+  {
+    image: "/ui/client/home/quiz/math.svg",
+    title: "Quantitative Aptitude",
+    category: "mains",
+    subject: "quantitative-apptitude",
 
-  const Tier2: any = [
-    {
-      image: "/ui/client/home/quiz/math.svg",
-      title: "Quantitative Aptitude",
-      category: "mains",
-      subject: "quantitative-apptitude",
-    },
+    border: "border-[#87D5E2]",
+    iconBg: "bg-[#24B3CB]",
+    bg: "bg-[#E9F3FF]",
+    textbg: "text-[#24B3CB]",
+    icon: HiOutlineCalculator,
+  },
 
-    {
-      image: "/ui/client/home/quiz/reasoning.svg",
-      title: "Reasoning & GI",
-      category: "mains",
-      subject: "reasoning-general",
-    },
-    {
-      image: "/ui/client/home/quiz/english.svg",
-      title: "English Comprehension",
-      category: "mains",
-      subject: "english-comprehension",
-    },
-    {
-      image: "/ui/client/home/quiz/reasoning.svg",
-      title: "General Awareness",
-      category: "mains",
-      subject: "general-awareness",
-    },
-    {
-      image: "/ui/client/home/quiz/computer.svg",
-      title: "Computer Knowledge",
-      category: "mains",
-      subject: "computer-knowledge",
-    },
-    {
-      image: "/ui/client/home/quiz/data.svg",
-      title: "Data Entry Speed Test",
-    },
-  ];
+  {
+    image: "/ui/client/home/quiz/reasoning.svg",
+    title: "Reasoning & GI",
+    category: "mains",
+    subject: "reasoning-general",
+
+    border: "border-[#93E4A6]",
+    iconBg: "bg-[#11C352]",
+    bg: "bg-[#EBFFE4]",
+    textbg: "text-[#11C352]",
+    icon: HiOutlineLightBulb,
+  },
+
+  {
+    image: "/ui/client/home/quiz/english.svg",
+    title: "English Comprehension",
+    category: "mains",
+    subject: "english-comprehension",
+
+    border: "border-[#E6C69C]",
+    iconBg: "bg-[#F89716]",
+    bg: "bg-[#FFF1DF]",
+    textbg: "text-[#F89716]",
+    icon: HiOutlineBookOpen,
+  },
+
+  {
+    image: "/ui/client/home/quiz/reasoning.svg",
+    title: "General Awareness",
+    category: "mains",
+    subject: "general-awareness",
+
+    border: "border-[#E8A2CB]",
+    iconBg: "bg-[#D63895]",
+    bg: "bg-[#FFE5F4]",
+    textbg: "text-[#D63895]",
+    icon: HiOutlineGlobe,
+  },
+
+  {
+    image: "/ui/client/home/quiz/computer.svg",
+    title: "Computer Knowledge",
+    category: "mains",
+    subject: "computer-knowledge",
+
+    border: "border-[#B3B3FF]",
+    iconBg: "bg-[#6366F1]",
+    bg: "bg-[#EEF0FF]",
+    textbg: "text-[#6366F1]",
+    icon: HiOutlineDesktopComputer,
+  },
+
+  {
+    image: "/ui/client/home/quiz/data.svg",
+    title: "Data Entry Speed Test",
+
+    border: "border-[#FFD966]",
+    iconBg: "bg-[#FACC15]",
+    bg: "bg-[#FFF9DB]",
+    textbg: "text-[#FACC15]",
+    icon: HiOutlineClock,
+  },
+];
 
   const [tierChange, setTierChange] = useState<"for-tier1" | "for-tier2">(
-    "for-tier1"
+    "for-tier1",
   );
-
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    slidesToScroll: 1,
-    containScroll: "trimSnaps",
-    align: "start",
-  });
-
-  const [canPrev, setCanPrev] = useState(false);
-  const [canNext, setCanNext] = useState(false);
-
-  const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
-  }, [emblaApi]);
-
-  const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
-  }, [emblaApi]);
-
-  // 👇 Update button state when Embla updates
-  const onSelect = useCallback(() => {
-    if (!emblaApi) return;
-    setCanPrev(emblaApi.canScrollPrev());
-    setCanNext(emblaApi.canScrollNext());
-  }, [emblaApi]);
-
-  useEffect(() => {
-    if (!emblaApi) return;
-
-    // Call once to set initial state
-    onSelect();
-
-    // Subscribe to events
-    emblaApi.on("select", onSelect);
-    emblaApi.on("reInit", onSelect);
-  }, [emblaApi, onSelect]);
 
   return (
     <>
-      <div className="bg-[image:var(--color-my-gradient)]">
-        <div className="max-w-[1400px] pt-8 flex flex-col mx-auto w-[90%]">
-          {/* heading */}
+      <div className="max-w-[1400px] pt-8 flex flex-col mx-auto w-[90%]">
+        {/* heading */}
 
-             <header className="flex flex-row  justify-between items-center  p-4 max-sm:px-0  ">
-            <div className="w-[60%] max-sm:w-[50%] space-y-2">
-              <p className="text-4xl max-sm:text-2xl font-bold dark:text-white">
-                Dive Into Live Quizzes Now
-              </p>
-              <p className="text-lg text-my-text-color max-sm:hidden">
-                Test Your Skills in Real-Time with Subject-Wise Live Quizzes for
-                SSC CGL!
-
-              </p>
-            </div>
-            {/* buttons */}
-            <div className="w-[23%] max-sm:w-[35%] flex flex-row max-md:flex-col  justify-between max-sm:items-center items-center max-sm:gap-2 ">
-              <div>
-                <button
-                  onClick={() => setTierChange("for-tier1")}
-                  className={`px-6 py-1.5 border-2 rounded-full text-lg  max-sm:text-sm whitespace-nowrap min-w-[100px]  ${
-                    tierChange === "for-tier1"
-                      ? "bg-[#FFE332] border-[#FFE332]"
-                      : "border-black dark:text-white dark:border-white"
-                  }`}
+        <header className="flex flex-row  justify-between items-center  p-4 max-sm:px-0  ">
+          <div className="w-[60%] max-sm:w-[50%] ">
+            <p className="text-4xl max-sm:text-2xl font-bold dark:text-white">
+              Live Quizzes
+            </p>
+            <p className="text-lg text-my-text-color max-sm:hidden">
+              Compete with aspirants nationwide in real-time
+            </p>
+          </div>
+          {/* buttons */}
+          <div className="w-[23%] max-sm:w-[35%] flex flex-row max-md:flex-col  justify-between max-sm:items-center items-center max-sm:gap-2 ">
+            <div>
+              <button
+                onClick={() => setTierChange("for-tier1")}
+                className={`px-6 py-1 border-2 rounded-xl text-lg  max-sm:text-sm whitespace-nowrap min-w-[100px] flex flex-row gap-2  ${tierChange === "for-tier1" ? "bg-[#047077] border-[#047077]" : "border-2 border-[text-[#6F6F6F] dark:text-white dark:border-white"}`}
+              >
+                <div
+                  className={`${tierChange === "for-tier1" ? "text-white" : "text-[#6F6F6F]"}`}
                 >
-                  For Tier 1
-                </button>
-              </div>
-
-              <div>
-                <button
-                  onClick={() => {
-                    setTierChange("for-tier2");
-                  }}
-                  className={`px-6 py-1.5 border-2 rounded-full text-lg  max-sm:text-sm whitespace-nowrap min-w-[100px] ${tierChange === "for-tier2" ? "bg-[#FFE332] border-[#FFE332]" : "border-2 border-black dark:text-white dark:border-white"}`}
+                  <HiOutlineChartSquareBar
+                    className={`my-auto size-7 ${tierChange === "for-tier1" ? "text-white" : "text-[#6F6F6F]"}`}
+                  />{" "}
+                </div>
+                <p
+                  className={` my-auto ${tierChange === "for-tier1" ? "text-white" : "text-[#6F6F6F]"}`}
                 >
-                  For Tier 2
-                </button>
-              </div>
+                  {" "}
+                  Tier 1
+                </p>
+              </button>
             </div>
-          </header>
 
-          {/* main boady */}
-          <main className="  ">
-            {tierChange === "for-tier1" ? (
-              <div className="   flex flex-row flex-nowrap justify-between py-12   overflow-x-auto  max-sm:min-h-[326]  scrollbar-hide  ">
-                {/* cards */}
+            <div>
+              <button
+                onClick={() => {
+                  setTierChange("for-tier2");
+                }}
+                className={`px-6 py-1 border-2 rounded-xl text-lg  max-sm:text-sm whitespace-nowrap min-w-[100px] flex flex-row gap-2  ${tierChange === "for-tier2" ? "bg-[#047077] border-[#047077]" : "border-2 border-[text-[#6F6F6F] dark:text-white dark:border-white"}`}
+              >
+                <div
+                  className={`${tierChange === "for-tier2" ? "text-white" : "text-[#6F6F6F]"}`}
+                >
+                  <HiOutlineChartSquareBar
+                    className={` my-auto size-7 ${tierChange === "for-tier2" ? "text-white" : "text-[#6F6F6F]"}`}
+                  />
+                </div>
+                <p
+                  className={` my-auto ${tierChange === "for-tier2" ? "text-white" : "text-[#6F6F6F]"}`}
+                >
+                  {" "}
+                  Tier 2
+                </p>
+              </button>
+            </div>
+          </div>
+        </header>
 
-                {Tier1.map((item: any, index: number) => (
+        {/* main boady */}
+        <main className=" ">
+          {tierChange === "for-tier1" ? (
+            <div className="grid grid-cols-2 max-md:grid-cols-1 gap-4 py-4">
+              {Tier1.map((item: any, index: number) => {
+                const Icon = item.icon;
+
+                return (
                   <div
                     key={index}
-                    className="px-2 flex-shrink-0 
-             w-[25%] lg:max-h-[280px] lg:max-w-[280px] 
-             max-sm:w-[70%] rounded-t-lg rounded-b-lg   "
+                    className={`flex flex-row border-2 items-center justify-between py-4 rounded-xl px-6 ${item.border} ${item.bg}`}
                   >
-                    {/* top */}
-                    <div className="flex flex-col justify-center items-center py-6 bg-[#F1F7F7] rounded-t-lg">
-                      <div className="-mt-12">
-                        <Image
-                          src={item.image}
-                          alt={item.title}
-                          width={60}
-                          height={60}
-                        />
-                      </div>
-                      <div className="min-h-[65px] max-sm:min-h-[50px] w-full ">
-                        <p className="text-lg font-bold pt-3 text-center">
-                          {item.title}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* middle */}
-                    <div className="flex flex-row justify-between py-3 w-full px-2 bg-white  ">
-                      <div className="w-[30%]">
-                        <p className="text-sm">Questions</p>
-                        <p className="text-sm font-bold">1000+</p>
-                      </div>
-
-                      <div className="w-[35%]">
-                        <div className="flex flex-row gap-1 justify-end">
-                          <MdOutlineEventNote className="my-auto" />
-                          <p className="text-sm">Updated</p>
-                        </div>
-                        <p className="text-sm text-end font-bold">
-                          {new Date().getFullYear()}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* bottom */}
-                    <Link
-                      href={{
-                        pathname: "/quiz",
-                        query: {
-                          category: item.category,
-                          subject: item.subject,
-                        },
-                      }}
-                    >
-                      <div className="w-full bg-[#007076] py-4 rounded-b-lg">
-                        <p className="text-center text-white">Start Quiz</p>
-                      </div>
-                    </Link>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="  relative   max-sm:min-h-[326]">
-                <div className="overflow-hidden  py-12 " ref={emblaRef}>
-                  {/* track */}
-                  <div className="flex">
-                    {Tier2.map((item: any, index: number) => (
+                    {/* Left Section */}
+                    <div className="flex flex-row w-[70%] gap-4">
                       <div
-                        key={index}
-                        className="px-2 flex-shrink-0 
-             w-[25%] lg:max-h-[280px] lg:max-w-[280px] 
-             max-sm:w-[70%] rounded-t-lg rounded-b-lg " // 3 cards visible
+                        className={`${item.iconBg} p-3 max-md:p-4 rounded-full flex items-center justify-center`}
                       >
-                        <div className="bg-white rounded-t-lg rounded-b-lg max-h-[280px]">
-                          {/* top */}
-                          <div className="flex flex-col justify-center items-center py-6 bg-[#F1F7F7] rounded-t-lg">
-                            <div className="-mt-12">
-                              <Image
-                                src={item.image}
-                                alt={item.title}
-                                width={60}
-                                height={60}
-                              />
-                            </div>
-                            <div className="min-h-[65px] max-sm:min-h-[50px] w-full ">
-                              <p className="text-lg font-bold pt-3 text-center">
-                                {item.title}
-                              </p>
-                            </div>
-                          </div>
-
-                          {/* middle */}
-                          <div className="flex flex-row justify-between py-3 w-full px-2 bg-white">
-                            <div className="w-[30%]">
-                              <p className="text-sm">Questions</p>
-                              <p className="text-sm font-bold">1000+</p>
-                            </div>
-                            <div className="w-[35%]">
-                              <div className="flex flex-row gap-1 justify-end">
-                                <MdOutlineEventNote className="my-auto" />
-                                <p className="text-sm">Updated</p>
-                              </div>
-                              <p className="text-sm text-end font-bold">
-                                {new Date().getFullYear()}
-                              </p>
-                            </div>
-                          </div>
-
-                          {/* bottom */}
-                          <Link
-                            href={
-                              item.title === "Data Entry Speed Test"
-                                ? "/typing-test/intro"
-                                : {
-                                    pathname: "/quiz",
-                                    query: {
-                                      category: item.category,
-                                      subject: item.subject,
-                                    },
-                                  }
-                            }
-                          >
-                            <div className="w-full bg-[#007076] py-4 rounded-b-lg">
-                              <p className="text-center text-white">
-                                Start Quiz
-                              </p>
-                            </div>
-                          </Link>
-                        </div>
+                        <Icon className="text-white size-6" />
                       </div>
-                    ))}
-                  </div>
-                </div>
 
-                {/* controls */}
-                <button
-                  onClick={scrollPrev}
-                  disabled={!canPrev}
-                  className={` max-sm:hidden absolute -left-2 top-34 -translate-y-1/2 p-3 rounded-full 
-    ${canPrev ? "bg-white text-[#007076]" : "bg-white text-[#007076] opacity-80"}`}
-                >
-                  <IoIosArrowBack />
-                </button>
-                <button
-                  onClick={scrollNext}
-                  disabled={!canNext}
-                  className={`  max-sm:hidden absolute -right-2 top-34 -translate-y-1/2 p-3 rounded-full 
-    ${canNext ? "bg-white text-[#007076]" : "bg-white text-[#007076] opacity-80"}`}
-                >
-                  <IoIosArrowForward />
-                </button>
+                      <p className="my-auto text-xl">{item.title}</p>
+                    </div>
+
+                    {/* Right Arrow */}
+                    <div
+                      className={`bg-white rounded-full p-3  flex items-center justify-center`}
+                    >
+                      <RiArrowRightWideLine className={`${item.textbg} size-6 `} />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="  relative   max-sm:min-h-[326]">
+              {/* track */}
+              <div className="grid grid-cols-2 gap-4 py-4">
+               {Tier2.map((item: any, index: number) => {
+                const Icon = item.icon;
+
+                return (
+                  <div
+                    key={index}
+                    className={`flex flex-row border-2 items-center justify-between py-4 rounded-xl px-6 ${item.border} ${item.bg}`}
+                  >
+                    {/* Left Section */}
+                    <div className="flex flex-row w-[70%] gap-4">
+                      <div
+                        className={`${item.iconBg} p-3 max-md:p-4 rounded-full flex items-center justify-center`}
+                      >
+                        <Icon className="text-white size-6" />
+                      </div>
+
+                      <p className="my-auto text-xl">{item.title}</p>
+                    </div>
+
+                    {/* Right Arrow */}
+                    <div
+                      className={`bg-white rounded-full p-3  flex items-center justify-center`}
+                    >
+                      <RiArrowRightWideLine className={`${item.textbg} size-6 `} />
+                    </div>
+                  </div>
+                );
+              })}
               </div>
-            )}
-          </main>
-        </div>
+            </div>
+          )}
+        </main>
       </div>
     </>
   );

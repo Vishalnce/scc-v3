@@ -3,41 +3,47 @@ import React from "react";
 
 function Card2() {
   return (
-    <div className="flex-none w-[80%] px-8 mb-8 ">
+    <div className="bg-gradient-to-r from-[#289AA2] to-[#8CD6DB] rounded-2xl shadow pb-5  md:min-h-[380px]">
       {/* main div */}
-      <div className=" bg-gradient-to-r from-[#289AA2] to-[#8CD6DB]  rounded-2xl shadow  ">
-        <div className="flex flex-row items-center justify-center pt-6  px-6">
-          {/* text  */}
-          <div className="  flex flex-col  justify-between items-start gap-6  w-[70%]  pr-4">
-            <p className=" text-4xl text-white font-montserrat font-semibold">
-              Conquer SSC CGL with Our Power-Packed Test Series
-            </p>
 
-            <p className="text-white text-xl ">
-              Sharpen Your Skills and Track Your Progress with Realistic Mock
-              Tests Designed for SSC CGL Excellence.
-            </p>
+      <div className="flex flex-row items-center justify-center max-md:justify-start md:pt-10 pt-6 md:px-6 px-3">
+        {/* text */}
+        <div className=" flex flex-col  justify-between items-start md:gap-6 w-[70%] max-md:w-[65%]   ">
+          <p className="text-4xl max-md:text-lg text-white font-montserrat font-semibold">
+            Conquer SSC CGL{" "}
+            <span className="max-md:hidden">
+              with Our Power-Packed Test Series
+            </span>
+          </p>
 
-            <div className=" flex flex-row gap-6">
-              <button className=" mt-6 bg-[#FFFFFFCC]  text-xl px-12  py-2 rounded-2xl font-semibold">
-              Mock Test
-              </button>
-              <button className=" mt-6 bg-[#FFFFFFCC]  text-xl px-12 py-2 rounded-2xl font-semibold">
-            Test Series
-              </button>
-            </div>
+          <p className="text-white text-xl max-md:text-sm max-md:pt-2 max-md:leading-4">
+            Sharpen Your Skills and Track Your Progress with Realistic Mock Tests
+            <span className="max-md:hidden">
+              {" "}
+              Designed for SSC CGL Excellence.
+            </span>
+          </p>
+
+          <div className="flex flex-row max-md:items-center max-md:justify-center gap-2 w-full  pt-4">
+            <button className="md:mt-6  bg-[#FFFFFFCC] md:text-xl md:px-12 px-2 py-2 rounded-2xl font-semibold max-sm:text-sm whitespace-nowrap">
+              <p className=" ">Mock Test</p>
+            </button>
+   
+            <button className="md:mt-6 bg-[#FFFFFFCC] md:text-xl md:px-12 py-2 rounded-2xl font-semibold max-md:px-2  max-sm:text-sm whitespace-nowrap">
+                 <p>Test Series</p>
+            </button>
           </div>
+        </div>
 
-          {/* image */}
-
-          <div className=" ">
-            <Image
-              src={"/ui/client/home/Hero/boy1.png"}
-              width={400}
-              height={400}
-              alt="hero"
-            />
-          </div>
+        {/* image */}
+        <div className=" max-md:absolute right-3 top-6 max-md:w-[30%] w-[20%] ">
+          <Image
+            src={"/ui/client/home/Hero/boy1.png"}
+            width={400}
+            height={400}
+            alt="hero"
+            className="max-md:scale-[120%]"
+          />
         </div>
       </div>
     </div>

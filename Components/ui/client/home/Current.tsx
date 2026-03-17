@@ -72,44 +72,39 @@ export default function Current() {
 
   const scrollPrev = useCallback(
     () => emblaApi && emblaApi.scrollPrev(),
-    [emblaApi]
+    [emblaApi],
   );
   const scrollNext = useCallback(
     () => emblaApi && emblaApi.scrollNext(),
-    [emblaApi]
+    [emblaApi],
   );
 
   return (
-    <div className="bg-[image:var(--color-my-gradient)]">
+    <div className="">
       <div className="max-w-[1400px] pt-8 flex flex-col mx-auto  w-[90%]  relative">
         {/* heading */}
         <header className="flex flex-row justify-between items-center  ">
           <div className="w-[60%] space-y-2">
             <p className="text-4xl font-bold dark:text-white max-sm:text-2xl">
-              Check out the Latest Current Affairs
+              Current Affairs
             </p>
             <p className="text-lg text-my-text-color max-sm:hidden">
-              Boost Your General Awareness with Daily Updated Current Affairs
-              for SSC CGL Success!
+              Stay updated with the latest news and events
             </p>
           </div>
 
-         
-          
           <div>
             <Link href={"/current-affaris"}>
-                 <button className="p-2 px-6 text-lg max-sm:text-sm bg-[#007076] text-white rounded-full ">
-              View All
-            </button>
-            
+              <p className="p-2 px-6 text-lg max-sm:text-sm  text-[#007076] rounded-full  underline">
+                View All
+              </p>
             </Link>
-       
           </div>
         </header>
 
         {/* main body */}
         <div
-          className="overflow-hidden  my-16 dark:bg-black pb-6 border-2  text-fade-right"
+          className="overflow-hidden  my-16 dark:bg-black pb-6 border-2  "
           ref={emblaRef}
         >
           <div className="flex">
@@ -120,7 +115,7 @@ export default function Current() {
             ) : (
               affairs.map((item, index) => (
                 <Link
-                href={`/current-affaris-page/${item.slug}`}
+                  href={`/current-affaris-page/${item.slug}`}
                   className="min-w-[33.333%] max-sm:min-w-[90%] px-2 max-sm:pr-8 "
                   key={index}
                 >
@@ -190,3 +185,58 @@ export default function Current() {
     </div>
   );
 }
+
+// <div className="flex">
+//         {loading ? (
+//           <p className="p-4">Loading...</p>
+//         ) : affairs.length === 0 ? (
+//           <p className="p-4">No current affairs available</p>
+//         ) : (
+//           affairs.map((item, index) => (
+//             <Link
+//               href={`/current-affaris-page/${item.slug}`}
+//               className="min-w-[33.333%] max-sm:min-w-[90%] px-2 max-sm:pr-8 "
+//               key={index}
+//             >
+//               {/* iimage */}
+
+//               <div className="w-full h-48 relative shadow-2xl">
+//                 {" "}
+//                 {/* parent is relative */}
+//                 <Image
+//                   src={item.image}
+//                   alt={item.alt}
+//                   fill // makes it absolute inside parent
+//                   className="object-cover rounded-t-2xl"
+//                 />
+//               </div>
+
+//               {/* boady */}
+
+//               <div className="flex flex-col rounded-b-2xl shadow-2xl items-stretch px-2 min-h-70 sm:min-h-80  ">
+//                 <div className="flex flex-row justify-between items-center py-2 pt-4 ">
+//                   <div className="text-sm p-2 rounded-full bg-[#FFE332]">
+//                     Updated
+//                   </div>
+//                   <div className="dark:text-white">
+//                     {item.createdAt.slice(0, 10)}
+//                   </div>
+//                 </div>
+
+//                 <div>
+//                   <p className="font-bold py-2 dark:text-white sm:min-h-22 min-h-24">
+//                     {item.title}
+//                   </p>
+//                 </div>
+//                 <div className="text-fade dark:text-white line-clamp-3 sm:line-clamp-5">
+//                   {item.summary}
+//                 </div>
+
+//                 <div className="py-2">
+//                   <p className="dark:text-white">Read more</p>
+//                 </div>
+//               </div>
+//             </Link>
+//           ))
+//         )}
+//       </div>

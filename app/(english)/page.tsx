@@ -1,7 +1,7 @@
 
 
 import Hero from "@/Components/ui/client/home/Hero";
-import Reason from "@/Components/ui/client/home/Reason";
+
 import Current from "@/Components/ui/client/home/Current";
 import SmallQuiz from "@/Components/ui/client/home/SamllQuiz"
 import React from "react";
@@ -12,20 +12,26 @@ import Concept from "@/Components/ui/client/home/Concept";
 import MasterConcepts  from "@/Components/ui/client/home/MasterConcepts";
 import AnnounceUpcoming from "@/Components/ui/client/home/AnnounceUpcoming";
 import Banner from "@/Components/ui/client/home/Banner";
+import ProCard from "@/Components/ui/client/ProCard/ProCard";
+import TestSeriesCard from "@/Components/ui/client/TestSeriesCard/TestSeriesCard";
 
 
 function Page() {
   return (
     <>
     <Hero />
-    <Reason />
+     <MasterConcepts/> 
+   
     <Current/>
     <SmallQuiz/>
     <QuizCard/>
+    <ProCard/>
+    <TestSeriesCard/>
+     <Concept/> 
     <DataEntry/>
     <OneLiner/> 
-    <Concept/> 
-    <MasterConcepts/> 
+
+   
     <AnnounceUpcoming/>
     <Banner/>
     

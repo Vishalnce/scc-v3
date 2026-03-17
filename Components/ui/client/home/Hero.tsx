@@ -7,35 +7,37 @@ import SmallNav from "./SmallNav";
 import Card1 from "./HeroCard/Card1";
 import Card3 from "./HeroCard/Card3";
 import Card2 from "./HeroCard/Card2";
+import Card4 from "./HeroCard/Card4";
 
 export default function HeroCarousel() {
-
   const slides = [1, 2, 3];
 
   const [emblaRef] = useEmblaCarousel(
     { loop: true, align: "center" },
-    [Autoplay({ delay: 2000, stopOnInteraction: false })]
-  
+    // [Autoplay({ delay: 2000, stopOnInteraction: false })]
   );
 
   return (
     <div className="w-full  bg-white">
-      
-      <div>
-        <SmallNav/>
-      </div>
+      <div></div>
 
-      <div className="overflow-hidden px-6" ref={emblaRef}>
+      <div className="overflow-hidden md:px-6 px-4 my-4 py-4" ref={emblaRef}>
+        <div className="flex ">
+          <div className="flex-none w-[90%]  md:w-[80%] px-2  ">
+            <Card1 />
+          </div>
 
+          <div className="flex-none w-[90%] md:w-[80%]  px-2 ">
+            <Card2 />
+          </div>
 
-        <div className="flex">
-          <Card1/>
-          <Card2/>
-          <Card3/>
+          <div className="flex-none w-[90%] md:w-[80%] px-2">
+            <Card3 />
+          </div>
 
-          
-
-
+          <div className="flex-none w-[90%] md:w-[80%] px-2 ">
+            <Card4 />
+          </div>
         </div>
 
         {/* container
@@ -52,9 +54,7 @@ export default function HeroCarousel() {
           ))}
 
         </div> */}
-
       </div>
-
     </div>
   );
 }

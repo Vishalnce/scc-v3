@@ -46,6 +46,15 @@ body {
   text-transform: uppercase;
 }
 
+.rectn {
+  transform: translate(120px, 80px) scale(1);
+}
+
+@media (max-width:640px) {
+  .rectn {
+    transform: translate(110px, 70px) scale(1.1);
+  }
+}
 /* Override Lexical table header background for both light and dark mode */
 /* Default light mode table header */
 /* Table header in light mode */

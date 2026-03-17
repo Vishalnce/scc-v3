@@ -1,104 +1,142 @@
-import Image from "next/image";
-import React from "react";
+"use client";
+
+import React, { useEffect, useState, useCallback } from "react";
+import useEmblaCarousel from "embla-carousel-react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { PiCircleBold } from "react-icons/pi";
 
 type Item = {
   id: number;
   content: string;
-  createdAt: Date;
+  createdAt: string;
 };
 
-export default async function OneLiner() {
-  async function fetchOneLiner() {
-    try {
-      // ✅ Resolve base URL dynamically — works locally, in Docker, and in production
-      const baseUrl =
-        process.env.NEXT_PUBLIC_SITE_URL ||
-        process.env.VERCEL_URL ||
-        "http://localhost:3000";
+export default function OneLiner() {
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    slidesToScroll: 1,
+    containScroll: "trimSnaps",
+    align: "start",
+  });
 
-      // ✅ Fetch with optional revalidation (avoid dynamic errors)
-      const res = await fetch(`${baseUrl}/api/en/one-liner/client/?limit=5`, {
-        next: { revalidate: 60 },
-      });
+  const [items, setItems] = useState<Item[]>([]);
+  const [canNext, setCanNext] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-      if (!res.ok) {
-        console.warn("One-liner fetch failed:", res.statusText);
-        return { contents: [] };
+  // fetch data
+  useEffect(() => {
+    const fetchOneLiner = async () => {
+      try {
+        const res = await fetch("/api/en/one-liner/client/?limit=10");
+
+        if (!res.ok) throw new Error("Failed");
+
+        const data = await res.json();
+        setItems(data.contents || []);
+      } catch (err) {
+        console.error("one liner fetch error", err);
+      } finally {
+        setLoading(false);
       }
+    };
 
-      const data = await res.json();
+    fetchOneLiner();
+  }, []);
 
-      // ✅ Ensure data structure safety
-      return data && Array.isArray(data.contents) ? data : { contents: [] };
-    } catch (error) {
-      console.error("error in one liner:", error);
-      return { contents: [] }; // safe fallback
-    }
+  // update arrow button
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    const update = () => {
+      setCanNext(emblaApi.canScrollNext());
+    };
+
+    update();
+    emblaApi.on("select", update);
+    emblaApi.on("reInit", update);
+
+    return () => {
+      emblaApi.off("select", update);
+      emblaApi.off("reInit", update);
+    };
+  }, [emblaApi]);
+
+  const scrollNext = useCallback(() => {
+    emblaApi && emblaApi.scrollNext();
+  }, [emblaApi]);
+
+  function formatDate(dateString: string) {
+    const date = new Date(dateString);
+
+    const day = date.getDate();
+    const month = date.toLocaleString("en-US", { month: "long" });
+
+    const getOrdinal = (n: number) => {
+      if (n > 3 && n < 21) return "th";
+      switch (n % 10) {
+        case 1:
+          return "st";
+        case 2:
+          return "nd";
+        case 3:
+          return "rd";
+        default:
+          return "th";
+      }
+    };
+
+    return `Updated on ${day}${getOrdinal(day)}, ${month}`;
   }
-  const { contents } = await fetchOneLiner();
 
   return (
-    <>
-      <div className="bg-white dark:bg-[black]">
-        <div className="max-w-[1400px] pt-12 max-sm:pt-6 flex flex-col mx-auto  w-[90%]">
-          {/* heading */}
-          <header className="flex flex-row justify-between   py-4">
-            <div className="w-[60%] ">
-              <p className="text-4xl max-sm:text-2xl font-bold dark:text-white">
-                One-Liner Current Affairs for Quick Revision
-              </p>
-              <div className="w-[40%] max-lg:hidden py-2">
-                <p className="bg-[#2CBB0180] w-full rounded-full py-2 px-6 my-2 text-black text-lg flex items-center ">
-                  {/* White circle container */}
-                  <span className="relative mr-2 w-5 h-5 rounded-full bg-white flex items-center justify-center">
-                    {/* Blinking green dot centered inside */}
-                    <span
-                      className="w-3 h-3 rounded-full bg-green-600 animate-pulse"
-                      aria-label="live indicator"
-                       style={{ animationDuration: '0.7s' }}
-                    ></span>
-                  </span>
-                  Don't Miss The Live Quizzes
-                </p>
-              </div>
-            </div>
-            <div>
-              <button className="p-2 px-6 bg-[#FFE332] max-sm:text-sm  rounded-full text-lg">
-                Read More
-              </button>
-            </div>
-          </header>
+    <div className="bg-white dark:bg-black">
+      <div className="max-w-[1400px] pt-12 flex flex-col mx-auto w-[90%] relative">
+        {/* heading */}
+        <header className="flex justify-between py-4">
+          <p className="text-3xl max-sm:text-2xl font-bold dark:text-white">
+            One-Liner Current Affairs
+          </p>
+        </header>
 
-          <main className="w-full  flex flex-row justify-between  pb-10 mt-4 ">
-            {/* one liner */}
-            <div className="text-fade max-lg:w-[100%] w-[55%]  flex flex-col justify-between ">
-              {contents.map((item: Item) => (
+        {/* carousel */}
+        <div className="overflow-hidden mt-6" ref={emblaRef}>
+          <div className="flex gap-4">
+            {loading ? (
+              <p>Loading...</p>
+            ) : (
+              items.map((item, index) => (
                 <div
                   key={item.id}
-                  className="flex flex-row items-start justify-start py-1 gap-2"
+                  className="min-w-[40.333%] max-sm:min-w-[85%] pt-4  px-2 border-2 rounded-xl bg-[#F8FAFC] border-[#DADADA] flex flex-row gap-4 "
                 >
-                  <MdKeyboardArrowRight  className="font-bold text-lg size-6 flex-shrink-0 dark:text-white" />
-                  <p className="dark:text-white text-lg">{item.content}</p>
+                  <div className="flex gap-3 items-start">
+                    <span className="font-semibold text-3xl text-white bg-[#007076] px-2 py-2 rounded-xl">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                  </div>
+
+                  <div className="">
+                    {" "}
+                    <p className=" font- text-lg">{item.content}</p>
+                    <p className="text-[#6F6F6F]">
+                      {formatDate(item.createdAt)}
+                    </p>
+                  </div>
                 </div>
-              ))}
-            </div>
-
-            {/* image */}
-
-            <div className="w-[35%]  max-lg:hidden ">
-              <Image
-                src={"/ui/client/home/boy.png"}
-                alt="boy-reading"
-                width={443}
-                height={294}
-              />
-            </div>
-
-          </main>
+              ))
+            )}
+          </div>
         </div>
+
+        {/* right scroll button */}
+        <button
+          onClick={scrollNext}
+          disabled={!canNext}
+          className={`absolute right-0 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white shadow text-[#007076] text-xl
+          ${!canNext ? "opacity-50 cursor-not-allowed" : ""}`}
+        >
+          <MdKeyboardArrowRight />
+        </button>
       </div>
-    </>
+    </div>
   );
 }
