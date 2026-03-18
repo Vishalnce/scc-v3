@@ -22,6 +22,7 @@ type PostType = {
   description: string;
   editorHtml: string;
   timeLimit: number;
+  timeToRead : number;
   toc: string;
 };
 const options = [
@@ -427,6 +428,26 @@ export default function Page({
           min="0"
           max="200"
           {...register("timeLimit", { valueAsNumber: true })}
+          placeholder="Time limit FOR QUIZ"
+          className="border border-gray-300 p-3 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+        />
+      </div>
+
+
+        <div>
+        <label
+          htmlFor="timeLimit"
+          className="block mb-2 font-semibold text-gray-700"
+        >
+          Time limit For Read BLog
+        </label>
+        <input
+          id="timeLimit"
+          type="number"
+          step="0.000001"
+          min="0"
+          max="200"
+          {...register("timeToRead", { valueAsNumber: true })}
           placeholder="Time limit FOR QUIZ"
           className="border border-gray-300 p-3 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
         />

@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
     const slug = url.searchParams.get("slug");
 
     if (slug) {
-      const post = await db.post.findUnique({
+      const post = await db.currentAffairs.findUnique({
         where: { slug },
       });
 
@@ -25,7 +25,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ success: true, post });
     }
 
-    const posts = await db.post.findMany({
+    const posts = await db.currentAffairs.findMany({
       orderBy: { id: "desc" },
     });
 
@@ -44,11 +44,14 @@ export async function PATCH(req: NextRequest) {
   try {
     const session = await requireAdmin();
     if (session instanceof NextResponse) return session;
+
     const body = await req.json();
 
-    const updated = await db.post.update({
-      where: { slug: body.slug },
-      data: body,
+    const { id, ...data } = body;
+
+    const updated = await db.currentAffairs.update({
+      where: { id },
+      data,
     });
 
     return NextResponse.json({ success: true, post: updated });
@@ -77,9 +80,10 @@ export async function POST(req: NextRequest) {
       description,
       editorHtml,
       toc,
+      timeToRead,
     } = body;
 
-    const post = await db.post.create({
+    const post = await db.currentAffairs.create({
       data: {
         title,
         slug,
@@ -90,6 +94,7 @@ export async function POST(req: NextRequest) {
         keywords,
         description,
         editorHtml,
+        timeToRead,
         toc,
       },
     });
@@ -136,7 +141,7 @@ export async function DELETE(req: NextRequest) {
     //   }
     // })
 
-    const post = await db.post.delete({
+    const post = await db.currentAffairs.delete({
       where: { slug },
     });
 

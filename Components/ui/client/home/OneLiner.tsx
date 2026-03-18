@@ -116,8 +116,8 @@ export default function OneLiner() {
 
                   <div className="">
                     {" "}
-                    <p className=" font- text-lg">{item.content}</p>
-                    <p className="text-[#6F6F6F]">
+                    <p className=" font-medium md:text-lg">{item.content}</p>
+                    <p className="text-[#6F6F6F] max-md:text-sm mt-2 mb-4">
                       {formatDate(item.createdAt)}
                     </p>
                   </div>

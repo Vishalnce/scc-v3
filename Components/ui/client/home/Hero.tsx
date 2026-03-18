@@ -3,7 +3,7 @@
 import React from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import SmallNav from "./SmallNav";
+import SmallNav from "../../../layout/Nav/SmallNav";
 import Card1 from "./HeroCard/Card1";
 import Card3 from "./HeroCard/Card3";
 import Card2 from "./HeroCard/Card2";
@@ -21,21 +21,21 @@ export default function HeroCarousel() {
     <div className="w-full  bg-white">
       <div></div>
 
-      <div className="overflow-hidden md:px-6 px-4 my-4 py-4" ref={emblaRef}>
+      <div className="overflow-hidden md:px-6 px-4 my-4 py-4 " ref={emblaRef}>
         <div className="flex ">
-          <div className="flex-none w-[90%]  md:w-[80%] px-2  ">
+          <div className="flex-none w-[100%]  md:w-[80%] px-2 ">
             <Card1 />
           </div>
 
-          <div className="flex-none w-[90%] md:w-[80%]  px-2 ">
+          <div className="flex-none w-[100%] md:w-[80%]  px-2 ">
             <Card2 />
           </div>
 
-          <div className="flex-none w-[90%] md:w-[80%] px-2">
+          <div className="flex-none w-[100%] md:w-[80%] px-2">
             <Card3 />
           </div>
 
-          <div className="flex-none w-[90%] md:w-[80%] px-2 ">
+          <div className="flex-none w-[100%] md:w-[80%] px-2 ">
             <Card4 />
           </div>
         </div>

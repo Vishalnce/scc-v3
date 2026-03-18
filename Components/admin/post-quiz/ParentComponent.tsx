@@ -15,6 +15,7 @@ type PostType = {
   description: string;
   editorHtml: string;
   timeLimit:number;
+  timeToRead : number;
   toc: string;
 };
 

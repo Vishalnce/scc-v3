@@ -28,12 +28,12 @@ export async function GET(req: NextRequest) {
     }
 
     const [posts, totalCount] = await Promise.all([
-      db.post.findMany({
+      db.currentAffairs.findMany({
         orderBy: { createdAt: "desc" },
         skip: (page - 1) * limit,
         take: limit,
       }),
-      db.post.count({ where }),
+      db.currentAffairs.count({ where }),
     ]);
 
     return NextResponse.json({ posts, totalCount,page }, { status: 200 });

@@ -12,7 +12,7 @@ export default async function AdminEditorPage({
   let editPostId = null;
   const params = (await searchParams).slug;
   if (params) {
-    post = await db.post.findUnique({
+    post = await db.currentAffairs.findUnique({
       where: { slug: params },
     });
 

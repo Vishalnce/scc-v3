@@ -149,8 +149,8 @@ const Tier2: any = [
       <div className="max-w-[1400px] pt-8 flex flex-col mx-auto w-[90%]">
         {/* heading */}
 
-        <header className="flex flex-row  justify-between items-center  p-4 max-sm:px-0  ">
-          <div className="w-[60%] max-sm:w-[50%] ">
+        <header className="flex flex-row max-md:flex-col max-md:justify-startw justify-between items-center  p-4 max-sm:px-0  ">
+          <div className="w-[60%] max-sm:w-full ">
             <p className="text-4xl max-sm:text-2xl font-bold dark:text-white">
               Live Quizzes
             </p>
@@ -159,11 +159,11 @@ const Tier2: any = [
             </p>
           </div>
           {/* buttons */}
-          <div className="w-[23%] max-sm:w-[35%] flex flex-row max-md:flex-col  justify-between max-sm:items-center items-center max-sm:gap-2 ">
+          <div className="w-[23%] max-md:w-full flex flex-row max-md:flex-row max-md:py-2 justify-between  items-center ">
             <div>
               <button
                 onClick={() => setTierChange("for-tier1")}
-                className={`px-6 py-1 border-2 rounded-xl text-lg  max-sm:text-sm whitespace-nowrap min-w-[100px] flex flex-row gap-2  ${tierChange === "for-tier1" ? "bg-[#047077] border-[#047077]" : "border-2 border-[text-[#6F6F6F] dark:text-white dark:border-white"}`}
+                className={`px-6 py-1  rounded-xl text-lg max-md:py-2 max-md:px-10 max-sm:text-sm whitespace-nowrap min-w-[100px] flex flex-row gap-2  ${tierChange === "for-tier1" ? "bg-[#047077] border-[#047077]" : "border-2 border-[text-[#6F6F6F] dark:text-white dark:border-white"}`}
               >
                 <div
                   className={`${tierChange === "for-tier1" ? "text-white" : "text-[#6F6F6F]"}`}
@@ -186,7 +186,7 @@ const Tier2: any = [
                 onClick={() => {
                   setTierChange("for-tier2");
                 }}
-                className={`px-6 py-1 border-2 rounded-xl text-lg  max-sm:text-sm whitespace-nowrap min-w-[100px] flex flex-row gap-2  ${tierChange === "for-tier2" ? "bg-[#047077] border-[#047077]" : "border-2 border-[text-[#6F6F6F] dark:text-white dark:border-white"}`}
+                className={`px-6 py-1 border-2 rounded-xl text-lg  max-md:py-2 max-md:px-10  max-sm:text-sm whitespace-nowrap min-w-[100px] flex flex-row gap-2  ${tierChange === "for-tier2" ? "bg-[#047077] border-[#047077]" : "border-2 border-[text-[#6F6F6F] dark:text-white dark:border-white"}`}
               >
                 <div
                   className={`${tierChange === "for-tier2" ? "text-white" : "text-[#6F6F6F]"}`}

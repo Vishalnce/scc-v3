@@ -8,9 +8,9 @@ function EnglishMobileLogin() {
     <>
       <div className="flex flex-row  w-full">
         {status === "authenticated" ? (
-          <div>
+          <div className=" w-full flex justify-center">
             <button
-              className="px-6 py-0.5 pb-1 border-2 border-[#007076] rounded-lg bg-my-green text-white max-lg:text-sm max-sm:px-2  "
+              className=" border-2 border-[#007076] px-6 py-1 rounded-full bg-my-green  w-full text-white max-lg:text-lg max-sm:px-2  "
               onClick={() => {
                 signOut();
               }}

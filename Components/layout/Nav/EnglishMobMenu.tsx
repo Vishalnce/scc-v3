@@ -33,6 +33,9 @@ import {
 import { FiBookOpen } from "react-icons/fi";
 import { VscGraph } from "react-icons/vsc";
 import EnglishMobileLogin from "./EnglishMobileLogin";
+import MobileThemeToggle from "./MobileThemeToggle";
+import EnglishHindi from "./EnglishHindi";
+
 
 function EnglishMobMenu() {
   const [isOpen, setIsOpen] = useState(true);
@@ -49,7 +52,7 @@ function EnglishMobMenu() {
 
   return (
     <>
-      <div className="fixed top-[65px] left-0 w-full h-[75vh] bg-white z-50 flex flex-col items-center gap-2  ">
+      <div className="fixed top-[65px] left-0 w-full h-[100vh] border-2 bg-white z-50 flex flex-col items-center gap-2  ">
         {/* cureent affais */}
         <div className=" w-[85%] ">
           <div
@@ -110,8 +113,11 @@ function EnglishMobMenu() {
             className=" rounded-xl  shadow flex flex-row justify-between py-2 px-2 "
             onClick={() => handleClick("mini-pre-concepts")}
           >
-            <div className="flex flex-row gap-2">
-              <LuBookOpen className="my-auto size-5" />
+            <div className="flex flex-row gap-2 ">
+              <div className="bg-white p-1 rounded-full shadow-[0_0_6px_rgba(0,0,0,0.4)] my-auto ">
+                   <LuBookOpen className="my-auto size-5" />
+              </div>
+           
               <p className="py-1  font-bold text-center ">Concepts</p>
             </div>
 
@@ -602,6 +608,16 @@ function EnglishMobMenu() {
         <div className="w-[85%]">
               <EnglishMobileLogin/>
 
+        </div>
+
+        <div className="w-[85%] ">
+
+          <MobileThemeToggle/>
+        </div>
+
+        <div className="w-[85%] "> 
+
+              <EnglishHindi/>
         </div>
       </div>
     </>

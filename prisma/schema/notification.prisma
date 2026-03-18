@@ -13,7 +13,7 @@ model Notification {
   quiz        Quiz?         @relation(fields: [quizId], references: [id],onDelete: Cascade)
 
   currentAffairId Int?
-  currentAffair    Post? @relation(fields: [currentAffairId], references: [id],onDelete: Cascade)
+  currentAffair    CurrentAffairs? @relation(fields: [currentAffairId], references: [id],onDelete: Cascade)
 
 
 }

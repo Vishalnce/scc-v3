@@ -3,7 +3,7 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import CountdownTimer from "./CountdownTimer";
 import { FaRegCircle } from "react-icons/fa";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
-import Quiz from "@/Components/ui/client/home/SamllQuiz";
+import Quiz from "@/Components/ui/client/home/smallQuiz/SamllQuizMain";
 import { CiClock1 } from "react-icons/ci";
 import { set } from "date-fns";
 import Image from "next/image";
@@ -60,7 +60,7 @@ export default function QuizQuestion({
       answered: false, // Changed from null to false
       noAnswered: false, // Changed from null to false
       notVisited: true, // Set to true as they haven't been visited yet
-    }))
+    })),
   );
   const [counts, setCounts] = useState<{
     answered: number;
@@ -99,7 +99,7 @@ export default function QuizQuestion({
         }
 
         return m;
-      })
+      }),
     );
   }, [current]);
 
@@ -132,7 +132,7 @@ export default function QuizQuestion({
           };
         }
         return m;
-      })
+      }),
     );
   };
 
@@ -161,7 +161,7 @@ export default function QuizQuestion({
   const handleTimerFinish = useCallback(() => {
     onFinish(answersRef.current); // read latest answers from ref
   }, [onFinish]);
-const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isNavOpen, setIsNavOpen] = useState(false);
   return (
     <>
       <div className=" dark:bg-black ">
@@ -326,7 +326,7 @@ const [isNavOpen, setIsNavOpen] = useState(false);
                             />
                           </div>
                         );
-                      }
+                      },
                     )}
                   </div>
                 </div>
@@ -336,11 +336,8 @@ const [isNavOpen, setIsNavOpen] = useState(false);
 
           {/* right div of question and option */}
 
-
-
-
-       <div
-  className={`
+          <div
+            className={`
     dark:border-white dark:bg-[#313131] rounded-2xl w-[32%] self-stretch flex flex-col
     max-sm:w-full px-2 py-2 border-2 bg-[#FAFCFC] border-[#E6F1F1]
 
@@ -354,70 +351,69 @@ const [isNavOpen, setIsNavOpen] = useState(false);
         : "max-sm:bottom-[64px] max-sm:h-[80px]"
     }
   `}
->
-  {/* HEADER BAR (Always Visible) */}
-  <div className="flex flex-row justify-between items-center pb-2 dark:text-white">
-    <CountdownTimer
-      minutes={timeLimit}
-      onFinish={handleTimerFinish}
-      setTimeTaken={setTimeTaken}
-    />
+          >
+            {/* HEADER BAR (Always Visible) */}
+            <div className="flex flex-row justify-between items-center pb-2 dark:text-white">
+              <CountdownTimer
+                minutes={timeLimit}
+                onFinish={handleTimerFinish}
+                setTimeTaken={setTimeTaken}
+              />
 
-    <div className="flex items-center gap-2">
-      <button className="px-4 py-2 bg-[#95DC7F] rounded-full text-sm dark:text-black capitalize">
-        {topic}
-      </button>
+              <div className="flex items-center gap-2">
+                <button className="px-4 py-2 bg-[#95DC7F] rounded-full text-sm dark:text-black capitalize">
+                  {topic}
+                </button>
 
-      {/* Toggle Button */}
-      <button
-        onClick={() => setIsNavOpen((p) => !p)}
-        className="p-2 rounded-full border border-gray-300 dark:border-white"
-      >
-        {isNavOpen ? (
-          <MdKeyboardArrowDown className="size-6" />
-        ) : (
-          <MdKeyboardArrowUp className="size-6" />
-        )}
-      </button>
-    </div>
-  </div>
+                {/* Toggle Button */}
+                <button
+                  onClick={() => setIsNavOpen((p) => !p)}
+                  className="p-2 rounded-full border border-gray-300 dark:border-white"
+                >
+                  {isNavOpen ? (
+                    <MdKeyboardArrowDown className="size-6" />
+                  ) : (
+                    <MdKeyboardArrowUp className="size-6" />
+                  )}
+                </button>
+              </div>
+            </div>
 
-  {/* BODY (only visible when open) */}
-  <div
-    className={`
+            {/* BODY (only visible when open) */}
+            <div
+              className={`
       overflow-hidden transition-all duration-300 ease-in-out
       ${isNavOpen ? "opacity-100 max-sm:flex-1" : "opacity-0 max-sm:h-0"}
     `}
-  >
-    <div className="h-full overflow-y-auto">
-      <div className="flex flex-row sm:flex-wrap overflow-x-auto sm:justify-center items-center gap-3">
-        {Array.from({ length: questions.length }, (_, idx) => {
-          const m = mark[idx];
+            >
+              <div className="h-full overflow-y-auto">
+                <div className="flex flex-row sm:flex-wrap overflow-x-auto sm:justify-center items-center gap-3">
+                  {Array.from({ length: questions.length }, (_, idx) => {
+                    const m = mark[idx];
 
-          return (
-            <div key={idx}>
-              <button
-                onClick={() => handleOnClick(idx)}
-                className={`px-4 py-2 min-w-[50px] border-1 border-[#C2C2C2] dark:text-white rounded
+                    return (
+                      <div key={idx}>
+                        <button
+                          onClick={() => handleOnClick(idx)}
+                          className={`px-4 py-2 min-w-[50px] border-1 border-[#C2C2C2] dark:text-white rounded
                 ${
                   m.notVisited
                     ? ""
                     : m.answered
-                    ? "bg-[#2CBB01] dark:border-[#2CBB01] text-white"
-                    : "bg-[#FF0000] dark:border-[#FF0000] text-white"
+                      ? "bg-[#2CBB01] dark:border-[#2CBB01] text-white"
+                      : "bg-[#FF0000] dark:border-[#FF0000] text-white"
                 }
               `}
-              >
-                {idx + 1}
-              </button>
+                        >
+                          {idx + 1}
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
-          );
-        })}
-      </div>
-    </div>
-  </div>
-</div>
-
+          </div>
         </div>
 
         {/* navigation box  */}

@@ -22,7 +22,7 @@ export default function MasterConcepts() {
       bg: "#F8FBFF",
       circle: "#E9F3FF",
       incircle: "#24B3CB",
-      title: "Quantitative Aptitude",
+      title: "Quant. Aptitude",
       category: "pre",
       subject: "quantitative-apptitude",
       Icon: Icon1,
@@ -44,7 +44,7 @@ export default function MasterConcepts() {
       circle: "#FFF1DF ",
       incircle: "#F89716",
 
-      title: "English Comp",
+      title: "English Comph.",
       category: "pre",
       subject: "english-comprehension",
       Icon: Icon3,
@@ -174,9 +174,9 @@ export default function MasterConcepts() {
         <div className="max-w-[1400px] pt-8 flex flex-col mx-auto w-[90%]">
           {/* heading */}
 
-          <header className="flex flex-row  justify-between items-center  p-4 max-sm:px-0   ">
-            <div className="w-[60%] max-sm:w-[50%] ">
-              <p className="text-3xl max-sm:text-2xl font-bold dark:text-white">
+          <header className="flex flex-row max-md:flex-col max-md:justify-startw justify-between items-center  p-4 max-sm:px-0  ">
+            <div className="w-[60%] max-sm:w-full ">
+              <p className="text-4xl max-sm:text-2xl font-bold dark:text-white">
                 Popular Concepts
               </p>
               <p className="text-lg text-my-text-color max-sm:hidden">
@@ -184,11 +184,11 @@ export default function MasterConcepts() {
               </p>
             </div>
             {/* buttons */}
-            <div className="w-[23%] max-sm:w-[35%] flex flex-row max-md:flex-col  justify-between max-sm:items-center items-center max-sm:gap-2 ">
+            <div className="w-[23%] max-md:w-full flex flex-row max-md:flex-row max-md:py-2 justify-between  items-center ">
               <div>
                 <button
                   onClick={() => setTierChange("for-tier1")}
-                  className={`px-6 py-1  rounded-xl text-lg  max-sm:text-sm whitespace-nowrap min-w-[100px] flex flex-row gap-2  ${tierChange === "for-tier1" ? "bg-[#047077] border-[#047077]" : " border-[text-[#6F6F6F] dark:text-white dark:border-white"}`}
+                  className={`px-6 py-1  rounded-xl text-lg max-md:py-2 max-md:px-10 max-sm:text-sm whitespace-nowrap min-w-[100px] flex flex-row gap-2  ${tierChange === "for-tier1" ? "bg-[#047077] border-[#047077]" : "border-2 border-[text-[#6F6F6F] dark:text-white dark:border-white"}`}
                 >
                   <div
                     className={`${tierChange === "for-tier1" ? "text-white" : "text-[#6F6F6F]"}`}
@@ -211,7 +211,7 @@ export default function MasterConcepts() {
                   onClick={() => {
                     setTierChange("for-tier2");
                   }}
-                  className={`px-6 py-1  rounded-xl text-lg  max-sm:text-sm whitespace-nowrap min-w-[100px] flex flex-row gap-2  ${tierChange === "for-tier2" ? "bg-[#047077] border-[#047077]" : " border-[text-[#6F6F6F] dark:text-white dark:border-white"}`}
+                  className={`px-6 py-1 border-2 rounded-xl text-lg  max-md:py-2 max-md:px-10  max-sm:text-sm whitespace-nowrap min-w-[100px] flex flex-row gap-2  ${tierChange === "for-tier2" ? "bg-[#047077] border-[#047077]" : "border-2 border-[text-[#6F6F6F] dark:text-white dark:border-white"}`}
                 >
                   <div
                     className={`${tierChange === "for-tier2" ? "text-white" : "text-[#6F6F6F]"}`}
@@ -234,7 +234,7 @@ export default function MasterConcepts() {
           {/* main boady */}
           <main className="  ">
             {tierChange === "for-tier1" ? (
-              <div className="   flex flex-row flex-nowrap justify-between py-4  overflow-x-auto  max-sm:min-h-[326]  scrollbar-hide gap-4  ">
+              <div className="   flex flex-row flex-nowrap justify-between py-4  overflow-x-auto    scrollbar-hide gap-4    ">
                 {/* cards */}
 
                 {Tier1.map((item: any, index: number) => {
@@ -242,10 +242,10 @@ export default function MasterConcepts() {
                   return (
                     <div
                       key={index}
-                      className={`relative flex-shrink-0 w-[25%] h-[200px] max-sm:h-[120px] max-lg:h-[150px] lg:max-h-[280px] lg:max-w-[280px] max-sm:w-[40%] rounded-lg border-3 flex items-center flex-col justify-center ${item.border}  overflow-hidden ${item.bg} dark:bg-[#3a3636] `}
+                      className={`relative flex-shrink-0 w-[25%] md:h-[200px] max-sm:h-[120px] max-lg:h-[180px] lg:max-h-[280px] lg:max-w-[280px] max-sm:w-[28%] rounded-lg border-2 shadow flex items-center flex-col justify-center ${item.border}  overflow-hidden bg-[${item.bg}] dark:bg-[#3a3636] border-2  `}
                     >
                       <svg
-                        className={` absolute top-2 dark:bg-[#3a3636]  ${item.bg}`}
+                        className={` absolute max-md:top-9 top-3 dark:bg-[#3a3636]  ${item.bg}`}
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="152 60 200 200"
                       >
@@ -297,6 +297,7 @@ export default function MasterConcepts() {
                           ry="94.042"
                           fill={theme === "dark" ? "#E9F3FF1A" : item.circle}
                           style={{ strokeWidth: 1 }}
+                          
                         />
 
                         <g className="rectn">
@@ -313,7 +314,7 @@ export default function MasterConcepts() {
                         </g>
                       </svg>
 
-                      <p className="absolute bottom-8 z-40 font-semibold max-sm:left-7 max-sm:bottom-3 lg:text-xl max-md:text-sm max-md:text-center max-md:right-7  ">
+                      <p className="absolute bottom-8 z-40 font-semibold max-sm:left-5 max-sm:bottom-2 lg:text-xl max-md:text-xs max-md:text-center max-md:right-7  text-center ">
                         {item.title}
                       </p>
 
@@ -333,7 +334,7 @@ export default function MasterConcepts() {
               </div>
             ) : (
               <div className="  relative   max-sm:min-h-[326]">
-                <div className="overflow-hidden  py-12 " ref={emblaRef}>
+                <div className="overflow-hidden  py-12  " ref={emblaRef}>
                   {/* track */}
                   <div className="flex   gap-10 px-2 ">
                     {Tier2.map((item: any, index: number) => {
@@ -341,7 +342,7 @@ export default function MasterConcepts() {
                       return (
                         <div
                           key={index}
-                          className={`relative flex-shrink-0 w-[25%] h-[200px] max-sm:h-[120px] max-lg:h-[150px] lg:max-h-[280px] lg:max-w-[280px] max-sm:w-[40%] rounded-lg border-3 flex items-center flex-col justify-center ${item.border}  overflow-hidden ${item.bg} dark:bg-[#3a3636] `}
+                          className={`relative flex-shrink-0 w-[25%] h-[200px] max-sm:h-[120px] max-lg:h-[150px] lg:max-h-[280px] lg:max-w-[280px] max-sm:w-[40%] rounded-lg border-3 flex items-center flex-col justify-center ${item.border}  overflow-hidden ${item.bg} dark:bg-[#3a3636]`}
                         >
                           <svg
                             className={` absolute top-2 dark:bg-[#3a3636]  ${item.bg}`}
