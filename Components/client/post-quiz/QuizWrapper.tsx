@@ -4,8 +4,6 @@ import QuizIntro from "./QuizIntro";
 import QuizQuestion from "./QuizQuestion";
 import QuizLogin from "./QuizLogin";
 import QuizResult from "./QuizResult";
-import { constructFromSymbol } from "date-fns/constants";
-import { set } from "date-fns";
 
 export default function QuizSection({
   postId,
@@ -26,27 +24,23 @@ export default function QuizSection({
 
   const [timeTaken, setTimeTaken] = useState<number>(0);
 
-  const [questions, setQuestion] = useState<string[]>([]);
+  const [questions, setQuestion] = useState<any[]>([]);
+
+  const totalQuestion = questions.length;
 
   async function fetchQuizPost(postId: number) {
     try {
       const res = await fetch(
         `/api/en/post-quiz/client?postId=${postId}`,
-        { cache: "no-store" } // optional: to avoid stale data in Next.js
+        { cache: "no-store" }
       );
 
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
-      }
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
-      const data = await res.json(); // ✅ parse JSON
+      const data = await res.json();
       setQuestion(data);
-
-
-      return data; // should be your array of objects
     } catch (error) {
       console.error("The error in quiz part is", error);
-      return null;
     }
   }
 
@@ -54,41 +48,59 @@ export default function QuizSection({
     fetchQuizPost(postId);
   }, [postId]);
 
-  if(questions.length == 0 ){
-    return null
+  if (questions.length === 0) return null;
+
+  let content;
+
+  if (stage === "intro") {
+    content = (
+      <QuizIntro
+        timeLimit={timeLimit}
+        totalQuestion={totalQuestion}
+        onStart={() => setStage("quiz")}
+      />
+    );
   }
 
-  if (stage === "intro" ) return <QuizIntro onStart={() => setStage("quiz")} />;
-
-  if (stage === "quiz")
-    return (
+  if (stage === "quiz") {
+    content = (
       <QuizQuestion
         questions={questions}
-        topic = {topic}
+        topic={topic}
         timeLimit={timeLimit}
         setTimeTaken={setTimeTaken}
-        onFinish={(a: { questionId: string; answer: number | null }[]) => {
-          setAnswers(a); // store answers as objects
-          setStage("result"); // move to result page
+        onFinish={(a) => {
+          setAnswers(a);
+          setStage("result");
         }}
       />
     );
+  }
 
-  // add login check feature
-  // you add feature same as pass one function result
-
-  if (stage === "result")
-    return (
+  if (stage === "result") {
+    content = (
       <QuizResult
-        questions={questions}
-        topic={topic}
-        timeTaken={timeTaken}
-        answers={answers}
-        onRestart={() => {
-          setStage("intro");
-        }}
+        quizData={questions}
+    answers={answers}
+    onRestart={() => setStage("intro")}
       />
     );
+  }
 
-  return null;
+  // ✅ single wrapper for all
+  return (
+    <div className="dark:bg-black bg-[#F8FAFC]">
+      <div className="max-w-[1400px] mx-auto w-[70%] max-md:w-[90%] py-4 flex flex-col items-center justify-center">
+        
+        {/* Header */}
+        <div className="py-4 flex flex-col items-center justify-center">
+          <p className="text-2xl font-bold">Live quiz</p>
+          <p className="text-[#6F6F6F]">Your Daily Exam Prep Partner</p>
+        </div>
+
+        {/* Dynamic Component */}
+        {content}
+      </div>
+    </div>
+  );
 }

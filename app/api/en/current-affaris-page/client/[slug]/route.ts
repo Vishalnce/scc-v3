@@ -13,7 +13,7 @@ export async function GET(
   }
 
   try {
-    const post = await db.post.findUnique({
+    const post = await db.currentAffairs.findUnique({
       where: { slug },
     });
 

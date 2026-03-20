@@ -107,9 +107,9 @@ export default function Current() {
 
   return (
     <div className="">
-      <div className="max-w-[1400px] pt-8 flex flex-col mx-auto  w-[90%]  relative">
+      <div className="max-w-[1400px]  md:pt-8 flex flex-col mx-auto  w-[90%]  relative">
         {/* heading */}
-           <header className="flex flex-row justify-between items-center  ">
+        <header className="flex flex-row justify-between items-center  ">
           <div className="w-[60%] space-y-2">
             <p className="text-4xl font-bold dark:text-white max-sm:text-2xl">
               Current Affairs
@@ -130,7 +130,7 @@ export default function Current() {
 
         {/* main body */}
         <div
-          className="overflow-hidden  my-16 dark:bg-black pb-6   "
+          className="overflow-hidden my-2 md:my-16 dark:bg-black pb-6   "
           ref={emblaRef}
         >
           <div className="flex">
@@ -198,7 +198,7 @@ export default function Current() {
                       </div>
 
                       {/* heading */}
-                      <p className="text-lg sm:text-xl font-semibold py-3 sm:py-4 leading-snug">
+                      <p className="text-lg sm:text-xl font-semibold py-3 sm:py-4 leading-snug  max-md:min-h-[100px] overflow-hidden">
                         {item.title}
                       </p>
 
@@ -250,7 +250,7 @@ export default function Current() {
                       </div>
                       {/* button */}
                       <button
-                        className={`my-2 text-xl rounded-xl py-4 text-white ${color.bgButton}`}
+                        className={`my-2 text-xl rounded-xl md:py-4 py-2 text-white ${color.bgButton}`}
                       >
                         Read More
                       </button>

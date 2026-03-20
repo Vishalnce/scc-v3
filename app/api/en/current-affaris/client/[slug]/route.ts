@@ -11,7 +11,7 @@ export async function GET(
   console.log("Slug:", slug);
 
   try {
-    const post = await db.post.findUnique({
+    const post = await db.currentAffairs.findUnique({
       where: { slug },
     });
 

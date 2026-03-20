@@ -18,10 +18,10 @@ export default function HeroCarousel() {
   );
 
   return (
-    <div className="w-full  bg-white">
+    <div className="w-full  bg-white dark:bg-[#1F1F1F]">
       <div></div>
 
-      <div className="overflow-hidden md:px-6 px-4 my-4 py-4 " ref={emblaRef}>
+      <div className="overflow-hidden md:px-6 px-4  py-4 " ref={emblaRef}>
         <div className="flex ">
           <div className="flex-none w-[100%]  md:w-[80%] px-2 ">
             <Card1 />

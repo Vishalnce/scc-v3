@@ -85,7 +85,7 @@ export default async function ({
                   key={item.id}
                   className=" m-2 my-3 flex flex-row justify-between  bg-my-green text-white border-[#E6F1F1] border-1 rounded dark:bg-[#313131]  "
                 >
-                  <p className="p-2  dark:text-white">{item.content}</p>
+                  <p className="p-2  dark:text-white  ">{item.content}</p>
                 </div>
               )) || <p>No data found</p>}
             </div>

@@ -36,26 +36,29 @@ export default function AnnounceList() {
 
       {/* Content list */}
       <div className="space-y-4">
-        {announces.map((item) => (
-          <div
-            key={item.id}
-            className="border border-gray-200 rounded-lg flex justify-between items-start bg-[#FAFCFC] shadow-sm hover:shadow-md transition p-4"
-          >
-            <div className="space-y-2">
-              <p className="font-semibold text-gray-900">
-                Title: {item.title}
-              </p>
-              <p className="text-gray-700"> Concept: {item.content}</p>
-              <p className="text-sm text-gray-500"> Topic: {item.topic}</p>
-            </div>
+  {announces.map((item) => (
+    <div
+      key={item.id}
+      className="border border-gray-200 rounded-lg flex justify-between items-start bg-[#FAFCFC] shadow-sm hover:shadow-md transition p-4"
+    >
+      <div className="space-y-2">
+     
 
-            <div className="flex gap-3">
-              <EditButton id={item.id} />
-              <DeleteButton id={item.id} onDelete={fetchAnnounces} />
-            </div>
-          </div>
-        ))}
+        {/* ✅ HTML Render */}
+        <div
+          className="text-gray-700 prose max-w-none"
+          dangerouslySetInnerHTML={{ __html: item.content }}
+        />
+
       </div>
+
+      {/* <div className="flex gap-3">
+        <EditButton id={item.id} />
+        <DeleteButton id={item.id} onDelete={fetchAnnounces} />
+      </div> */}
+    </div>
+  ))}
+</div>
     </div>
   );
 }

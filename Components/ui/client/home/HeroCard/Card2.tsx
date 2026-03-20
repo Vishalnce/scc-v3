@@ -17,27 +17,26 @@ function Card2() {
           </p>
 
           <p className="text-white text-xl max-md:text-sm max-md:pt-2 max-md:leading-4">
-            Sharpen Your Skills and Track Your Progress with Realistic Mock
-            Tests
+            Sharpen Your Skills and Track Your Progress 
             <span className="max-md:hidden">
               {" "}
               Designed for SSC CGL Excellence.
             </span>
           </p>
 
-          <div className="flex flex-row max-md:items-center max-md:justify-center gap-2 w-full  pt-4">
-            <button className="md:mt-6  bg-[#FFFFFFCC] md:text-xl md:px-12 px-2 py-2 rounded-2xl font-semibold max-sm:text-sm whitespace-nowrap">
-              <p className=" ">Mock Test</p>
+          <div className="flex flex-row max-md:items-center max-md:justify-between gap-2  w-full max-md:w-[90%]   pt-4">
+            <button className="md:mt-6  bg-[#FFFFFFCC] md:text-xl md:px-14 px-2 py-2 rounded-2xl font-semibold max-sm:text-sm whitespace-nowrap">
+              <p className=" max-md:px-2 max-md:text-xs">Mock Test</p>
             </button>
 
             <button className="md:mt-6 bg-[#FFFFFFCC] md:text-xl md:px-12 py-2 rounded-2xl font-semibold max-md:px-2  max-sm:text-sm whitespace-nowrap">
-              <p>Test Series</p>
+              <p className=" max-md:px-2 max-md:text-xs">Test Series</p>
             </button>
           </div>
         </div>
 
         {/* image */}
-        <div className="w-[20%] max-md:w-[35%] max-md:absolute right-0 bottom-4">
+        <div className="w-[20%] max-md:w-[28%] max-md:absolute right-0 bottom-4">
           <Image
             src="/ui/client/home/Hero/boy1.png"
             width={300}

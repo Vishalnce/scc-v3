@@ -61,30 +61,26 @@ const Filter = () => {
     }
   }, [subject]);
 
-function handleSubmit(): void {
-  const params = new URLSearchParams(searchParams);
+  function handleSubmit(): void {
+    const params = new URLSearchParams(searchParams);
 
-  if (subject) {
-    params.set("subject", subject);
+    if (subject) {
+      params.set("subject", subject);
+    }
+
+    if (selectedTopic?.value) {
+      params.set("topic", selectedTopic.value);
+    } else {
+      params.delete("topic");
+    }
+
+    params.set("page", "1");
+
+    router.push(`/concept?${params.toString()}`);
   }
-
-  if (selectedTopic?.value) {
-    params.set("topic", selectedTopic.value);
-  } else {
-    params.delete("topic");
-  }
-
-  params.set("page", "1");
-
-  router.push(`/concept?${params.toString()}`);
-}
-
-
-
 
   // console.log(selectedOption);
   //  console.log(date);
-
 
   return (
     <>
@@ -112,53 +108,54 @@ function handleSubmit(): void {
 
         {/*  selection */}
         <Select
-  isClearable
-  value={selectedTopic}
-  onChange={setSelectedTopic}
-  options={topicOptions}
-  placeholder="Select a topic"
-  styles={{
-    control: (base) => ({
-      ...base,
-      border: theme === "dark" ? "2px solid white" : "2px solid black",
-      borderRadius: "9999px",
-      backgroundColor: "transparent",
-      color: theme === "dark" ? "white" : "black",
-      boxShadow: "none",
-      outline: "none",
-      "&:hover": {
-        border: theme === "dark" ? "2px solid white" : "2px solid black",
-      },
-    }),
-    placeholder: (base) => ({
-      ...base,
-      color: theme === "dark" ? "#C2C2C2" : "#6C6C6C",
-    }),
-    option: (base, state) => ({
-      ...base,
-      backgroundColor: state.isSelected
-        ? "#007076"
-        : state.isFocused
-        ? "#E6F1F1"
-        : "transparent",
-      color: "black",
-      cursor: "pointer",
-    }),
-    singleValue: (base) => ({
-      ...base,
-      color: theme === "dark" ? "#C2C2C2" : "#6C6C6C",
-    }),
-    menu: (base) => ({
-      ...base,
-      width: "240px",
-      right: "1px",
-    }),
-  }}
-  className="w-[160px]"
-  classNames={{
-    control: () => "min-w-[160px]",
-  }}
-/>
+          isClearable
+          value={selectedTopic}
+          onChange={setSelectedTopic}
+          options={topicOptions}
+          placeholder="Select a topic"
+          styles={{
+            control: (base) => ({
+              ...base,
+              border: theme === "dark" ? "2px solid white" : "2px solid black",
+              borderRadius: "9999px",
+              backgroundColor: "transparent",
+              color: theme === "dark" ? "white" : "black",
+              boxShadow: "none",
+              outline: "none",
+              "&:hover": {
+                border:
+                  theme === "dark" ? "2px solid white" : "2px solid black",
+              },
+            }),
+            placeholder: (base) => ({
+              ...base,
+              color: theme === "dark" ? "#C2C2C2" : "#6C6C6C",
+            }),
+            option: (base, state) => ({
+              ...base,
+              backgroundColor: state.isSelected
+                ? "#007076"
+                : state.isFocused
+                  ? "#E6F1F1"
+                  : "transparent",
+              color: "black",
+              cursor: "pointer",
+            }),
+            singleValue: (base) => ({
+              ...base,
+              color: theme === "dark" ? "#C2C2C2" : "#6C6C6C",
+            }),
+            menu: (base) => ({
+              ...base,
+              width: "240px",
+              right: "1px",
+            }),
+          }}
+          className="w-[160px]"
+          classNames={{
+            control: () => "min-w-[160px]",
+          }}
+        />
 
         <button
           onClick={handleSubmit}

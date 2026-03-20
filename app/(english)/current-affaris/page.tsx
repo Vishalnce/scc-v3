@@ -6,6 +6,8 @@ import { getServerSession } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
 import { FaRegCalendarMinus } from "react-icons/fa6";
+import { CiClock2 } from "react-icons/ci";
+import { SlCalender } from "react-icons/sl";
 
 type Post = {
   id: number;
@@ -20,13 +22,14 @@ type Post = {
   editorHtml: string;
   toc: string;
   createdAt: string;
+  timeToRead: string;
 };
 
 async function fetchPosts(
   page: number = 1,
   limit: number = 10,
   topic?: string,
-  date?: string
+  date?: string,
 ): Promise<{ posts: Post[]; totalCount: number }> {
   const params = new URLSearchParams({
     page: String(page),
@@ -40,10 +43,12 @@ async function fetchPosts(
     `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/current-affaris/client?${params.toString()}`,
     {
       cache: "no-store",
-    }
+    },
   );
 
-  // if (!res.ok) throw new Error("Failed to fetch posts");
+  if (!res.ok) {
+    throw new Error("Failed to fetch posts");
+  }
 
   return res.json();
 }
@@ -64,25 +69,64 @@ export default async function Page({
   const date = params.date;
   const limit = Number(params.limit) || 10;
 
-  const { posts, totalCount } = await fetchPosts(page, limit, topic, date);
+  let posts: Post[] = [];
+  let totalCount = 0;
+  let fetchError = false;
+
+  try {
+    const data = await fetchPosts(page, limit, topic, date);
+    posts = data.posts;
+    totalCount = data.totalCount;
+  } catch (error) {
+    fetchError = true;
+  }
+
   const totalPages = Math.ceil(totalCount / limit);
   const session = await getServerSession(NEXT_AUTH);
+
+  const colorObject = [
+    {
+      border: "border-[#87D5E2]",
+      bg: "bg-[#F8FBFF]",
+      tagbg: "bg-[#E9F3FF]",
+      bgButton: "bg-[#24B3CB]",
+    },
+
+    {
+      border: "border-[#93E4A6]",
+      bg: "bg-[#F6FFF3]",
+      tagbg: "bg-[#EBFFE4]",
+      bgButton: "bg-[#11C352]",
+    },
+
+    {
+      border: "border-[#E6C69C]",
+      bg: "bg-[#FFFDFA]",
+      tagbg: "bg-[#FFF1DF]",
+      bgButton: "bg-[#F89716]",
+    },
+  ];
 
   return (
     <>
       {/* Header */}
       <header className="bg-[image:var(--color-my-gradient)] ">
-        <div className="flex flex-col justify-center items-center min-h-[150px] mx-auto max-w-[1400px] max-sm:w-[90%] text-center">
-          <h1 className="text-4xl font-bold max-sm:text-2xl  ">
-
-            <p className="text-center">  Current Affairs for{" "}
-            <span className="text-my-green dark:text-my-green">SSC CGL</span>{" "}
-            Success </p>
-          
+        <div className="flex flex-col justify-center items-center  max-md:min-h-[80px] md:min-h-[150px] mx-auto max-w-[1400px] max-sm:w-[90%] text-center">
+          <h1 className="text-4xl font-bold max-sm:text-2xl">
+            <p className="text-center">
+              Current Affairs <span className="max-md:hidden"> for </span>
+              <span className="text-my-green dark:text-my-green max-md:hidden">
+                SSC CGL
+              </span>{" "}
+              <span className="max-md:hidden"> Success </span>
+            </p>
           </h1>
           <p className="mt-1 text-lg max-md:text-sm text-my-text-color text-center">
-            Stay Ahead with Daily Updates Tailored for SSC CGL General
-            Awareness!
+            Stay Ahead with Daily Updates{" "}
+            <span className="max-md:hidden">
+              {" "}
+              Tailored for SSC CGL General Awareness!
+            </span>
           </p>
         </div>
       </header>
@@ -98,8 +142,7 @@ export default async function Page({
           </div>
         </div>
 
-        {/* Posts */}
-
+        {/* Admin Button */}
         {session?.user?.role === "ADMIN" ? (
           <div className="w-[90%] dark:bg-[#191919] mx-auto m-6 max-md:hidden">
             <Link href="/admin/current-affaris-editor ">
@@ -112,76 +155,141 @@ export default async function Page({
           ""
         )}
 
-        {/* post boady */}
-        <div className="flex flex-col w-[90%] mx-auto #191919">
-          {posts.map((post) => (
-            <div
-              key={post.id}
-              className="flex flex-row  rounded-2xl  md:max-h-[288px] m-3 justify-center dark:bg-[#313131] shadow-2xl "
-            >
-              <Link
-                href={{
-                  pathname: `/current-affaris-page/${post.slug}`,
-                  query: { page: page }, // pass your page variable here
-                }}
-                className="flex flex-row w-full max-md:flex-col"
+        {/* Posts */}
+        <div className="flex flex-col w-[90%] mx-auto">
+          {fetchError ? (
+            <div className="flex flex-col items-center justify-center py-20 text-center">
+              <p className="text-xl font-semibold text-red-500">
+                Failed to load current affairs
+              </p>
+              <p className="text-sm text-gray-500 mt-2">
+                Please try refreshing the page.
+              </p>
+
+              <button
+                onClick={() => location.reload()}
+                className="mt-4 px-4 py-2 bg-my-green text-white rounded"
               >
-                {/* images */}
-                <div className="w-[35%] max-md:w-[90%] max-md:h-[200px] max-md:mx-auto  relative  rounded-xl  m-2  h-[224px]  ">
-                  {post.image && (
-                    <Image
-                      src={post.image}
-                      alt={post.alt || "ssc"}
-                      fill
-                      className="object-cover rounded-xl"
-                    />
+                Refresh Page
+              </button>
+            </div>
+          ) : posts.length === 0 ? (
+            <p className="text-center py-10">No posts found.</p>
+          ) : (
+            posts.map((post, index) => {
+              const color = colorObject[index % colorObject.length];
+
+              return (
+                <div
+                  key={post.id}
+                  className={`flex flex-row rounded-2xl m-3 border ${color.bg} ${color.border} hover:scale-[1.01] transition-all duration-300`}
+                >
+                  <Link
+                    href={{
+                      pathname: `/current-affaris-page/${post.slug}`,
+                      query: { page: page },
+                    }}
+                    className="flex flex-row w-full max-md:flex-col"
+                  >
+                    {/* Image */}
+                    <div className="w-[35%] max-md:w-[90%] max-md:h-[200px] max-md:mx-auto relative m-3 h-[224px]">
+                      {post.image && (
+                        <Image
+                          src={post.image}
+                          alt={post.alt || "post"}
+                          fill
+                          className="object-cover rounded-xl"
+                        />
+                      )}
+                    </div>
+
+                    {/* Content */}
+                    <div className="flex flex-col w-[65%] m-3 justify-between max-md:w-[90%] max-md:mx-auto">
+                      {/* Title */}
+                      <p className="text-xl font-semibold leading-snug line-clamp-2 min-h-[56px]">
+                        {post.title}
+                      </p>
+
+                      {/* Tag */}
+                      <div className="mt-2">
+                        <p
+                          className={`text-sm px-3 py-1 rounded-full inline-flex whitespace-nowrap ${color.tagbg}`}
+                        >
+                          {post.topic}
+                        </p>
+                      </div>
+
+                      {/* Divider */}
+                      <span className={`border mt-3 mb-3 ${color.border}`} />
+
+                      {/* Summary */}
+                      <p className="line-clamp-2 text-[#6F6F6F] text-sm">
+                        {post.summary}
+                      </p>
+
+                      {/* Date + Time */}
+                      <div className="flex flex-row  justify-between items-center mt-3 flex-wrap gap-2 ">
+                        <div className="flex flex-row gap-3  max-md:mx-auto">
+                          {/* Date */}
+                          <div
+                            className={`flex items-center gap-2 px-3 py-1 rounded-full ${color.tagbg}`}
+                          >
+                            <SlCalender />
+                            <p className="text-xs">
+                              {new Date(post.createdAt).toLocaleDateString(
+                                "en-US",
+                                {
+                                  month: "long",
+                                  day: "numeric",
+                                  year: "numeric",
+                                },
+                              )}
+                            </p>
+                          </div>
+
+                          {/* Time */}
+                          <div
+                            className={`flex items-center gap-2 px-3 py-1 rounded-full ${color.tagbg}`}
+                          >
+                            <CiClock2 className="size-4" />
+                            <p className="text-xs">
+                              {post.timeToRead} min read
+                            </p>
+                          </div>
+                        </div>
+
+                        <div>
+                          <p className="max-md:hidden block font-bold">
+                            Read More
+                          </p>
+                        </div>
+                      </div>
+
+                      <button
+                        className={`mt-3 text-sm rounded-lg py-2 text-white md:hidden max-md:block ${color.bgButton}`}
+                      >
+                        Read More
+                      </button>
+
+                      {/* Button */}
+                    </div>
+                  </Link>
+
+                  {/* Admin Controls */}
+                  {session?.user?.role === "ADMIN" && (
+                    <div className="grid items-center justify-center px-2 max-md:hidden">
+                      <EditButton slug={post.slug} />
+                      <DeleteButton slug={post.slug} />
+                    </div>
                   )}
                 </div>
-                {/* info */}
-                <div className="flex flex-col  w-[60%] m-2 justify-start   max-md:mx-auto max-md:w-[90%]">
-                  <h2 className="text-2xl max-sm:text-lg font-bold dark:text-[#FFFFFF]  min-h-[64px]">
-                    {post.title}
-                  </h2>
-
-                  <p className="text-my-text-color  mt-3  text-fade h-[100px]  overflow-hidden">
-                    Summary: {post.summary}
-                  </p>
-
-                  {/* nav button */}
-                  <div className="flex flex-row justify-between mt-3 ">
-                    <p className="text-sm dark:text-[#FFFFFF] px-4 py-2 bg-my-green rounded-full text-white">Read More</p>
-
-                    <div className="flex flex-row gap-1">
-                      <FaRegCalendarMinus className="dark:text-my-text-color" />
-                      <p className="font-semibold text-sm  dark:text-[#FFFFFF]">
-                        {new Date(post.createdAt).toLocaleDateString("en-US", {
-                          day: "2-digit",
-                          month: "long", // 👈 "April"
-                          year: "numeric",
-                        })}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-
-              {/* edit and delete button */}
-
-              {session?.user?.role === "ADMIN" ? (
-                <div className="grid grid-col-1 items-center  justify-center max-md:hidden ">
-                  <EditButton slug={post.slug} />
-
-                  <DeleteButton slug={post.slug} />
-                </div>
-              ) : (
-                ""
-              )}
-            </div>
-          ))}
+              );
+            })
+          )}
         </div>
 
         {/* Pagination */}
-        <div className="flex  justify-center items-center gap-4 pt-6 pb-8  ">
+        <div className="flex justify-center items-center gap-4 pt-6 pb-8">
           <Link
             href={{
               pathname: "",
@@ -193,9 +301,11 @@ export default async function Page({
           >
             Previous
           </Link>
+
           <span className="text-sm dark:text-white">
             Page {page} of {totalPages}
           </span>
+
           <Link
             href={{
               pathname: "",

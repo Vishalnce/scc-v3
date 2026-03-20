@@ -4,6 +4,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { PiCircleBold } from "react-icons/pi";
+import Link from "next/link";
 
 type Item = {
   id: number;
@@ -91,10 +92,16 @@ export default function OneLiner() {
     <div className="bg-white dark:bg-black">
       <div className="max-w-[1400px] pt-12 flex flex-col mx-auto w-[90%] relative">
         {/* heading */}
-        <header className="flex justify-between py-4">
+        <header className="flex justify-between py-4 ">
           <p className="text-3xl max-sm:text-2xl font-bold dark:text-white">
             One-Liner Current Affairs
           </p>
+
+         <Link href={"/current-affaris"}>
+              <p className="p-2 px-6 text-lg max-sm:text-sm  text-[#007076] rounded-full  underline">
+                View All
+              </p>
+            </Link>
         </header>
 
         {/* carousel */}
@@ -116,7 +123,7 @@ export default function OneLiner() {
 
                   <div className="">
                     {" "}
-                    <p className=" font-medium md:text-lg">{item.content}</p>
+                    <p className=" font-medium md:text-lg line-clamp-2">{item.content}</p>
                     <p className="text-[#6F6F6F] max-md:text-sm mt-2 mb-4">
                       {formatDate(item.createdAt)}
                     </p>

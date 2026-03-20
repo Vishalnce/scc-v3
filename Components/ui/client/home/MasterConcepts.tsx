@@ -68,7 +68,7 @@ export default function MasterConcepts() {
       circle: "#E9F3FF",
       incircle: "#24B3CB",
 
-      title: "Quantitative Aptitude",
+      title: "Quant. Aptitude",
 
       category: "mains",
       subject: "quantitative-apptitude",
@@ -91,7 +91,7 @@ export default function MasterConcepts() {
       circle: "#FFF1DF ",
       incircle: "#F89716",
 
-      title: "English Comprehension",
+      title: "English Compreh.",
       category: "mains",
       subject: "english-comprehension",
       Icon: Icon3,
@@ -123,7 +123,7 @@ export default function MasterConcepts() {
       bg: "#E38688",
       circle: "#FDE9E9 ",
       incircle: "#F14343",
-      title: "Data Entry Speed Test",
+      title: "Data Entry",
       Icon: Icon6,
     },
   ];
@@ -170,11 +170,11 @@ export default function MasterConcepts() {
 
   return (
     <>
-      <div className="  dark:bg-[#1F1F1F]">
-        <div className="max-w-[1400px] pt-8 flex flex-col mx-auto w-[90%]">
+      <div className="  dark:bg-[#1F1F1F] 2">
+        <div className="max-w-[1400px]  flex flex-col mx-auto w-[90%]">
           {/* heading */}
 
-          <header className="flex flex-row max-md:flex-col max-md:justify-startw justify-between items-center  p-4 max-sm:px-0  ">
+          <header className="flex flex-row max-md:flex-col max-md:justify-startw justify-between items-center  md:p-4 max-sm:px-0  ">
             <div className="w-[60%] max-sm:w-full ">
               <p className="text-4xl max-sm:text-2xl font-bold dark:text-white">
                 Popular Concepts
@@ -184,21 +184,21 @@ export default function MasterConcepts() {
               </p>
             </div>
             {/* buttons */}
-            <div className="w-[23%] max-md:w-full flex flex-row max-md:flex-row max-md:py-2 justify-between  items-center ">
+            <div className="w-[23%]  max-md:w-full flex flex-row max-md:flex-row max-md:py-2 justify-between  items-center ">
               <div>
                 <button
                   onClick={() => setTierChange("for-tier1")}
-                  className={`px-6 py-1  rounded-xl text-lg max-md:py-2 max-md:px-10 max-sm:text-sm whitespace-nowrap min-w-[100px] flex flex-row gap-2  ${tierChange === "for-tier1" ? "bg-[#047077] border-[#047077]" : "border-2 border-[text-[#6F6F6F] dark:text-white dark:border-white"}`}
+                  className={`px-6 py-1  rounded-xl text-lg max-md:py-1 max-md:px-10 max-sm:text-sm whitespace-nowrap min-w-[100px] flex flex-row gap-2  ${tierChange === "for-tier1" ? "bg-[#047077] border-[#047077] border-2" : "border-2 border-[text-[#6F6F6F] dark:text-white dark:border-white"}`}
                 >
                   <div
                     className={`${tierChange === "for-tier1" ? "text-white" : "text-[#6F6F6F]"}`}
                   >
                     <HiOutlineChartSquareBar
-                      className={`my-auto size-7 ${tierChange === "for-tier1" ? "text-white" : "text-[#6F6F6F]"}`}
+                      className={` dark:text-white my-auto size-7 ${tierChange === "for-tier1" ? "text-white" : "text-[#6F6F6F]"}`}
                     />{" "}
                   </div>
                   <p
-                    className={` my-auto ${tierChange === "for-tier1" ? "text-white" : "text-[#6F6F6F]"}`}
+                    className={ ` dark:text-white my-auto ${tierChange === "for-tier1" ? "text-white" : "text-[#6F6F6F]"}`}
                   >
                     {" "}
                     Tier 1
@@ -211,17 +211,17 @@ export default function MasterConcepts() {
                   onClick={() => {
                     setTierChange("for-tier2");
                   }}
-                  className={`px-6 py-1 border-2 rounded-xl text-lg  max-md:py-2 max-md:px-10  max-sm:text-sm whitespace-nowrap min-w-[100px] flex flex-row gap-2  ${tierChange === "for-tier2" ? "bg-[#047077] border-[#047077]" : "border-2 border-[text-[#6F6F6F] dark:text-white dark:border-white"}`}
+                  className={`px-6 py-1 border-2 rounded-xl text-lg  max-md:py-1 max-md:px-10  max-sm:text-sm whitespace-nowrap min-w-[100px] flex flex-row gap-2  ${tierChange === "for-tier2" ? "bg-[#047077] border-2 border-[#047077]" : "border-2 border-[text-[#6F6F6F] dark:text-white dark:border-white"}`}
                 >
                   <div
                     className={`${tierChange === "for-tier2" ? "text-white" : "text-[#6F6F6F]"}`}
                   >
                     <HiOutlineChartSquareBar
-                      className={` my-auto size-7 ${tierChange === "for-tier2" ? "text-white" : "text-[#6F6F6F]"}`}
+                      className={` dark:text-white my-auto size-7 ${tierChange === "for-tier2" ? "text-white" : "text-[#6F6F6F]"}`}
                     />
                   </div>
                   <p
-                    className={` my-auto ${tierChange === "for-tier2" ? "text-white" : "text-[#6F6F6F]"}`}
+                    className={` dark:text-white my-auto ${tierChange === "for-tier2" ? "text-white" : "text-[#6F6F6F]"}`}
                   >
                     {" "}
                     Tier 2
@@ -333,95 +333,92 @@ export default function MasterConcepts() {
                 })}
               </div>
             ) : (
-              <div className="  relative   max-sm:min-h-[326]">
-                <div className="overflow-hidden  py-12  " ref={emblaRef}>
+              <div className="  relative ">
+                <div className="overflow-hidden  " ref={emblaRef}>
                   {/* track */}
-                  <div className="flex   gap-10 px-2 ">
-                    {Tier2.map((item: any, index: number) => {
-                      const Icon = item.Icon;
-                      return (
-                        <div
-                          key={index}
-                          className={`relative flex-shrink-0 w-[25%] h-[200px] max-sm:h-[120px] max-lg:h-[150px] lg:max-h-[280px] lg:max-w-[280px] max-sm:w-[40%] rounded-lg border-3 flex items-center flex-col justify-center ${item.border}  overflow-hidden ${item.bg} dark:bg-[#3a3636]`}
-                        >
-                          <svg
-                            className={` absolute top-2 dark:bg-[#3a3636]  ${item.bg}`}
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="152 60 200 200"
+                  <div className="flex flex-row  py-4    scrollbar-hide md:gap-12 gap-4">
+                     {Tier2.map((item: any, index: number) => {
+                  const Icon = item.Icon;
+                  return (
+                    <div
+                      key={index}
+                      className={`relative flex-shrink-0 w-[25%] md:h-[200px] max-sm:h-[120px] max-lg:h-[180px] lg:max-h-[280px] lg:max-w-[280px] max-sm:w-[28%] rounded-lg border-2 shadow flex items-center flex-col justify-center ${item.border}  overflow-hidden bg-[${item.bg}] dark:bg-[#3a3636] border-2  `}
+                    >
+                      <svg
+                        className={` absolute max-md:top-9 top-3 dark:bg-[#3a3636]  ${item.bg}`}
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="152 60 200 200"
+                      >
+                        <defs>
+                          <filter
+                            id="filter0_d_31_943"
+                            x="92"
+                            y="0"
+                            width="76"
+                            height="76"
+                            filterUnits="userSpaceOnUse"
+                            colorInterpolationFilters="sRGB"
                           >
-                            <defs>
-                              <filter
-                                id="filter0_d_31_943"
-                                x="92"
-                                y="0"
-                                width="76"
-                                height="76"
-                                filterUnits="userSpaceOnUse"
-                                colorInterpolationFilters="sRGB"
-                              >
-                                <feFlood
-                                  floodOpacity="0"
-                                  result="BackgroundImageFix"
-                                />
-                                <feColorMatrix
-                                  in="SourceAlpha"
-                                  type="matrix"
-                                  values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                                  result="hardAlpha"
-                                />
-                                <feOffset dy="2" />
-                                <feGaussianBlur stdDeviation="4" />
-                                <feComposite in2="hardAlpha" operator="out" />
-                                <feColorMatrix
-                                  type="matrix"
-                                  values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"
-                                />
-                                <feBlend
-                                  mode="normal"
-                                  in2="BackgroundImageFix"
-                                  result="effect1_dropShadow_31_943"
-                                />
-                                <feBlend
-                                  mode="normal"
-                                  in="SourceGraphic"
-                                  in2="effect1_dropShadow_31_943"
-                                  result="shape"
-                                />
-                              </filter>
-                            </defs>
-
-                            <ellipse
-                              cx="253.295"
-                              cy="209.755"
-                              rx="107"
-                              ry="94.042"
-                              fill={
-                                theme === "dark" ? "#E9F3FF1A" : item.circle
-                              }
-                              style={{ strokeWidth: 1 }}
+                            <feFlood
+                              floodOpacity="0"
+                              result="BackgroundImageFix"
                             />
+                            <feColorMatrix
+                              in="SourceAlpha"
+                              type="matrix"
+                              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                              result="hardAlpha"
+                            />
+                            <feOffset dy="2" />
+                            <feGaussianBlur stdDeviation="4" />
+                            <feComposite in2="hardAlpha" operator="out" />
+                            <feColorMatrix
+                              type="matrix"
+                              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"
+                            />
+                            <feBlend
+                              mode="normal"
+                              in2="BackgroundImageFix"
+                              result="effect1_dropShadow_31_943"
+                            />
+                            <feBlend
+                              mode="normal"
+                              in="SourceGraphic"
+                              in2="effect1_dropShadow_31_943"
+                              result="shape"
+                            />
+                          </filter>
+                        </defs>
 
-                            <g className="rectn">
-                              <rect
-                                x="100"
-                                y="6"
-                                width="60"
-                                height="60"
-                                rx="30"
-                                fill={item.incircle}
-                              />
+                        <ellipse
+                          cx="253.295"
+                          cy="209.755"
+                          rx="107"
+                          ry="94.042"
+                          fill={theme === "dark" ? "#E9F3FF1A" : item.circle}
+                          style={{ strokeWidth: 1 }}
+                          
+                        />
 
-                              <g transform="translate(92,0)">
-                                {Icon && <Icon />}
-                              </g>
-                            </g>
-                          </svg>
+                        <g className="rectn">
+                          <rect
+                            x="100"
+                            y="6"
+                            width="60"
+                            height="60"
+                            rx="30"
+                            fill={item.incircle}
+                          />
 
-                          <p className="absolute bottom-8 z-40 font-semibold max-sm:left-7 max-sm:bottom-3 lg:text-xl max-md:text-sm max-md:text-center max-md:right-7  ">
-                            {item.title}
-                          </p>
+                          <g transform="translate(92,0)">{Icon && <Icon />}</g>
+                        </g>
+                      </svg>
 
-                          {/* 
+                      <p className="absolute bottom-8 z-40 font-semibold max-sm:left-5 max-sm:bottom-2 lg:text-xl max-md:text-xs max-md:text-center max-md:right-7  text-center ">
+                        {item.title}
+                      </p>
+
+                      {/* 
                     <Link
                       href={{
                         pathname: "/concept",
@@ -431,9 +428,9 @@ export default function MasterConcepts() {
                         },
                       }}
                     ></Link> */}
-                        </div>
-                      );
-                    })}
+                    </div>
+                  );
+                })}
                   </div>
                 </div>
 

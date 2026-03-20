@@ -1,60 +1,43 @@
 import { NextRequest, NextResponse } from "next/server";
 import db from "@/lib/db";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
-    const url = new URL(req.url);
-    const id = url.searchParams.get("id");
-    
-    if (id) {
-      const post = await db.smallConcepts.findUnique({
-        where: { id: Number(id) },
-      });
-
-      if (!post) {
-        return NextResponse.json({ error: "Not Found" }, { status: 404 });
-      }
-
-      return NextResponse.json({ success: true, post });
-    }
-    const post = await db.smallConcepts.findMany({
-      orderBy: {
-        createdAt: "desc",
-      },
+    const post = await db.smallConcepts.findUnique({
+      where: { id: 255 },
     });
-    if (!post) {
-      return NextResponse.json({ error: "Not Found" }, { status: 404 });
-    }
 
     return NextResponse.json({ success: true, post });
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    return NextResponse.json({ error: "Internal Error" }, { status: 500 });
   }
 }
-
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
-    
-    const existing = await db.smallConcepts.findFirst();
-
-    if (existing) {
+    if (!body.content) {
       return NextResponse.json(
-        { error: "You cannot add more than 1 record." },
+        { error: "Content is required" },
         { status: 400 }
       );
     }
 
-   
-    const post = await db.smallConcepts.create({
-      data: {
-        ...body,
+    const post = await db.smallConcepts.upsert({
+      where: { id: 255 }, // ✅ fixed
+      update: {
+        content: body.content,
+      },
+      create: {
+        id: 255, // ✅ MUST MATCH
+        content: body.content,
       },
     });
 
     return NextResponse.json({ success: true, post });
   } catch (error: any) {
+    console.error("POST ERROR:", error);
     return NextResponse.json(
       { error: error.message || "Internal Server Error" },
       { status: 500 }
@@ -66,11 +49,15 @@ export async function POST(req: NextRequest) {
 export async function PATCH(req: NextRequest) {
   try {
     const body = await req.json();
-    const id = body.id;
 
     const updated = await db.smallConcepts.update({
-      where: { id },
-      data: body,
+      where: { id: 255 },
+      data: {
+        title: body.title,
+        content: body.content,
+        topic: body.topic,
+        toc: body.toc,
+      },
     });
 
     return NextResponse.json({ success: true, post: updated });
@@ -79,22 +66,10 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ error: "Update failed" }, { status: 500 });
   }
 }
-
-export async function DELETE(req: NextRequest) {
+export async function DELETE() {
   try {
-    const url = new URL(req.url);
-
-    const id = url.searchParams.get("id");
-
-    if (!id) {
-      return NextResponse.json(
-        { error: "Missing 'id' query param" },
-        { status: 400 }
-      );
-    }
-
     const deletedContent = await db.smallConcepts.delete({
-      where: { id: parseInt(id) },
+      where: { id: 255 },
     });
 
     return NextResponse.json(
@@ -102,7 +77,7 @@ export async function DELETE(req: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("Error deleting liner content:", error);
+    console.error("Delete error:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }

@@ -149,7 +149,7 @@ export default async function CurrentAffarisPage({
   const { posts, page } = await fetchCurrentAffairs();
 
   // console.log("Page:", page);
-  // console.log("Posts:", posts);
+   console.log("Posts:", post);
 
 
 

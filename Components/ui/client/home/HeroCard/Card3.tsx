@@ -31,7 +31,7 @@ function Card3() {
           </div>
 
           {/* image */}
-          <div className="w-[25%] max-md:w-[40%]  max-md:absolute right-1 bottom-6">
+          <div className="w-[27%] max-md:w-[40%]  max-md:absolute right-1 bottom-2">
             <Image
               src="/ui/client/home/Hero/boy3.png"
               width={300}

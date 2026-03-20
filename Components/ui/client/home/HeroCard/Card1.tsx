@@ -22,7 +22,7 @@ function Card1() {
 
             {/* image */}
 
-             <div className="w-[25%]  max-md:w-[40%] max-md:absolute right-1 bottom-4">
+             <div className="w-[25%]  max-md:w-[35%] max-md:absolute right-1 bottom-4">
           <Image
             src="/ui/client/home/Hero/hero1.png"
             width={300}

@@ -103,9 +103,9 @@ input[type="password"]::-webkit-textfield-decoration-container {
 
 /* font added in theme editor css */
 .PlaygroundEditorTheme__textBase {
-  font-family: var(--font-lato), sans-serif; /* 👈 default = Lato */
-  --color-my-text-color: #6c6c6c;
-   margin: 0 0 12px 0;
+  font-family: var(--font-lato), sans-serif; /* 👈 default = Lato    color: var(--color-my-text-color);*/
+  --color-my-text-color: #6c6c6c;   /*   color: var(--color-my-text-color);*/
+   margin: 0 0 12px 0; 
   /* change for font size global = 17px */
 }
 
@@ -628,6 +628,7 @@ ol {
   padding: 0;
   margin: 0;
   list-style-position: outside;
+    color: var(--color-my-text-color);
 }
 .PlaygroundEditorTheme__listItem {
   margin: 0 0 12px 32px; /* change for btween gap top=0, right=0, bottom=12px, left=32px */

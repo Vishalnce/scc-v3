@@ -44,15 +44,19 @@ export default function CountdownTimer({ minutes,setTimeTaken, onFinish }: Count
   return (
 
     <>
+<div className="flex justify-end mb-3">
+  <div className="flex items-center gap-2 border border-red-200 bg-red-50 px-3 py-1.5 rounded-lg">
+    
+    <span className="text-red-500 text-sm">⏱</span>
 
-     <div className=" font-bold  bg-white min-w-[60px] py-3 text-center shadow-2xl" style={{
-    boxShadow: "0 4px 10px rgba(0,0,0,0.25), 0 8px 20px rgba(0,0,0,0.15)"
-  }}>
-    <p className="text-xl text-my-green">
-{displayMinutes}:{displaySeconds.toString().padStart(2, "0")}
+    <p className="text-sm font-semibold text-red-600">
+      {displayMinutes.toString().padStart(2, "0")}:
+      {displaySeconds.toString().padStart(2, "0")}
     </p>
-      
-    </div>
+
+    <span className="text-xs text-red-400">left</span>
+  </div>
+</div>
     </>
    
   );

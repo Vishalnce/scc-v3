@@ -6,8 +6,8 @@
 // });
 
 import EnglishNav from "@/Components/layout/Nav/EnglishNav";
-import Footer from "@/Components/layout/Footer";
-import TouchBanner from "@/Components/layout/TouchBanner";
+import Footer from "@/Components/layout/Footer/Footer";
+import TouchBanner from "@/Components/layout/Footer/TouchBanner";
 import SmallNav from "@/Components/layout/Nav/SmallNav";
 
 export default function RootLayout({
@@ -18,7 +18,7 @@ export default function RootLayout({
       <EnglishNav />
 
       {children}
-      <TouchBanner />
+      {/* <TouchBanner /> */}
 
       <Footer />
     </>

@@ -15,9 +15,9 @@ export default function QuizContainer() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const handleRestart = () => {
-  setStep("intro");
-  setAnswers([]);
-};
+    setStep("intro");
+    setAnswers([]);
+  };
   useEffect(() => {
     async function fetchQuiz() {
       try {
@@ -59,17 +59,30 @@ export default function QuizContainer() {
 
   return (
     <>
-      {step === "intro" && (
-        <QuizIntro total={quizData.length} onStart={handleStart} />
-      )}
+      <div>
+        <div className="p-6 max-md:px-2 text-center max-w-[1400px] w-[90%] mx-auto flex flex-col items-center justify-center bg-[#F8FAFC]">
+          {/* gor heading */}
+          <div>
+            <p className="text-2xl font-bold"> Live Quiz</p>
+            <p className="text-[#6F6F6F]">Your Daily Exam Prep Partner</p>
+          </div>
+          {step === "intro" && (
+            <QuizIntro total={quizData.length} onStart={handleStart} />
+          )}
 
-      {step === "test" && (
-        <QuizTest quizData={quizData} onSubmit={handleSubmit} />
-      )}
+          {step === "test" && (
+            <QuizTest quizData={quizData} onSubmit={handleSubmit} />
+          )}
 
-      {step === "result" && (
-        <QuizResult quizData={quizData} answers={answers}  onRestart={handleRestart} />
-      )}
+          {step === "result" && (
+            <QuizResult
+              quizData={quizData}
+              answers={answers}
+              onRestart={handleRestart}
+            />
+          )}
+        </div>
+      </div>
     </>
   );
 }

@@ -1,279 +1,268 @@
 "use client";
+
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-import { FaRegCircle } from "react-icons/fa";
-import { GoStopwatch } from "react-icons/go";
+import { useState } from "react";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
-export default function QuizResult({
-  questions,
-  answers,
-  topic,
-  timeTaken,
-  onRestart,
-}: {
-  questions: any[];
-  timeTaken: number;
-  topic: string;
-  answers: { questionId: string; answer: number | null }[];
+type QuizItem = {
+  id: string;
+  postId: number;
+  questionText: string;
+  options: { text: string }[];
+  solutionText?: string;
+
+  correctOption: number; // ✅ ADD THIS
+
+  marksPositive?: number;
+  marksNegative?: number;
+  level?: string;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+type Props = {
+  quizData: QuizItem[];
+  answers: { answer: number | null }[];
   onRestart: () => void;
-}) {
+};
+
+export default function QuizResultNew({ quizData, answers, onRestart }: Props) {
   const [current, setCurrent] = useState(0);
 
-  // Calculate overall stats
-  let totalScore = 0;
-  let totalPossibleScore = 0;
-  let correctCount = 0;
-  let incorrectCount = 0;
-  let notAttemptedCount = 0;
+  const total = quizData.length;
+ 
+  // console.log(answers)
 
-questions.forEach((question) => {
-  // Add the maximum possible marks for this question
-  totalPossibleScore += question.marksPositive ?? 0;
+  const correct = quizData.reduce(
+    (acc, q, i) => acc + (answers[i]?.answer === q.correctOption ? 1 : 0),
+    0,
+  );
 
-  // Find the user's answer for this question
-  const userAnswer = answers.find((a) => a.questionId === question.id)?.answer;
+  const incorrect = quizData.reduce(
+    (acc, q, i) =>
+      acc +
+      (answers[i]?.answer !== null && answers[i]?.answer !== q.correctOption ? 1 : 0),
+    0,
+  );
 
-  // Adjust the correct option index (DB uses 1-based index)
-  const correctIndex = question.correctOption - 1;
+  const notAttempted = total - correct - incorrect;
 
-  if (userAnswer === correctIndex) {
-    // Correct answer
-    totalScore += question.marksPositive ?? 0;
-    correctCount++;
-  } else if (userAnswer != null) {
-    // Wrong answer
-    totalScore += question.marksNegative ?? 0;
-    incorrectCount++;
-  } else {
-    // Not attempted
-    notAttemptedCount++;
-  }
-});
+  const percentage = Math.round((correct / total) * 100);
+
+const q = quizData[current];
+const userAnswerIndex = answers[current]?.answer;
+const correctAnswerIndex = q.correctOption;
 
 
-  const q = questions[current];
-  const userAnswerObj = answers.find((a) => a.questionId === q.id);
-  const userAnswerIndex = userAnswerObj?.answer; // 0-based from answers
-  const correctAnswerIndex = q.correctOption - 1; // normalize to 0-based
 
-  // Marks and status for current question
-  let marksEarned = 0;
-  let status = "";
+  // 🎯 Circle math
+  const radius = 70;
+  const circumference = 2 * Math.PI * radius;
+  const progress = (percentage / 100) * circumference;
 
-  if (userAnswerIndex === correctAnswerIndex) {
-    marksEarned = q.marksPositive ?? 0;
-    status = "✅ Correct";
-  } else if (userAnswerIndex == null) {
-    marksEarned = 0;
-    status = "⚪ Not Attempted";
-  } else {
-    marksEarned = q.marksNegative ?? 0;
-    status = "❌ Incorrect";
-  }
-
-  const handlePrev = () => {
-    if (current > 0) setCurrent(current - 1);
+  // 🎯 Dynamic message
+  const getMessage = () => {
+    if (percentage >= 80)
+      return {
+        mess: "Excellent!",
+        color: "text-green-600",
+        image: "/ui/client/TestIcons/1.png",
+      };
+    if (percentage >= 50)
+      return {
+        mess: "Good Job!",
+        color: "text-yellow-500",
+        image: "/ui/client/TestIcons/2.png",
+      };
+    return {
+      mess: "Needs Improvement",
+      color: "text-red-500",
+      image: "/ui/client/TestIcons/3.png",
+    };
   };
 
-  const handleNext = () => {
-    if (current < questions.length - 1) setCurrent(current + 1);
-  };
-
-    const marksCardRef = useRef<HTMLDivElement | null>(null);
-
-useEffect(() => {
-  if (marksCardRef.current) {
-    const top = marksCardRef.current.getBoundingClientRect().top + window.scrollY;
-
-    window.scrollTo({
-      top: top - 100, // adjust this number (50, 80, 120…)
-      behavior: "smooth",
-    });
-  }
-}, []);
+  const selectedMessage = getMessage();
   
-
   return (
-    <div className="max-w-[1400px] mx-auto dark:bg-black  py-14">
-      {/* Header card */}
+    <>
+      {/* RESULT CARD  */}
+      <div className="md:p-6 max-md:py-4 max-md:px-4 shadow-[0_0_12px_rgba(0,0,0,0.3)] w-full bg-white rounded-2xl my-4 ">
+        {/* Header */}
+        <div className="flex flex-col items-center py-4">
+          <div className="w-12 mb-2">
+            <Image
+              src={selectedMessage.image}
+              width={100}
+              height={100}
+              alt="result"
+              className="w-full h-auto"
+            />
+          </div>
 
-
-      <div ref={marksCardRef} className="w-[90%] bg-[#FAFCFC] border-2 mx-auto flex flex-col items-center dark:bg-[#313131] py-6 border-[#E6F1F1] rounded-2xl ">
-        <div
-          className="-mt-14 rounded-full p-3 bg-white"
-          style={{
-            boxShadow:
-              "0 4px 10px rgba(0,0,0,0.25), 0 8px 20px rgba(0,0,0,0.15)",
-          }}
-        >
-          <Image
-            src={"/ui/client/current-affaris-page/party.svg"}
-            alt="party"
-            width={50}
-            height={50}
-          />
-        </div>
-
-        <div className="py-4">
-          <p className="font-bold dark:text-white text-xl px-4 max-sm:text-center">
-            Congratulations!!! Your Score Card is Here
+          <p className={`font-bold text-2xl ${selectedMessage.color}`}>
+            {selectedMessage.mess}
           </p>
+
+          <p className="text-[#6F6F6F]">Quiz Completed!</p>
         </div>
 
-        <div className="flex flex-row gap-2 items-center justify-center">
-          <GoStopwatch className="size-6 dark:text-white" />
-          <p className="text-xl dark:text-white">
-            Time Taken:{" "}
-            {Number(timeTaken) < 60
-              ? `${Number(timeTaken).toFixed(2)} seconds`
-              : `${(Number(timeTaken) / 60).toFixed(2)} minutes`}
-          </p>
+        {/* 🎯 Circle Score */}
+        <div className="relative w-40 h-40 mx-auto mb-6">
+          <svg width="160" height="160">
+            <circle
+              cx="80"
+              cy="80"
+              r={radius}
+              stroke="#e5e7eb"
+              strokeWidth="10"
+              fill="none"
+            />
+
+            <circle
+              cx="80"
+              cy="80"
+              r={radius}
+              stroke="#047077"
+              strokeWidth="10"
+              fill="none"
+              strokeDasharray={circumference}
+              strokeDashoffset={circumference - progress}
+              strokeLinecap="round"
+              transform="rotate(-90 80 80)"
+            />
+          </svg>
+
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <p className="text-2xl font-bold text-[#047077]">
+              {correct}/{total}
+            </p>
+            <p className="text-sm text-gray-500">{percentage}%</p>
+          </div>
         </div>
 
-        <div className="flex flex-row max-sm:flex-col max-sm:gap-2 justify-around w-full py-12">
-          <div className="flex flex-row gap-2 min-w-[160px] justify-center">
-            <FaRegCircle className="bg-[#2CBB01] my-auto rounded-full text-[#2CBB01]" />
-            <p className="text-xl dark:text-white">Correct : {correctCount}</p>
+        {/* 📊 Stats */}
+        <div className="grid grid-cols-3 gap-4 mb-6">
+          <div className="bg-[#F8FAFC] shadow rounded py-4 text-center">
+            <p className="text-2xl font-bold text-green-600">{correct}</p>
+            <p className="text-sm text-gray-500">Correct</p>
           </div>
-          <div className="flex flex-row gap-2 min-w-[160px] justify-center">
-            <FaRegCircle className="bg-[#FF0000] my-auto rounded-full text-[#FF0000]" />
-            <p className="text-xl dark:text-white">Incorrect : {incorrectCount}</p>
+
+          <div className="bg-[#F8FAFC] shadow rounded py-4 text-center">
+            <p className="text-2xl font-bold text-red-600">{incorrect}</p>
+            <p className="text-sm text-gray-500">Incorrect</p>
           </div>
-          <div className="flex flex-row gap-2 min-w-[160px] justify-center">
-            <FaRegCircle className="bg-[#6C6C6C] my-auto rounded-full text-[#6C6C6C]" />
-            <p className="text-xl dark:text-white">Not Attempted: {notAttemptedCount}</p>
+
+          <div className="bg-[#F8FAFC] shadow rounded py-4 text-center">
+            <p className="text-2xl font-bold text-gray-600">{notAttempted}</p>
+            <p className="text-sm text-gray-500">Not Attempted</p>
           </div>
         </div>
 
-        <div>
+        {/* Buttons */}
+        <div className="flex justify-between gap-4">
           <button
             onClick={onRestart}
-            className="px-4 py-2 bg-[#FFE332] rounded-full"
+            className="w-1/2 py-2 bg-[#047077] text-white rounded"
           >
             Restart Quiz
+          </button>
+
+          <button className="w-1/2 py-2 bg-[#F89716] text-white rounded">
+            More Quiz
           </button>
         </div>
       </div>
 
-      {/* Explanation section */}
-      <div className="w-[90%] py-4 dark:bg-[#313131] bg-[#FAFCFC] rounded-2xl mx-auto px-6 mt-14 border-2 border-[#E6F1F1]">
-        {/* question number */}
-        <div className="flex flex-row justify-between items-center w-[90%] mx-auto -mt-10">
-          <div
-            className="min-w-[60px] bg-white py-1"
-            style={{
-              boxShadow:
-                "0 4px 10px rgba(0,0,0,0.25), 0 8px 20px rgba(0,0,0,0.15)",
-            }}
-          >
-            <p className="font-montserrat font-bold text-3xl max-sm:text-2xl shadow-black/80 text-[#007076] text-center">
-              {current < 9 ? "0" + (current + 1) : current + 1}
-            </p>
-          </div>
+      {/*  REVIEW SECTION  */}
+      <div className="w-full mx-auto mt-10 bg-white shadow-[0_0_12px_rgba(0,0,0,0.3)]  rounded-2xl  p-6">
+        {/* Question */}
+        <div className="flex justify-between mb-4">
+          <p className="text-sm text-gray-500">
+            Question {current + 1} / {total}
+          </p>
         </div>
 
-        {/* question + topic */}
-        <div className="flex flex-row justify-between items-start min-h-[20vh] mt-6">
-          <div className="w-[60%]  max-sm:w-full">
-            <p className="font-bold dark:text-white">{q.questionText}</p>
-          </div>
-          <div className="flex items-end max-sm:hidden">
-            <button className="px-4 py-2 bg-[#FFE332] rounded-full text-sm">
-              {topic}
-            </button>
-          </div>
-        </div>
+        <h3 className="font-semibold mb-4">{q.questionText}</h3>
 
-        {/* options */}
-        <div className="flex flex-row max-sm:flex-col justify-between items-stretch max-sm:gap-4">
-          {/* left options */}
-          <div className="max-sm:py-2 max-sm:w-full max-sm:grid-cols-1 grid grid-cols-2 gap-6 w-[60%]">
-            {q.options.map((opt: { text: string }, idx: number) => (
-              <button
+        {/* Options */}
+        <div className="space-y-3">
+          {q.options.map((opt, idx) => {
+            const isCorrect = idx === correctAnswerIndex;
+            const isWrong =
+              idx === userAnswerIndex && idx !== correctAnswerIndex;
+
+            return (
+              <div
                 key={idx}
-                className={`px-3 py-3 border dark:border-white rounded-full flex flex-row justify-between  ${
-                      idx === correctAnswerIndex
-                        ? "bg-[#2CBB0126] border-[#2CBB0126]" // correct answer
-                        : idx === userAnswerIndex
-                        ? "bg-[#FF000026] border-[#FF000026]" // user wrong choice
-                        : "" // default
-                    } `}
+                className={`px-4 py-3 rounded-xl border flex justify-between
+                ${
+                  isCorrect
+                    ? "bg-green-100 border-green-400"
+                    : isWrong
+                      ? "bg-red-100 border-red-400"
+                      : "bg-gray-50"
+                }`}
               >
-                <p className={`max-lg:text-sm  ${
-                      idx === correctAnswerIndex
-                        ? "text-black dark:text-white" // correct answer
-                        : idx === userAnswerIndex
-                        ? "text-black dark:text-white" // user wrong choice
-                        : "text-my-text-color" // default
-                    }`}>{opt.text}</p>
+                <span>{opt.text}</span>
 
+                {isCorrect && <span className="text-green-600">✔</span>}
+                {isWrong && <span className="text-red-600">✖</span>}
+              </div>
+            );
+          })}
+        </div>
 
-                <div className="my-auto">
-                  <FaRegCircle
-                    size={22}
-                    className={`rounded-full ${
-                      idx === correctAnswerIndex
-                        ? "bg-[#2CBB01] text-[#2CBB01]" // correct answer
-                        : idx === userAnswerIndex
-                        ? "bg-[#FF0000] text-[#FF0000]" // user wrong choice
-                        : " text-[#6C6C6C]" // default
-                    }`}
-                  />
-                </div>
-              </button>
-            ))}
+        {/* Answer Summary */}
+        <div className="mt-6 space-y-2">
+          {/* Chosen Answer */}
+          <div
+            className={`px-4 py-2 rounded-lg text-sm font-medium
+    ${
+      userAnswerIndex === correctAnswerIndex
+        ? "bg-green-50 text-green-700 border border-green-200"
+        : userAnswerIndex === null
+          ? "bg-gray-50 text-gray-500 border border-gray-200"
+          : "bg-red-50 text-red-700 border border-red-200"
+    }`}
+          >
+            Chosen Answer:{" "}
+            {userAnswerIndex !== null
+              ? q.options[userAnswerIndex]?.text
+              : "Not Attempted"}
           </div>
 
-          {/* right navigation */}
-          <div className="w-[30%] max-sm:w-full flex flex-col justify-end">
-            <div className="flex flex-row justify-between gap-2">
-              <button
-                onClick={handlePrev}
-                disabled={current === 0}
-                className="bg-[#FFE332] py-2 px-4 rounded-full flex flex-row items-center disabled:opacity-50 pl-2"
-              >
-                <MdKeyboardArrowLeft className="my-auto size-6" /> Prev
-              </button>
-              <button
-                onClick={handleNext}
-                disabled={current === questions.length - 1}
-                className="bg-[#FFE332] py-2 px-4 rounded-full flex flex-row items-center disabled:opacity-50 pr-2"
-              >
-                Next <MdKeyboardArrowRight className="my-auto size-6" />
-              </button>
-            </div>
+          {/* Correct Answer */}
+          <div className="px-4 py-2 rounded-lg text-sm font-medium bg-green-50 text-green-700 border border-green-200">
+            Correct Answer: {q.options[correctAnswerIndex]?.text}
           </div>
         </div>
 
-      
+        {/* Explanation */}
+        <div className="mt-4">
+          <p className="text-gray-600">
+            {q.solutionText || "No explanation provided."}
+          </p>
+        </div>
+
+        {/* Navigation */}
+        <div className="flex justify-between mt-6">
+          <button
+            onClick={() => setCurrent((p) => p - 1)}
+            disabled={current === 0}
+            className="px-4 py-2 bg-[#047077] text-white rounded disabled:opacity-50"
+          >
+            <MdKeyboardArrowLeft /> Prev
+          </button>
+
+          <button
+            onClick={() => setCurrent((p) => p + 1)}
+            disabled={current === total - 1}
+            className="px-4 py-2 bg-[#047077] text-white rounded disabled:opacity-50"
+          >
+            Next <MdKeyboardArrowRight />
+          </button>
+        </div>
       </div>
-
-      {/* detail explanation  */}
-
-
-      <div className="w-[90%] py-4 dark:bg-[#313131] bg-[#FAFCFC] rounded-2xl mx-auto px-6 mt-14 border-2 border-[#E6F1F1]">
-
-            <div className="flex flex-col items-start ">
-
-              <p>
-                <span className="font-bold dark:text-white">Answer : {q.options[correctAnswerIndex]?.text}</span>
-
-              </p>
-
-              <p className="py-4">
-
-                {q.solutionText ? (
-                  <span className=" dark:text-white">Explanation : {q.solutionText}</span>
-                ) : (
-                  <span className=" dark:text-white">No explanation provided for this question.</span>
-                )}
-
-              </p>
-
-            </div>
-
-      </div>
-    </div>
+    </>
   );
 }

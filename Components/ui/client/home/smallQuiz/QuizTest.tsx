@@ -17,11 +17,18 @@ export default function QuizTest({ quizData, onSubmit }: Props) {
   const currentQuestion = quizData[current];
 
   // Handle option select
-  const handleSelect = (option: string) => {
-    const updated = [...answers];
+const handleSelect = (option: string) => {
+  const updated = [...answers];
+
+  // 👉 if already selected → unselect
+  if (updated[current] === option) {
+    updated[current] = "";
+  } else {
     updated[current] = option;
-    setAnswers(updated);
-  };
+  }
+
+  setAnswers(updated);
+};
 
   // Next / Submit
   const handleNext = () => {
@@ -33,14 +40,14 @@ export default function QuizTest({ quizData, onSubmit }: Props) {
   };
 
   return (
-    <div className="p-6 max-w-2xl mx-auto">
+    <div className="md:p-6 max-md:py-4 max-md:px-2 mx-auto shadow-[0_0_12px_rgba(0,0,0,0.3)] max-md:w-[100%] w-[70%] bg-white rounded-2xl my-4">
       {/* Progress */}
-      <p className="text-sm text-gray-500 mb-2">
-        Question {current + 1} of {quizData.length}
+      <p className="text-sm text-left text-gray-500 mb-2">
+        {current + 1} / {quizData.length}
       </p>
-      <div className="w-full bg-gray-200 h-2 rounded mb-4">
+      <div className=" bg-gray-200 h-2 w-[60%] rounded mb-4 mx-auto">
         <div
-          className="bg-blue-500 h-2 rounded"
+          className="bg-[#047077] h-2 rounded"
           style={{
             width: `${((current + 1) / quizData.length) * 100}%`,
           }}
@@ -52,35 +59,51 @@ export default function QuizTest({ quizData, onSubmit }: Props) {
 
       {/* Options */}
       <div className="space-y-3">
-        {currentQuestion.options.map((option, index) => (
-          <button
-            key={index}
-            onClick={() => handleSelect(option)}
-            className={`w-full text-left px-4 py-2 border rounded transition
-              ${
-                answers[current] === option
-                  ? "bg-blue-500 text-white border-blue-500"
-                  : "bg-white hover:bg-gray-100"
-              }`}
-          >
-            {option}
-          </button>
-        ))}
-      </div>
+  {currentQuestion.options.map((option, index) => {
+    const isSelected = answers[current] === option;
+
+    return (
+      <button
+        key={index}
+        onClick={() => handleSelect(option)}
+        className="w-full flex justify-between items-center px-4 py-3 border-1 border-[#DADADA]  shadow-[0_0_2px_rgba(0,0,0,0.3)]  rounded-xl transition hover:bg-gray-50"
+      >
+        {/* Option text */}
+        <span className="text-left">{option}</span>
+
+        {/* Dot indicator */}
+        <span
+          className={`w-4 h-4 rounded-full border-2 flex items-center justify-center
+            ${
+              isSelected
+                ? "border-[#047077]"
+                : "border-gray-400"
+            }`}
+        >
+          <span
+            className={`w-2 h-2 rounded-full ${
+              isSelected ? "bg-[#047077]" : ""
+            }`}
+          />
+        </span>
+      </button>
+    );
+  })}
+</div>
 
       {/* Navigation */}
       <div className="mt-6 flex justify-between">
         <button
           disabled={current === 0}
           onClick={() => setCurrent((prev) => prev - 1)}
-          className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
+          className="px-4 py-2 bg-[#047077] text-white rounded disabled:opacity-50"
         >
           Prev
         </button>
 
         <button
           onClick={handleNext}
-          className="px-6 py-2 bg-green-500 text-white rounded"
+          className="px-6 py-2 bg-[#047077] text-white rounded-xl"
         >
           {current === quizData.length - 1 ? "Submit" : "Next"}
         </button>

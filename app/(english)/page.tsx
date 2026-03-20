@@ -1,7 +1,7 @@
 import Hero from "@/Components/ui/client/home/Hero";
 
 import Current from "@/Components/ui/client/home/Current";
-import SmallQuiz from "@/Components/ui/client/home/smallQuiz/SamllQuizMain";
+
 import React from "react";
 import QuizCard from "@/Components/ui/client/home/DiveQuiz";
 import DataEntry from "@/Components/ui/client/home/DataEntry";

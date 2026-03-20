@@ -73,87 +73,111 @@ const Filter = () => {
   return (
     <>
       {/* left side  */}
-      <div className="max-md:w-full max-md:flex-wrap flex flex-row items-center max-md:justify-around gap-4 max-sm:gap-1   ">
-        {/* date  */}
-       
-        <div className="relative w-[160px]">
+      <div
+        className="flex flex-row items-center max-md:justify-between max-md:mx-auto gap-4 max-sm:gap-1  max-md:w-[90%]
+                max-md:flex-nowrap  max-md:gap-2"
+      >
+        {/* Date */}
+        <div className="relative w-[160px] max-md:w-[110px] shrink-0">
           <DatePicker
-          isClearable
-            className="w-full pl-8 pr-4 py-2 text-md border-2 rounded-full bg-transparent placeholder:text-[#6C6C6C] dark:placeholder:text-[#C2C2C2] focus:outline-none focus:ring-0 dark:border-white"
+            popperPlacement="bottom-start"
+            isClearable
+            className="w-full pl-7 pr-8 py-1.5 text-sm 
+      max-md:text-xs max-md:pl-6 max-md:pr-8 max-md:py-2
+      border rounded-full bg-transparent 
+      placeholder:text-[#6C6C6C] dark:placeholder:text-[#C2C2C2] 
+      focus:outline-none focus:ring-0 dark:border-white"
             selected={date}
             onChange={handleDateChange}
-            closeOnScroll={false}
-            placeholderText="DD/MM/YYYY"
+            placeholderText="Date"
             dateFormat="dd/MM/yyyy"
-            showMonthDropdown
-            showYearDropdown
-            scrollableYearDropdown
-            calendarClassName="z-50 "
           />
-          <FiCalendar className="absolute left-3 top-1/2 -translate-y-1/2 dark:text-white text-gray-600 pointer-events-none" />
+
+          <FiCalendar className="absolute left-3 max-md:left-2 top-1/2 -translate-y-1/2 text-gray-600 dark:text-white text-xs pointer-events-none" />
         </div>
-        
 
-        {/*  selection */}
-       <Select
-          isClearable
-          value={selectedOption}
-          onChange={handleChange}
-          options={options}
-          placeholder="Select a topic"
-          styles={{
-            control: (base) => ({
-              ...base,
-              border: theme === "dark" ? "2px solid white" : "2px solid black",
-              borderRadius: "9999px",
-
-              backgroundColor: "transparent",
-              color: theme === "dark" ? "white" : "black",
-              boxShadow: "none", // ✅ remove focus halo
-              outline: "none",
-              "&:hover": {
+        {/* Select */}
+        <div className="w-[160px] max-md:w-[110px] min-w-[110px] shrink-0">
+          <Select
+            isClearable
+            value={selectedOption}
+            onChange={handleChange}
+            options={options}
+            placeholder="Topic"
+            components={{
+              DropdownIndicator: null, // ✅ remove arrow (fix overflow)
+              IndicatorSeparator: null, // optional cleaner UI
+            }}
+            styles={{
+              control: (base) => ({
+                ...base,
                 border:
-                  theme === "dark" ? "2px solid white" : "2px solid black",
-              },
-            }),
-            placeholder: (base) => ({
-              ...base,
-              color: theme === "dark" ? "#C2C2C2" : "#6C6C6C",
-            }),
-            option: (base, state) => ({
-              ...base,
+                  theme === "dark" ? "1px solid white" : "1px solid black",
+                borderRadius: "9999px",
+                minHeight: "34px",
+                height: "34px",
+                backgroundColor: "transparent",
+                boxShadow: "none",
+                display: "flex",
+                alignItems: "center",
+              }),
 
-              backgroundColor: state.isSelected
-                ? "#007076"
-                : state.isFocused
-                  ? "#E6F1F1"
-                  : "transparent",
+              valueContainer: (base) => ({
+                ...base,
+                padding: "0 10px",
+                paddingRight: "2px", // ✅ space for ❌
+                height: "34px",
+                display: "flex",
+                alignItems: "center",
+              }),
 
-              color: theme === "dark" ? "black" : "black",
+              input: (base) => ({
+                ...base,
+                margin: 0,
+                padding: 0,
+              }),
 
-              cursor: "pointer",
-            }),
-            singleValue: (base) => ({
-              ...base,
-              color: theme === "dark" ? "#C2C2C2" : "#6C6C6C", // ✅ fix text color for selected value
-            }),
-            menu: (base) => ({
-              ...base,
-              width: "240px", // ⬅️ width of the dropdown menu
-              right:"1px"
-            }),
-          }}
-          className="w-[160px] "
-          classNames={{
-            control: () => "min-w-[160px]",
-          }}
-        /> 
+              placeholder: (base) => ({
+                ...base,
+                margin: 0,
+                lineHeight: "34px",
+                fontSize: "14px",
+                color: theme === "dark" ? "#C2C2C2" : "#6C6C6C",
+              }),
 
+              singleValue: (base) => ({
+                ...base,
+                margin: 0,
+                lineHeight: "34px",
+                fontSize: "14px",
+                color: theme === "dark" ? "#C2C2C2" : "#6C6C6C",
+              }),
+
+              indicatorsContainer: (base) => ({
+                ...base,
+                height: "34px",
+                display: "flex",
+                alignItems: "center",
+                paddingRight: "6px",
+              }),
+
+              clearIndicator: (base) => ({
+                ...base,
+                padding: "0 4px",
+                cursor: "pointer",
+              }),
+            }}
+          />
+        </div>
+
+        {/* Submit */}
         <button
           onClick={handleSubmit}
-          className="px-7  rounded-4xl  py-2 text-[#FFFFFF] my-auto  max-sm:mt-3 max-md: bg-[#007076]"
+          className="px-7 py-2 text-white  rounded-4xl 
+               max-md:px-2 max-md:py-2 max-md:rounded-full shrink-0"
         >
-          Submmit
+          <span className="max-md:hidden">Submit</span>
+          <span className="hidden max-md:block">🔍</span>
         </button>
       </div>
 
