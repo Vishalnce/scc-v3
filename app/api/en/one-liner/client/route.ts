@@ -3,47 +3,53 @@ import  db  from "@/lib/db";
 
 export async function GET(req: NextRequest) {
   try {
-    // ✅ Get date from query params
     const { searchParams } = new URL(req.url);
-    const dateParam = searchParams.get("date"); // expected format: dd-mm-yyyy
-    const limit = searchParams.get("limit");
-    let contents;
 
-    if(limit){
-        contents = await db.liner.findMany({
-        orderBy: { id: "desc" },
-        take: parseInt(limit),
-      });
+    const dateParam = searchParams.get("date");
+    const limitParam = searchParams.get("limit") || "10";
+    const pageParam = searchParams.get("page") || "1";
 
-      return NextResponse.json({ contents }, { status: 200 });
-    }
+    const limit = parseInt(limitParam);
+    const page = parseInt(pageParam);
 
+    const skip = (page - 1) * limit;
+
+    let where: any = {};
+
+    // ✅ Date filter
     if (dateParam) {
-      // Parse dateParam ("dd-mm-yyyy") → actual Date range
       const [day, month, year] = dateParam.split("-").map(Number);
 
-      // Convert to ISO range for that date (00:00 to 23:59)
       const startOfDay = new Date(year, month - 1, day, 0, 0, 0);
       const endOfDay = new Date(year, month - 1, day, 23, 59, 59);
 
-      contents = await db.liner.findMany({
-        where: {
-          createdAt: {
-            gte: startOfDay,
-            lte: endOfDay,
-          },
-        },
-        orderBy: { id: "desc" },
-      });
-    } else {
-      // Default: last 10 records
-      contents = await db.liner.findMany({
-        orderBy: { id: "desc" },
-        take: 10,
-      });
+      where.createdAt = {
+        gte: startOfDay,
+        lte: endOfDay,
+      };
     }
 
-    return NextResponse.json({ contents }, { status: 200 });
+    // ✅ Fetch data
+    const contents = await db.liner.findMany({
+      where,
+      orderBy: { id: "desc" },
+      skip,
+      take: limit,
+    });
+
+    // ✅ Total count (important for pagination UI)
+    const total = await db.liner.count({ where });
+
+    return NextResponse.json(
+      {
+        contents,
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      },
+      { status: 200 }
+    );
   } catch (error) {
     console.error("Error fetching liner contents:", error);
     return NextResponse.json(

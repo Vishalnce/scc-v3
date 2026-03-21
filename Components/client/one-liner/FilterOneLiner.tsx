@@ -49,11 +49,10 @@ const FilterOneLiner = () => {
   const handleSubmit = () => {
     const params = new URLSearchParams();
     if (date) {
-      const formattedDate = format(date, "dd-MM-yyyy" );
+      const formattedDate = format(date, "dd-MM-yyyy");
       params.set("date", formattedDate);
       console.log(formattedDate); // ✅ formatted date
     }
-    
 
     console.log(params.toString());
     router.push(`/one-liner?${params.toString()}`); // ✅ adjust route if needed
@@ -67,38 +66,38 @@ const FilterOneLiner = () => {
       {/* left side  */}
       <div className="max-md:w-full max-md:flex-wrap flex flex-row items-center max-md:justify-around gap-4 max-sm:gap-1   ">
         {/* date  */}
-        <div className="relative w-[160px]">
+        <div className="relative w-[140px] max-md:w-[110px] shrink-0">
           <DatePicker
-          isClearable
-            className="w-full pl-8 pr-4 py-2 text-md border-2 rounded-full bg-transparent dark:border-white placeholder:text-[#6C6C6C] dark:placeholder:text-[#C2C2C2] focus:outline-none focus:ring-0 dark:text-white"
+            popperPlacement="bottom-start"
+            isClearable
+            className="w-full pl-7 pr-8 py-1.5 text-sm 
+              max-md:text-xs max-md:pl-6 max-md:pr-8 max-md:py-2
+              border rounded-full bg-transparent 
+              placeholder:text-[#6C6C6C] dark:placeholder:text-[#C2C2C2] 
+              focus:outline-none focus:ring-0 dark:border-white"
             selected={date}
             onChange={handleDateChange}
-            closeOnScroll={false}
-            placeholderText="DD/MM/YYYY"
+            placeholderText="Date"
             dateFormat="dd/MM/yyyy"
-            showMonthDropdown
-            showYearDropdown
-            scrollableYearDropdown
-            calendarClassName="z-50 "
           />
-          <FiCalendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-600 pointer-events-none dark:text-white" />
+
+          <FiCalendar className="absolute left-3 max-md:left-2 top-1/2 -translate-y-1/2 text-gray-600 dark:text-white text-xs pointer-events-none" />
         </div>
 
-        
-        
-
-        <button
+       <button
           onClick={handleSubmit}
-          className="px-7  rounded-4xl  py-2 text-[#FFFFFF] my-auto   max-md: bg-[#007076]"
+          className="px-7 py-2 text-white  rounded-4xl 
+               max-md:px-8 max-md:py-1.5 max-md:rounded-full shrink-0 border-2 bg-[#047077]"
         >
-          Submmit
+          <span className=" ">Submit</span>
+          {/* <span className="hidden max-md:block">🔍</span> */}
         </button>
 
-         <Link href="/admin/one-liner " className="max-sm:hidden">
-              <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
-                Add post
-              </button>
-            </Link>
+        <Link href="/admin/one-liner " className="max-sm:hidden">
+          <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
+            Add post
+          </button>
+        </Link>
       </div>
 
       {/* right side */}

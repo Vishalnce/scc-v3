@@ -174,9 +174,9 @@ const Filter = () => {
         <button
           onClick={handleSubmit}
           className="px-7 py-2 text-white  rounded-4xl 
-               max-md:px-2 max-md:py-2 max-md:rounded-full shrink-0"
+               max-md:px-2 max-md:py-2 max-md:rounded-full shrink-0 md:bg-[#047077]"
         >
-          <span className="max-md:hidden">Submit</span>
+          <span className=" max-md:hidden">Submit</span>
           <span className="hidden max-md:block">🔍</span>
         </button>
       </div>

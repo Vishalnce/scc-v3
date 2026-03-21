@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { format, parse } from "date-fns";
 
 function DateWise() {
   const router = useRouter();
@@ -15,7 +16,7 @@ function DateWise() {
     setSelectedDate(currentSelectedDate);
   }, [currentSelectedDate]);
 
-const getLast10Dates = () => {
+  const getLast10Dates = () => {
     const dates: string[] = [];
     const today = new Date();
     for (let i = 0; i < 10; i++) {
@@ -31,7 +32,6 @@ const getLast10Dates = () => {
     return dates;
   };
 
-
   const handleClick = (date: string) => {
     if (selectedDate === date) {
       // De-select: navigate to all
@@ -44,33 +44,45 @@ const getLast10Dates = () => {
     }
   };
 
-  // function reset() {
-  //    router.push("/one-liner") 
-  // }
-
   const last10Dates = getLast10Dates();
 
   return (
-    <div className="w-full bg-[#FAFCFC] border-1 border-[#E6F1F1] dark:bg-[#313131]   rounded-lg shadow-2xl ">
-      <h2 className="text-center font-bold py-4 dark:text-white">Date Wise Record</h2>
-      {/* <button onClick={ () => reset()} > Reset </button> */}
-      <div className="flex flex-col gap-2">
-        {last10Dates.map((date) => (
-          <div key={date} className="w-full ">
-            <li
-              onClick={() => handleClick(date)}
-              className={` list-inside text-center py-2 cursor-pointer dark:bg-[#313131] dark:text-white rounded-lg ${
-                selectedDate === date
-                  ? "bg-[#E6F1F1]  dark:bg-black"
-                  : "hover:bg-[#E6F1F1] bg-[#FAFCFC] dark:hover:bg-[#191919]"
-              }`}
-            >
-              {date}
-            </li>
+<div className="w-full dark:bg-[#313131]">
+
+  <div className="flex flex-col max-md:flex-row max-md:overflow-x-auto  justify-start items-center gap-2 max-md:items-stretch px-2 max-md:py-2 no-scrollbar">
+
+    {last10Dates.map((date) => {
+      const parsedDate = parse(date, "dd-MM-yyyy", new Date());
+      const formatted = format(parsedDate, "d EEE");
+
+      return (
+        <div
+          key={date}
+          onClick={() => handleClick(date)}
+          className={`flex flex-row justify-center items-center gap-2 py-4 cursor-pointer text-center rounded-xl transition-all duration-200 w-[60%] max-md:w-[30%] max-md:px-4 shadow-md max-md:shrink-0 max-md:shadow-[0_0_6px_rgba(0,0,0,0.4)] 
+          
+          ${
+            selectedDate === date
+              ? "bg-gradient-to-r from-[#289AA2] to-[#8CD6DB] dark:bg-black scale-[0.97]"
+              : "dark:bg-[#313131] hover:bg-gradient-to-r from-[#289AA2] to-[#8CD6DB] dark:hover:bg-[#191919]"
+          }
+        `}
+        >
+          <div className="flex flex-row md:gap-2  max-md:flex-col">
+            <p className="font-bold text-lg">
+              {formatted.split(" ")[0]}
+            </p>
+
+            <p className="font-bold dark:text-gray-400">
+              {formatted.split(" ")[1]}
+            </p>
           </div>
-        ))}
-      </div>
-    </div>
+        </div>
+      );
+    })}
+
+  </div>
+</div>
   );
 }
 
