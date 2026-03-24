@@ -4,12 +4,18 @@ import ConceptFilter from "@/Components/client/concept/ConceptFilter";
 import Image from "next/image";
 import Link from "next/link";
 import { FaRegCalendarMinus } from "react-icons/fa6";
+import { SlCalender } from "react-icons/sl";
+import { CiClock2 } from "react-icons/ci";
+import { GoChevronRight } from "react-icons/go";
+import { getServerSession } from "next-auth";
+import { NEXT_AUTH } from "@/lib/auth";
 
 type Post = {
   id: number;
   title: string;
   slug: string;
   image: string;
+  subject: string;
   alt: string;
   topic: string;
   summary: string;
@@ -26,7 +32,7 @@ async function fetchPosts(
   category?: string,
   subject?: string,
   topic?: string,
-  date?: string
+  date?: string,
 ): Promise<{ posts: Post[]; totalCount: number }> {
   const params = new URLSearchParams({
     page: String(page),
@@ -42,7 +48,7 @@ async function fetchPosts(
     `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/concept/client?${params.toString()}`,
     {
       cache: "no-store",
-    }
+    },
   );
 
   return res.json();
@@ -74,9 +80,24 @@ export default async function Page({
     category,
     subject,
     topic,
-    date
+    date,
   );
   const totalPages = Math.ceil(totalCount / limit);
+  const session = await getServerSession(NEXT_AUTH);
+  const colors = [
+    {
+      bg: "bg-[#E9F3FF]",
+      icon: "text-[#3B82F6]", // blue-ish
+    },
+    {
+      bg: "bg-[#EBFFE4]",
+      icon: "text-[#22C55E]", // green
+    },
+    {
+      bg: "bg-[#FFF1DF]",
+      icon: "text-[#F59E0B]", // orange
+    },
+  ];
 
   return (
     <>
@@ -95,21 +116,8 @@ export default async function Page({
       <div className="dark:bg-[#191919]">
         {/* Filter + Alert */}
         <div className="flex dark:bg-[#191919] flex-row justify-between items-center mx-auto w-[90%] pt-2 ">
-          < ConceptFilter  />
-          <div className="max-md:hidden">
-            <p className="bg-[image:var(--color-my-yellow-alert)] dark:text-black max-lg:text-sm px-4 py-2 rounded-4xl text-center">
-              New Current Affairs Just Dropped!
-            </p>
-          </div>
+          <ConceptFilter />
         </div>
-
-        {/* Show Active Filters */}
-        {/* <div className="text-sm text-gray-600 dark:text-gray-300 mt-4 w-[90%] mx-auto">
-          {category && <span>Category: <strong>{category}</strong></span>}
-          {subject && <span className="ml-3">Subject: <strong>{subject}</strong></span>}
-          {topic && <span className="ml-3">Topic: <strong>{topic}</strong></span>}
-          {date && <span className="ml-3">Date: <strong>{date}</strong></span>}
-        </div> */}
 
         {/* Add Post Button */}
         <div className="w-[90%] dark:bg-[#191919] mx-auto m-6">
@@ -121,64 +129,67 @@ export default async function Page({
         </div>
 
         {/* Post List */}
-        <div className="flex flex-col w-[90%] mx-auto">
-          {posts.map((post) => (
-            <div
-              key={post.id}
-              className="flex flex-row  rounded-2xl  md:max-h-[288px] m-3 justify-center dark:bg-[#313131]"
-            >
-              {/* Image */}
-              <Link
-                href={{
-                  pathname: `/concept-page/${post.slug}`,
-                  query: { page: page },
-                }}
-                className="flex flex-row w-full max-md:flex-col"
-              >
-                {/* images */}
-                <div className="w-[35%] max-md:w-[90%] max-md:h-[200px] max-md:mx-auto  relative  rounded-xl  m-2  h-[224px] ">
-                  {post.image && (
-                    <Image
-                      src={post.image}
-                      alt={post.alt || "ssc"}
-                      fill
-                      className="object-cover rounded-xl"
-                    />
-                  )}
-                </div>
+        <div className="flex md:flex-wrap  max-md:flex-col max-md:items-center justify-between w-[90%] mx-auto   gap-9">
+          {posts.map((post: any, index: number) => {
+            const color = colors[index % colors.length];
 
-                {/* Info */}
-                <div className="flex flex-col  w-[60%] m-2 justify-start   max-md:mx-auto max-md:w-[90%]">
-                  <h2 className="text-2xl max-sm:text-lg font-bold dark:text-[#FFFFFF]  min-h-[64px]">
-                    {post.title}
-                  </h2>
-                  <p className="text-my-text-color   mt-3  text-fade h-[100px]  overflow-hidden">
-                    Summary: {post.summary}
+            return (
+              <div
+                key={post.id}
+                className="flex flex-col w-[30%] max-md:w-[90%] rounded-2xl bg-white shadow-[0_0_6px_rgba(0,0,0,0.2)]"
+              >
+                {/* Header */}
+                <div
+                  className={`flex flex-col items-start ${color.bg} px-8 pt-4 rounded-t-2xl min-h-[93px]`}
+                >
+                  <p className="bg-[#FFFFFF80] text-sm px-3 rounded-full py-1 inline-block capitalize">
+                    {post.subject}
                   </p>
 
-                  <div className="flex flex-row justify-between mt-3">
-                    <p className="text-sm dark:text-[#FFFFFF]">Read More</p>
-                    <div className="flex flex-row gap-1">
-                      <FaRegCalendarMinus />
-                      <p className="font-semibold text-sm  dark:text-[#FFFFFF]">
-                        {new Date(post.createdAt).toLocaleDateString("en-US", {
-                          day: "2-digit",
-                          month: "long",
-                          year: "numeric",
-                        })}
-                      </p>
-                    </div>
+                  <p className="text-lg font-bold py-4 line-clamp-2">
+                    {post.title}
+                  </p>
+                </div>
+
+                {/* Footer */}
+                <div className="flex flex-row gap-4 relative bg-white py-4 px-8 rounded-2xl">
+                  <div className="flex items-center gap-2 text-my-text-color">
+                    <SlCalender />
+                    <p>
+                      {new Date(post.createdAt).toLocaleDateString("en-US", {
+                        month: "long",
+                        day: "numeric",
+                        year: "numeric",
+                      })}
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-1 text-my-text-color">
+                    <CiClock2 />
+                    <p>{Math.ceil(post.timeToRead)} Min</p>
+                  </div>
+
+                  {/* Floating Icon */}
+                  <div className="absolute -top-5 right-8 p-2 bg-white shadow-[0_0_6px_rgba(0,0,0,0.2)] rounded-full">
+                    <GoChevronRight
+                      className={`my-auto size-6 ${color.icon}`}
+                    />
                   </div>
                 </div>
-              </Link>
+                {/* Edit and delte button for admin  */}
 
-              {/* Edit & Delete */}
-              <div className="grid grid-col-1 items-center  justify-center max-md:hidden">
-                <EditButton slug={post.slug} />
-                <DeleteButton slug={post.slug} />
+                {session?.user?.role === "ADMIN" ? (
+                  <div className="flex flex-row items-center  justify-around max-md:hidden border-2">
+                    <EditButton slug={post.slug} />
+
+                    <DeleteButton slug={post.slug} />
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Pagination */}

@@ -3,13 +3,20 @@ import db from "@/lib/db"
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json(); // ✅ await here
+    const body = await req.json();
 
-    const quiz = await db.question.create({
-      data: body, // ✅ should be "data", not "body"
+    const { quizId, ...rest } = body;
+
+    const question = await db.question.create({
+      data: {
+        ...rest,
+        quiz: {
+          connect: { id: quizId },
+        },
+      },
     });
 
-    return NextResponse.json(quiz);
+    return NextResponse.json(question);
   } catch (error) {
     console.error("Create quiz error:", error);
     return NextResponse.json({ error: "Create failed" }, { status: 500 });

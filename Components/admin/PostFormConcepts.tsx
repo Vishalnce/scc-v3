@@ -22,13 +22,14 @@ type PostType = {
   topic: string;
   subject: string; // ✅ Add this
   category: string;
-  image: string;
-  alt: string;
-  summary: string;
+
+
   keywords: string;
   description: string;
   editorHtml: string;
+  timeToRead:number;
   toc: string;
+
 };
 
 
@@ -119,6 +120,7 @@ useEffect(() => {
   const onSubmit = async (data: PostType) => {
 
 
+
         if (!isEditorTouched && post) {
       data.editorHtml = post.editorHtml;
       data.toc = post.toc;
@@ -170,61 +172,7 @@ useEffect(() => {
 
      const { data: session } = useSession();
 
-const handleImageUpload = async () => {
-    if (session?.user?.role !== "ADMIN") {
-      alert("Access denied");
-      return;
-    }
-    if (!imageFile) return alert("Please select an image to upload");
 
-    setIsUploading(true); // start uploading
-
-    const formData = new FormData();
-    formData.append("image", imageFile);
-
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_URL}/api/upload`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${session.accessToken}`,
-        },
-        body: formData,
-      });
-
-      const data = await res.json();
-      if (data?.url) {
-        setUploadedImageUrl(data.url);
-        setValue("image", data.url);
-      } else {
-        alert("Upload failed");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Error uploading image");
-    } finally {
-      setIsUploading(false); // stop uploading
-    }
-  };
-
-
-  const handleCancelUpload = async () => {
-    if (!uploadedImageUrl) return;
-
-    try {
-      await fetch(`${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_URL}/api/delete?url=${uploadedImageUrl}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${session?.accessToken}`,
-        },
-      });
-    } catch (error) {
-      console.error("Delete error:", error);
-    }
-
-    setUploadedImageUrl("");
-    setImageFile(null);
-    setValue("image", "");
-  };
 
   useEffect(() => {
     setValue("editorHtml", editorData.html);
@@ -295,16 +243,7 @@ const handleImageUpload = async () => {
     />
   </div>
 
-  <div>
-    <label htmlFor="summary" className="block mb-2 font-semibold text-gray-700">Summary <span className="text-red-500"> *</span></label>
-    <textarea
-      id="summary"
-      {...register("summary" , { required: "Summary is required" })}
-      placeholder="Summary"
-      className="border border-gray-300 p-2 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-      rows={4}
-    />
-  </div>
+
 
   <div>
     <label htmlFor="category-select" className="block mb-2 font-semibold text-gray-700">Select Category <span className="text-red-500"> *</span></label>
@@ -349,61 +288,9 @@ const handleImageUpload = async () => {
     <input type="hidden" {...register("topic" , { required: "Topic is required" })} />
   </div>
 
-  <div>
-    <label htmlFor="image-upload" className="block mb-2 font-semibold text-gray-700">Upload Image <span className="text-red-500"> *</span></label>
-    <input
-      id="image-upload"
-      type="file"
-      accept="image/*"
-      onChange={(e) => setImageFile(e.target.files?.[0] || null)}
-      className="border border-gray-300 p-2 rounded-md w-fit"
-    />
-    <button
-      type="button"
-      onClick={handleImageUpload}
-      disabled={isUploading}
-      className={`mt-2 px-4 py-2 rounded text-white transition ${
-        isUploading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
-      }`}
-    >
-      {isUploading ? "Uploading..." : "Upload Image"}
-    </button>
 
-    {uploadedImageUrl && (
-      <div className="relative w-[30%] h-[228px] border border-gray-200 rounded-md overflow-hidden mt-4">
-        <div className="flex justify-between items-center px-1 pt-1">
-          <p className="text-sm text-gray-600">Uploaded Image:</p>
-          <button
-            type="button"
-            onClick={handleCancelUpload}
-            className="text-red-500 text-sm hover:underline"
-          >
-            Cancel
-          </button>
-        </div>
-        <div className="relative w-full h-[200px]">
-          <Image
-            src={uploadedImageUrl}
-            alt={watch("alt") || "Uploaded image preview"}
-            fill
-            className="object-cover rounded-b-md"
-          />
-        </div>
-      </div>
-    )}
-    <input type="hidden" {...register("image")} value={uploadedImageUrl} />
-  </div>
 
-  <div>
-    <label htmlFor="alt" className="block mb-2 font-semibold text-gray-700">Alt tag for image</label>
-    <input
-      id="alt"
-      {...register("alt")}
-      placeholder="Alt tag for image"
-      className="border border-gray-300 p-2 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-      type="text"
-    />
-  </div>
+
 
   <div>
     <label htmlFor="keywords" className="block mb-2 font-semibold text-gray-700">Enter Keywords separated by commas <span className="text-red-500"> *</span></label>
@@ -426,6 +313,29 @@ const handleImageUpload = async () => {
       rows={4}
     />
   </div>
+
+    <div>
+  <label
+    htmlFor="timeToRead"
+    className="block mb-2 font-semibold text-gray-700"
+  >
+    Time to Read <span className="text-red-500">*</span>
+  </label>
+
+  <input
+    id="timeToRead"
+    type="number"
+    step="0.1"   // adjust precision if needed
+    min="0"
+    max="200"
+    {...register("timeToRead", {
+      required: "Time To Read",
+      valueAsNumber: true, // ✅ important for number parsing
+    })}
+    placeholder="Time to Read (in minutes)"
+    className="border border-gray-300 p-2 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+  />
+</div>
 
   <div>
     <Editor value={value} onSync={setEditorData} setIsEditorChange={setIsEditorTouched} />

@@ -107,59 +107,83 @@ const Filter = () => {
          */}
 
         {/*  selection */}
-        <Select
-          isClearable
-          value={selectedTopic}
+            <div className="w-[160px] max-md:w-[110px] min-w-[110px] shrink-0">
+          <Select
+            isClearable
+            value={selectedTopic}
           onChange={setSelectedTopic}
           options={topicOptions}
-          placeholder="Select a topic"
-          styles={{
-            control: (base) => ({
-              ...base,
-              border: theme === "dark" ? "2px solid white" : "2px solid black",
-              borderRadius: "9999px",
-              backgroundColor: "transparent",
-              color: theme === "dark" ? "white" : "black",
-              boxShadow: "none",
-              outline: "none",
-              "&:hover": {
+            placeholder="Topic"
+            components={{
+              DropdownIndicator: null, // ✅ remove arrow (fix overflow)
+              IndicatorSeparator: null, // optional cleaner UI
+            }}
+            styles={{
+              control: (base) => ({
+                ...base,
                 border:
-                  theme === "dark" ? "2px solid white" : "2px solid black",
-              },
-            }),
-            placeholder: (base) => ({
-              ...base,
-              color: theme === "dark" ? "#C2C2C2" : "#6C6C6C",
-            }),
-            option: (base, state) => ({
-              ...base,
-              backgroundColor: state.isSelected
-                ? "#007076"
-                : state.isFocused
-                  ? "#E6F1F1"
-                  : "transparent",
-              color: "black",
-              cursor: "pointer",
-            }),
-            singleValue: (base) => ({
-              ...base,
-              color: theme === "dark" ? "#C2C2C2" : "#6C6C6C",
-            }),
-            menu: (base) => ({
-              ...base,
-              width: "240px",
-              right: "1px",
-            }),
-          }}
-          className="w-[160px]"
-          classNames={{
-            control: () => "min-w-[160px]",
-          }}
-        />
+                  theme === "dark" ? "1px solid white" : "1px solid black",
+                borderRadius: "9999px",
+                minHeight: "34px",
+                height: "34px",
+                backgroundColor: "transparent",
+                boxShadow: "none",
+                display: "flex",
+                alignItems: "center",
+              }),
+
+              valueContainer: (base) => ({
+                ...base,
+                padding: "0 10px",
+                paddingRight: "2px", // ✅ space for ❌
+                height: "34px",
+                display: "flex",
+                alignItems: "center",
+              }),
+
+              input: (base) => ({
+                ...base,
+                margin: 0,
+                padding: 0,
+              }),
+
+              placeholder: (base) => ({
+                ...base,
+                margin: 0,
+                lineHeight: "34px",
+                fontSize: "14px",
+                color: theme === "dark" ? "#C2C2C2" : "#6C6C6C",
+              }),
+
+              singleValue: (base) => ({
+                ...base,
+                margin: 0,
+                lineHeight: "34px",
+                fontSize: "14px",
+                color: theme === "dark" ? "#C2C2C2" : "#6C6C6C",
+              }),
+
+              indicatorsContainer: (base) => ({
+                ...base,
+                height: "34px",
+                display: "flex",
+                alignItems: "center",
+                paddingRight: "6px",
+              }),
+
+              clearIndicator: (base) => ({
+                ...base,
+                padding: "0 4px",
+                cursor: "pointer",
+              }),
+            }}
+          />
+        </div>
+       
 
         <button
           onClick={handleSubmit}
-          className="px-7  rounded-4xl  py-2 text-[#FFFFFF] my-auto  max-sm:mt-3 max-md: bg-[#007076]"
+          className="px-7  rounded-4xl  py-1.5 text-[#FFFFFF]   bg-[#007076]"
         >
           Submmit
         </button>

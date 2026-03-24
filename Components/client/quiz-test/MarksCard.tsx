@@ -65,22 +65,28 @@ let incorrectCount = 0;
 let notAttemptedCount = 0;
 
 questions.forEach((question) => {
-  const userAnswer = answers.find((a) => a.questionId === question.id)?.answer;
+  const userAnswer = answers.find(
+    (a) => a.questionId === question.id
+  )?.answer;
+
+  // ✅ FIXED INDEX
   const correctIndex = question.correctOption - 1;
 
   if (userAnswer === correctIndex) {
-    correctMarks += question.marksPositive ?? 0;
+    correctMarks += Number(question.marksPositive ?? 0);
     correctCount++;
   } else if (userAnswer != null) {
-    incorrectMarks += question.marksNegative ?? 0; // negative value
+    const rawNegative = Number(question.marksNegative ?? 0);
+    const negative = rawNegative > 0 ? -rawNegative : rawNegative;
+
+    incorrectMarks += negative;
     incorrectCount++;
   } else {
     notAttemptedCount++;
   }
 });
 
-const totalScore = correctMarks + incorrectMarks;
-
+const totalScore = Number((correctMarks + incorrectMarks).toFixed(2));
 
   const { data } = useSession();
   const didSaveRank = useRef(false);

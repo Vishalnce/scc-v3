@@ -13,7 +13,7 @@ import QuestionWarpper from "./QuestionWarpper";
 type PostFormQuizProps = {
   id?: number;
   title: string;
-  summary: string;
+
   description: string;
   keywords: string;
   category: string;
@@ -124,7 +124,7 @@ async function updateQuiz(e: React.MouseEvent<HTMLButtonElement>) {
   try {
     const formData = {
       title: getValues("title"),
-      summary: getValues("summary"),
+  
       keywords: getValues("keywords"),
       description: getValues("description"),
       category: getValues("category"),
@@ -175,17 +175,7 @@ async function updateQuiz(e: React.MouseEvent<HTMLButtonElement>) {
       />
     </div>
 
-    <div>
-      <label htmlFor="summary" className="block mb-2 font-semibold text-gray-700">
-        Short Summary
-      </label>
-      <textarea
-        id="summary"
-        {...register("summary")}
-        placeholder="Short summary"
-        className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
-      />
-    </div>
+
 
     <div>
       <label htmlFor="keywords" className="block mb-2 font-semibold text-gray-700">

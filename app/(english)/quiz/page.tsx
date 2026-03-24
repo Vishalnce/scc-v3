@@ -6,6 +6,9 @@ import Link from "next/link";
 import { FaRegCalendarMinus } from "react-icons/fa6";
 import { getServerSession } from "next-auth";
 import { NEXT_AUTH } from "@/lib/auth";
+import { SlCalender } from "react-icons/sl";
+import { CiClock2 } from "react-icons/ci";
+import { GoChevronRight } from "react-icons/go";
 
 type Post = {
   id: number;
@@ -26,7 +29,7 @@ async function fetchPosts(
   category?: string,
   subject?: string,
   topic?: string,
-  date?: string
+  date?: string,
 ): Promise<{ posts: Post[]; totalCount: number }> {
   const params = new URLSearchParams({
     page: String(page),
@@ -42,7 +45,7 @@ async function fetchPosts(
     `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/quiz/client?${params.toString()}`,
     {
       cache: "no-store",
-    }
+    },
   );
 
   return res.json();
@@ -74,7 +77,7 @@ export default async function Page({
     category,
     subject,
     topic,
-    date
+    date,
   );
   const totalPages = Math.ceil(totalCount / limit);
 
@@ -89,8 +92,23 @@ export default async function Page({
     "general-awareness": "/ui/client/quiz/general.svg",
     "mathematical-abilities": "/ui/client/quiz/math.svg",
     "computer-knowledge": "/ui/client/quiz/computer.svg",
-    "pyq": "/ui/client/quiz/computer.svg",
+    pyq: "/ui/client/quiz/computer.svg",
   };
+
+  const colors = [
+    {
+      bg: "bg-[#E9F3FF]",
+      icon: "text-[#3B82F6]", // blue-ish
+    },
+    {
+      bg: "bg-[#EBFFE4]",
+      icon: "text-[#22C55E]", // green
+    },
+    {
+      bg: "bg-[#FFF1DF]",
+      icon: "text-[#F59E0B]", // orange
+    },
+  ];
 
   return (
     <>
@@ -98,20 +116,23 @@ export default async function Page({
       <header className="bg-[image:var(--color-my-gradient)]">
         <div className="flex flex-col justify-center items-center min-h-[150px] mx-auto max-w-[1400px] max-sm:w-[90%] text-center">
           <h1 className="text-4xl font-bold max-sm:text-2xl">
-            Elevate Your SSC CGL Success with{" "}
-            <span className="text-my-green"> Expert Quizzes</span>
+            <p className="max-md:hidden">    Elevate Your SSC CGL Success with{" "}
+            <span className="text-my-green"> Expert Quizzes</span></p>
+            <p className=" font-bold max-sm:text-2xl md:hidden">Master SSC CGL with expert quizzes.</p>
+         
           </h1>
-          <p className="mt-1 text-lg max-sm:text-sm text-my-text-color">
+          <p className="mt-1 text-lg max-sm:text-sm text-my-text-color max-md:hidden">
             Practice Smarter by Choosing Quizzes Tailored to Your Strengths and
             Weaknesses!
           </p>
+          <p className="mt-1 text-lg max-sm:text-sm text-my-text-color md:hidden"> Quiz smarter: match your strengths and weaknesses.</p>
         </div>
       </header>
 
       <div className="dark:bg-[#191919]">
         {/* Filter + Alert */}
         <div className="flex dark:bg-[#191919] flex-row justify-between items-center mx-auto w-[90%] pt-2 ">
-          <QuizFilter  />
+          <QuizFilter />
           <div className="max-md:hidden">
             <p className="bg-[image:var(--color-my-yellow-alert)] dark:text-black max-lg:text-sm px-4 py-2 rounded-4xl text-center">
               New Quiz Just Dropped!
@@ -134,73 +155,76 @@ export default async function Page({
         )}
 
         {/* Post List */}
-        <div className="flex flex-col w-[90%] mx-auto">
-          {posts.map((post) => (
-            <div
-              key={post.id}
-              className="flex flex-row  rounded-2xl  md:max-h-[288px] m-3 justify-center dark:bg-[#313131] "
-            >
-              <Link
-                href={{
-                  pathname: `/quiz-test/${post.id}`,
-                  // query: { page:page }, // pass your page variable here
-                }}
-                className="flex flex-row w-full justify-center max-md:flex-col bg-[#FAFCFC] border-2 border-[#E6F1F1] rounded-2xl py-4 px-4 dark:bg-[#313131] "
-              >
-                {/* images */}
-                <div className="   rounded-xl  m-2   ">
-                  <Image
-                    src={subjectImages[post.subject]}
-                    alt={"ssc"}
-                    width={60}
-                    height={60}
-                    className="object-cover rounded-xl"
-                  />
-                </div>
-                {/* info */}
-                <div className="flex flex-col  w-[90%] m-2 justify-start    ">
-                  <h2 className="text-2xl max-sm:text-lg font-bold dark:text-[#FFFFFF] ">
-                    {post.title}
-                  </h2>
+        <div className="flex md:flex-wrap  max-md:flex-col max-md:items-center justify-between w-[90%] mx-auto   gap-9">
+          {posts.map((post: any, index: number) => {
+            const color = colors[index % colors.length];
 
-                  <p className="text-my-text-color  mt-3  text-fade h-[50px]  overflow-hidden">
-                    Summary: {post.summary}
+            return (
+              <div
+                key={post.id}
+                className="flex flex-col w-[30%] max-md:w-[90%] rounded-2xl bg-white shadow-[0_0_6px_rgba(0,0,0,0.2)]"
+              >
+                {/* Header */}
+                <div
+                  className={`flex flex-col items-start ${color.bg} px-8 pt-4 rounded-t-2xl min-h-[93px]`}
+                >
+                  <p className="bg-[#FFFFFF80] text-sm px-3 rounded-full py-1 inline-block capitalize">
+                    {post.subject}
                   </p>
 
-                  {/* nav button */}
-                  <div className="flex flex-row justify-between mt-3 ">
-                    <p className="text-sm dark:text-[#FFFFFF] px-4 py-2 bg-[#007076] rounded-full text-white">
-                      Start Quiz
+                  <p className="text-lg font-bold py-4 line-clamp-2">
+                    {post.title}
+                  </p>
+                </div>
+
+                {/* Footer */}
+                <div className="flex flex-row gap-4 relative bg-white py-4 px-8 rounded-2xl">
+                  <div className="flex items-center gap-2 text-my-text-color">
+                    <SlCalender />
+                    <p>
+                      {new Date(post.createdAt).toLocaleDateString("en-US", {
+                        month: "long",
+                        day: "numeric",
+                        year: "numeric",
+                      })}
                     </p>
-
-                    <div className="flex flex-row gap-1 ">
-                      <FaRegCalendarMinus className="max-sm:my-auto dark:text-my-text-color" />
-                      <p className="font-semibold text-sm max-sm:my-auto dark:text-[#FFFFFF]">
-                        {new Date(post.createdAt).toLocaleDateString("en-US", {
-                          day: "2-digit",
-                          month: "long", // 👈 "April"
-                          year: "numeric",
-                        })}
-                      </p>
-                    </div>
                   </div>
+
+                  <div className="flex items-center gap-1 text-my-text-color">
+                    <CiClock2 />
+                    <p>{Math.ceil(post.timeLimit)} Min</p>
+                  </div>
+
+                  {/* Floating Icon */}
+                  <Link
+                    href={{
+                      pathname: `/quiz-test/${post.id}`,
+                      // query: { page:page }, // pass your page variable here
+                    }}
+                  >
+                    <div className="absolute -top-5 right-8 p-2 bg-white shadow-[0_0_6px_rgba(0,0,0,0.2)] rounded-full pointer">
+                      <GoChevronRight
+                        className={`my-auto size-6 ${color.icon}`}
+                      />
+                    </div>
+                  </Link>
                 </div>
-              </Link>
 
-              {/* edit and delete button */}
+                {session?.user?.role === "ADMIN" ? (
+                  <div className="flex flex-row items-center  justify-around max-md:hidden">
+                    <EditButton id={post.id} />
 
-              {session?.user?.role === "ADMIN" ? (
-                <div className="grid grid-col-1 items-center  justify-center max-md:hidden ">
-                  <EditButton id={post.id} />
-
-                  <DeleteButton id={post.id} />
-                </div>
-              ) : (
-                ""
-              )}
-            </div>
-          ))}
+                    <DeleteButton id={post.id} />
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
+            );
+          })}
         </div>
+
+        {/* edit and delete button */}
 
         {/* Pagination */}
         <div className="flex justify-center items-center gap-4 py-6">

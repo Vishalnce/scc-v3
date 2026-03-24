@@ -2,18 +2,19 @@ model Concept {
   id    Int    @id @default(autoincrement())
   title String
   slug  String @unique
-  image String
-  alt   String
+
 
   category String // e.g. "pre" or "mains"
   subject  String // e.g. "reasoning", "gs1"
   topic    String // e.g. "quantitative", "history"
 
-  summary     String
+
   keywords    String
   description String
   editorHtml  String
   toc         String
   createdAt   DateTime @default(now())
+  timeToRead  Float
   comments Comment[]
 }
+

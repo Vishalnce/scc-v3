@@ -4,6 +4,7 @@ import QuizIntro from "./QuizIntro";
 import QuizQuestion from "./QuizQuestion";
 import QuizLogin from "./QuizLogin";
 import QuizResult from "./QuizResult";
+import QuizTest from "./QuizTest";
 
 
 export default function QuizSection({
@@ -65,8 +66,8 @@ export default function QuizSection({
   if (stage === "intro") return <QuizIntro onStart={() => setStage("quiz")} subject={subject} timeLimt={timeLimit} noOfQuestion={noOfQuestions} />;
 
   if (stage === "quiz")
-    return (
-      <QuizQuestion
+    return (<> 
+     {/* <QuizQuestion
         questions={questions}
         topic = {topic}
         timeLimit={timeLimit}
@@ -75,7 +76,21 @@ export default function QuizSection({
           setAnswers(a); // store answers as objects
           setStage("result"); // move to result page
         }}
+      /> */}
+      <QuizTest
+       questions={questions}
+        topic = {topic}
+        timeLimit={timeLimit}
+        setTimeTaken={setTimeTaken}
+        onFinish={(a: { questionId: string; answer: number | null }[]) => {
+          setAnswers(a); // store answers as objects
+          setStage("result"); // move to result page
+        }}
+      
       />
+    
+    </>
+     
     );
 
 

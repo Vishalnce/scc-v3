@@ -3,6 +3,8 @@ import React from "react";
 
 function Card2() {
   return (
+
+    
     <div className="bg-gradient-to-r from-[#289AA2] to-[#8CD6DB] rounded-2xl shadow pb-5 relative  md:min-h-[380px] ">
       {/* main div */}
 

@@ -1,7 +1,7 @@
 model Quiz {
   id          Int    @id @default(autoincrement()) @unique
   title       String @unique
-  summary     String
+
   keywords    String
   description String
   category    String // e.g. "pre" or "mains"
@@ -13,11 +13,11 @@ model Quiz {
   questions Question[]
 
   createdAt DateTime @default(now())
-   comment Comment[]
+  comment Comment[]
 
-   rank Rank[]
+  rank Rank[]
 
-   notifications Notification[]
+  notifications Notification[]
 }
 
 model Question {

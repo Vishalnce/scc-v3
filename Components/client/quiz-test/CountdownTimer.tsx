@@ -46,9 +46,9 @@ export default function CountdownTimer({ minutes,setTimeTaken, onFinish }: Count
 
     <>
 
-     <div className=" font-bold  min-w-[60px] py-3 text-center flex flex-row gap-2" >
+     <div className=" font-bold  min-w-[60px]  text-center flex flex-row gap-2 border-2 text-[#24B3CB] bg-[#EEF5FF]" >
       <CiClock1 className="my-auto size-6"/>
-    <p className=" text-[#6C6C6C]">
+    <p className="  ">
       {displayMinutes}:{displaySeconds.toString().padStart(2, "0")}
     </p>
       
