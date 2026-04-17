@@ -19,6 +19,33 @@ export default function QuizIntro({
   timeLimt,
   noOfQuestion,
 }: IntroProps) {
+
+const handleShare = async () => {
+  const url = window.location.href;
+
+  // ✅ Try native share
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: "Quiz",
+        text: "Try this quiz",
+        url,
+      });
+      return;
+    } catch (err) {
+      console.log("User cancelled or failed", err);
+    }
+  }
+
+  // 🔁 Fallback (mobile + desktop)
+  try {
+    await navigator.clipboard.writeText(url);
+    alert("Link copied!");
+  } catch {
+    // ❌ Clipboard may fail on mobile → final fallback
+    prompt("Copy this link:", url);
+  }
+};
   return (
     <>
 
@@ -168,13 +195,19 @@ export default function QuizIntro({
 
           {/* buttons */}
 
-          <div className=" w-full flex flex-row  items-center justify-center text-white py-4">
+          <div className=" w-full flex flex-row  items-center justify-between py-4">
+
+             <button   onClick={handleShare} className="w-[45%] border-[#047077] text-[#047077] border-2 py-3 rounded-xl  ">
+              Share quiz 
+              
+            </button>
             <button
               onClick={onStart}
-              className=" w-[48%] bg-[#047077] py-3 rounded-xl"
+              className=" w-[45%] bg-[#047077] py-3 rounded-xl  border-2 border-[#047077] text-white"
             >
               Start Quiz
             </button>
+           
           </div>
         </div>
 

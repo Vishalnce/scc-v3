@@ -30,8 +30,9 @@ model Question {
  
   options       Json     // Example: [{ text: "Option 1", image: "url" }, { text: "Option 2"// }]
 
-  solutionText  String?
-  solutionImage String?
+  // solutionText  String?
+  // solutionImage String?
+  solution  String
 
   correctOption Int
   marksPositive Float

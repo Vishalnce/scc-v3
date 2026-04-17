@@ -29,6 +29,7 @@ export async function GET(req: NextRequest) {
 
     const [posts, totalCount] = await Promise.all([
       db.concept.findMany({
+          where, 
         orderBy: { createdAt: "desc" },
         skip: (page - 1) * limit,
         take: limit,

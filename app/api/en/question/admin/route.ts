@@ -100,22 +100,37 @@ export async function PATCH(req: Request) {
   try {
     const body = await req.json();
 
-    // Expect quesId and other fields in body
-    const { quesId, ...updateData } = body;
+    const { quesId, ...rawData } = body;
 
     if (!quesId) {
-      return NextResponse.json({ error: "quesId is required for update" }, { status: 400 });
+      return NextResponse.json(
+        { error: "quesId is required for update" },
+        { status: 400 }
+      );
     }
 
-    // Update question in DB
+    // ✅ Clean undefined values
+    const updateData = Object.fromEntries(
+      Object.entries(rawData).filter(([_, v]) => v !== undefined)
+    );
+
     const updatedQuestion = await db.question.update({
-      where: { id: quesId },
+      where: {
+        id: quesId, // ⚠️ adjust if string ID
+      },
       data: updateData,
     });
 
     return NextResponse.json(updatedQuestion);
-  } catch (error) {
+
+  } catch (error: any) {
     console.error("Update question error:", error);
-    return NextResponse.json({ error: "Update failed" }, { status: 500 });
+
+    return NextResponse.json(
+      {
+        error: error.message || "Update failed",
+      },
+      { status: 500 }
+    );
   }
 }

@@ -9,8 +9,13 @@ import { set } from "date-fns";
 import Image from "next/image";
 import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md";
 import { RiCheckboxCircleFill, RiCheckboxCircleLine } from "react-icons/ri";
-import { IoCheckmarkCircle, IoCheckmarkCircleOutline } from "react-icons/io5";
+import {
+  IoCheckmarkCircle,
+  IoCheckmarkCircleOutline,
+  IoRocketOutline,
+} from "react-icons/io5";
 import { IoIosArrowUp } from "react-icons/io";
+import { CgDanger } from "react-icons/cg";
 type quiz = {
   id: string;
   quizId: number;
@@ -111,37 +116,36 @@ export default function QuizTest({
   const startTimeRef = useRef<number>(Date.now());
   const q: quiz = questions[current];
 
-const handleSelect = (optionIndex: number) => {
-  setAnswers((prev) => {
-    const copy = [...prev];
-    const currentAnswer = copy[current].answer;
+  const handleSelect = (optionIndex: number) => {
+    setAnswers((prev) => {
+      const copy = [...prev];
+      const currentAnswer = copy[current].answer;
 
-    const newAnswer =
-      currentAnswer === optionIndex ? null : optionIndex;
+      const newAnswer = currentAnswer === optionIndex ? null : optionIndex;
 
-    copy[current] = {
-      questionId: q.id,
-      answer: newAnswer,
-    };
+      copy[current] = {
+        questionId: q.id,
+        answer: newAnswer,
+      };
 
-    // ✅ Update mark based on REAL state
-    setMark((prevMarks) =>
-      prevMarks.map((m, index) => {
-        if (index === current) {
-          return {
-            ...m,
-            answered: newAnswer !== null,
-            noAnswered: newAnswer === null,
-            notVisited: false,
-          };
-        }
-        return m;
-      }),
-    );
+      // ✅ Update mark based on REAL state
+      setMark((prevMarks) =>
+        prevMarks.map((m, index) => {
+          if (index === current) {
+            return {
+              ...m,
+              answered: newAnswer !== null,
+              noAnswered: newAnswer === null,
+              notVisited: false,
+            };
+          }
+          return m;
+        }),
+      );
 
-    return copy;
-  });
-};
+      return copy;
+    });
+  };
 
   const handlePrev = () => setCurrent((prev) => Math.max(prev - 1, 0));
   const handleNext = () =>
@@ -175,6 +179,35 @@ const handleSelect = (optionIndex: number) => {
     medium: "bg-yellow-100 text-yellow-700",
     hard: "bg-red-100 text-red-700",
   };
+
+  //pop card
+  const [showSubmitModal, setShowSubmitModal] = useState(false);
+
+  //for timer
+  const [remainingTime, setRemainingTime] = useState(0);
+  const getTimeLeft = () => {
+    const spentSeconds = Math.floor((Date.now() - startTimeRef.current) / 1000);
+
+    const totalSeconds = timeLimit * 60; // ✅ convert minutes → seconds
+
+    return Math.max(totalSeconds - spentSeconds, 0);
+  };
+
+  const formatTime = (seconds: number) => {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m}:${s.toString().padStart(2, "0")}`;
+  };
+
+  //
+
+
+useEffect(() => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+}, [current]);
   return (
     <>
       <div className=" dark:bg-black  ">
@@ -232,7 +265,7 @@ const handleSelect = (optionIndex: number) => {
               onClick={() => setIsNavOpen(true)}
               className="w-full py-5 text-center font-semibold dark:text-white flex flex-row items-center justify-center gap-2 "
             >
-               Questions ({questions.length})  <IoIosArrowUp className="size-6" />
+              Questions ({questions.length}) <IoIosArrowUp className="size-6" />
             </button>
           </div>
 
@@ -246,7 +279,7 @@ const handleSelect = (optionIndex: number) => {
 
           {/* Mobile Drawer */}
           <div
-            className={`md:hidden fixed bottom-0 left-0 w-full bg-white dark:bg-[#1e1e1e] rounded-t-2xl shadow-lg z-40 transform transition-transform duration-300 ${
+            className={`md:hidden fixed bottom-7 left-0 w-full bg-white dark:bg-[#1e1e1e] rounded-t-2xl shadow-lg z-40 transform transition-transform duration-300 ${
               isNavOpen ? "translate-y-0" : "translate-y-full"
             }`}
           >
@@ -264,8 +297,8 @@ const handleSelect = (optionIndex: number) => {
               </button>
             </div>
 
-            <div className="max-h-[60vh] overflow-y-auto p-4">
-              <div className="flex flex-wrap gap-3 justify-center">
+            <div className=" p-4">
+              <div className="flex flex-wrap gap-3 justify-center  max-h-[30vh] overflow-y-auto ">
                 {questions.map((_, idx) => {
                   const m = mark[idx];
 
@@ -308,7 +341,7 @@ const handleSelect = (optionIndex: number) => {
 
           {/*--------------- right question and submit box ----------------  */}
 
-          <div className=" shadow-[0_0_9px_rgba(0,0,0,0.2)] top-2 rounded-2xl my-2 w-[70%] py-2 max-md:w-full">
+          <div    className=" shadow-[0_0_9px_rgba(0,0,0,0.2)] top-2 rounded-2xl my-2 w-[70%] py-2 max-md:w-full">
             {/* topic name and  and timer */}
 
             <div className="flex flex-row justify-between py-2 my-2 px-4 ">
@@ -322,7 +355,7 @@ const handleSelect = (optionIndex: number) => {
 
             {/* question div and nav */}
 
-            <div className="flex flex-col justify-start items-center  max-sm:w-full dark:bg-[#313131]     rounded-2xl max-sm:pb-4">
+            <div   className="flex flex-col justify-start items-center  max-sm:w-full dark:bg-[#313131]     rounded-2xl max-sm:pb-4">
               {/* top heaeding */}
               <div className="  flex flex-row   justify-between items-center  w-full   px-4">
                 {/* level */}
@@ -360,9 +393,7 @@ const handleSelect = (optionIndex: number) => {
                   <div
                     className={`w-full px-4    py-3 flex flex-col justify-between gap-2  max-sm:flex-col  `}
                   >
-                    <p
-                      className={`font-bold dark:text-white  w-full `}
-                    >
+                    <p className={`font-bold dark:text-white  w-full `}> <span className="text-lg"> Question {current + 1}: </span>
                       {q.questionText}
                     </p>
 
@@ -380,6 +411,8 @@ const handleSelect = (optionIndex: number) => {
                   </div>
 
                   {/* option */}
+
+                  <p className="text-lg font-bold px-4"> Options:-</p>
 
                   <div className="flex flex-row justify-between items-stretch  w-full px-4 ">
                     <div
@@ -502,8 +535,12 @@ const handleSelect = (optionIndex: number) => {
             {/* submmit button */}
             <div className=" py-4 px-4">
               <button
-                onClick={handleSubmit}
-                className="px-4 py-2  rounded-full bg-[#F89716] w-full text-white"
+                onClick={() => {
+                  const remaining = getTimeLeft();
+                  setRemainingTime(remaining);
+                  setShowSubmitModal(true);
+                }}
+                className="px-4 py-2 rounded-full bg-[#F89716] w-full text-white"
               >
                 Submit
               </button>
@@ -511,6 +548,94 @@ const handleSelect = (optionIndex: number) => {
           </div>
         </div>
       </div>
+
+      {showSubmitModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 ">
+          <div className="bg-white dark:bg-[#1e1e1e] rounded-2xl p-6  w-[50%] max-md:w-[90%] shadow-lg">
+            <div className="w-full flex items-center  py-2  rounded-t-xl gap-4 max-md:gap-4">
+              {/* icon */}
+              <div className="rounded-xl bg-gradient-to-r p-2 sm:p-3 from-[#047077] to-[#2FC6C7] flex items-center justify-center">
+                <CgDanger className="text-white size-8 md:size-5" />
+              </div>
+
+              {/* text */}
+              <div>
+                <p className="font-semibold text-xl max-md:text-lg">
+                  Submit Quiz ?
+                </p>
+                <p className="text-[#6F6F6F] max-md:text-sm">
+                  Once submitted, answers cannot be changed
+                </p>
+              </div>
+            </div>
+
+            {/* Stats */}
+            <div className="py-4">
+              <div className="grid grid-cols-2 gap-3 text-sm">
+                <div className="border border-[#24B3CB] bg-[#E9F3FF] rounded-lg p-3 text-center">
+                <div>
+                  <p className="text-3xl text-[#24B3CB]">  {questions.length} </p>
+                  <p className="text-my-text-color font-medium"> Total Question </p>
+                </div>
+                  
+                </div>
+
+                <div className="border border-[#11C352] bg-[#EBFFE4] rounded-lg p-3 text-green-600 dark:text-green-400 text-center">
+                  <div>
+                  <p className="text-3xl text-[#11C352]">  {counts.answered} </p>
+                  <p className="text-my-text-color font-medium"> Attempted </p>
+                </div>
+          
+                </div>
+
+                <div className="border border-[#F89716] bg-[#FFF1DF] rounded-lg p-3 text-yellow-600 dark:text-yellow-400 text-center">
+
+                    <div>
+                  <p className="text-3xl text-[#F89716]">  {counts.notAnswered + counts.notVisited}</p>
+                  <p className="text-my-text-color font-medium"> Skipped </p>
+                </div>
+               
+                </div>
+
+                <div className="border  border-[#D63895] bg-[#FFE5F4] rounded-lg p-3 text-cyan-600 dark:text-cyan-400 text-center">
+                     <div>
+                  <p className="text-3xl text-[#D63895]">  {formatTime(remainingTime)}</p>
+                  <p className="text-my-text-color font-medium"> Time Left</p>
+                </div>
+             
+                </div>
+              </div>
+
+              {counts.notAnswered + counts.notVisited > 0 && (
+                <p className="text-red-500 text-sm mt-3 text-center">
+                  ⚠ You still have unanswered questions
+                </p>
+              )}
+            </div>
+
+            {/* Buttons */}
+            <div className="flex gap-4 mt-6">
+               <button
+                onClick={() => setShowSubmitModal(false)}
+                className="w-full border-[#047077] text-[#047077] border-2 py-2 rounded-lg"
+              >
+              <p>Continue</p>
+              </button>
+              <button
+                onClick={() => {
+                  setShowSubmitModal(false);
+                  handleSubmit(); // 🔥 final submit
+                }}
+                className="w-full bg-[#047077] border-[#047077] border-2 text-white py-2 rounded-lg"
+              >
+                  <p>Submit</p>
+              </button>
+
+             
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

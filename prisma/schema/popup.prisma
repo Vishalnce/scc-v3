@@ -1,0 +1,17 @@
+model Popup {
+  id         String    @id @default(cuid())
+  type       PopupType @unique
+  isActive   Boolean   @default(true)
+
+  showAfter1 Int
+  showAfter2 Int
+  showAfter3 Int
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+enum PopupType {
+  A
+  B
+}

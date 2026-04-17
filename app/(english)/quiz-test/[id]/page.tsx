@@ -29,6 +29,7 @@ export default async function page({
   }
 
   const res = await fetchPost(id);
+ 
 
   return (
     <>

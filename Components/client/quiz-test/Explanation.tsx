@@ -2,6 +2,8 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { FaRegCircle } from "react-icons/fa";
+import { IoIosArrowUp } from "react-icons/io";
+import { IoCheckmarkCircle, IoCheckmarkCircleOutline } from "react-icons/io5";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
 type Props = {
@@ -45,263 +47,314 @@ export default function Explanation({ questions, answers, topic }: Props) {
   };
 
   const handleSelect = (optionIndex: number) => {};
-  console.log(questions);
+
+  const [isNavOpen, setIsNavOpen] = useState(false);
   return (
     <>
       <div className="max-sm:w-[100%] w-[95%]    rounded-2xl mx-auto px-6 mt-14  ">
         {/* vi qwuestrion asn wer  */}
 
         <div className="w-full mx-auto flex flex-row max-sm:flex-col-reverse justify-between   ">
-          {/* Left div  */}
+          {/* left div */}
 
-          <div className="flex flex-col border-2 border-[#E6F1F1] justify-start items-center  w-[65%] max-sm:w-full  max-sm:mt-6 rounded-2xl dark:bg-[#313131]">
-            {/* top heaeding */}
-            <div className="  flex flex-row justify-around items-center gap-12 w-full py-2">
-              {/* timer and marks */}
-              <div className="flex flex-row justify-between items-center  w-[45%] gap-1 ">
-                <div className="flex flex-row justify-between items-center -mt-8  ">
-                  <div
-                    className="  min-w-[60px]  bg-white py-1  "
-                    style={{
-                      boxShadow:
-                        "0 4px 10px rgba(0,0,0,0.25), 0 8px 20px rgba(0,0,0,0.15)",
-                    }}
-                  >
-                    <p className="font-montserrat font-bold text-3xl max-sm:text-2xl shadow-black/80 text-[#007076] text-center">
-                      {current < 10 ? "0" + Number(current + 1) : current}
-                    </p>
-                  </div>
-                </div>
+          <div className="w-[32%]  max-sm:w-full flex flex-col border-2 rounded-2xl shadow-[0_0_9px_rgba(0,0,0,0.2)] border-[#E6F1F1] dark:bg-[#313131]">
+            {/* Header */}
+            <div className=" hidden md:flex justify-center  px-4 py-4">
+              <p className="font-bold text-lg">
+                Total Question: {questions.length}
+              </p>
+            </div>
 
-                <div className="">
-                  <p className=" text-sm text-green-600 font-semibold">
-                    {" "}
-                    {q.marksPositive}{" "}
-                    <span className="max-sm:hidden"> Marks </span>{" "}
-                  </p>
-                </div>
+            {/* ================= DESKTOP ================= */}
+            <div className="hidden md:block overflow-y-auto px-2 pb-4  w-[80%] mx-auto">
+              <div className="flex flex-wrap justify-center items-start gap-4 min-h-[300px]">
+                {questions.map((q: any, idx: any) => {
+                  const userAnswer = answers.find(
+                    (a: any) => a.questionId === q.id,
+                  )?.answer;
 
-                <div className="">
-                  <p className="text-sm  text-red-600  font-semibold">
-                    {" "}
-                    {q.marksNegative}{" "}
-                    <span className="max-sm:hidden"> Negative Marks </span>
-                  </p>
-                </div>
+                  const correctIndex = q.correctOption - 1;
+
+                  let statusClass =
+                    "bg-white dark:bg-[#2a2a2a] text-black dark:text-white"; // not answered
+
+                  if (userAnswer === correctIndex) {
+                    statusClass = "bg-[#2CBB01] text-white"; // correct
+                  } else if (userAnswer != null) {
+                    statusClass = "bg-[#FF0000] text-white"; // wrong
+                  }
+
+                  return (
+                    <button
+                      key={idx}
+                      onClick={() => handleOnClick(idx)}
+                      className={`px-4 py-2 min-w-[50px] rounded-lg border border-[#6C6C6C] text-lg font-medium transition-all ${statusClass}`}
+                    >
+                      {idx + 1}
+                    </button>
+                  );
+                })}
               </div>
 
-              {/* level */}
-              <div className="bg-[#E6F1F1] px-4 py-1 rounded-2xl ">
-                <p className="text-sm  font-semibold"> Level {q.level}</p>
+              <div className=" flex flex-col justify-start gap-2 my-4">
+                <div className="flex flex-row gap-2">
+                  <IoCheckmarkCircle className="size-6 text-[#11C352]" />{" "}
+                  <p className="font-bold"> Correct </p>
+                </div>
+                <div className="flex flex-row gap-2">
+                  <IoCheckmarkCircle className="size-6 text-[#F14343]" />{" "}
+                  <p className="font-bold"> Incorrect </p>
+                </div>
+                <div className="flex flex-row gap-2">
+                  <IoCheckmarkCircleOutline className="size-6 " />{" "}
+                  <p className="font-bold"> Unanswered </p>
+                </div>
               </div>
             </div>
 
-            <div className="  flex flex-row justify-between items-stretch h-full w-full">
-              {/* question and options  */}
+            <div
+              className={`sm:hidden fixed bottom-8 left-0 w-full bg-white dark:bg-[#1e1e1e]   z-40 transform transition-all duration-300 pb-6 rounded-t-2xl  `}
+            >
+              {/* CLICK AREA (always visible) */}
+              <div
+                onClick={() => setIsNavOpen(!isNavOpen)}
+                className="w-full py-4 text-center font-semibold dark:text-white flex justify-center gap-2  cursor-pointer "
+              >
+                Questions ({questions.length})
+                <IoIosArrowUp
+                  className={`transition-transform duration-300 my-auto ${
+                    isNavOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </div>
 
-              <div className="flex flex-col justify-between items-start w-full     ">
-                {/* question  */}
+              {/* CONTENT (only visible when open) */}
+              {isNavOpen && (
+                <>
+                  {/* grid */}
+                  <div className="  p-4 border-2 border-[#D0D0D0] ">
+                    <div className="flex flex-wrap items-center justify-center gap-4  max-h-[30vh] overflow-y-auto ">
+                      {questions.map((q: any, idx: any) => {
+                        const userAnswer = answers.find(
+                          (a: any) => a.questionId === q.id,
+                        )?.answer;
 
-                <div className="w-full px-4   py-3 flex flex-row justify-between gap-2  max-sm:flex-col  ">
-                  <p
-                    className={`font-bold dark:text-white  ${q.questionImage ? " w-[55%] max-sm:w-full" : "null"} `}
-                  >
-                    {q.questionText}
-                  </p>
+                        const correctIndex = q.correctOption - 1;
 
-                  {/* image have to fixed size */}
-                  {q.questionImage ? (
-                    <div className="relative  max-w-[400px] w-[40%] max-sm:w-full aspect-[16/9]   border-pink-500">
-                      <Image
-                        src={q.questionImage.toString()}
-                        alt="question image"
-                        fill
-                        className="object-contain"
-                      />
+                        let statusClass =
+                          "dark:bg-[#2a2a2a] text-black dark:text-white";
+
+                        if (userAnswer === correctIndex) {
+                          statusClass = "bg-[#11C352] text-white";
+                        } else if (userAnswer != null) {
+                          statusClass = "bg-[#F14343] text-white";
+                        }
+
+                        return (
+                          <button
+                            key={idx}
+                            onClick={() => handleOnClick(idx)}
+                            className={`px-4 py-2 min-w-[50px] rounded-lg border border-[#6C6C6C]  font-medium ${statusClass}`}
+                          >
+                            {idx + 1}
+                          </button>
+                        );
+                      })}
                     </div>
-                  ) : null}
+                  </div>
+
+                  {/* legend */}
+                  <div className="flex justify-center gap-4 pb-2 pt-1 my-4  ">
+                    <div className="flex items-center gap-1">
+                      <IoCheckmarkCircle className="text-[#11C352]" />
+                      Correct
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <IoCheckmarkCircle className="text-[#F14343]" />
+                      Incorrect
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <IoCheckmarkCircleOutline />
+                      Unanswered
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+
+          {/* right div  */}
+
+          <div className="shadow-[0_0_9px_rgba(0,0,0,0.2)] rounded-2xl my-2 w-[65%] max-md:w-full">
+            {/* Header (NO TIMER) */}
+            <div className="flex flex-row justify-between py-3 px-4">
+              <p className="capitalize bg-[#FFE5F4] px-3 py-1 rounded-md">
+                {topic}
+              </p>
+
+            </div>
+
+            {/* Main Content */}
+            <div className="flex flex-col dark:bg-[#313131] rounded-2xl pb-4">
+              {/* Top Row */}
+              <div className="flex justify-between items-center px-4">
+                {/* Level */}
+                <div className="px-4 py-1 rounded-2xl bg-[#F6FFF3]">
+                  <p className="text-sm font-semibold capitalize text-[#11C352]">
+                    Level {q.level}
+                  </p>
                 </div>
 
-                {/* option */}
+                {/* Marks */}
+                <div className="flex gap-2">
+                  <p className="w-[50px] text-center text-sm font-semibold bg-[#EBFFE4] text-[#11C352] border p-2">
+                    +{q.marksPositive}
+                  </p>
+                  <p className="w-[50px] text-center text-sm font-semibold bg-[#FDE9E9] text-[#F14343] border p-2">
+                    -{q.marksNegative}
+                  </p>
+                </div>
+              </div>
 
-                <div className="flex flex-row justify-between items-stretch  border-red-300 w-full px-4 ">
-                  <div
-                    className={`max-sm:py-2 max-sm:w-full   mx-auto gap-6 w-full  py-4 ${q.options[0]?.image ? "flex flex-wrap justify-between " : "grid grid-cols-2 max-sm:grid-cols-1"}`}
-                  >
-                    {q.options.map(
-                      (opt: { text?: string; image?: string }, idx: number) => {
-                        const hasText = !!opt.text;
-                        const hasImage = !!opt.image;
-                        const hasBoth = hasText && hasImage;
+              {/* Question */}
+              <div className="w-full px-4 py-3">
+                <p className="font-bold dark:text-white">
+                  {" "}
+                  Question {current + 1}: {q.questionText}
+                </p>
 
-                        // ⭐ CASE 1: TEXT + IMAGE (NEW)
-                        if (hasBoth) {
-                          return (
-                            <div
-                              key={idx}
-                              onClick={() => handleSelect(idx)}
-                              className={`flex flex-col gap-2 max-w-[400px] w-[40%] hover:cursor-pointer`}
-                            >
-                              {/* TEXT ABOVE */}
-                              <p className="text-my-text-color text-left px-2">
-                                {opt.text}
-                              </p>
+                {q.questionImage && (
+                  <div className="relative mt-2 aspect-[16/9]">
+                    <Image
+                      src={q.questionImage.toString()}
+                      alt="question"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                )}
+              </div>
+              <p className=" px-4 text-xl "> Options:- </p>
 
-                              {/* IMAGE BELOW */}
-                              <div
-                                className={`relative w-full aspect-[16/9] rounded-xl overflow-hidden transition-all duration-200 ${
-                                  correctAnswerIndex === idx
-                                    ? "border-[#2CBB01] border-3"
-                                    : userAnswerIndex === idx
-                                      ? "border-[#FF0000] border-3"
-                                      : ""
-                                }`}
-                              >
-                                <Image
-                                  src={(opt.image ?? "").toString()}
-                                  alt="question option"
-                                  fill
-                                  className="object-contain"
-                                />
-                              </div>
-                            </div>
-                          );
-                        }
+              {/* Options */}
+              <div className="w-full px-4 py-4">
+                <div
+                  className={`gap-4 ${
+                    q.options[0]?.image
+                      ? "flex flex-wrap justify-between"
+                      : "grid grid-cols-1"
+                  }`}
+                >
+                  {q.options.map((opt: any, idx: number) => {
+                    const hasText = !!opt.text;
+                    const hasImage = !!opt.image;
+                    const hasBoth = hasText && hasImage;
 
-                        // ⭐ CASE 2: TEXT ONLY (unchanged)
-                        if (hasText) {
-                          return (
-                            <button
-                              key={idx}
-                              onClick={() => handleSelect(idx)}
-                              className={`px-3 py-3 border dark:border-white rounded-full flex flex-row justify-between text-my-text-color ${
-                                correctAnswerIndex === idx
-                                  ? "bg-[#2CBB0126] border-[#2CBB0126]"
-                                  : userAnswerIndex === idx
-                                    ? "bg-[#FF000026] border-[#FF000026]"
-                                    : "bg-transparent"
-                              }`}
-                            >
-                              <p className="text-left">{opt.text}</p>
+                    const isCorrect = correctAnswerIndex === idx;
+                    const isUser = userAnswerIndex === idx;
 
-                              <FaRegCircle
-                                size={20}
-                                className={`${
-                                  correctAnswerIndex === idx
-                                    ? "bg-[#2CBB01] rounded-full text-[#2CBB01]"
-                                    : userAnswerIndex === idx
-                                      ? "bg-[#FF0000] rounded-full text-[#FF0000]"
-                                      : ""
-                                }`}
-                              />
-                            </button>
-                          );
-                        }
+                    // status styling
+                    let borderStyle = "";
+                    let bgStyle = "";
 
-                        // ⭐ CASE 3: IMAGE ONLY (unchanged)
-                        return (
+                    if (isCorrect) {
+                      borderStyle = "border-4 border-[#2CBB01]";
+                      bgStyle = "bg-[#2CBB0126]";
+                    } else if (isUser) {
+                      borderStyle = "border-4 border-[#FF0000]";
+                      bgStyle = "bg-[#FF000026]";
+                    }
+
+                    // TEXT + IMAGE
+                    if (hasBoth) {
+                      return (
+                        <div key={idx} className="w-[45%] flex flex-col gap-2">
+                          <p className="text-my-text-color">{opt.text}</p>
+
                           <div
-                            key={idx}
-                            onClick={() => handleSelect(idx)}
-                            className={`relative max-w-[400px] w-[40%] aspect-[16/9] rounded-xl overflow-hidden hover:cursor-pointer transition-all duration-200 ${
-                              correctAnswerIndex === idx
-                                ? "border-[#2CBB01] border-3"
-                                : userAnswerIndex === idx
-                                  ? "border-[#FF0000] border-3"
-                                  : ""
-                            }`}
+                            className={`relative aspect-[16/9] rounded-xl overflow-hidden ${borderStyle}`}
                           >
                             <Image
-                              src={(opt.image ?? "").toString()}
-                              alt="question image"
+                              src={opt.image}
+                              alt="option"
                               fill
                               className="object-contain"
                             />
                           </div>
-                        );
-                      }
-                    )}
-                  </div>
+                        </div>
+                      );
+                    }
+
+                    // TEXT ONLY
+                    if (hasText) {
+                      return (
+                        <div
+                          key={idx}
+                          className={`px-4 py-3 rounded-xl  flex justify-between shadow-[0_0_9px_rgba(0,0,0,0.2)] ${bgStyle}`}
+                        >
+                          <p className="dark:text-white">{opt.text}</p>
+
+                          <FaRegCircle
+                            className={`${
+                              isCorrect
+                                ? "text-[#2CBB01]"
+                                : isUser
+                                  ? "text-[#FF0000]"
+                                  : ""
+                            }`}
+                          />
+                        </div>
+                      );
+                    }
+
+                    // IMAGE ONLY
+                    return (
+                      <div
+                        key={idx}
+                        className={`relative w-[45%] aspect-[16/9] rounded-xl overflow-hidden ${borderStyle}`}
+                      >
+                        <Image
+                          src={opt.image}
+                          alt="option"
+                          fill
+                          className="object-contain"
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* right div */}
+            {/* Navigation only (NO SUBMIT) */}
+            <div className="flex px-4 py-4 justify-between">
+              <button
+                onClick={handlePrev}
+                disabled={current === 0}
+                className="bg-[#047077] w-[45%] py-2 rounded-xl text-white disabled:opacity-50"
+              >
+                Prev
+              </button>
 
-          <div className=" w-[32%] sm:self-stretch max-sm:w-full flex flex-col border-2 rounded-2xl border-[#E6F1F1]  dark:bg-[#313131] ">
-            {/* topic and navigation */}
-            <div className=" flex flex-row  justify-between items-center pb-3 px-4 py-4">
-              <div className=" flex items-end ">
-                <button className="px-4 py-2 bg-[#95DC7F]  rounded-full text-sm capitalize">
-                  {topic}
-                </button>
-              </div>
-            </div>
-
-            {/* navigation  */}
-
-            <div className=" h-full overflow-y-auto max-sm:overflow-x-auto">
-              <div className="flex flex-row sm:flex-wrap sm:justify-center  items-center gap-2 ">
-                {Array.from({ length: questions.length }, (_, idx) => {
-                  const q = questions[idx];
-                  const userAnswer = answers.find(
-                    (a: any) => a.questionId === q.id
-                  )?.answer;
-                  const correctIndex = q.correctOption - 1;
-
-                  let statusClass = "";
-                  if (userAnswer === correctIndex) {
-                    statusClass = "bg-[#2CBB01] text-white";
-                  } else if (userAnswer != null) {
-                    statusClass = "bg-[#FF0000] text-white";
-                  } else {
-                    statusClass = "bg-white dark:bg-[#313131]";
-                  }
-
-                  return (
-                    <div key={idx}>
-                      <button
-                        onClick={() => handleOnClick(idx)}
-                        className={`px-4 py-2  min-w-[50px]  border-1 border-[#6C6C6C] rounded-lg ${statusClass} `}
-                      >
-                        <p className="text-black dark:text-white"> {idx + 1}</p>
-                      </button>
-                    </div>
-                  );
-                })}
-              </div>
+              <button
+                onClick={handleNext}
+                disabled={current === questions.length - 1}
+                className="bg-[#047077] w-[45%] py-2 rounded-xl text-white disabled:opacity-50"
+              >
+                Next
+              </button>
             </div>
           </div>
         </div>
 
-        <div className="w-full mx-auto flex flex-row sm:justify-end  py-6 ">
-          {/* rightbox  */}
-
-          <div className="border-2 rounded-2xl border-[#E6F1F1] w-[32%] max-sm:w-full flex flex-row justify-between items-center py-2 px-2 dark:bg-[#313131]">
-            <button
-              onClick={handlePrev}
-              disabled={current === 0}
-              className="bg-[#FFE332] py-2 px-4 rounded-full  flex flex-row items-center disabled:opacity-50 pl-2"
-            >
-              <MdKeyboardArrowLeft className="my-auto size-6" /> Prev
-            </button>
-
-            <button
-              onClick={handleNext}
-              disabled={current === questions.length - 1}
-              className="bg-[#FFE332] py-2 px-4 rounded-full  flex flex-row items-center disabled:opacity-50 pr-2"
-            >
-              Next <MdKeyboardArrowRight className="my-auto size-6" />
-            </button>
-          </div>
-        </div>
+      
       </div>
 
       {/* detail explanation  */}
 
       {/* Correct & User Chosen Answer */}
-      <div className="w-[90%] py-4 dark:bg-[#313131] bg-[#FAFCFC] rounded-2xl mx-auto px-6 border-2 border-[#E6F1F1]">
+      <div className="w-[90%] py-4 dark:bg-[#313131]  rounded-2xl mx-auto px-6 my-6 shadow-[0_0_9px_rgba(0,0,0,0.2)]">
+        <p className="text-lg font-bold  max-md:py-2">Explanation :- </p>
         <div className={`flex flex-col  gap-4 `}>
           {/* Correct Answer */}
           <div className="flex flex-row items-center gap-3 dark:text-white font-bold">
@@ -359,19 +412,12 @@ export default function Explanation({ questions, answers, topic }: Props) {
 
         {/* Explanation Section - KEEP AS IS */}
         <div className="py-4">
-          <p className="dark:text-white text-lg">
-            Explanation: {q.solutionText}
-          </p>
-          {q.solutionImage ? (
-            <div className="relative max-w-[400px] w-[40%] max-sm:w-full aspect-[16/9] ">
-              <Image
-                src={q.solutionImage.toString()}
-                alt="solution image"
-                fill
-                className="object-contain"
-              />
-            </div>
-          ) : null}
+          <div
+            className="dark:text-white text-lg prose dark:prose-invert max-w-none"
+            dangerouslySetInnerHTML={{
+              __html: q.solution || "",
+            }}
+          />
         </div>
       </div>
 

@@ -5,7 +5,9 @@ import { stat } from "fs";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import { CiTrophy } from "react-icons/ci";
 import { FaRegStar, FaStar } from "react-icons/fa";
+import { IoRocketOutline } from "react-icons/io5";
 
 type Rank = {
   rankId: string;
@@ -49,86 +51,103 @@ export default function RankCard({ quizId }: RankProps) {
 
   return (
     <>
-      <div className=" mx-auto w-[90%] ">
-        <p className="font-bold text-lg text-center dark:text-white">
-          Quiz Rank Card
-        </p>
+      <>
+        {/* Modal */}
+        {isModalOpen && <SignInModal onClose={() => setIsModalOpen(false)} />}
 
-        <div className="flex flex-col  dark:border-2 dark:border-white rounded-2xl">
-          {/* heading */}
-          <div className="flex flex-row justify-between  py-2 text-lg text-center bg-[#E6F1F1] font-bold px-4 rounded-t-2xl dark:text-white dark:bg-[#191919] ">
-            <p className="w-[20%] ">Position</p>
-            <p className="w-[20%] ">Name</p>
-            <p className="w-[20%]">Duration</p>
-            <p className="w-[20%]">Score</p>
-          </div>
+        <div className=" shadow-[0_0_12px_rgba(0,0,0,0.2)] w-[90%] mx-auto  my-6 flex justify-center rounded-xl">
+          {status === "unauthenticated" ? (
+            <div className="flex flex-col items-center justify-center gap-3 py-8  dark:bg-[#313131] dark:text-white w-[90%]">
+              <div className="w-full flex items-center  py-2  rounded-t-xl gap-4 max-md:gap-4">
+                {/* icon */}
+                <div className="rounded-xl bg-gradient-to-r p-2 sm:p-3 from-[#047077] to-[#2FC6C7] flex items-center justify-center">
+                  <CiTrophy className="text-white size-8 md:size-12" />
+                </div>
 
-          {isModalOpen && <SignInModal onClose={() => setIsModalOpen(false)} />}
-          <div className=" flex flex-col gap-2 text-center max-h-[120px] overflow-y-auto py-2 dark:bg-[#313131] rounded-b-2xl dark:text-white ">
-            {status === "unauthenticated" ? (
-              <div>
-                <p> Login to see your Rank</p>
-                <button
-                  onClick={() => setIsModalOpen(true)}
-                  className="mt-2 px-4 py-2 bg-[#007076] text-white rounded-lg w-[10%] mx-auto"
-                >
-                  Login
-                </button>
+                {/* text */}
+                <div>
+                  <p className="font-bold text-xl max-md:text-lg">
+                   Login to check your Rank?
+                  </p>
+                  <p className="text-[#6F6F6F]  max-md:text-sm">
+                    Compare insights with pro analysis
+                  </p>
+                </div>
               </div>
-            ) : (
-              ranks.map((rank, index) => {
-                const rankImage =
-                  index === 0
-                    ? "/ui/client/rankCard/1.svg"
-                    : index === 1
-                      ? "/ui/client/rankCard/2.svg"
-                      : index === 2
-                        ? "/ui/client/rankCard/3.svg"
-                        : null;
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="px-6 py-2 bg-[#007076] text-white  w-full rounded-full"
+              >
+             Check Rank
+              </button>
+            </div>
+          ) : (
+            <div className="mx-auto w-[90%]">
+              <p className="font-bold text-lg text-center dark:text-white">
+                Quiz Rank Card
+              </p>
 
-                return (
-                  <div
-                    key={index}
-                    className=" flex flex-row justify-between items-center px-4"
-                  >
-                    <div
-                      className={`flex flex-row justify-center items-center w-[20%] ${
-                        rankImage ? "" : ""
-                      }`}
-                    >
-                      {rankImage && (
-                        <Image
-                          src={rankImage}
-                          alt={`Position ${index + 1}`}
-                          height={30}
-                          width={30}
-                        />
-                      )}
+              <div className="overflow-x-auto rounded-2xl dark:border-2 dark:border-white">
+                <table className="w-full text-center border-collapse">
+                  {/* Header */}
+                  <thead className="bg-[#E6F1F1] dark:bg-[#191919] dark:text-white">
+                    <tr className="text-lg font-bold">
+                      <th className="py-2 px-4">Position</th>
+                      <th className="py-2 px-4">Name</th>
+                      <th className="py-2 px-4">Duration</th>
+                      <th className="py-2 px-4">Score</th>
+                    </tr>
+                  </thead>
 
-                      <p className="font-medium">{index + 1}</p>
-                    </div>
+                  {/* Body */}
+                  <tbody className="dark:bg-[#313131] dark:text-white">
+                    {ranks.map((rank, index) => {
+                      const rankImage =
+                        index === 0
+                          ? "/ui/client/rankCard/1.svg"
+                          : index === 1
+                            ? "/ui/client/rankCard/2.svg"
+                            : index === 2
+                              ? "/ui/client/rankCard/3.svg"
+                              : null;
 
-                    <p className="w-[20%]">{rank.name}</p>
-                    <p className=" w-[20%] text-center">{rank.timeTaken}</p>
+                      return (
+                        <tr key={index} className="border-t">
+                          {/* Position */}
+                          <td className="py-2 px-4">
+                            <div className="flex items-center justify-center gap-1">
+                              {rankImage && (
+                                <Image
+                                  src={rankImage}
+                                  alt={`Position ${index + 1}`}
+                                  height={30}
+                                  width={30}
+                                />
+                              )}
+                              <span className="font-medium">{index + 1}</span>
+                            </div>
+                          </td>
 
-                    <p className="w-[20%]">
-                      {rank.score}/{rank.maxMarks}
-                    </p>
-                  </div>
-                );
-              })
-            )}
-          </div>
+                          {/* Name */}
+                          <td className="py-2 px-4 truncate">{rank.name}</td>
+
+                          {/* Duration */}
+                          <td className="py-2 px-4">{rank.timeTaken}</td>
+
+                          {/* Score */}
+                          <td className="py-2 px-4">
+                            {rank.score}/{rank.maxMarks}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
         </div>
-
-        {/* instruction */}
-        <div className="flex flex-row  gap-2">
-          <FaStar className="text-[#FFE332] my-auto" />
-          <p className="dark:text-white">
-            Rank will be displayed only for your first attempt.{" "}
-          </p>
-        </div>
-      </div>
+      </>
     </>
   );
 }

@@ -3,7 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
-
+import Editor from "@/Components/admin/editor-page";
+import type { TocItem } from "@/Components/admin/toc";
 type QuestionFormProps = {
   id: number | null;
   onSuccess: () => void;
@@ -20,8 +21,7 @@ type QuestionFormData = {
     image?: string;
   }[]; // matches Json array of options in model
 
-  solutionText?: string; // matches optional solutionText
-  solutionImage?: string; // matches optional solutionImage
+  solution: string;
 
   correctOption: number;
   marksPositive: number;
@@ -47,8 +47,7 @@ function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
         { text: "", image: "" },
         { text: "", image: "" },
       ],
-      solutionText: "",
-      solutionImage: "",
+      solution: "",
       correctOption: undefined,
       marksPositive: undefined,
       marksNegative: undefined,
@@ -57,15 +56,19 @@ function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
   });
 
   async function onSubmitQuestion(data: any) {
+     const payload = {
+    ...data,
+    solution: editorData.html, // ✅ only string
+  };
 
-    console.log("Submitting question data:", data);
+    console.log("Submitting question data:", payload);
     if (id === null) {
       console.error("Quiz ID is missing");
       return;
     }
 
     const fullData = {
-      ...data,
+      ...payload,
       quizId: id, // id comes from props //
     };
 
@@ -96,8 +99,7 @@ function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
           { text: "", image: "" },
           { text: "", image: "" },
         ],
-        solutionText: "",
-        solutionImage: "",
+       solution : "",
         correctOption: undefined,
         marksPositive: undefined,
         marksNegative: undefined,
@@ -109,8 +111,11 @@ function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
       setQuestionImageUrl("");
       setOptionImageFiles([null, null, null, null]);
       setOptionImageUrls(["", "", "", ""]);
-      setSolutionImageFile(null);
-      setSolutionImageUrl("");
+     setEditorData({
+  html: "",
+  toc: [],
+});
+ 
       setQuesId(null);
     } catch (error) {
       console.error("Error submitting question:", error);
@@ -118,64 +123,65 @@ function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
     }
   }
 
-  useEffect(() => {
-    if (!quesId) {
-      resetQ();
-      setQuestionImageUrl("");
-      setOptionImageUrls(["", "", "", ""]);
-      setSolutionImageUrl("");
-      return;
-    }
+useEffect(() => {
+  if (!quesId) {
+    resetQ();
+    setEditorData({ html: "", toc: [] }); // ✅ also reset editor
+    return;
+  }
 
-    fetch(`/api/en/question/admin?quesId=${quesId}`)
-      .then((res) => res.json())
-      .then((data) => {
-        // Update RHF form values
-        resetQ({
-          questionText: data.questionText || "",
-          questionImage: data.questionImage || "",
-          options: [
-            {
-              text: data.options?.[0]?.text ?? "",
-              image: data.options?.[0]?.image ?? "",
-            },
-            {
-              text: data.options?.[1]?.text ?? "",
-              image: data.options?.[1]?.image ?? "",
-            },
-            {
-              text: data.options?.[2]?.text ?? "",
-              image: data.options?.[2]?.image ?? "",
-            },
-            {
-              text: data.options?.[3]?.text ?? "",
-              image: data.options?.[3]?.image ?? "",
-            },
-          ],
-          solutionText: data.solutionText || "",
-          solutionImage: data.solutionImage || "",
-          correctOption: data.correctOption ?? undefined,
-          marksPositive: data.marksPositive ?? undefined,
-          marksNegative: data.marksNegative ?? undefined,
-          level: data.level || "easy",
-        });
+  fetch(`/api/en/question/admin?quesId=${quesId}`)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data)
+      resetQ({
+        questionText: data.questionText || "",
+        questionImage: data.questionImage || "",
+        options: [
+          {
+            text: data.options?.[0]?.text ?? "",
+            image: data.options?.[0]?.image ?? "",
+          },
+          {
+            text: data.options?.[1]?.text ?? "",
+            image: data.options?.[1]?.image ?? "",
+          },
+          {
+            text: data.options?.[2]?.text ?? "",
+            image: data.options?.[2]?.image ?? "",
+          },
+          {
+            text: data.options?.[3]?.text ?? "",
+            image: data.options?.[3]?.image ?? "",
+          },
+        ],
+        solution: data.solution || "",
+        correctOption: data.correctOption ?? undefined,
+        marksPositive: data.marksPositive ?? undefined,
+        marksNegative: data.marksNegative ?? undefined,
+        level: data.level || "easy",
+      });
 
-        // Update preview states
-        setQuestionImageUrl(data.questionImage || "");
-        setOptionImageUrls([
-          data.options?.[0]?.image ?? "",
-          data.options?.[1]?.image ?? "",
-          data.options?.[2]?.image ?? "",
-          data.options?.[3]?.image ?? "",
-        ]);
-        setSolutionImageUrl(data.solutionImage || "");
-      })
-      .catch(console.error);
-  }, [quesId, resetQ]);
+      // ✅ THIS IS THE FIX
+      setEditorData({
+        html: data.solution || "",
+        toc: [],
+      });
+
+      setQuestionImageUrl(data.questionImage || "");
+      setOptionImageUrls([
+        data.options?.[0]?.image ?? "",
+        data.options?.[1]?.image ?? "",
+        data.options?.[2]?.image ?? "",
+        data.options?.[3]?.image ?? "",
+      ]);
+    })
+    .catch(console.error);
+}, [quesId, resetQ]);
 
   async function updateQuestion(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault(); // prevent form submit
-
+    console.log("CLICKED UPDATE BUTTON");
     if (!quesId) {
       console.error("No question selected to update");
       return;
@@ -189,8 +195,15 @@ function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
     // Get current form values
     const data = getValues();
 
+         const payload = {
+    ...data,
+    solution: editorData.html, // ✅ only string
+  };
+
+    console.log("updating question data:", payload);
+
     const fullData = {
-      ...data,
+      ...payload,
       quizId: id,
       quesId, // send question id to update specific question
     };
@@ -221,8 +234,8 @@ function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
           { text: "", image: "" },
           { text: "", image: "" },
         ],
-        solutionText: "",
-        solutionImage: "",
+        solution: "",
+    
         correctOption: undefined,
         marksPositive: undefined,
         marksNegative: undefined,
@@ -234,8 +247,7 @@ function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
       setQuestionImageUrl("");
       setOptionImageFiles([null, null, null, null]);
       setOptionImageUrls(["", "", "", ""]);
-      setSolutionImageFile(null);
-      setSolutionImageUrl("");
+ 
       setQuesId(null);
     } catch (error) {
       console.error("Error updating question:", error);
@@ -256,8 +268,7 @@ function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
     "",
     "",
   ]);
-  const [solutionImageFile, setSolutionImageFile] = useState<File | null>(null);
-  const [solutionImageUrl, setSolutionImageUrl] = useState("");
+
   const { data: session } = useSession();
   const [uploadingStatus, setUploadingStatus] = useState({
     question: false,
@@ -326,6 +337,24 @@ function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
     }
   };
 
+
+
+  // for editor 
+  
+    const [editorData, setEditorData] = useState<{
+      html: string;
+      toc: TocItem[];
+    }>({
+      html: "",
+      toc: [],
+    });
+    
+
+
+    //  const value = post?.editorHtml || "";
+      
+
+      const [isEditorTouched, setIsEditorTouched] = useState(false);
   return (
     <>
       <form
@@ -581,74 +610,19 @@ function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
           </div>
         </div>
 
+
+
         {/* SOLUTION */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Solution Text
-          </label>
-          <textarea
-            {...registerQ("solutionText")}
-            placeholder="Enter solution details"
-            className="w-full p-3 border rounded bg-gray-50 dark:bg-[#1c1c1c]"
-          />
-        </div>
+               <Editor
+                 key={quesId || editorData.html}  
+               value={editorData.html} 
+                 onSync={setEditorData}
+                 setIsEditorChange={setIsEditorTouched}
+               />
+             </div>
 
-        {/* SOLUTION IMAGE */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Solution Image (optional)
-          </label>
-          <div className="flex items-center gap-3">
-            <input
-            ref={questionFileRef}
-              type="file"
-              accept="image/*"
-              onChange={(e) =>
-                setSolutionImageFile(e.target.files?.[0] || null)
-              }
-              className="border p-2 rounded bg-gray-50 dark:bg-[#1c1c1c]"
-            />
-            <button
-              type="button"
-              onClick={() => {
-                if (!solutionImageFile) return alert("Select an image first");
-                uploadImage(
-                  solutionImageFile,
-                  (url) => {
-                    setSolutionImageUrl(url);
-                    resetQ({ ...getValues(), solutionImage: url });
-                      if (questionFileRef.current) questionFileRef.current.value = "";
-                  },
-                  "solution"
-                );
-              }}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
-            >
-              {uploadingStatus.solution ? "Uploading..." : "Upload Image"}
-            </button>
-          </div>
-
-          {solutionImageUrl && (
-            <div className="mt-3">
-              <img
-                src={solutionImageUrl}
-                alt="Solution preview"
-                className="object-cover w-48 h-32 rounded border"
-              />
-              <button
-                type="button"
-                onClick={() => {
-                  setSolutionImageUrl("");
-                  setSolutionImageFile(null);
-                  resetQ({ ...getValues(), solutionImage: "" });
-                }}
-                className="text-red-500 hover:text-red-600 text-sm mt-1"
-              >
-                Remove
-              </button>
-            </div>
-          )}
-        </div>
+        
 
         {/* ACTION BUTTONS */}
         <div className="flex justify-end gap-4 pt-4 border-t">

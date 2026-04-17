@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import QuizIntro from "./QuizIntro";
-import QuizQuestion from "./QuizQuestion";
-import QuizLogin from "./QuizLogin";
+
+
 import QuizResult from "./QuizResult";
 import QuizTest from "./QuizTest";
 
@@ -43,7 +43,7 @@ export default function QuizSection({
         throw new Error(`HTTP error! status: ${res.status}`);
       }
 
-      const data = await res.json(); // ✅ parse JSON
+      const data = await res.json(); //  parse JSON
       setQuestion(data);
 
       return data; // should be your array of objects
@@ -54,6 +54,7 @@ export default function QuizSection({
   }
   
   const noOfQuestions = questions.length;
+
 
 
   useEffect(() => {
@@ -67,16 +68,7 @@ export default function QuizSection({
 
   if (stage === "quiz")
     return (<> 
-     {/* <QuizQuestion
-        questions={questions}
-        topic = {topic}
-        timeLimit={timeLimit}
-        setTimeTaken={setTimeTaken}
-        onFinish={(a: { questionId: string; answer: number | null }[]) => {
-          setAnswers(a); // store answers as objects
-          setStage("result"); // move to result page
-        }}
-      /> */}
+ 
       <QuizTest
        questions={questions}
         topic = {topic}

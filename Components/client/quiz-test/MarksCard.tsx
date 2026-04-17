@@ -55,38 +55,38 @@ export default function MarksCard({
   // Calculate total maximum positive marks
   const totalMarks = questions.reduce(
     (sum, q) => sum + (q.marksPositive ?? 0),
-    0
+    0,
   );
 
-let correctMarks = 0;
-let incorrectMarks = 0;
-let correctCount = 0;
-let incorrectCount = 0;
-let notAttemptedCount = 0;
+  let correctMarks = 0;
+  let incorrectMarks = 0;
+  let correctCount = 0;
+  let incorrectCount = 0;
+  let notAttemptedCount = 0;
 
-questions.forEach((question) => {
-  const userAnswer = answers.find(
-    (a) => a.questionId === question.id
-  )?.answer;
+  questions.forEach((question) => {
+    const userAnswer = answers.find(
+      (a) => a.questionId === question.id,
+    )?.answer;
 
-  // ✅ FIXED INDEX
-  const correctIndex = question.correctOption - 1;
+    // ✅ FIXED INDEX
+    const correctIndex = question.correctOption - 1;
 
-  if (userAnswer === correctIndex) {
-    correctMarks += Number(question.marksPositive ?? 0);
-    correctCount++;
-  } else if (userAnswer != null) {
-    const rawNegative = Number(question.marksNegative ?? 0);
-    const negative = rawNegative > 0 ? -rawNegative : rawNegative;
+    if (userAnswer === correctIndex) {
+      correctMarks += Number(question.marksPositive ?? 0);
+      correctCount++;
+    } else if (userAnswer != null) {
+      const rawNegative = Number(question.marksNegative ?? 0);
+      const negative = rawNegative > 0 ? -rawNegative : rawNegative;
 
-    incorrectMarks += negative;
-    incorrectCount++;
-  } else {
-    notAttemptedCount++;
-  }
-});
+      incorrectMarks += negative;
+      incorrectCount++;
+    } else {
+      notAttemptedCount++;
+    }
+  });
 
-const totalScore = Number((correctMarks + incorrectMarks).toFixed(2));
+  const totalScore = Number((correctMarks + incorrectMarks).toFixed(2));
 
   const { data } = useSession();
   const didSaveRank = useRef(false);
@@ -129,121 +129,170 @@ const totalScore = Number((correctMarks + incorrectMarks).toFixed(2));
     }
 
     rankCard();
-  }, [data, questions, correctMarks, totalMarks, timeTaken, quizId, totalScore]);
+  }, [
+    data,
+    questions,
+    correctMarks,
+    totalMarks,
+    timeTaken,
+    quizId,
+    totalScore,
+  ]);
 
   // Format numbers with two decimal places
   const formatNumber = (num: number) => num.toFixed(2);
 
+  //mesag image
+  const messageShow = [
+    {
+      image: "/ui/client/TestIcons/1.png",
+      mess: "Excellent!",
+      color: "#11C352",
+    },
+    { image: "/ui/client/TestIcons/2.png", mess: "Good Job", color: "#24B3CB" },
+    {
+      image: "/ui/client/TestIcons/1.png",
+      mess: "Needs Improvement!",
+      color: "#F14343",
+    },
+  ];
+
+  const totalQuestions = questions.length;
+
+  const percentage = Math.round((correctCount / totalQuestions) * 100);
+
+  const radius = 70;
+  const circumference = 2 * Math.PI * radius;
+  const progress = (percentage / 100) * circumference;
+
+  // 🎨 Color logic
+  let color = "text-red-500";
+  let stroke = "#ef4444";
+
+  if (percentage >= 80) {
+    color = "text-green-500";
+    stroke = "#22c55e";
+  } else if (percentage >= 30) {
+    color = "text-yellow-500";
+    stroke = "#eab308";
+  }
+
+
+
+
+  let messageIndex = 2; // default: Needs Improvement
+
+  if (percentage >= 80) {
+    messageIndex = 0; // Excellent
+  } else if (percentage >= 40) {
+    messageIndex = 1; // Good Job
+  }
+
+  const selectedMessage = messageShow[messageIndex];
   return (
-    <>
-      <div className="w-[90%] bg-[#FAFCFC] border-2 mx-auto flex flex-col items-center dark:bg-[#313131] py-6 border-[#E6F1F1] rounded-2xl ">
-        <div
-          className="-mt-14 rounded-full p-3 bg-white"
-          style={{
-            boxShadow:
-              "0 4px 10px rgba(0,0,0,0.25), 0 8px 20px rgba(0,0,0,0.15)",
-          }}
-        >
+    <div className="md:p-6 max-md:py-4 max-md:px-4 mx-auto shadow-[0_0_12px_rgba(0,0,0,0.2)] max-md:w-full w-[90%] bg-white dark:bg-[#1f1f1f] rounded-2xl my-4">
+      {/* 🔥 Header */}
+      <div className="flex flex-col items-center py-4">
+        <div className="w-12 h-12">
           <Image
-            src={"/ui/client/current-affaris-page/party.svg"}
-            alt="party"
-            width={50}
-            height={50}
+            src={selectedMessage.image}
+            width={100}
+            height={100}
+            alt="result"
+            className="w-full h-auto object-contain"
           />
         </div>
 
-        <div className="py-4">
-          <p className="font-bold dark:text-white text-xl max-sm:text-center max-sm:px-4">
-            Congratulations!!! Your Score Card is Here
+        <p
+          className="font-bold text-2xl mt-2"
+          style={{ color: selectedMessage.color }}
+        >
+          {selectedMessage.mess}
+        </p>
+
+        <p className="text-[#6F6F6F] dark:text-gray-300">Quiz Completed!</p>
+      </div>
+
+      {/*  Circle */}
+      <div className="relative w-40 h-40 mx-auto mb-6">
+        <svg width="160" height="160">
+          <circle
+            cx="80"
+            cy="80"
+            r={radius}
+            stroke="#e5e7eb"
+            strokeWidth="10"
+            fill="none"
+          />
+
+          <circle
+            cx="80"
+            cy="80"
+            r={radius}
+            stroke={stroke}
+            strokeWidth="10"
+            fill="none"
+            strokeDasharray={circumference}
+            strokeDashoffset={circumference - progress}
+            strokeLinecap="round"
+            transform="rotate(-90 80 80)"
+          />
+        </svg>
+
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+          <p className={`text-2xl font-bold ${color}`}>
+            {correctCount}/{totalQuestions}
           </p>
-        </div>
-
-        <div className="flex flex-row max-sm:flex-col gap-4 items-center justify-center ">
-          <div className="flex flex-row gap-1  dark:text-white">
-            <CiStopwatch className="size-7 my-auto " />
-            <p className="text-lg ">
-              Time Taken:{" "}
-              {timeTaken < 60
-                ? `${timeTaken.toFixed(2)} seconds`
-                : `${Math.floor(timeTaken / 60)} minutes`}
-            </p>
-          </div>
-
-          <div className="flex flex-row gap-1 dark:text-white ">
-            <GoClock className="size-6 my-auto " />
-            <p className="text-lg"> Time Duration: {timeLimit} m</p>
-          </div>
-        </div>
-
-        {/* report card */}
-        <div className="w-[90%] mx-auto flex flex-row max-sm:flex-col justify-around items-center py-8 max-sm:gap-4">
-          {/* left div  */}
-          <div className="w-[35%] flex flex-col px-4 gap-1 bg-white rounded-2xl py-2  max-sm:w-full dark:bg-black dark:text-white ">
-            <div className="flex flex-row justify-between items-center py-1">
-              <div className="flex flex-row  gap-1">
-                <FaRegCircle className="my-auto   size-5" /> <p>Total Marks</p>
-              </div>
-
-              <p>{formatNumber(totalMarks)}</p>
-            </div>
-
-            <div className="flex flex-row justify-between items-center  py-1">
-              <div className="flex flex-row  gap-1">
-                <FaRegCircle className="my-auto    size-5 bg-[#2CBB01] rounded-full text-[#2CBB01]" />{" "}
-                <p>Marks Obtained</p>
-              </div>
-
-              <p>{formatNumber(totalScore)}</p>
-            </div>
-            <div className="flex flex-row justify-between items-center  py-1">
-              <div className="flex flex-row gap-1 ">
-                <FaRegCircle className="my-auto   size-5  bg-[#FF0000] rounded-full text-[#FF0000]" />{" "}
-                <p>Negative Marks</p>
-              </div>
-
-              <p>{formatNumber(incorrectMarks)}</p>
-            </div>
-          </div>
-          {/* right div  */}
-
-          <div className="w-[35%] px-2 py-2 flex flex-col gap-1   bg-white rounded-2xl max-sm:w-full dark:bg-black dark:text-white ">
-            <div className="flex flex-row justify-between items-center">
-              <div className="flex flex-row justify-between items-center  py-1">
-                <div className="flex flex-row gap-1 ">
-                  <IoCheckmarkCircleOutline className="my-auto  size-6  rounded-full text-[#2CBB01]" />{" "}
-                  <p>Correct Questions</p>
-                </div>
-              </div>
-              <p>{correctCount}</p>
-            </div>{" "}
-            <div className="flex flex-row justify-between items-center  py-1">
-              <div className="flex flex-row gap-1 ">
-                <RxCrossCircled className="my-auto  size-6 rounded-full text-[#FF0000]" />{" "}
-                <p>Incorrect Questions</p>
-              </div>
-
-              <p>{incorrectCount}</p>
-            </div>
-            <div className="flex flex-row justify-between items-center  py-1">
-              <div className="flex flex-row gap-2 ">
-                <FaRegCircle className="my-auto  bg-[#6C6C6C]  size-5 rounded-full text-[#6C6C6C]" />{" "}
-                <p>Not Attempted</p>
-              </div>
-
-              <p>{notAttemptedCount}</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="py-2">
-          <button
-            onClick={onRestart}
-            className="px-4 py-2 bg-[#FFE332] rounded-full"
-          >
-            Restart Quiz
-          </button>
+          <p className="text-sm text-gray-500">{percentage}%</p>
         </div>
       </div>
-    </>
+
+      {/*  4 Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        {/* Correct */}
+        <div className="bg-[#E0F8E6] border-2 border-[#11C352] dark:bg-[#2a2a2a] shadow rounded-lg py-4 text-center">
+          <p className="text-2xl  text-[#11C352] font-extrabold">{correctCount}</p>
+          <p className="text-sm text-gray-500 font-medium">Correct</p>
+        </div>
+
+        {/* Incorrect */}
+        <div className="bg-[#FEEDED] border-2 border-[#F14343] dark:bg-[#2a2a2a] shadow rounded-lg py-4 text-center">
+          <p className="text-2xl  text-[#F14343] font-extrabold">{incorrectCount}</p>
+          <p className="text-sm text-gray-500 font-medium">Incorrect</p>
+        </div>
+
+        {/* Skipped */}
+        <div className="bg-[#DEF4F7] border-2 border-[#24B3CB] dark:bg-[#2a2a2a] shadow rounded-lg py-4 text-center">
+          <p className="text-2xl  text-[#24B3CB] font-extrabold">
+            {notAttemptedCount}
+          </p>
+          <p className="text-sm text-gray-500 font-medium">Skipped</p>
+        </div>
+
+        {/* Time */}
+        <div className="bg-[#F9E1EF] border-2 border-[#D63895] dark:bg-[#2a2a2a] shadow rounded-lg py-4 text-center">
+          <p className="text-2xl  text-[#D63895] font-extrabold">
+            {timeTaken < 60
+              ? `${timeTaken.toFixed(0)}s`
+              : `${Math.floor(timeTaken / 60)}m`}
+          </p>
+          <p className="text-sm text-gray-500 font-medium">Time</p>
+        </div>
+      </div>
+
+      {/* 🔁 Buttons */}
+      <div className="flex flex-row gap-4">
+        <button
+          onClick={onRestart}
+          className="px-6 py-2 bg-[#047077] text-white rounded w-full"
+        >
+          Restart Quiz
+        </button>
+
+        <button className="px-6 py-2 bg-[#F89716] text-white rounded w-full">
+          More Quiz
+        </button>
+      </div>
+    </div>
   );
 }

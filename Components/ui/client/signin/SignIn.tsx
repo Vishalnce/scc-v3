@@ -13,61 +13,56 @@ export default function SignIn() {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const [showPassword, setShowPassword] = useState(false);
-  const router = useRouter()
-
-
+  const router = useRouter();
 
   const handleSignIn = async () => {
     const email = emailRef.current?.value || "";
     const password = passwordRef.current?.value || "";
-  
+
     // 1️⃣ Check if user exists
     const check = await fetch("/api/en/login/client", {
       method: "POST",
       body: JSON.stringify({ email }),
       headers: { "Content-Type": "application/json" },
     });
-  
+
     if (check.status === 404) {
       alert("User does not exist. Please sign up.");
       return;
     }
-  
+
     // 2️⃣ Continue Login process
     const res = await signIn("credentials", {
       email,
       password,
       redirect: false,
     });
-  
+
     if (res?.error) {
       alert("Invalid credentials");
       return;
     }
-  
-      if (res?.ok) router.push("/")
+
+    if (res?.ok) router.push("/");
   };
 
-  
-
   return (
-    <div className="bg-[#E6f1f1] dark:bg-[#313131]">
-      <div className="mx-auto flex flex-row max-md:items-center max-md:justify-center">
+    <div className=" dark:bg-[#313131]">
+      <div className="mx-auto flex justify-center  ">
         {/* Input fields */}
-        <div className="flex flex-col items-center justify-center py-8 w-[60%] max-md:w-[90%] ">
-          
-          <p className="py-2 font-bold text-4xl font-montserrat dark:text-white max-md:text-center max-md:text-2xl">
-            Login  to SSC ExamLife
+        <div className="flex flex-col items-center justify-center py-8   w-[80%] shadow-[0_0_9px_rgba(0,0,0,0.2)] my-8 ">
+          <p className="py-2 font-bold text-3xl font-montserrat dark:text-white max-md:text-center max-md:text-2xl">
+            Login to SSC ExamLife
           </p>
 
           <div className="flex flex-row items-center gap-8 py-2">
             <div
-              onClick={() => signIn("google",{ callbackUrl: "/" })}
+              onClick={() => signIn("google", { callbackUrl: "/" })}
               className="rounded-full p-2 bg-white shadow-2xl dark:bg-black"
             >
               <FcGoogle className="text-[#0E76FD] size-8" />
             </div>
-{/* 
+            {/* 
             <div className="rounded-full p-2 bg-white shadow-2xl dark:bg-black">
               <Link href={"/"}>
                 <FaFacebook className="text-[#0E76FD] size-8" />
@@ -75,9 +70,11 @@ export default function SignIn() {
             </div> */}
           </div>
 
-          <p className="py-2 text-lg text-my-text-color">or use your email for Registration</p>
+          <p className="py-2 text-lg text-my-text-color">
+            or use your email for Registration
+          </p>
 
-          <div className="flex flex-col gap-4 w-full max-w-sm pt-4 ">
+          <div className="flex flex-col gap-4  pt-4  w-[80%]  ">
             {/* Email */}
             <div className="relative">
               <MdOutlineMail className="absolute left-3 top-1/2 -translate-y-1/2 text-my-text-color size-5" />
@@ -85,7 +82,7 @@ export default function SignIn() {
                 type="email"
                 placeholder="Email"
                 ref={emailRef}
-                className="p-4 pl-10 pr-10 w-full bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-black dark:placeholder-[#C2C2C2]"
+                className="p-4 pl-10 pr-10 w-full  bg-[#F8FAFC] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-black dark:placeholder-[#C2C2C2]"
               />
             </div>
 
@@ -96,7 +93,7 @@ export default function SignIn() {
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 ref={passwordRef}
-                className="p-4 pl-10 pr-10 w-full bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-black dark:placeholder-[#C2C2C2]"
+                className="p-4 pl-10 pr-10 w-full bg-[#F8FAFC] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-black dark:placeholder-[#C2C2C2]"
               />
               <button
                 type="button"
@@ -113,39 +110,14 @@ export default function SignIn() {
 
             <button
               onClick={handleSignIn}
-              className="bg-[#FFE332] rounded-3xl py-2 transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
+              className="bg-[#047077] rounded-3xl py-2  "
             >
-              <p className="font-bold text-xl"> Log In</p>
+              <p className="font-bold text-xl text-white"> Log In</p>
             </button>
           </div>
         </div>
 
-        {/* Image section */}
-        <div className="w-[40%] flex justify-center items-center relative max-md:hidden">
-          <Image
-            src="/ui/client/signin/signingirl.png"
-            alt="girl"
-            width={520}
-            height={485}
-            className="object-contain w-full h-auto"
-          />
-
-          <div className="absolute flex flex-col items-center justify-between ">
-            <p className="font-bold text-white text-4xl font-montserrat">
-              New to SSC Examlife
-            </p>
-            <div className="w-[70%] py-6">
-              <p className="text-white text-xl text-center">
-                Enter your personal details and your SSC journey with us!
-              </p>
-            </div>
-            <button className="border-white border-2 w-[60%] rounded-4xl py-1">
-              <Link href={"/signup"}>
-                <p className="text-white text-xl">Sign Up</p>
-              </Link>
-            </button>
-          </div>
-        </div>
+        
       </div>
     </div>
   );

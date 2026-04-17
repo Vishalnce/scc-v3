@@ -9,6 +9,8 @@ import LevelWise from "./LevelWise";
 import MarksCard from "./MarksCard";
 import Explanation from "./Explanation";
 import RankCard from "./RankCard";
+import RelatedConcept from "./RelatedConcept";
+import RelatedQuiz from "./RelatedQuiz";
 export default function QuizResult({
   questions,
   quizId,
@@ -63,6 +65,12 @@ useEffect(() => {
       <LevelWise questions={questions} answers={answers} />
 
       <RankCard quizId={quizId} />
+
+      <RelatedConcept topic = {topic}/>
+      <RelatedQuiz topic = {topic}/>
+
+
+
     </div>
   );
 }
