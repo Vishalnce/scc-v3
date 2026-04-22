@@ -5,6 +5,8 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import Editor from "@/Components/admin/editor-page";
 import type { TocItem } from "@/Components/admin/toc";
+import { extractImages } from "@/Components/admin/shared-admin-code/ExtractHTML";
+import { deleteImage } from "@/Components/admin/shared-admin-code/DeleteURL";
 type QuestionFormProps = {
   id: number | null;
   onSuccess: () => void;
@@ -32,6 +34,7 @@ type QuestionFormData = {
 type FormDataType = {};
 
 function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
+  const initialSolutionRef = useRef<string>(""); // ✅ ADD THIS
   const {
     register: registerQ,
     handleSubmit: handleSubmitQ,
@@ -56,10 +59,10 @@ function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
   });
 
   async function onSubmitQuestion(data: any) {
-     const payload = {
-    ...data,
-    solution: editorData.html, // ✅ only string
-  };
+    const payload = {
+      ...data,
+      solution: editorData.html, // ✅ only string
+    };
 
     console.log("Submitting question data:", payload);
     if (id === null) {
@@ -99,7 +102,7 @@ function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
           { text: "", image: "" },
           { text: "", image: "" },
         ],
-       solution : "",
+        solution: "",
         correctOption: undefined,
         marksPositive: undefined,
         marksNegative: undefined,
@@ -111,11 +114,12 @@ function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
       setQuestionImageUrl("");
       setOptionImageFiles([null, null, null, null]);
       setOptionImageUrls(["", "", "", ""]);
-     setEditorData({
-  html: "",
-  toc: [],
-});
- 
+      initialSolutionRef.current = data.solution || "";
+      setEditorData({
+        html: "",
+        toc: [],
+      });
+
       setQuesId(null);
     } catch (error) {
       console.error("Error submitting question:", error);
@@ -123,136 +127,150 @@ function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
     }
   }
 
-useEffect(() => {
+  useEffect(() => {
+    if (!quesId) {
+      resetQ();
+      setEditorData({ html: "", toc: [] }); // ✅ also reset editor
+      return;
+    }
+
+    fetch(`/api/en/question/admin?quesId=${quesId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        resetQ({
+          questionText: data.questionText || "",
+          questionImage: data.questionImage || "",
+          options: [
+            {
+              text: data.options?.[0]?.text ?? "",
+              image: data.options?.[0]?.image ?? "",
+            },
+            {
+              text: data.options?.[1]?.text ?? "",
+              image: data.options?.[1]?.image ?? "",
+            },
+            {
+              text: data.options?.[2]?.text ?? "",
+              image: data.options?.[2]?.image ?? "",
+            },
+            {
+              text: data.options?.[3]?.text ?? "",
+              image: data.options?.[3]?.image ?? "",
+            },
+          ],
+          solution: data.solution || "",
+          correctOption: data.correctOption ?? undefined,
+          marksPositive: data.marksPositive ?? undefined,
+          marksNegative: data.marksNegative ?? undefined,
+          level: data.level || "easy",
+        });
+        initialSolutionRef.current = data.solution || "";
+        //  THIS IS THE FIX
+        setEditorData({
+          html: data.solution || "",
+          toc: [],
+        });
+
+        setQuestionImageUrl(data.questionImage || "");
+        setOptionImageUrls([
+          data.options?.[0]?.image ?? "",
+          data.options?.[1]?.image ?? "",
+          data.options?.[2]?.image ?? "",
+          data.options?.[3]?.image ?? "",
+        ]);
+      })
+      .catch(console.error);
+  }, [quesId, resetQ]);
+
+async function updateQuestion(e: React.MouseEvent<HTMLButtonElement>) {
+  e.preventDefault();
+
   if (!quesId) {
-    resetQ();
-    setEditorData({ html: "", toc: [] }); // ✅ also reset editor
+    console.error("No question selected to update");
     return;
   }
 
-  fetch(`/api/en/question/admin?quesId=${quesId}`)
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data)
-      resetQ({
-        questionText: data.questionText || "",
-        questionImage: data.questionImage || "",
-        options: [
-          {
-            text: data.options?.[0]?.text ?? "",
-            image: data.options?.[0]?.image ?? "",
-          },
-          {
-            text: data.options?.[1]?.text ?? "",
-            image: data.options?.[1]?.image ?? "",
-          },
-          {
-            text: data.options?.[2]?.text ?? "",
-            image: data.options?.[2]?.image ?? "",
-          },
-          {
-            text: data.options?.[3]?.text ?? "",
-            image: data.options?.[3]?.image ?? "",
-          },
-        ],
-        solution: data.solution || "",
-        correctOption: data.correctOption ?? undefined,
-        marksPositive: data.marksPositive ?? undefined,
-        marksNegative: data.marksNegative ?? undefined,
-        level: data.level || "easy",
-      });
+  if (id === null) {
+    console.error("Quiz ID is missing");
+    return;
+  }
 
-      // ✅ THIS IS THE FIX
-      setEditorData({
-        html: data.solution || "",
-        toc: [],
-      });
+  const data = getValues();
 
-      setQuestionImageUrl(data.questionImage || "");
-      setOptionImageUrls([
-        data.options?.[0]?.image ?? "",
-        data.options?.[1]?.image ?? "",
-        data.options?.[2]?.image ?? "",
-        data.options?.[3]?.image ?? "",
-      ]);
-    })
-    .catch(console.error);
-}, [quesId, resetQ]);
-
-  async function updateQuestion(e: React.MouseEvent<HTMLButtonElement>) {
-    e.preventDefault(); // prevent form submit
-    console.log("CLICKED UPDATE BUTTON");
-    if (!quesId) {
-      console.error("No question selected to update");
-      return;
-    }
-
-    if (id === null) {
-      console.error("Quiz ID is missing");
-      return;
-    }
-
-    // Get current form values
-    const data = getValues();
-
-         const payload = {
+  const payload = {
     ...data,
-    solution: editorData.html, // ✅ only string
+    solution: editorData.html,
   };
 
-    console.log("updating question data:", payload);
+  const fullData = {
+    ...payload,
+    quizId: id,
+    quesId,
+  };
 
-    const fullData = {
-      ...payload,
-      quizId: id,
-      quesId, // send question id to update specific question
-    };
+  try {
+    const res = await fetch("/api/en/question/admin", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(fullData),
+    });
 
-    try {
-      const res = await fetch("/api/en/question/admin", {
-        method: "PATCH", // or PATCH depending on your API design
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(fullData),
-      });
+    if (!res.ok) throw new Error("Update failed");
 
-      if (!res.ok) {
-        throw new Error(`Failed to update question: ${res.statusText}`);
+    // ✅ DELETE ONLY AFTER SUCCESS
+    const oldSolution = initialSolutionRef.current;
+    const newSolution = editorData.html;
+
+    if (oldSolution !== newSolution) {
+      const oldImgs = extractImages(oldSolution);
+      const newImgs = extractImages(newSolution);
+
+      for (const img of oldImgs) {
+        if (!newImgs.includes(img)) {
+          await deleteImage(img);
+        }
       }
-
-      const result = await res.json();
-      console.log("Question updated successfully:", result);
-
-      onSuccess();
-      resetQ({
-        questionText: "",
-        questionImage: "",
-        options: [
-          { text: "", image: "" },
-          { text: "", image: "" },
-          { text: "", image: "" },
-          { text: "", image: "" },
-        ],
-        solution: "",
-    
-        correctOption: undefined,
-        marksPositive: undefined,
-        marksNegative: undefined,
-        level: "easy",
-      });
-
-      // Reset image previews and file states
-      setQuestionImageFile(null);
-      setQuestionImageUrl("");
-      setOptionImageFiles([null, null, null, null]);
-      setOptionImageUrls(["", "", "", ""]);
- 
-      setQuesId(null);
-    } catch (error) {
-      console.error("Error updating question:", error);
     }
+
+    // ✅ IMPORTANT: update reference for next edit cycle
+    initialSolutionRef.current = newSolution;
+
+    // ✅ RESTORE YOUR ORIGINAL FUNCTIONALITY
+    onSuccess();
+
+    resetQ({
+      questionText: "",
+      questionImage: "",
+      options: [
+        { text: "", image: "" },
+        { text: "", image: "" },
+        { text: "", image: "" },
+        { text: "", image: "" },
+      ],
+      solution: "",
+      correctOption: undefined,
+      marksPositive: undefined,
+      marksNegative: undefined,
+      level: "easy",
+    });
+
+    setQuestionImageFile(null);
+    setQuestionImageUrl("");
+    setOptionImageFiles([null, null, null, null]);
+    setOptionImageUrls(["", "", "", ""]);
+
+    setEditorData({
+      html: "",
+      toc: [],
+    });
+
+    setQuesId(null);
+
+  } catch (err) {
+    console.error(err);
   }
+}
 
   const [questionImageFile, setQuestionImageFile] = useState<File | null>(null);
   const [questionImageUrl, setQuestionImageUrl] = useState("");
@@ -276,21 +294,20 @@ useEffect(() => {
     options: [false, false, false, false],
   });
 
-
   const questionFileRef = useRef<HTMLInputElement | null>(null);
 
-
-
+  const [deletingStatus, setDeletingStatus] = useState({
+    question: false,
+    solution: false,
+    options: [false, false, false, false], // ✅ FIXED
+  });
 
   const uploadImage = async (
     file: File,
     callback: (url: string) => void,
-    type: "question" | "solution" | { optionIndex: number }
+    type: "question" | "solution" | { optionIndex: number },
   ) => {
-    const formData = new FormData();
-    formData.append("image", file);
-
-    // set uploading true for specific image
+    // set loading
     if (typeof type === "string") {
       setUploadingStatus((prev) => ({ ...prev, [type]: true }));
     } else {
@@ -302,29 +319,41 @@ useEffect(() => {
     }
 
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_URL}/api/upload`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${session?.accessToken}`,
-          },
-          body: formData,
-        }
-      );
+      // 1️ Get pre-signed URL from backend
+      const res = await fetch("/api/aws/upload", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session?.accessToken}`,
+        },
+        body: JSON.stringify({
+          fileName: file.name,
+          fileType: file.type,
+        }),
+      });
 
-      const data = await res.json();
+      const { uploadUrl, fileUrl } = await res.json();
 
-      if (data?.url) {
-        callback(data.url);
-      } else {
-        alert("Upload failed");
-      }
+      if (!uploadUrl) throw new Error("Failed to get upload URL");
+
+      // 2️ Upload directly to S3
+      const uploadRes = await fetch(uploadUrl, {
+        method: "PUT",
+        headers: {
+          "Content-Type": file.type,
+        },
+        body: file,
+      });
+
+      if (!uploadRes.ok) throw new Error("S3 upload failed");
+
+      // 3️ Return final file URL
+      callback(fileUrl);
     } catch (err) {
       console.error("Upload error:", err);
       alert("Error uploading image");
     } finally {
-      // set uploading false
+      // reset loading
       if (typeof type === "string") {
         setUploadingStatus((prev) => ({ ...prev, [type]: false }));
       } else {
@@ -337,24 +366,201 @@ useEffect(() => {
     }
   };
 
+  const deleteImageFromS3 = async (
+    fileUrl: string,
+    type: "question" | "solution" | { optionIndex: number },
+    onSuccess?: () => void,
+  ) => {
+    if (!fileUrl) return;
 
+    // set loading
+    if (typeof type === "string") {
+      setDeletingStatus((prev) => ({ ...prev, [type]: true }));
+    } else {
+      setDeletingStatus((prev) => {
+        const newOptions = [...prev.options];
+        newOptions[type.optionIndex] = true;
+        return { ...prev, options: newOptions };
+      });
+    }
 
-  // for editor 
-  
-    const [editorData, setEditorData] = useState<{
-      html: string;
-      toc: TocItem[];
-    }>({
-      html: "",
-      toc: [],
-    });
-    
+    try {
+      // 1️⃣ Get delete presigned URL from backend
+      const res = await fetch("/api/aws/delete", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session?.accessToken}`,
+        },
+        body: JSON.stringify({
+          fileUrl,
+        }),
+      });
 
+      const { deleteUrl } = await res.json();
 
-    //  const value = post?.editorHtml || "";
-      
+      if (!deleteUrl) throw new Error("Failed to get delete URL");
 
-      const [isEditorTouched, setIsEditorTouched] = useState(false);
+      // 2️⃣ Call S3 delete
+      const deleteRes = await fetch(deleteUrl, {
+        method: "DELETE",
+      });
+
+      if (!deleteRes.ok) throw new Error("S3 delete failed");
+
+      // 3️⃣ UI cleanup
+      onSuccess?.();
+    } catch (error) {
+      console.error("Delete error:", error);
+      alert("Error deleting image");
+    } finally {
+      // reset loading
+      if (typeof type === "string") {
+        setDeletingStatus((prev) => ({ ...prev, [type]: false }));
+      } else {
+        setDeletingStatus((prev) => {
+          const newOptions = [...prev.options];
+          newOptions[type.optionIndex] = false;
+          return { ...prev, options: newOptions };
+        });
+      }
+    }
+  };
+
+  // handle options
+  const uploadOptionImage = async (idx: number) => {
+    const file = optionImageFiles[idx];
+    if (!file) return alert("Select an image first");
+
+    // loading ON
+    setUploadingStatus((prev) => ({
+      ...prev,
+      options: prev.options.map((v, i) => (i === idx ? true : v)),
+    }));
+
+    try {
+      // 1️⃣ get presigned URL from backend
+      const res = await fetch("/api/aws/upload", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session?.accessToken}`,
+        },
+        body: JSON.stringify({
+          fileName: file.name,
+          fileType: file.type,
+        }),
+      });
+
+      const { uploadUrl, fileUrl } = await res.json();
+      if (!uploadUrl) throw new Error("No upload URL");
+
+      // 2️⃣ upload to S3
+      const s3Res = await fetch(uploadUrl, {
+        method: "PUT",
+        headers: { "Content-Type": file.type },
+        body: file,
+      });
+
+      if (!s3Res.ok) throw new Error("S3 upload failed");
+
+      // 3️⃣ update UI + form
+      const newUrls = [...optionImageUrls];
+      newUrls[idx] = fileUrl;
+      setOptionImageUrls(newUrls);
+
+      const currentOptions = getValues("options");
+      currentOptions[idx].image = fileUrl;
+      resetQ({ ...getValues(), options: currentOptions });
+    } catch (err) {
+      console.error(err);
+      alert("Upload failed");
+    } finally {
+      // loading OFF
+      setUploadingStatus((prev) => ({
+        ...prev,
+        options: prev.options.map((v, i) => (i === idx ? false : v)),
+      }));
+    }
+  };
+
+  const removeOptionImage = async (idx: number) => {
+    const url = optionImageUrls[idx];
+    if (!url) return;
+
+    setDeletingStatus((prev) => ({
+      ...prev,
+      options: prev.options.map((v, i) => (i === idx ? true : v)),
+    }));
+
+    try {
+      // 1️⃣ CALL YOUR API (POST, not DELETE)
+      const res = await fetch("/api/aws/delete", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session?.accessToken}`,
+        },
+        body: JSON.stringify({ fileUrl: url }),
+      });
+
+      const data = await res.json();
+
+      if (!data.deleteUrl) throw new Error("No delete URL");
+
+      // 2️⃣ ACTUAL DELETE TO S3
+      const deleteRes = await fetch(data.deleteUrl, {
+        method: "DELETE",
+      });
+
+      if (!deleteRes.ok) throw new Error("S3 delete failed");
+
+      // 3️⃣ UI UPDATE
+      setOptionImageUrls((prev) => {
+        const newUrls = [...prev];
+        newUrls[idx] = "";
+        return newUrls;
+      });
+
+      setOptionImageFiles((prev) => {
+        const newFiles = [...prev];
+        newFiles[idx] = null;
+        return newFiles;
+      });
+
+      const currentOptions = [...getValues("options")];
+      currentOptions[idx] = {
+        ...currentOptions[idx],
+        image: "",
+      };
+
+      resetQ({
+        ...getValues(),
+        options: currentOptions,
+      });
+    } catch (err) {
+      console.error("Delete error:", err);
+      alert("Delete failed");
+    } finally {
+      setDeletingStatus((prev) => ({
+        ...prev,
+        options: prev.options.map((v, i) => (i === idx ? false : v)),
+      }));
+    }
+  };
+  // for editor
+
+  const [editorData, setEditorData] = useState<{
+    html: string;
+    toc: TocItem[];
+  }>({
+    html: "",
+    toc: [],
+  });
+
+  //  const value = post?.editorHtml || "";
+
+  const [isEditorTouched, setIsEditorTouched] = useState(false);
   return (
     <>
       <form
@@ -394,20 +600,28 @@ useEffect(() => {
             />
             <button
               type="button"
+              disabled={uploadingStatus.question || !!questionImageUrl}
               onClick={() => {
                 if (!questionImageFile) return alert("Select an image first");
+
                 uploadImage(
                   questionImageFile,
                   (url) => {
                     setQuestionImageUrl(url);
                     resetQ({ ...getValues(), questionImage: url });
 
-                     if (questionFileRef.current) questionFileRef.current.value = "";
+                    if (questionFileRef.current)
+                      questionFileRef.current.value = "";
                   },
-                  "question"
+                  "question",
                 );
               }}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
+              className={`px-4 py-2 rounded-lg text-white
+    ${
+      uploadingStatus.question || questionImageUrl
+        ? "bg-gray-400 cursor-not-allowed"
+        : "bg-blue-600 hover:bg-blue-700"
+    }`}
             >
               {uploadingStatus.question ? "Uploading..." : "Upload Image"}
             </button>
@@ -419,23 +633,21 @@ useEffect(() => {
                 Uploaded Image
                 <button
                   type="button"
-                  onClick={async () => {
-                    if (!questionImageUrl) return;
-                    try {
-                      await fetch(
-                        `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_URL}/api/delete?url=${questionImageUrl}`,
-                        { method: "DELETE" }
-                      );
-                    } catch (error) {
-                      console.error("Error deleting image:", error);
-                    }
-                    setQuestionImageUrl("");
-                    setQuestionImageFile(null);
-                    resetQ({ ...getValues(), questionImage: "" });
-                  }}
-                  className="text-red-500 hover:text-red-600"
+                  disabled={deletingStatus.question}
+                  onClick={() =>
+                    deleteImageFromS3(questionImageUrl, "question", () => {
+                      setQuestionImageUrl("");
+                      setQuestionImageFile(null);
+                      resetQ({ ...getValues(), questionImage: "" });
+                    })
+                  }
+                  className={`text-red-500 hover:text-red-600 ${
+                    deletingStatus.question
+                      ? "opacity-50 cursor-not-allowed"
+                      : ""
+                  }`}
                 >
-                  Remove
+                  {deletingStatus.question ? "Removing..." : "Remove"}
                 </button>
               </p>
               <img
@@ -448,111 +660,79 @@ useEffect(() => {
         </div>
 
         {/* OPTIONS */}
-      {Array.from({ length: 4 }).map((_, idx) => (
-  <div
-    key={idx}
-    className="p-3 border rounded-lg space-y-2 bg-gray-50 dark:bg-[#1c1c1c]"
-  >
-    <p className="font-semibold text-gray-700 dark:text-gray-200">
-      Option {idx + 1}
-    </p>
+        {Array.from({ length: 4 }).map((_, idx) => (
+          <div
+            key={idx}
+            className="p-3 border rounded-lg space-y-2 bg-gray-50 dark:bg-[#1c1c1c]"
+          >
+            <p className="font-semibold text-gray-700 dark:text-gray-200">
+              Option {idx + 1}
+            </p>
 
-    {/* Option Text */}
-    <input
-      {...registerQ(`options.${idx}.text`)}
-      placeholder={`Option ${idx + 1} text`}
-      className="w-full p-2 border rounded bg-white dark:bg-[#2a2a2a] dark:text-white"
-    />
+            {/* Option Text */}
+            <input
+              {...registerQ(`options.${idx}.text`)}
+              placeholder={`Option ${idx + 1} text`}
+              className="w-full p-2 border rounded bg-white dark:bg-[#2a2a2a] dark:text-white"
+            />
 
-    {/* File Input + Upload Button */}
-    <div className="flex items-center gap-3">
-      <input
-        key={optionImageUrls[idx] || idx} // 👈 important for reset
-        type="file"
-        accept="image/*"
-        onChange={(e) => {
-          const file = e.target.files?.[0] || null;
-          setOptionImageFiles((prev) => {
-            const newFiles = [...prev];
-            newFiles[idx] = file;
-            return newFiles;
-          });
-        }}
-        className="border p-2 rounded bg-gray-50 dark:bg-[#1c1c1c]"
-      />
+            {/* File Input + Upload Button */}
+            <div className="flex items-center gap-3">
+              <input
+                key={optionImageUrls[idx] || idx} // 👈 important for reset
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files?.[0] || null;
+                  setOptionImageFiles((prev) => {
+                    const newFiles = [...prev];
+                    newFiles[idx] = file;
+                    return newFiles;
+                  });
+                }}
+                className="border p-2 rounded bg-gray-50 dark:bg-[#1c1c1c]"
+              />
 
-      <button
-        type="button"
-        disabled={uploadingStatus.options[idx]} // 👈 disable when uploading
-        onClick={() => {
-          const file = optionImageFiles[idx];
-          if (!file) return alert("Select an image first");
+              <button
+                type="button"
+                disabled={
+                  uploadingStatus.options[idx] || !!optionImageUrls[idx]
+                }
+                onClick={() => uploadOptionImage(idx)}
+                className={`px-4 py-2 rounded-lg text-white ${
+                  uploadingStatus.options[idx] || optionImageUrls[idx]
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-blue-600 hover:bg-blue-700"
+                }`}
+              >
+                {uploadingStatus.options[idx] ? "Uploading..." : "Upload Image"}
+              </button>
+            </div>
 
-          // 🔹 Set uploading true for this index
-          setUploadingStatus((prev) => ({
-            ...prev,
-            options: prev.options.map((v, i) => (i === idx ? true : v)),
-          }));
-
-          uploadImage(
-            file,
-            (url) => {
-              // 🔹 Update uploaded URL
-              const newUrls = [...optionImageUrls];
-              newUrls[idx] = url;
-              setOptionImageUrls(newUrls);
-
-              // 🔹 Update form
-              const currentOptions = getValues("options");
-              currentOptions[idx].image = url;
-              resetQ({ ...getValues(), options: currentOptions });
-
-              // 🔹 Reset upload state
-              setUploadingStatus((prev) => ({
-                ...prev,
-                options: prev.options.map((v, i) => (i === idx ? false : v)),
-              }));
-            },
-            { optionIndex: idx }
-          );
-        }}
-        className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg disabled:opacity-60"
-      >
-        {uploadingStatus.options[idx] ? "Uploading..." : "Upload Image"}
-      </button>
-    </div>
-
-    {/* Preview */}
-    {optionImageUrls[idx] && (
-      <div className="mt-2">
-        <img
-          src={optionImageUrls[idx]}
-          alt={`Option ${idx + 1}`}
-          className="object-cover w-40 h-28 rounded border"
-        />
-        <button
-          type="button"
-          onClick={() => {
-            const newUrls = [...optionImageUrls];
-            newUrls[idx] = "";
-            setOptionImageUrls(newUrls);
-
-            const newFiles = [...optionImageFiles];
-            newFiles[idx] = null;
-            setOptionImageFiles(newFiles);
-
-            const currentOptions = getValues("options");
-            currentOptions[idx].image = "";
-            resetQ({ ...getValues(), options: currentOptions });
-          }}
-          className="text-red-500 hover:text-red-600 text-sm mt-1"
-        >
-          Remove Image
-        </button>
-      </div>
-    )}
-  </div>
-))}
+            {/* Preview */}
+            {optionImageUrls[idx] && (
+              <div className="mt-2">
+                <img
+                  src={optionImageUrls[idx]}
+                  alt={`Option ${idx + 1}`}
+                  className="object-cover w-40 h-28 rounded border"
+                />
+                <button
+                  type="button"
+                  disabled={deletingStatus.options[idx]}
+                  onClick={() => removeOptionImage(idx)}
+                  className={`text-sm mt-1 ${
+                    deletingStatus.options[idx]
+                      ? "text-gray-400 cursor-not-allowed"
+                      : "text-red-500"
+                  }`}
+                >
+                  {deletingStatus.options[idx] ? "Removing..." : "Remove Image"}
+                </button>
+              </div>
+            )}
+          </div>
+        ))}
 
         {/* OTHER FIELDS */}
         <div className="grid grid-cols-2 gap-4">
@@ -610,19 +790,15 @@ useEffect(() => {
           </div>
         </div>
 
-
-
         {/* SOLUTION */}
         <div>
-               <Editor
-                 key={quesId || editorData.html}  
-               value={editorData.html} 
-                 onSync={setEditorData}
-                 setIsEditorChange={setIsEditorTouched}
-               />
-             </div>
-
-        
+          <Editor
+            key={quesId || editorData.html}
+            value={editorData.html}
+            onSync={setEditorData}
+            setIsEditorChange={setIsEditorTouched}
+          />
+        </div>
 
         {/* ACTION BUTTONS */}
         <div className="flex justify-end gap-4 pt-4 border-t">

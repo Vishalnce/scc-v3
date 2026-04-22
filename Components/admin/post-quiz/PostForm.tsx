@@ -70,7 +70,7 @@ export default function Page({
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [isEditorTouched, setIsEditorTouched] = useState(false);
-
+const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const [editorData, setEditorData] = useState<{
@@ -183,55 +183,56 @@ const deleteImage = async (url: string) => {
     .filter((src): src is string => !!src);
 };
 
-  const onSubmit = async (data: PostType) => {
+ const onSubmit = async (data: PostType) => {
+  if (isLoading) return; // prevent double submit
+  setIsLoading(true);
+
+  try {
     if (!isEditorTouched && post) {
       data.editorHtml = post.editorHtml;
       data.toc = post.toc;
     }
 
-    // Editor touched user manually clicked Sync Now
     if (isEditorTouched) {
       data.editorHtml = editorData.html;
       data.toc = JSON.stringify(editorData.toc);
     }
 
-   if (post?.editorHtml !== data.editorHtml) {
-  const oldImgs = extractImages(post?.editorHtml || "");
-  const newImgs = extractImages(data.editorHtml || "");
+    if (post?.editorHtml !== data.editorHtml) {
+      const oldImgs = extractImages(post?.editorHtml || "");
+      const newImgs = extractImages(data.editorHtml || "");
 
-  for (const img of oldImgs) {
-    if (!newImgs.includes(img)) {
-      await deleteImage(img);
-    }
-  }
-}
-
-
-    try {
-      const method = isEdit ? "PATCH" : "POST";
-
-      const res = await fetch("/api/en/current-affaris/admin", {
-        method,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-
-      const result = await res.json();
-
-      if (res.ok) {
-        console.log("Newly:", result.post.id);
-        setPostId(result.post.id); // pass the new post ID to parent
-        alert(isEdit ? "Post updated successfully!" : "Post created!");
-        router.push("/current-affaris");
-      } else {
-        alert("Failed to save post");
+      for (const img of oldImgs) {
+        if (!newImgs.includes(img)) {
+          await deleteImage(img);
+        }
       }
-    } catch (err) {
-      console.error(err);
-      alert("Error submitting");
     }
-  };
 
+    const method = isEdit ? "PATCH" : "POST";
+
+    const res = await fetch("/api/en/current-affaris/admin", {
+      method,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    const result = await res.json();
+
+    if (res.ok) {
+      setPostId(result.post.id);
+      alert(isEdit ? "Post updated successfully!" : "Post created!");
+      router.push("/current-affaris");
+    } else {
+      alert("Failed to save post");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Error submitting");
+  } finally {
+    setIsLoading(false);
+  }
+};
   const handleChange = (option: OptionType | null) => {
     setSelectedOption(option);
     setValue("topic", option?.value || ""); //  sets the category field
@@ -597,12 +598,17 @@ const deleteImage = async (url: string) => {
       <input type="hidden" {...register("editorHtml")} />
       <input type="hidden" {...register("toc")} />
 
-      <button
-        type="submit"
-        className="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition"
-      >
-        Save
-      </button>
+    <button
+  type="submit"
+  disabled={isLoading}
+  className={`px-6 py-2 rounded-md text-white transition
+    ${isLoading 
+      ? "bg-green-400 cursor-not-allowed" 
+      : "bg-green-600 hover:bg-green-700"
+    }`}
+>
+  {isLoading ? "Saving..." : "Save"}
+</button>
     </form>
   );
 }
