@@ -78,36 +78,59 @@ export function InsertInlineImageDialog({
     setPosition(e.target.value as Position);
   };
 
-  const loadImage = async (files: FileList | null) => {
-    if (!files || files.length === 0) return;
-   
-    const file = files[0];
-    const formData = new FormData();
-    formData.append("image", file);
+const loadImage = async (files: FileList | null) => {
+  if (!files || files.length === 0) return;
 
-    try {
-      setUploading(true);
-      const response = await fetch(`${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_URL}/api/upload`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${session?.accessToken}`,
-        },
-        body: formData,
-      });
+  const file = files[0];
 
-      const data = await response.json();
-      if (data.url) {
-        setSrc(data.url); // ✅ Enable the Confirm button
-      } else {
-        console.error("Upload failed:", data);
-      }
-    } catch (error) {
-      console.error("Upload error:", error);
-    } finally {
-      setUploading(false);
+  try {
+    setUploading(true);
+
+    //  get presigned URL
+    const presignRes = await fetch("/api/aws/upload", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session?.accessToken}`,
+      },
+      body: JSON.stringify({
+        fileName: file.name,
+        fileType: file.type,
+      }),
+    });
+
+    if (!presignRes.ok) {
+      throw new Error("Failed to get upload URL");
     }
-  };
 
+    const { uploadUrl, fileUrl } = await presignRes.json();
+
+    if (!uploadUrl || !fileUrl) {
+      throw new Error("Invalid presign response");
+    }
+
+    //  upload to S3
+    const uploadRes = await fetch(uploadUrl, {
+      method: "PUT",
+      headers: {
+        "Content-Type": file.type,
+      },
+      body: file,
+    });
+
+    if (!uploadRes.ok) {
+      throw new Error("Upload to S3 failed");
+    }
+
+    //  set image in editor
+    setSrc(fileUrl);
+
+  } catch (error) {
+    console.error("Upload error:", error);
+  } finally {
+    setUploading(false);
+  }
+};
   useEffect(() => {
     hasModifier.current = false;
     const handler = (e: KeyboardEvent) => {

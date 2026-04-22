@@ -104,35 +104,60 @@ export function InsertImageUploadedDialogBody({
 
   const isDisabled = src === "" || uploading;
 
-  const loadImage = async (files: FileList | null) => {
-    if (!files || files.length === 0) return;
+const loadImage = async (files: FileList | null) => {
+  if (!files || files.length === 0) return;
 
-    const file = files[0];
-    const formData = new FormData();
-    formData.append("image", file);
+  const file = files[0];
 
-    try {
-      setUploading(true);
-      const response = await fetch(`${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_URL}/api/upload`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${session?.accessToken}`,
-        },
-        body: formData,
-      });
+  try {
+    setUploading(true);
 
-      const data = await response.json();
-      if (data.url) {
-        setSrc(data.url); // ✅ Enable the Confirm button
-      } else {
-        console.error("Upload failed:", data);
-      }
-    } catch (error) {
-      console.error("Upload error:", error);
-    } finally {
-      setUploading(false);
+    //  get presigned URL
+    const presignRes = await fetch("/api/aws/upload", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session?.accessToken}`,
+      },
+      body: JSON.stringify({
+        fileName: file.name,
+        fileType: file.type,
+      }),
+    });
+
+    if (!presignRes.ok) {
+      throw new Error("Failed to get upload URL");
     }
-  };
+
+    const { uploadUrl, fileUrl } = await presignRes.json();
+
+    if (!uploadUrl || !fileUrl) {
+      throw new Error("Invalid presign response");
+    }
+
+    //  upload directly to S3
+    const uploadRes = await fetch(uploadUrl, {
+      method: "PUT",
+      headers: {
+        "Content-Type": file.type,
+      },
+      body: file,
+    });
+
+    if (!uploadRes.ok) {
+      throw new Error("Upload to S3 failed");
+    }
+
+    //  set Lexical image src
+    setSrc(fileUrl);
+    console.log("File uploaded successfully. Accessible at:", fileUrl);
+
+  } catch (error) {
+    console.error("Upload error:", error);
+  } finally {
+    setUploading(false);
+  }
+};
 
   return (
     <>

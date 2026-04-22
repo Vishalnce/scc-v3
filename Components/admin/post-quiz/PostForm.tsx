@@ -4,7 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import Select from "react-select";
 import { useForm } from "react-hook-form";
-import { useState, useCallback, useEffect, use } from "react";
+import { useState, useCallback, useEffect, use, useRef } from "react";
 import Editor from "@/Components/admin/editor-page"; // adjust path if needed
 import type { TocItem } from "@/Components/admin/toc";
 import Image from "next/image";
@@ -22,7 +22,7 @@ type PostType = {
   description: string;
   editorHtml: string;
   timeLimit: number;
-  timeToRead : number;
+  timeToRead: number;
   toc: string;
 };
 const options = [
@@ -68,7 +68,7 @@ export default function Page({
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string>("");
   const [isUploading, setIsUploading] = useState(false);
-
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [isEditorTouched, setIsEditorTouched] = useState(false);
 
   const router = useRouter();
@@ -120,18 +120,92 @@ export default function Page({
 
   const isEdit = !!post;
 
+const deleteImage = async (url: string) => {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 10000); // 10s timeout
+
+  try {
+    // 1. Get presigned delete URL
+    const res = await fetch("/api/aws/delete", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    body: JSON.stringify({ fileUrl: url }), 
+      signal: controller.signal,
+    });
+
+    if (!res.ok) {
+      console.error("Failed to get deleteUrl:", res.status);
+      return;
+    }
+
+    const data = await res.json();
+
+    if (!data?.deleteUrl) {
+      console.error("deleteUrl missing in response");
+      return;
+    }
+
+    //  Call S3 delete URL
+    const s3Res = await fetch(data.deleteUrl, {
+      method: "DELETE",
+    });
+
+    if (!s3Res.ok) {
+      console.error("S3 delete failed:", s3Res.status);
+      return;
+    }
+
+  } catch (err: any) {
+    if (err.name === "AbortError") {
+      console.error("Request timed out:", url);
+    } else {
+      console.error("Delete failed:", url, err);
+    }
+  } finally {
+    clearTimeout(timeout);
+  }
+};
+
+
+  // extrtact html 
+  const extractImages = (html: string): string[] => {
+  if (!html) return [];
+
+  const div = document.createElement("div");
+  div.innerHTML = html;
+
+  const imgs = div.querySelectorAll("img");
+
+  return Array.from(imgs)
+    .map((img) => img.getAttribute("src"))
+    .filter((src): src is string => !!src);
+};
+
   const onSubmit = async (data: PostType) => {
     if (!isEditorTouched && post) {
       data.editorHtml = post.editorHtml;
       data.toc = post.toc;
     }
 
-    // CASE 2 → Editor touched → user manually clicked Sync Now
+    // Editor touched user manually clicked Sync Now
     if (isEditorTouched) {
       data.editorHtml = editorData.html;
       data.toc = JSON.stringify(editorData.toc);
     }
-    console.log("FINAL DATA", data);
+
+   if (post?.editorHtml !== data.editorHtml) {
+  const oldImgs = extractImages(post?.editorHtml || "");
+  const newImgs = extractImages(data.editorHtml || "");
+
+  for (const img of oldImgs) {
+    if (!newImgs.includes(img)) {
+      await deleteImage(img);
+    }
+  }
+}
+
 
     try {
       const method = isEdit ? "PATCH" : "POST";
@@ -168,66 +242,127 @@ export default function Page({
   const { data: session } = useSession();
 
   const handleImageUpload = async () => {
-    if (session?.user?.role !== "ADMIN") {
-      alert("Access denied");
+    if (uploadedImageUrl) {
+      alert("Please delete the existing image before uploading a new one.");
       return;
     }
-    if (!imageFile) return alert("Please select an image to upload");
 
-    setIsUploading(true); // start uploading
+    if (!imageFile) {
+      alert("Please select an image to upload");
+      return;
+    }
 
-    const formData = new FormData();
-    formData.append("image", imageFile);
+    setIsUploading(true);
 
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_URL}/api/upload`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${session.accessToken}`,
-          },
-          body: formData,
-        }
-      );
+      //  get presigned URL
+      const presignRes = await fetch("/api/aws/upload", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session?.accessToken}`,
+        },
+        body: JSON.stringify({
+          fileName: imageFile.name,
+          fileType: imageFile.type,
+        }),
+      });
 
-      const data = await res.json();
-      if (data?.url) {
-        setUploadedImageUrl(data.url);
-        setValue("image", data.url);
-      } else {
-        alert("Upload failed");
+      //  response validation
+      if (!presignRes.ok) {
+        throw new Error("Failed to get upload URL");
+      }
+
+      const { uploadUrl, fileUrl } = await presignRes.json();
+
+      if (!uploadUrl || !fileUrl) {
+        throw new Error("Invalid presign response");
+      }
+
+      //  upload to S3
+      const uploadRes = await fetch(uploadUrl, {
+        method: "PUT",
+        headers: {
+          "Content-Type": imageFile.type,
+        },
+        body: imageFile,
+      });
+
+      //  S3 upload validation
+      if (!uploadRes.ok) {
+        throw new Error("Upload to S3 failed");
+      }
+
+      // STEP 3: success
+      setUploadedImageUrl(fileUrl);
+      setValue("image", fileUrl);
+
+      //  reset file input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
       }
     } catch (err) {
       console.error(err);
-      alert("Error uploading image");
+      alert("Upload failed");
     } finally {
-      setIsUploading(false); // stop uploading
+      setIsUploading(false);
     }
   };
+
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const handleCancelUpload = async () => {
-    if (!uploadedImageUrl) return;
+    if (!uploadedImageUrl || isDeleting) return;
+
+    setIsDeleting(true);
 
     try {
-      await fetch(
-        `${process.env.NEXT_PUBLIC_IMAGE_UPLOAD_URL}/api/delete?url=${uploadedImageUrl}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${session?.accessToken}`,
-          },
-        }
-      );
+      //  get presigned delete URL
+      const res = await fetch("/api/aws/delete", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session?.accessToken}`,
+        },
+        body: JSON.stringify({
+          fileUrl: uploadedImageUrl,
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to get delete URL");
+      }
+
+      const { deleteUrl } = await res.json();
+
+      if (!deleteUrl) {
+        throw new Error("Invalid delete URL");
+      }
+
+      //  actually delete from S3
+      const deleteRes = await fetch(deleteUrl, {
+        method: "DELETE",
+      });
+
+      if (!deleteRes.ok) {
+        throw new Error("Failed to delete from S3");
+      }
+
+      //  clear UI
+      setUploadedImageUrl("");
+      setImageFile(null);
+      setValue("image", "");
+
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
     } catch (error) {
       console.error("Delete error:", error);
+      alert("Failed to delete image. Try again.");
+    } finally {
+      setIsDeleting(false);
     }
-
-    setUploadedImageUrl("");
-    setImageFile(null);
-    setValue("image", "");
   };
-
   useEffect(() => {
     setValue("editorHtml", editorData.html);
     setValue("toc", JSON.stringify(editorData.toc));
@@ -310,7 +445,10 @@ export default function Page({
           placeholder="Select a topic"
           className="w-full"
         />
-        <input type="hidden" {...register("topic" , { required: "Topic is required" })} />
+        <input
+          type="hidden"
+          {...register("topic", { required: "Topic is required" })}
+        />
       </div>
 
       <div>
@@ -318,6 +456,7 @@ export default function Page({
           Upload Image <span className="text-red-500"> *</span>
         </label>
         <input
+          ref={fileInputRef}
           type="file"
           accept="image/*"
           onChange={(e) => setImageFile(e.target.files?.[0] || null)}
@@ -326,9 +465,9 @@ export default function Page({
         <button
           type="button"
           onClick={handleImageUpload}
-          disabled={isUploading}
-          className={`mt-2 px-4 py-2 rounded text-white transition ${
-            isUploading
+          disabled={isUploading || !!uploadedImageUrl}
+          className={`mt-2 px-4 py-2 rounded text-white ${
+            isUploading || uploadedImageUrl
               ? "bg-gray-400 cursor-not-allowed"
               : "bg-blue-600 hover:bg-blue-700"
           }`}
@@ -343,9 +482,12 @@ export default function Page({
               <button
                 type="button"
                 onClick={handleCancelUpload}
-                className="text-red-500 text-sm hover:underline"
+                disabled={isDeleting}
+                className={`text-red-500 text-sm hover:underline ${
+                  isDeleting ? "opacity-50 cursor-not-allowed" : ""
+                }`}
               >
-                Cancel
+                {isDeleting ? "Deleting..." : "Cancel"}
               </button>
             </div>
             <div className="relative w-full h-[200px]">
@@ -384,7 +526,7 @@ export default function Page({
         </label>
         <input
           id="keywords"
-          {...register("keywords"  , { required: "Keyword is required" })}
+          {...register("keywords", { required: "Keyword is required" })}
           placeholder="Keywords enter in comma seprated"
           className="border border-gray-300 p-3 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
         />
@@ -399,7 +541,7 @@ export default function Page({
         </label>
         <textarea
           id="description"
-          {...register("description"  , { required: "Description is required" })}
+          {...register("description", { required: "Description is required" })}
           placeholder="Description"
           rows={4}
           className="border border-gray-300 p-3 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
@@ -433,8 +575,7 @@ export default function Page({
         />
       </div>
 
-
-        <div>
+      <div>
         <label
           htmlFor="timeLimit"
           className="block mb-2 font-semibold text-gray-700"
