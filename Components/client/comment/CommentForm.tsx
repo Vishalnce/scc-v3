@@ -23,7 +23,6 @@ export default function CommentForm({
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   async function handleSubmit() {
-
     try {
       if (!parentId) return;
 
@@ -44,8 +43,8 @@ export default function CommentForm({
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({name:name,email:email, content: comment }),
-        }
+          body: JSON.stringify({ name: name, email: email, content: comment }),
+        },
       );
 
       if (!res.ok) {
@@ -65,13 +64,8 @@ export default function CommentForm({
   return (
     <>
       <div className="bg-white dark:bg-black pt-4  ">
-        <div className="w-[90%] mx-auto  flex flex-col border-2 border-[#E6F1F1] bg-[#FAFCFC] dark:bg-[#313131] dark:border-[#E6F1F1] rounded-2xl px-2">
+        <div className="w-[90%] mx-auto  flex flex-col border-2 border-[#E6F1F1]  dark:bg-[#313131] dark:border-[#E6F1F1] rounded-2xl px-7 py-8">
           {/* icon and heading */}
-
-          <div className="flex flex-row   gap-3 py-4">
-            <FaRegCommentDots className="my-auto size-8 text-[#007076] " />
-            <p className="font-montserrat font-bold text-2xl dark:text-white"> Comments</p>
-          </div>
 
           {/* inpur box and form  */}
 
@@ -79,14 +73,14 @@ export default function CommentForm({
             <textarea
               rows={4}
               placeholder="Write your comment here..."
-              className="py-2 border-2 rounded-2xl bg-white text-my-text-color focus:outline-none  px-2 border-none dark:bg-[#313131]"
+              className="py-2 pt-4 px-5 border-2 rounded-2xl bg-[#F4F4FC] text-my-text-color focus:outline-none border-none dark:bg-[#313131]"
               ref={contentRef}
             />
 
-            <div className="">
+            <div className="mt-2  w-full">
               <button
                 onClick={handleSubmit}
-                className="px-4 py-2 bg-[#007076]  rounded-full text-white border-2 border-[#007076]"
+                className="px-4 py-2 bg-[#007076]  rounded-full text-white border-2 border-[#007076] w-full "
               >
                 Submmit
               </button>

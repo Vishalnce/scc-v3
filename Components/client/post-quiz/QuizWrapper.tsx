@@ -89,8 +89,8 @@ export default function QuizSection({
 
   // ✅ single wrapper for all
   return (
-    <div className="dark:bg-black bg-[#F8FAFC]">
-      <div className="max-w-[1400px] mx-auto w-[70%] max-md:w-[90%] py-4 flex flex-col items-center justify-center">
+    <div className="dark:bg-black bg-[#F8FAFC] ">
+      <div className="max-w-[1400px] mx-auto w-[70%]  max-md:w-[90%] py-4 flex flex-col items-center justify-center">
         
         {/* Header */}
         <div className="py-4 flex flex-col items-center justify-center">

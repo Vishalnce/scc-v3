@@ -29,7 +29,7 @@ type FetchResponse = {
 async function fetchPost(slug: string) {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/syllabus-page/client/${slug}`,
-    { cache: "no-store" }
+    { cache: "no-store" },
   );
 
   if (!res.ok) return null;
@@ -38,11 +38,9 @@ async function fetchPost(slug: string) {
   return post;
 }
 
-
 // fetch all current affaris by number return posts and current page number
 
 // fetch one line3r
-
 
 // genrate metadata for the page
 
@@ -57,7 +55,7 @@ export async function generateMetadata({
     `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/syllabus-page/client/${slug}`,
     {
       cache: "no-store",
-    }
+    },
   );
 
   if (!res.ok) {
@@ -109,11 +107,8 @@ export default async function CurrentAffarisPage({
 
   const post = await fetchPost(slug);
 
+  const session = await getServerSession(NEXT_AUTH);
 
-  
-    const session = await getServerSession(NEXT_AUTH)
-
-   
   return (
     <>
       <header className="bg-[image:var(--color-my-gradient)] ">
@@ -128,15 +123,18 @@ export default async function CurrentAffarisPage({
       </header>
       {/* for edit post  */}
 
-      
-         { (session?.user?.role === "ADMIN" ? (   <div className="w-[90%] dark:bg-[#191919] mx-auto m-6">
+      {session?.user?.role === "ADMIN" ? (
+        <div className="w-[90%] dark:bg-[#191919] mx-auto m-6">
           <Link href="/admin/syllabus-editor?slug=syllabus-for-ssc-cgl">
             <button className="bg-my-green rounded p-2 text-white">
-             Edit Syllabus            </button>
+              Edit Syllabus{" "}
+            </button>
           </Link>
-        </div> ) : "") }
-       
-      
+        </div>
+      ) : (
+        ""
+      )}
+
       <div className="bg-white dark:bg-black pt-12">
         <div className="w-[90%]  mx-auto flex flex-row gap-10 justify-between">
           {/* left box  */}
@@ -183,58 +181,37 @@ export default async function CurrentAffarisPage({
                           </a>
                         </div>
                       );
-                    }
+                    },
                   );
                 })()}
             </div>
 
             {/* latest current Affaris  and  one liner  */}
-            <SideBar/>
-
-
-
+            <SideBar />
           </div>
 
           {/* right box  */}
 
           <div className="w-[70%] max-md:w-[90%] max-md:mx-auto ">
-                     {/* <div className="h-[100vh]">
-         
-         
-                     </div> */}
-                     {post && (
-                       <div className="w-full  flex justify-center items-center">
-                         <Image
-                           src={post.image}
-                           alt={post.alt}
-                           width={520}
-                           height={485}
-                           className="object-contain w-full h-auto rounded-2xl"
-                         />
-                       </div>
-                     )}
-         
-                     <div className="px-2 pt-6 text-my-text-color">
-                       <div
-                         dangerouslySetInnerHTML={{ __html: post?.editorHtml || "" }}
-                       />
-                     </div>
-                   </div>
+            {post && (
+              <div className="w-full  flex justify-center items-center">
+                <Image
+                  src={post.image}
+                  alt={post.alt}
+                  width={520}
+                  height={485}
+                  className="object-contain w-full h-auto rounded-2xl"
+                />
+              </div>
+            )}
+            <div className="px-2 pt-6 text-my-text-color">
+              <div
+                dangerouslySetInnerHTML={{ __html: post?.editorHtml || "" }}
+              />
+            </div>
+          </div>
         </div>
       </div>
-      {/* <div>{post?.title}</div>;
-      <div dangerouslySetInnerHTML={{ __html: post?.editorHtml || "" }} />
-      <div>
-        <h2>Table of Contents</h2>
-        <ul>
-          {post?.toc &&
-            JSON.parse(post.toc).map((item: any, index: number) => (
-              <li key={index}>
-                <a href={`#${item.id}`}>{item.text}</a>
-              </li>
-            ))}
-        </ul>
-      </div> */}
     </>
   );
 }

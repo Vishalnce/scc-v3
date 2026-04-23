@@ -237,7 +237,7 @@ export default async function CurrentAffarisPage({
         </div>
       </header>
 
-      <div className="bg-white dark:bg-black pt-12">
+      <div className="bg-white dark:bg-black pt-12 pb-12">
         <div className="w-[90%] relative  mx-auto flex flex-row gap-10 justify-between">
           {/* left box */}
           <div className="w-[30%]  flex flex-col gap-4  max-md:hidden sticky top-24 self-start h-fit ">
@@ -318,13 +318,7 @@ export default async function CurrentAffarisPage({
         </div>
       </div>
 
-      <NextPrev
-        nextPost={nextPost}
-        prevPost={prevPost}
-        pageNumber={pageNumber}
-        prevNumber={prevNumber}
-        parentType="current-affaris-page"
-      />
+    
 
       {/* want toadd a componeten that handle quiz from post it is can be fetcher */}
       {post?.id && (
@@ -334,6 +328,14 @@ export default async function CurrentAffarisPage({
           topic={post.topic}
         />
       )}
+
+        <NextPrev
+        nextPost={nextPost}
+        prevPost={prevPost}
+        pageNumber={pageNumber}
+        prevNumber={prevNumber}
+        parentType="current-affaris-page"
+      />
 
       {/* //vcurtial typeerror */}
 

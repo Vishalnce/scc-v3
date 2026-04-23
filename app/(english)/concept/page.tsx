@@ -10,6 +10,7 @@ import { GoChevronRight } from "react-icons/go";
 import { getServerSession } from "next-auth";
 import { NEXT_AUTH } from "@/lib/auth";
 
+
 type Post = {
   id: number;
   title: string;
@@ -129,7 +130,7 @@ export default async function Page({
         </div>
 
         {/* Post List */}
-        <div className="flex md:flex-wrap  max-md:flex-col max-md:items-center justify-between w-[90%] mx-auto   gap-9">
+        <div className="flex md:flex-wrap  max-md:flex-col max-md:items-center justify-around   w-[90%] mx-auto   gap-9">
           {posts.map((post: any, index: number) => {
             const color = colors[index % colors.length];
 
@@ -170,11 +171,17 @@ export default async function Page({
                   </div>
 
                   {/* Floating Icon */}
+
+                  <Link
+                    href={`/concept-page/${post.slug}`}
+                    
+                  >
                   <div className="absolute -top-5 right-8 p-2 bg-white shadow-[0_0_6px_rgba(0,0,0,0.2)] rounded-full">
                     <GoChevronRight
                       className={`my-auto size-6 ${color.icon}`}
                     />
                   </div>
+                  </Link>
                 </div>
                 {/* Edit and delte button for admin  */}
 

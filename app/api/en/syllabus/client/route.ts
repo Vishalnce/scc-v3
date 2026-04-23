@@ -1,37 +1,35 @@
 import { NextRequest, NextResponse } from "next/server";
-import db from "@/lib/db"; // Your Prisma instance
+import db from "@/lib/db";
 
 export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
+  try {
+    const post = await db.syllabus.findFirst({
+      orderBy: { createdAt: "desc" }, // deterministic
+    });
 
-  const page = parseInt(searchParams.get("page") || "1");
-  const limit = parseInt(searchParams.get("limit") || "3");
-  const topic = searchParams.get("topic");
-  const date = searchParams.get("date");
+    // Handle empty state
+    if (!post) {
+      return NextResponse.json(
+        { message: "No syllabus found" },
+        { status: 404 }
+      );
+    }
 
-  const where: any = {};
+    return NextResponse.json(
+      { post },
+      {
+        status: 200,
+        headers: {
+          "Cache-Control": "public, s-maxage=60, stale-while-revalidate=120",
+        },
+      }
+    );
+  } catch (error) {
+    console.error("GET /syllabus error:", error);
 
-  if (topic) where.topic = topic;
-  if (date) {
-    const targetDate = new Date(date);
-    const nextDate = new Date(targetDate);
-    nextDate.setDate(nextDate.getDate() + 1);
-
-    where.createdAt = {
-      gte: targetDate,
-      lt: nextDate,
-    };
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 }
+    );
   }
-
-  const [posts, totalCount] = await Promise.all([
-    db.syllabus.findMany({
-      where,
-      orderBy: { createdAt: "desc" },
-      skip: (page - 1) * limit,
-      take: limit,
-    }),
-    db.post.count({ where }),
-  ]);
-
-  return NextResponse.json({ posts, totalCount });
 }

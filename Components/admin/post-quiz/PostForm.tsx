@@ -70,7 +70,7 @@ export default function Page({
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [isEditorTouched, setIsEditorTouched] = useState(false);
-const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const [editorData, setEditorData] = useState<{
@@ -120,119 +120,117 @@ const [isLoading, setIsLoading] = useState(false);
 
   const isEdit = !!post;
 
-const deleteImage = async (url: string) => {
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 10000); // 10s timeout
+  const deleteImage = async (url: string) => {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 10000); // 10s timeout
 
-  try {
-    // 1. Get presigned delete URL
-    const res = await fetch("/api/aws/delete", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    body: JSON.stringify({ fileUrl: url }), 
-      signal: controller.signal,
-    });
+    try {
+      // 1. Get presigned delete URL
+      const res = await fetch("/api/aws/delete", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ fileUrl: url }),
+        signal: controller.signal,
+      });
 
-    if (!res.ok) {
-      console.error("Failed to get deleteUrl:", res.status);
-      return;
+      if (!res.ok) {
+        console.error("Failed to get deleteUrl:", res.status);
+        return;
+      }
+
+      const data = await res.json();
+
+      if (!data?.deleteUrl) {
+        console.error("deleteUrl missing in response");
+        return;
+      }
+
+      //  Call S3 delete URL
+      const s3Res = await fetch(data.deleteUrl, {
+        method: "DELETE",
+      });
+
+      if (!s3Res.ok) {
+        console.error("S3 delete failed:", s3Res.status);
+        return;
+      }
+    } catch (err: any) {
+      if (err.name === "AbortError") {
+        console.error("Request timed out:", url);
+      } else {
+        console.error("Delete failed:", url, err);
+      }
+    } finally {
+      clearTimeout(timeout);
     }
+  };
 
-    const data = await res.json();
-
-    if (!data?.deleteUrl) {
-      console.error("deleteUrl missing in response");
-      return;
-    }
-
-    //  Call S3 delete URL
-    const s3Res = await fetch(data.deleteUrl, {
-      method: "DELETE",
-    });
-
-    if (!s3Res.ok) {
-      console.error("S3 delete failed:", s3Res.status);
-      return;
-    }
-
-  } catch (err: any) {
-    if (err.name === "AbortError") {
-      console.error("Request timed out:", url);
-    } else {
-      console.error("Delete failed:", url, err);
-    }
-  } finally {
-    clearTimeout(timeout);
-  }
-};
-
-
-  // extrtact html 
+  // extrtact html
   const extractImages = (html: string): string[] => {
-  if (!html) return [];
+    if (!html) return [];
 
-  const div = document.createElement("div");
-  div.innerHTML = html;
+    const div = document.createElement("div");
+    div.innerHTML = html;
 
-  const imgs = div.querySelectorAll("img");
+    const imgs = div.querySelectorAll("img");
 
-  return Array.from(imgs)
-    .map((img) => img.getAttribute("src"))
-    .filter((src): src is string => !!src);
-};
+    return Array.from(imgs)
+      .map((img) => img.getAttribute("src"))
+      .filter((src): src is string => !!src);
+  };
 
- const onSubmit = async (data: PostType) => {
-  if (isLoading) return; // prevent double submit
-  setIsLoading(true);
+  const onSubmit = async (data: PostType) => {
+    if (isLoading) return; // prevent double submit
+    setIsLoading(true);
 
-  try {
-    if (!isEditorTouched && post) {
-      data.editorHtml = post.editorHtml;
-      data.toc = post.toc;
-    }
+    try {
+      if (!isEditorTouched && post) {
+        data.editorHtml = post.editorHtml;
+        data.toc = post.toc;
+      }
 
-    if (isEditorTouched) {
-      data.editorHtml = editorData.html;
-      data.toc = JSON.stringify(editorData.toc);
-    }
+      if (isEditorTouched) {
+        data.editorHtml = editorData.html;
+        data.toc = JSON.stringify(editorData.toc);
+      }
 
-    if (post?.editorHtml !== data.editorHtml) {
-      const oldImgs = extractImages(post?.editorHtml || "");
-      const newImgs = extractImages(data.editorHtml || "");
+      if (post?.editorHtml !== data.editorHtml) {
+        const oldImgs = extractImages(post?.editorHtml || "");
+        const newImgs = extractImages(data.editorHtml || "");
 
-      for (const img of oldImgs) {
-        if (!newImgs.includes(img)) {
-          await deleteImage(img);
+        for (const img of oldImgs) {
+          if (!newImgs.includes(img)) {
+            await deleteImage(img);
+          }
         }
       }
+
+      const method = isEdit ? "PATCH" : "POST";
+
+      const res = await fetch("/api/en/current-affaris/admin", {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      const result = await res.json();
+
+      if (res.ok) {
+        setPostId(result.post.id);
+        alert(isEdit ? "Post updated successfully!" : "Post created!");
+        router.push("/current-affaris");
+      } else {
+        alert("Failed to save post");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error submitting");
+    } finally {
+      setIsLoading(false);
     }
-
-    const method = isEdit ? "PATCH" : "POST";
-
-    const res = await fetch("/api/en/current-affaris/admin", {
-      method,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-
-    const result = await res.json();
-
-    if (res.ok) {
-      setPostId(result.post.id);
-      alert(isEdit ? "Post updated successfully!" : "Post created!");
-      router.push("/current-affaris");
-    } else {
-      alert("Failed to save post");
-    }
-  } catch (err) {
-    console.error(err);
-    alert("Error submitting");
-  } finally {
-    setIsLoading(false);
-  }
-};
+  };
   const handleChange = (option: OptionType | null) => {
     setSelectedOption(option);
     setValue("topic", option?.value || ""); //  sets the category field
@@ -598,17 +596,18 @@ const deleteImage = async (url: string) => {
       <input type="hidden" {...register("editorHtml")} />
       <input type="hidden" {...register("toc")} />
 
-    <button
-  type="submit"
-  disabled={isLoading}
-  className={`px-6 py-2 rounded-md text-white transition
-    ${isLoading 
-      ? "bg-green-400 cursor-not-allowed" 
-      : "bg-green-600 hover:bg-green-700"
+      <button
+        type="submit"
+        disabled={isLoading}
+        className={`px-6 py-2 rounded-md text-white transition
+    ${
+      isLoading
+        ? "bg-green-400 cursor-not-allowed"
+        : "bg-green-600 hover:bg-green-700"
     }`}
->
-  {isLoading ? "Saving..." : "Save"}
-</button>
+      >
+        {isLoading ? "Saving..." : "Save"}
+      </button>
     </form>
   );
 }

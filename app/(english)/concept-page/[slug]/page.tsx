@@ -268,22 +268,12 @@ export default async function ConceptPage({
           </div>
 
           {/* right box  */}
-          <div className="w-[70%] max-md:w-[90%] max-md:mx-auto ">
+          <div className="w-[70%] max-md:w-[90%] max-md:mx-auto  ">
             {/* <div className="h-[100vh]">
 
 
             </div> */}
-            {post && (
-              <div className="w-full  flex justify-center items-center">
-                <Image
-                  src={post.image}
-                  alt={post.alt}
-                  width={520}
-                  height={485}
-                  className="object-contain w-full h-auto rounded-2xl"
-                />
-              </div>
-            )}
+            
 
             <div className="px-2 pt-6 text-my-text-color">
               <div
