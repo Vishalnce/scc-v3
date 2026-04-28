@@ -487,9 +487,15 @@ export default function Page({ post }: { post?: PostType }) {
 
       <button
         type="submit"
-        className="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition"
+        disabled={isLoading}
+        className={`px-6 py-2 rounded-md text-white transition
+    ${
+      isLoading
+        ? "bg-green-400 cursor-not-allowed"
+        : "bg-green-600 hover:bg-green-700"
+    }`}
       >
-        Save
+        {isLoading ? "Saving..." : "Save"}
       </button>
     </form>
   );

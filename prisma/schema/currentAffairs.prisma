@@ -17,7 +17,7 @@ model CurrentAffairs {
   quizposts   PostQuiz[]
     comments    Comment[]
 
-    notifications Notification[]  
+  
 } 
 
 model PostQuiz {

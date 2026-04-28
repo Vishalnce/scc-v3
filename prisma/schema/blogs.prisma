@@ -12,4 +12,27 @@ model Blog {
   toc         String
   createdAt   DateTime @default(now())
   comments Comment[]
+  blogQuizzes BlogQuiz[]
+}
+
+
+
+
+model BlogQuiz {
+
+  
+  id            String   @id @default(uuid())
+  blogId        Int
+  blog          Blog    @relation(fields: [blogId], references: [id],onDelete: Cascade)
+  questionText  String?  // optional text
+
+  options       Json     // Example: [{ text: "Option 1", image: "url" }, { text: "Option 2"// }]
+
+  solutionText  String?
+
+  correctOption Int
+
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }

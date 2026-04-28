@@ -1,8 +1,8 @@
 "use client"
 import { useState } from 'react';
 import React from 'react'
-import AnnounceForm from './SmallConceptsForm';
-import AnnounceList from './SmallConceptsList';
+import SmallConceptForm from './SmallConceptsForm';
+import SmallConceptList from './SmallConceptsList';
 
 type Announce ={
   id:number;
@@ -21,8 +21,8 @@ function PostFormNotice({announce}:{ announce?: Announce | null }) {
     
     <>
     
-    <AnnounceForm announce = {announce} onSuccess={handleRefresh}/>
-    <AnnounceList key={refreshKey}/>
+    <SmallConceptForm announce = {announce} onSuccess={handleRefresh}/>
+    <SmallConceptList key={refreshKey}/>
 
     </>
   )

@@ -21,7 +21,7 @@ export default function DeleteButton({ slug }: { slug: string }) {
     try {
       // 1. Fetch post
       const postRes = await fetch(
-        `/api/en/current-affaris/admin?slug=${slug}`
+        `/api/en/current-affairs/admin?slug=${slug}`
       );
 
       const postData = await postRes.json();
@@ -43,7 +43,7 @@ export default function DeleteButton({ slug }: { slug: string }) {
 
       // 4. Delete post
       const res = await fetch(
-        `/api/en/current-affaris/admin?slug=${slug}`,
+        `/api/en/current-affairs/admin?slug=${slug}`,
         {
           method: "DELETE",
         }
@@ -54,7 +54,7 @@ export default function DeleteButton({ slug }: { slug: string }) {
       }
 
       // 5. Redirect
-      router.push("/current-affaris/");
+      router.push("/current-affairs/");
     } catch (error) {
       console.error("Delete failed:", error);
       alert("Something went wrong while deleting.");

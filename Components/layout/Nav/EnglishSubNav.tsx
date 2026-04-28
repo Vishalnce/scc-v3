@@ -49,7 +49,7 @@ function EnglishSubNav() {
             >
               <p className="py-1  text-xl text-center text-my-text-color hover:text-[#007076]">
                 {" "}
-                Current Affaris{" "}
+                Current affairs{" "}
               </p>
               <MdKeyboardArrowRight className="my-auto" />
             </div>
@@ -57,7 +57,7 @@ function EnglishSubNav() {
             {activeTag === "mini-current-affairs" && (
               <div className="flex flex-col items-center w-[90%] mt-2 togle">
                 <div className="w-[80%] text-sm  ">
-                  <Link href={"/current-affaris"}>
+                  <Link href={"/current-affairs"}>
                     <button
                       onClick={() => {
                         setIsOpen(!isOpen);
@@ -77,7 +77,7 @@ function EnglishSubNav() {
                       className=" hover:text-[#007076]  text-lg mt-2"
                     >
                       {" "}
-                      One Liner Current Affaris
+                      One Liner Current Affairs
                     </button>
                   </Link>
                 </div>
@@ -192,7 +192,7 @@ function EnglishSubNav() {
                           pathname: "/concept",
                           query: {
                             category: "mains",
-                            subject: "mathematics-ability",
+                            subject: "mathematical-abilities",
                           },
                         }}
                         onClick={() => setIsOpen(!isOpen)}
@@ -394,7 +394,7 @@ function EnglishSubNav() {
                           pathname: "/quiz",
                           query: {
                             category: "mains",
-                            subject: "mathematics-ability",
+                            subject: "mathematical-abilities",
                           },
                         }}
                         onClick={() => setIsOpen(!isOpen)}

@@ -1,12 +1,37 @@
 import { NextResponse } from "next/server";
-import db from "@/lib/db"
+import db from "@/lib/db";
 
+/**
+ * CREATE QUESTION
+ */
 export async function POST(req: Request) {
   try {
-    const body = await req.json(); // ✅ await here
+    const body = await req.json();
 
-    const quiz = await db.postQuiz.create({
-      data: body, // ✅ should be "data", not "body"
+    const {
+      blogId,
+      questionText,
+      options,
+      solutionText,
+      correctOption,
+    } = body;
+
+    if (!blogId) {
+      return NextResponse.json({ error: "blogId is required" }, { status: 400 });
+    }
+
+    const quiz = await db.blogQuiz.create({
+      data: {
+        questionText,
+        options,
+        solutionText,
+        correctOption,
+
+        // ✅ FIX: relation handling
+        blog: {
+          connect: { id: blogId },
+        },
+      },
     });
 
     return NextResponse.json(quiz);
@@ -16,16 +41,19 @@ export async function POST(req: Request) {
   }
 }
 
+/**
+ * GET QUESTIONS
+ */
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
 
-    const postIdParam = searchParams.get("postId");
+    const blogIdParam = searchParams.get("blogId");
     const quesId = searchParams.get("quesId");
 
+    // 👉 Get single question
     if (quesId) {
-      // Fetch one question by id
-      const question = await db.postQuiz.findUnique({
+      const question = await db.blogQuiz.findUnique({
         where: { id: quesId },
       });
 
@@ -36,74 +64,90 @@ export async function GET(req: Request) {
       return NextResponse.json(question);
     }
 
-    if (postIdParam) {
-      const postId = parseInt(postIdParam, 10);
+    // 👉 Get all questions for a blog
+    if (blogIdParam) {
+      const blogId = parseInt(blogIdParam, 10);
 
-      if (isNaN(postId)) {
-        return NextResponse.json({ error: "Invalid postId" }, { status: 400 });
+      if (isNaN(blogId)) {
+        return NextResponse.json({ error: "Invalid blogId" }, { status: 400 });
       }
 
-      // Fetch questions filtered by postId
-      const questions = await db.postQuiz.findMany({
-        where: { postId},
+      const questions = await db.blogQuiz.findMany({
+        where: { blogId },
         orderBy: { createdAt: "desc" },
       });
-  
 
       return NextResponse.json(questions);
     }
 
     return NextResponse.json(
-      { error: "Either postId or quesId query param is required" },
+      { error: "Provide blogId or quesId" },
       { status: 400 }
     );
   } catch (error) {
     console.error("Fetch questions error:", error);
-    return NextResponse.json({ error: "Failed to fetch questions" }, { status: 500 });
+    return NextResponse.json({ error: "Fetch failed" }, { status: 500 });
   }
 }
 
+/**
+ * DELETE QUESTION
+ */
 export async function DELETE(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
-    const quesIdParam = searchParams.get("quesId");
+    const quesId = searchParams.get("quesId");
 
-    if (!quesIdParam) {
+    if (!quesId) {
       return NextResponse.json({ error: "quesId is required" }, { status: 400 });
     }
 
-    // Assuming your question ID is a string (like UUID)
-    // If it's number, parseInt can be used here instead
-    const quesId = quesIdParam;
-
-    // Delete the question by id
-    await db.postQuiz.delete({
+    await db.blogQuiz.delete({
       where: { id: quesId },
     });
 
-    return NextResponse.json({ message: "Question deleted successfully" });
+    return NextResponse.json({ message: "Deleted successfully" });
   } catch (error) {
-    console.error("Delete question error:", error);
+    console.error("Delete error:", error);
     return NextResponse.json({ error: "Delete failed" }, { status: 500 });
   }
 }
 
-
+/**
+ * UPDATE QUESTION
+ */
 export async function PATCH(req: Request) {
   try {
     const body = await req.json();
 
-    // Expect quesId and other fields in body
-    const { quesId, ...updateData } = body;
+    const {
+      quesId,
+      blogId,
+      questionText,
+      options,
+      solutionText,
+      correctOption,
+    } = body;
 
     if (!quesId) {
-      return NextResponse.json({ error: "quesId is required for update" }, { status: 400 });
+      return NextResponse.json({ error: "quesId is required" }, { status: 400 });
     }
 
-    // Update question in DB
-    const updatedQuestion = await db.postQuiz.update({
+    const updatedQuestion = await db.blogQuiz.update({
       where: { id: quesId },
-      data: updateData,
+      data: {
+        questionText,
+        options,
+        solutionText,
+        correctOption,
+
+        //FIX: relation update
+        ...(blogId && {
+          blog: {
+            connect: { id: blogId },
+          },
+        }),
+      },
     });
 
     return NextResponse.json(updatedQuestion);

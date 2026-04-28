@@ -66,7 +66,6 @@ function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
       ...data,
       postId: id, // id comes from props //
     };
-    console.log("Submitting question data:",fullData);
 
     try {
       const res = await fetch("/api/en/post-quiz/admin", {
@@ -82,7 +81,7 @@ function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
       }
 
       const result = await res.json();
-      console.log("Question submitted successfully:", result);
+    
       // Optionally reset form here or show success message
 
       onSuccess();

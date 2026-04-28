@@ -62,7 +62,7 @@ function EnglishMobMenu() {
             <div className="flex flex-row gap-2">
               <LuNewspaper className="my-auto size-5" />
               <p className="py-1  font-bold text-center  hover:text-[#007076]">
-                Current Affaris
+                Current Affairs
               </p>
             </div>
 
@@ -72,7 +72,7 @@ function EnglishMobMenu() {
           {activeTag === "mini-current-affairs" && (
             <div className="flex flex-col items-center  w-[100%] togle py-4 space-y-2">
               <Link
-                href={"/current-affaris"}
+                href={"/current-affairs"}
                 className="w-full shadow pl-9 py-1"
               >
                 <button
@@ -99,7 +99,7 @@ function EnglishMobMenu() {
                   {" "}
                   <p className=" text-sm text-[#6F6F6F]">
                     {" "}
-                    One Liner Current Affaris{" "}
+                    One Liner Current Affairs{" "}
                   </p>
                 </button>
               </Link>
@@ -230,7 +230,7 @@ function EnglishMobMenu() {
                         pathname: "/concept",
                         query: {
                           category: "mains",
-                          subject: "mathematics-ability",
+                          subject: "mathematical-abilities",
                         },
                       }}
                       onClick={() => setIsOpen(!isOpen)}
@@ -433,7 +433,7 @@ function EnglishMobMenu() {
                         pathname: "/quiz",
                         query: {
                           category: "mains",
-                          subject: "mathematics-ability",
+                          subject: "mathematical-abilities",
                         },
                       }}
                       onClick={() => setIsOpen(!isOpen)}

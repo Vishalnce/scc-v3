@@ -1,20 +1,16 @@
 model Notification {
-  id          String        @id @default(cuid())
-  title       String          @unique //useful for delete
-  path String
-
-
-  createdAt   DateTime      @default(now())
-  
-
-  // relations (optional)
-
-  quizId      Int?
-  quiz        Quiz?         @relation(fields: [quizId], references: [id],onDelete: Cascade)
-
-  currentAffairId Int?
-  currentAffair    CurrentAffairs? @relation(fields: [currentAffairId], references: [id],onDelete: Cascade)
-
-
+  id        String   @id @default(cuid())
+  title     String
+  path      String
+  type      NotificationType
+  entityId  Int
+  createdAt DateTime @default(now())
 }
 
+enum NotificationType {
+  QUIZ
+  BLOG
+  EXAM
+  CONCEPT
+  CURRENT_AFFAIR
+}

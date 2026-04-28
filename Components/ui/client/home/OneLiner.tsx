@@ -97,7 +97,7 @@ export default function OneLiner() {
             One-Liner Current Affairs
           </p>
 
-         <Link href={"/current-affaris"}>
+         <Link href={"/current-affairs"}>
               <p className="p-2 px-6 text-lg max-sm:text-sm  text-[#007076] rounded-full  underline">
                 View All
               </p>

@@ -1,3 +1,4 @@
+import BlogParentComponent from "@/Components/admin/blog-quiz/BlogParentComponent";
 import PostFormBlog from "@/Components/admin/PostFormBlog";
 import  db  from "@/lib/db";
 import { notFound } from "next/navigation";
@@ -8,6 +9,7 @@ export default async function AdminEditorPage({
   searchParams: Promise<{ slug?: string }>;
 }) {
    let post = undefined
+   let editPostId = null;
    const params =  (await searchParams).slug
   if (params) {
     post = await db.blog.findUnique({
@@ -15,8 +17,9 @@ export default async function AdminEditorPage({
     });
 
     if (!post) return notFound();
+      editPostId = post?.id || null;
   }
   
 
-  return <PostFormBlog post={post} />;
+  return <BlogParentComponent post={post} editPostId={editPostId} />;
 }

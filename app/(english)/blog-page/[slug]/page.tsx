@@ -4,6 +4,7 @@ import React from "react";
 
 import CommentWrapper from "@/Components/client/comment/CommentWrapper";
 import SideBar from "@/Components/ui/client/sidebar/SideBar";
+import BlogQuizWrapper from "@/Components/client/blog-quiz/BlogQuizWrapper";
 // Type for the related quiz items
 type QuizPostItem = {
   id: number;
@@ -36,10 +37,9 @@ type FetchResponse = {
 // only fetch by slug
 async function fetchPost(slug: string) {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/blog-page/client/${slug}`,
-      { cache: "no-store" }
-    );
+    const res = await fetch(`/api/en/blog-page/client/${slug}`, {
+      cache: "no-store",
+    });
 
     if (!res.ok) return null;
 
@@ -53,10 +53,9 @@ async function fetchPost(slug: string) {
 // fetch all current affaris by number return posts and current page number
 async function fetchBlog(pageNumber: number): Promise<FetchResponse> {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/blog/client/?page=${pageNumber}`,
-      { cache: "no-store" }
-    );
+    const res = await fetch(`/api/en/blog/client/?page=${pageNumber}`, {
+      cache: "no-store",
+    });
 
     if (!res.ok) {
       return { posts: [], page: 1 }; // fallback
@@ -74,8 +73,6 @@ async function fetchBlog(pageNumber: number): Promise<FetchResponse> {
   }
 }
 
-
-
 // genrate metadata for the page
 export async function generateMetadata({
   params,
@@ -84,12 +81,9 @@ export async function generateMetadata({
 }) {
   const { slug } = await params;
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/blog-page/client/${slug}`,
-    {
-      cache: "no-store",
-    }
-  );
+  const res = await fetch(`/api/en/blog-page/client/${slug}`, {
+    cache: "no-store",
+  });
 
   if (!res.ok) {
     return {
@@ -107,7 +101,7 @@ export async function generateMetadata({
     openGraph: {
       title: post.title,
       description: post.description,
-      url: `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/blog-page/client/${slug}`,
+      url: `/api/en/blog-page/client/${slug}`,
       siteName: "SSC ExamLife Info",
       images: [
         {
@@ -122,7 +116,7 @@ export async function generateMetadata({
     },
 
     alternates: {
-      canonical: `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/blog-page/client/${slug}`,
+      canonical: `/api/en/blog-page/client/${slug}`,
     },
     robots: {
       index: true,
@@ -148,7 +142,6 @@ export default async function BlogPage({
 
   const { posts, page } = await fetchBlog(pageNumber);
 
-
   // 3️⃣ Compute prev/next
   const currentIndex = posts.findIndex((p) => p.slug === slug);
 
@@ -160,10 +153,9 @@ export default async function BlogPage({
   // fetchon next is null and return post and cext current page number
   async function fetchNextBlog(page: number) {
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/blog/client/?page=${page}`,
-        { cache: "no-store" }
-      );
+      const res = await fetch(`/api/en/blog/client/?page=${page}`, {
+        cache: "no-store",
+      });
 
       if (!res.ok) {
         return { posts: [], page: 1 }; // fallback
@@ -183,9 +175,7 @@ export default async function BlogPage({
   }
 
   if (nextPost == null) {
-    const { posts, page } = await fetchNextBlog(
-      Number(pageNumber) + 1
-    );
+    const { posts, page } = await fetchNextBlog(Number(pageNumber) + 1);
     // console.log(posts)
 
     if (posts.length == 0) {
@@ -203,9 +193,7 @@ export default async function BlogPage({
     if (pageNumber == 1) {
       prevPost = null;
     } else {
-      const { posts, page } = await fetchNextBlog(
-        Number(pageNumber) - 1
-      );
+      const { posts, page } = await fetchNextBlog(Number(pageNumber) - 1);
       prevPost = posts[2];
       prevNumber = page;
     }
@@ -224,7 +212,6 @@ export default async function BlogPage({
             <span className="hover:underline cursor-pointer text-[#007076]">
               Blog
             </span>{" "}
-         
           </p>
 
           <h1 className="text-3xl font-bold max-sm:text-2xl">
@@ -277,18 +264,14 @@ export default async function BlogPage({
                           </a>
                         </div>
                       );
-                    }
+                    },
                   );
                 })()}
             </div>
 
             {/* Latest Current Affaris and one liner */}
 
-           
-
-            <SideBar/>
-
-           
+            <SideBar />
           </div>
 
           {/* right box  */}
@@ -318,6 +301,8 @@ export default async function BlogPage({
         </div>
       </div>
 
+      {post?.id && <BlogQuizWrapper postId={post.id} topic={post.topic} />}
+
       <NextPrev
         nextPost={nextPost}
         prevPost={prevPost}
@@ -325,7 +310,6 @@ export default async function BlogPage({
         prevNumber={prevNumber}
         parentType="blog-page"
       />
-
 
       {/* //vcurtial typeerror */}
 

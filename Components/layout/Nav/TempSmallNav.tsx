@@ -130,19 +130,19 @@ function SmallNav() {
         </Link>
       </div>
 
-      {/* DropDown for current affaris */}
+      {/* DropDown for current affairs */}
       {activeTag === "current-affairs" && (
         <div className="  z-50 w-full  flex py-4 flex-col fixed top-34 bg-white  border-2">
           <div className="w-[90%] border-2 mx-auto">
             <div className="w-[20%] ml-24  p-2  hover:bg-[#E6F1F1] dark:hover:bg-black rounded-xl">
               <Link
-                href={"/current-affaris"}
+                href={"/current-affairs"}
                 onClick={() => setActiveTag(null)}
               >
                 <div className="flex flex-row items-center gap-2">
                   <p className=" text-sm text-my-text-color ">
                     {" "}
-                    Detailed Current Affaris{" "}
+                    Detailed Current Affairs{" "}
                   </p>{" "}
                   <MdKeyboardArrowRight className="text-my-text-color" />
                 </div>
@@ -158,7 +158,7 @@ function SmallNav() {
                 <div className="flex flex-row items-center gap-2">
                   <p className=" text-sm text-my-text-color ">
                     {" "}
-                    One Liner Current Affaris{" "}
+                    One Liner Current Affairs{" "}
                   </p>{" "}
                   <MdKeyboardArrowRight className="text-my-text-color" />
                 </div>
@@ -264,7 +264,7 @@ function SmallNav() {
                     pathname: "/concept",
                     query: {
                       category: "mains",
-                      subject: "mathematics-ability",
+                      subject: "mathematical-abilities",
                     },
                   }}
                   onClick={() => setActiveTag(null)}
@@ -449,7 +449,7 @@ function SmallNav() {
                     pathname: "/quiz",
                     query: {
                       category: "mains",
-                      subject: "mathematics-ability",
+                      subject: "mathematical-abilities",
                     },
                   }}
                   onClick={() => setActiveTag(null)}

@@ -40,7 +40,7 @@ export default function Current() {
   useEffect(() => {
     const fetchAffairs = async () => {
       try {
-        const res = await fetch("/api/en/current-affaris/client");
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/current-affairs/client`);
         if (!res.ok) throw new Error("Failed to fetch current affairs");
         const data = await res.json();
 
@@ -120,7 +120,7 @@ export default function Current() {
           </div>
 
           <div>
-            <Link href={"/current-affaris"}>
+            <Link href={"/current-affairs"}>
               <p className="p-2 px-6 text-lg max-sm:text-sm  text-[#007076] rounded-full  underline">
                 View All
               </p>
@@ -180,7 +180,7 @@ export default function Current() {
 
                 return (
                   <Link
-                    href={`/current-affaris-page/${item.slug}`}
+                    href={`/current-affairs-page/${item.slug}`}
                     className="min-w-[33.333%] max-sm:min-w-[90%] px-2 max-sm:pr-3 "
                     key={index}
                   >
@@ -285,57 +285,3 @@ export default function Current() {
   );
 }
 
-// <div className="flex">
-//         {loading ? (
-//           <p className="p-4">Loading...</p>
-//         ) : affairs.length === 0 ? (
-//           <p className="p-4">No current affairs available</p>
-//         ) : (
-//           affairs.map((item, index) => (
-//             <Link
-//               href={`/current-affaris-page/${item.slug}`}
-//               className="min-w-[33.333%] max-sm:min-w-[90%] px-2 max-sm:pr-8 "
-//               key={index}
-//             >
-//               {/* iimage */}
-
-//               <div className="w-full h-48 relative shadow-2xl">
-//                 {" "}
-//                 {/* parent is relative */}
-//                 <Image
-//                   src={item.image}
-//                   alt={item.alt}
-//                   fill // makes it absolute inside parent
-//                   className="object-cover rounded-t-2xl"
-//                 />
-//               </div>
-
-//               {/* boady */}
-
-//               <div className="flex flex-col rounded-b-2xl shadow-2xl items-stretch px-2 min-h-70 sm:min-h-80  ">
-//                 <div className="flex flex-row justify-between items-center py-2 pt-4 ">
-//                   <div className="text-sm p-2 rounded-full bg-[#FFE332]">
-//                     Updated
-//                   </div>
-//                   <div className="dark:text-white">
-//                     {item.createdAt.slice(0, 10)}
-//                   </div>
-//                 </div>
-
-//                 <div>
-//                   <p className="font-bold py-2 dark:text-white sm:min-h-22 min-h-24">
-//                     {item.title}
-//                   </p>
-//                 </div>
-//                 <div className="text-fade dark:text-white line-clamp-3 sm:line-clamp-5">
-//                   {item.summary}
-//                 </div>
-
-//                 <div className="py-2">
-//                   <p className="dark:text-white">Read more</p>
-//                 </div>
-//               </div>
-//             </Link>
-//           ))
-//         )}
-//       </div>

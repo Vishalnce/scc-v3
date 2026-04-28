@@ -1,6 +1,6 @@
 import DeleteButton from "@/Components/client/upcoming-exam/DeleteButton";
 import EditButton from "@/Components/client/upcoming-exam/EditButton";
-import Filter from "@/Components/client/current-affaris/CurrentAffarisFilter";
+import Filter from "@/Components/client/current-affairs/CurrentAffairsFilter";
 import Image from "next/image";
 import Link from "next/link";
 import { FaRegCalendarMinus } from "react-icons/fa6";
@@ -27,7 +27,7 @@ async function fetchPosts(
   page: number = 1,
   limit: number = 10,
   topic?: string,
-  date?: string
+  date?: string,
 ): Promise<{ posts: Post[]; totalCount: number }> {
   const params = new URLSearchParams({
     page: String(page),
@@ -37,12 +37,9 @@ async function fetchPosts(
   if (topic) params.append("topic", topic);
   if (date) params.append("date", date);
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/upcoming-exam/client?${params.toString()}`,
-    {
-      cache: "no-store",
-    }
-  );
+  const res = await fetch(`/api/en/upcoming-exam/client?${params.toString()}`, {
+    cache: "no-store",
+  });
 
   // if (!res.ok) throw new Error("Failed to fetch posts");
 

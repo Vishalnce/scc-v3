@@ -23,7 +23,7 @@ export default function QuizContainer() {
       try {
         setLoading(true);
 
-        const res = await fetch(`/api/en/small-quiz/client`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/small-quiz/client`);
         if (!res.ok) throw new Error("Failed to fetch");
 
         const data: QuizAPI[] = await res.json();

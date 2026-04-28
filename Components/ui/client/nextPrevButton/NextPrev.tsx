@@ -24,7 +24,7 @@ type NextPrevProps = {
   prevPost?: Post | null;
   pageNumber?: number | null;
   prevNumber?:number | null;
-  parentType: "current-affaris-page" | "concept-page" | "blog-page" | "upcoming-exam-page"
+  parentType: "current-affairs-page" | "concept-page" | "blog-page" | "upcoming-exam-page"
 };
 
 export default function NextPrev({
@@ -88,7 +88,7 @@ export default function NextPrev({
 
         <div className=" flex flex-row items-center gap-2">
           <Image
-            src="/ui/client/current-affaris-page/icons.png"
+            src="/ui/client/currentaffairs--page/icons.png"
             alt="ssc"
             width={150}
             height={150}

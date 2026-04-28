@@ -209,7 +209,7 @@ export default function Page({
 
       const method = isEdit ? "PATCH" : "POST";
 
-      const res = await fetch("/api/en/current-affaris/admin", {
+      const res = await fetch("/api/en/current-affairs/admin", {
         method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -220,7 +220,7 @@ export default function Page({
       if (res.ok) {
         setPostId(result.post.id);
         alert(isEdit ? "Post updated successfully!" : "Post created!");
-        router.push("/current-affaris");
+        router.push("/current-affairs");
       } else {
         alert("Failed to save post");
       }

@@ -41,12 +41,9 @@ async function fetchPosts(
   if (category) params.append("category", category);
   if (subject) params.append("subject", subject);
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/quiz/client?${params.toString()}`,
-    {
-      cache: "no-store",
-    },
-  );
+  const res = await fetch(`/api/en/quiz/client?${params.toString()}`, {
+    cache: "no-store",
+  });
 
   return res.json();
 }
@@ -116,16 +113,23 @@ export default async function Page({
       <header className="bg-[image:var(--color-my-gradient)]">
         <div className="flex flex-col justify-center items-center min-h-[150px] mx-auto max-w-[1400px] max-sm:w-[90%] text-center">
           <h1 className="text-4xl font-bold max-sm:text-2xl">
-            <p className="max-md:hidden">    Elevate Your SSC CGL Success with{" "}
-            <span className="text-my-green"> Expert Quizzes</span></p>
-            <p className=" font-bold max-sm:text-2xl md:hidden">Master SSC CGL with expert quizzes.</p>
-         
+            <p className="max-md:hidden">
+              {" "}
+              Elevate Your SSC CGL Success with{" "}
+              <span className="text-my-green"> Expert Quizzes</span>
+            </p>
+            <p className=" font-bold max-sm:text-2xl md:hidden">
+              Master SSC CGL with expert quizzes.
+            </p>
           </h1>
           <p className="mt-1 text-lg max-sm:text-sm text-my-text-color max-md:hidden">
             Practice Smarter by Choosing Quizzes Tailored to Your Strengths and
             Weaknesses!
           </p>
-          <p className="mt-1 text-lg max-sm:text-sm text-my-text-color md:hidden"> Quiz smarter: match your strengths and weaknesses.</p>
+          <p className="mt-1 text-lg max-sm:text-sm text-my-text-color md:hidden">
+            {" "}
+            Quiz smarter: match your strengths and weaknesses.
+          </p>
         </div>
       </header>
 

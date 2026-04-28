@@ -1,6 +1,8 @@
-import DeleteButton from "@/Components/client/current-affaris/DeleteButton";
-import EditButton from "@/Components/client/current-affaris/EditButton";
-import CurrentAffarisFilter from "@/Components/client/current-affaris/CurrentAffarisFilter";
+
+
+import DeleteButton from "@/Components/client/current-affairs/DeleteButton";
+import EditButton from "@/Components/client/current-affairs/EditButton";
+import CurrentAffairsFilter from "@/Components/client/current-affairs/CurrentAffairsFilter";
 import { NEXT_AUTH } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
@@ -40,7 +42,7 @@ async function fetchPosts(
   if (date) params.append("date", date);
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/current-affaris/client?${params.toString()}`,
+    `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/current-affairs/client?${params.toString()}`,
     {
       cache: "no-store",
     },
@@ -134,7 +136,7 @@ export default async function Page({
       <div className="dark:bg-[#191919]">
         {/* Filter + Alert */}
         <div className="flex dark:bg-[#191919] flex-row justify-between items-center mx-auto w-[90%] pt-2">
-          <CurrentAffarisFilter />
+          <CurrentAffairsFilter />
           <div className="max-md:hidden">
             <p className="bg-[image:var(--color-my-yellow-alert)] dark:text-black max-lg:text-sm px-4 py-2 rounded-4xl text-center">
               New Current Affairs Just Dropped!
@@ -145,10 +147,10 @@ export default async function Page({
         {/* Admin Button */}
         {session?.user?.role === "ADMIN" ? (
           <div className="w-[90%] dark:bg-[#191919] mx-auto m-6 max-md:hidden">
-            <Link href="/admin/current-affaris-editor ">
-              <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
-                Add Current Affaris
-              </button>
+            <Link href="/admin/current-affairs-editor ">
+              <div className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
+                Add Current Affairs
+              </div>
             </Link>
           </div>
         ) : (
@@ -166,12 +168,9 @@ export default async function Page({
                 Please try refreshing the page.
               </p>
 
-              <button
-                onClick={() => location.reload()}
-                className="mt-4 px-4 py-2 bg-my-green text-white rounded"
-              >
-                Refresh Page
-              </button>
+              <Link href="/current-affairs">
+                <button>Refresh Page</button>
+              </Link>
             </div>
           ) : posts.length === 0 ? (
             <p className="text-center py-10">No posts found.</p>
@@ -186,7 +185,7 @@ export default async function Page({
                 >
                   <Link
                     href={{
-                      pathname: `/current-affaris-page/${post.slug}`,
+                      pathname: `/current-affairs-page/${post.slug}`,
                       query: { page: page },
                     }}
                     className="flex flex-row w-full max-md:flex-col"

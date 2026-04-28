@@ -19,7 +19,7 @@ export default async function Announcement({
   if (res) {
 
     const respond = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/small-concepts/admin?id=${res}`,
+      `/api/en/small-concepts/admin?id=${res}`,
       {
         method: "GET",
       }

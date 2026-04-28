@@ -10,13 +10,11 @@ type Announce = {
   topic: string;
 };
 
-export default function AnnounceList() {
+export default function SmallConceptList() {
   const [announces, setAnnounces] = useState<Announce[]>([]);
 
   const fetchAnnounces = async () => {
-    const res = await fetch(
-      `/api/en/small-concepts/client`
-    );
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/small-concepts/client`);
     const body = await res.json();
 
     // body.post contains the array

@@ -64,7 +64,6 @@ function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
       solution: editorData.html, // ✅ only string
     };
 
-    console.log("Submitting question data:", payload);
     if (id === null) {
       console.error("Quiz ID is missing");
       return;
@@ -89,7 +88,7 @@ function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
       }
 
       const result = await res.json();
-      console.log("Question submitted successfully:", result);
+      
       // Optionally reset form here or show success message
 
       onSuccess();

@@ -1,3 +1,4 @@
+import { requireAdmin } from "@/lib/adminCheck";
 import  db  from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -23,16 +24,51 @@ export async function GET(req: NextRequest) {
 // create concept
 
 export async function POST(req: NextRequest) {
-  const data = await req.json();
-  console.log("Creating concept with data:", data);
   try {
-    const concept = await db.concept.create({ data });
-    return NextResponse.json(concept);
+    await requireAdmin(); // ✅ secure
+
+    const data = await req.json();
+
+    if (!data?.title) {
+      return NextResponse.json(
+        { error: "Title is required" },
+        { status: 400 }
+      );
+    }
+
+    const result = await db.$transaction(async (tx) => {
+      // 1. create concept
+      const concept = await tx.concept.create({
+        data,
+      });
+
+      // 2. create notification
+      await tx.notification.create({
+        data: {
+          title: `New Concept: ${concept.title}`,
+          path: `/concept/${concept.id}`, // adjust if using slug
+          type: "CONCEPT",
+          entityId: concept.id,
+        },
+      });
+
+      return concept;
+    });
+
+    return NextResponse.json(
+      { success: true, concept: result },
+      { status: 201 }
+    );
+
   } catch (error) {
-    return NextResponse.json({ error: "Create failed" }, { status: 500 });
+    console.error("Create concept error:", error);
+
+    return NextResponse.json(
+      { error: "Create failed" },
+      { status: 500 }
+    );
   }
 }
-
 
 export async function PATCH(req: NextRequest) {
   try {
@@ -53,17 +89,52 @@ export async function PATCH(req: NextRequest) {
 
 
 export async function DELETE(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
-  const slug = searchParams.get("slug");
-
-  if (!slug) {
-    return NextResponse.json({ error: "Missing slug" }, { status: 400 });
-  }
-
   try {
-    const deleted = await db.concept.delete({ where: { slug } });
-    return NextResponse.json(deleted);
-  } catch (error) {
-    return NextResponse.json({ error: "Delete failed" }, { status: 500 });
+    await requireAdmin(); // secure
+
+    const { searchParams } = new URL(req.url);
+    const slug = searchParams.get("slug");
+
+    if (!slug) {
+      return NextResponse.json({ error: "Missing slug" }, { status: 400 });
+    }
+
+    const result = await db.$transaction(async (tx) => {
+      // 1. find concept
+      const concept = await tx.concept.findUnique({
+        where: { slug },
+      });
+
+      if (!concept) {
+        throw new Error("NOT_FOUND");
+      }
+
+      // 2. delete notifications
+      await tx.notification.deleteMany({
+        where: {
+          type: "CONCEPT",
+          entityId: concept.id,
+        },
+      });
+
+      // 3. delete concept
+      return tx.concept.delete({
+        where: { slug },
+      });
+    });
+
+    return NextResponse.json({ success: true, concept: result });
+
+  } catch (error: any) {
+    if (error.message === "NOT_FOUND") {
+      return NextResponse.json({ error: "Concept not found" }, { status: 404 });
+    }
+
+    console.error("Delete failed:", error);
+
+    return NextResponse.json(
+      { error: "Delete failed" },
+      { status: 500 }
+    );
   }
 }

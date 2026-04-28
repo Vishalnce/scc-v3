@@ -9,9 +9,7 @@ import { RiArrowRightWideLine } from "react-icons/ri";
 export default async function AnnounceUpcoming() {
   async function fetchNotice() {
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/notice/client`,
-      );
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/notice/client`);
       const data = await res.json();
       return data; // { contents: [...] }
     } catch (error) {
@@ -22,9 +20,7 @@ export default async function AnnounceUpcoming() {
 
   async function fetchAnnounce() {
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/announcement/client`,
-      );
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/announcement/client`);
       const data = await res.json();
       return data; // { contents: [...] }
     } catch (error) {
@@ -80,24 +76,22 @@ export default async function AnnounceUpcoming() {
                       {item.title}
                     </p>
 
-                  
-                      <Link href={item.link} className="my-auto" target="_blank">
-                        <div
-                          className={`bg-[#047077] rounded-full md:p-4 p-2 flex items-center justify-center `}
-                        >
-                          <RiArrowRightWideLine
-                            className={`${item.textbg} md:size-6 size-5 my-auto text-white`}
-                          />
-                        </div>
-                      </Link>
-                  
+                    <Link href={item.link} className="my-auto" target="_blank">
+                      <div
+                        className={`bg-[#047077] rounded-full md:p-4 p-2 flex items-center justify-center `}
+                      >
+                        <RiArrowRightWideLine
+                          className={`${item.textbg} md:size-6 size-5 my-auto text-white`}
+                        />
+                      </div>
+                    </Link>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* upcoming exam as notice */}
-              <div className=" w-[46%] max-md:w-[100%] border-1 border-[#DADADA] rounded-xl pb-6 md:px-6 px-2">
+            <div className=" w-[46%] max-md:w-[100%] border-1 border-[#DADADA] rounded-xl pb-6 md:px-6 px-2">
               {/* heading */}
               <div className="   rounded-t-xl flex flex-row  gap-4  py-2  w-full">
                 <p className=" text-2xl font-semibold">Upcoming Exam</p>
@@ -130,17 +124,15 @@ export default async function AnnounceUpcoming() {
                       {item.title}
                     </p>
 
-                  
-                      <Link href={item.link} className="my-auto" target="_blank">
-                        <div
-                          className={`bg-[#047077] rounded-full md:p-4 p-2 flex items-center justify-center `}
-                        >
-                          <RiArrowRightWideLine
-                            className={`${item.textbg} md:size-6 size-5 my-auto text-white`}
-                          />
-                        </div>
-                      </Link>
-                  
+                    <Link href={item.link} className="my-auto" target="_blank">
+                      <div
+                        className={`bg-[#047077] rounded-full md:p-4 p-2 flex items-center justify-center `}
+                      >
+                        <RiArrowRightWideLine
+                          className={`${item.textbg} md:size-6 size-5 my-auto text-white`}
+                        />
+                      </div>
+                    </Link>
                   </div>
                 ))}
               </div>

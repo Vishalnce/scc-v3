@@ -1,6 +1,5 @@
 import DeleteButton from "@/Components/client/blog/DeleteButton";
 import EditButton from "@/Components/client/blog/EditButton";
-import Filter from "@/Components/client/current-affaris/CurrentAffarisFilter";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -29,7 +28,7 @@ async function fetchPosts(
   page: number = 1,
   limit: number = 10,
   topic?: string,
-  date?: string
+  date?: string,
 ): Promise<{ posts: Post[]; totalCount: number }> {
   const params = new URLSearchParams({
     page: String(page),
@@ -39,12 +38,9 @@ async function fetchPosts(
   if (topic) params.append("topic", topic);
   if (date) params.append("date", date);
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/blog/client?${params.toString()}`,
-    {
-      cache: "no-store",
-    }
-  );
+  const res = await fetch(`/api/en/blog/client?${params.toString()}`, {
+    cache: "no-store",
+  });
 
   // if (!res.ok) throw new Error("Failed to fetch posts");
 

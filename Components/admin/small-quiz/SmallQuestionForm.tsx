@@ -48,7 +48,7 @@ function QuestionForm({ onSuccess, quesId, setQuesId }: QuestionFormProps) {
       delete data.topic;
     }
 
-    console.log("Submitting question data:", data);
+
 
     try {
       const res = await fetch("/api/en/small-quiz/admin", {
@@ -64,7 +64,7 @@ function QuestionForm({ onSuccess, quesId, setQuesId }: QuestionFormProps) {
       }
 
       const result = await res.json();
-      console.log("Question submitted successfully:", result);
+  
       // Optionally reset form here or show success message
 
       onSuccess();

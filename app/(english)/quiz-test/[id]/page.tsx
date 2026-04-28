@@ -14,10 +14,9 @@ export default async function page({
   // only fetch by id
   async function fetchPost(id: string) {
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/quiz/client/${id}`,
-        { cache: "no-store" },
-      );
+      const res = await fetch(`/api/en/quiz/client/${id}`, {
+        cache: "no-store",
+      });
 
       if (!res.ok) return null;
 
@@ -29,12 +28,9 @@ export default async function page({
   }
 
   const res = await fetchPost(id);
- 
 
   return (
     <>
-     
-
       <QuizWrapper
         quizId={Number(id)}
         timeLimit={res.timeLimit}

@@ -64,7 +64,7 @@ const Filter = () => {
     }
 
     // console.log(params.toString());
-    router.push(`/current-affaris?${params.toString()}`); // ✅ adjust route if needed
+    router.push(`/current-affairs?${params.toString()}`); // ✅ adjust route if needed
   };
 
   // console.log(selectedOption);

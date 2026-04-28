@@ -17,7 +17,7 @@ model Quiz {
 
   rank Rank[]
 
-  notifications Notification[]
+ 
 }
 
 model Question {

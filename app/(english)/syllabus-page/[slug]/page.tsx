@@ -27,10 +27,9 @@ type FetchResponse = {
 };
 
 async function fetchPost(slug: string) {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/syllabus-page/client/${slug}`,
-    { cache: "no-store" },
-  );
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/syllabus-page/client/${slug}`, {
+    cache: "no-store",
+  });
 
   if (!res.ok) return null;
 
@@ -51,12 +50,9 @@ export async function generateMetadata({
 }) {
   const { slug } = await params;
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/syllabus-page/client/${slug}`,
-    {
-      cache: "no-store",
-    },
-  );
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/syllabus-page/client/${slug}`, {
+    cache: "no-store",
+  });
 
   if (!res.ok) {
     return {
@@ -98,7 +94,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function CurrentAffarisPage({
+export default async function CurrentAffairsPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
@@ -125,7 +121,7 @@ export default async function CurrentAffarisPage({
 
       {session?.user?.role === "ADMIN" ? (
         <div className="w-[90%] dark:bg-[#191919] mx-auto m-6">
-          <Link href="/admin/syllabus-editor?slug=syllabus-for-ssc-cgl">
+          <Link href={`${process.env.NEXT_PUBLIC_SITE_URL}/admin/syllabus-editor?slug=syllabus-for-ssc-cgl`}>
             <button className="bg-my-green rounded p-2 text-white">
               Edit Syllabus{" "}
             </button>

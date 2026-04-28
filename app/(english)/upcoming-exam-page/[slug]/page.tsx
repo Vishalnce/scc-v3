@@ -36,10 +36,9 @@ type FetchResponse = {
 // only fetch by slug
 async function fetchPost(slug: string) {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/upcoming-exam-page/client/${slug}`,
-      { cache: "no-store" }
-    );
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/upcoming-exam-page/client/${slug}`, {
+      cache: "no-store",
+    });
 
     if (!res.ok) return null;
 
@@ -55,7 +54,7 @@ async function fetchUpcomingExam(pageNumber: number): Promise<FetchResponse> {
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/upcoming-exam/client/?page=${pageNumber}`,
-      { cache: "no-store" }
+      { cache: "no-store" },
     );
 
     if (!res.ok) {
@@ -74,7 +73,6 @@ async function fetchUpcomingExam(pageNumber: number): Promise<FetchResponse> {
   }
 }
 
-
 // genrate metadata for the page
 export async function generateMetadata({
   params,
@@ -83,12 +81,9 @@ export async function generateMetadata({
 }) {
   const { slug } = await params;
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/upcoming-exam-page/client/${slug}`,
-    {
-      cache: "no-store",
-    }
-  );
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/upcoming-exam-page/client/${slug}`, {
+    cache: "no-store",
+  });
 
   if (!res.ok) {
     return {
@@ -106,7 +101,7 @@ export async function generateMetadata({
     openGraph: {
       title: post.title,
       description: post.description,
-      url: `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/current-affaris-page/client/${slug}`,
+      url: `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/upcoming-exam-page/client/${slug}`,
       siteName: "SSC ExamLife Info",
       images: [
         {
@@ -121,7 +116,7 @@ export async function generateMetadata({
     },
 
     alternates: {
-      canonical: `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/current-affaris-page/client/${slug}`,
+      canonical: `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/upcoming-exam-page/client/${slug}`,
     },
     robots: {
       index: true,
@@ -150,8 +145,6 @@ export default async function UpcomingExamPage({
   // console.log("Page:", page);
   // console.log("Posts:", posts);
 
-
-
   // 3️⃣ Compute prev/next
   const currentIndex = posts.findIndex((p) => p.slug === slug);
 
@@ -163,10 +156,9 @@ export default async function UpcomingExamPage({
   // fetchon next is null and return post and cext current page number
   async function fetchNextUpcomingExam(page: number) {
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/upcoming-exam/client/?page=${page}`,
-        { cache: "no-store" }
-      );
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/upcoming-exam/client/?page=${page}`, {
+        cache: "no-store",
+      });
 
       if (!res.ok) {
         return { posts: [], page: 1 }; // fallback
@@ -186,9 +178,7 @@ export default async function UpcomingExamPage({
   }
 
   if (nextPost == null) {
-    const { posts, page } = await fetchNextUpcomingExam(
-      Number(pageNumber) + 1
-    );
+    const { posts, page } = await fetchNextUpcomingExam(Number(pageNumber) + 1);
     // console.log(posts)
 
     if (posts.length == 0) {
@@ -207,7 +197,7 @@ export default async function UpcomingExamPage({
       prevPost = null;
     } else {
       const { posts, page } = await fetchNextUpcomingExam(
-        Number(pageNumber) - 1
+        Number(pageNumber) - 1,
       );
       prevPost = posts[2];
       prevNumber = page;
@@ -227,7 +217,6 @@ export default async function UpcomingExamPage({
             <span className="hover:underline cursor-pointer text-[#007076]">
               Current Affairs
             </span>{" "}
-          
           </p>
 
           <h1 className="text-3xl font-bold max-sm:text-2xl">
@@ -280,16 +269,14 @@ export default async function UpcomingExamPage({
                           </a>
                         </div>
                       );
-                    }
+                    },
                   );
                 })()}
             </div>
 
             {/* Latest Current Affaris and one liner */}
 
-              <SideBar/>
-
-          
+            <SideBar />
           </div>
 
           {/* right box  */}

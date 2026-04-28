@@ -27,10 +27,9 @@ type FetchResponse = {
 };
 
 async function fetchPost(slug: string) {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/concept-page/client/${slug}`,
-    { cache: "no-store" }
-  );
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/concept-page/client/${slug}`, {
+    cache: "no-store",
+  });
 
   if (!res.ok) return null;
 
@@ -40,10 +39,9 @@ async function fetchPost(slug: string) {
 
 async function fetchConceptAll(pageNumber: number): Promise<FetchResponse> {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/concept/client/?page=${pageNumber}`,
-      { cache: "no-store" }
-    );
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/concept/client/?page=${pageNumber}`, {
+      cache: "no-store",
+    });
 
     if (!res.ok) {
       return { posts: [], page: 1 }; // fallback
@@ -70,12 +68,9 @@ export async function generateMetadata({
 }) {
   const { slug } = await params;
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/concept-page/client/${slug}`,
-    {
-      cache: "no-store",
-    }
-  );
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/concept-page/client/${slug}`, {
+    cache: "no-store",
+  });
 
   if (!res.ok) {
     return {
@@ -131,7 +126,6 @@ export default async function ConceptPage({
   let pageNumber = (await searchParams).page ?? 1;
   const { posts, page } = await fetchConceptAll(pageNumber);
 
-
   //
 
   // 3️⃣ Compute prev/next
@@ -145,10 +139,9 @@ export default async function ConceptPage({
   // fetchon next is null and return post and cext current page number
   async function fetchNextConcept(page: number) {
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/concept/client/?page=${page}`,
-        { cache: "no-store" }
-      );
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/concept/client/?page=${page}`, {
+        cache: "no-store",
+      });
 
       if (!res.ok) {
         return { posts: [], page: 1 }; // fallback
@@ -204,7 +197,6 @@ export default async function ConceptPage({
             <span className="hover:underline cursor-pointer text-[#007076]">
               <Link href="/concept">Concept</Link>
             </span>{" "}
-    
           </p>
 
           <h1 className="text-3xl font-bold max-sm:text-2xl">
@@ -258,13 +250,13 @@ export default async function ConceptPage({
                           </a>
                         </div>
                       );
-                    }
+                    },
                   );
                 })()}
             </div>
 
             {/* latest current affaris and one liner side bar  */}
-            <SideBar/>
+            <SideBar />
           </div>
 
           {/* right box  */}
@@ -273,7 +265,6 @@ export default async function ConceptPage({
 
 
             </div> */}
-            
 
             <div className="px-2 pt-6 text-my-text-color">
               <div

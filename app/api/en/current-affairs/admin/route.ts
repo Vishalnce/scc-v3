@@ -66,7 +66,6 @@ export async function POST(req: NextRequest) {
   try {
     const session = await requireAdmin();
 
-    if (session instanceof NextResponse) return session;
     const body = await req.json();
 
     const {
@@ -83,38 +82,52 @@ export async function POST(req: NextRequest) {
       timeToRead,
     } = body;
 
-    const post = await db.currentAffairs.create({
-      data: {
-        title,
-        slug,
-        summary,
-        topic,
-        image,
-        alt,
-        keywords,
-        description,
-        editorHtml,
-        timeToRead,
-        toc,
-      },
+    const result = await db.$transaction(async (tx) => {
+      // 1. Create current affair
+      const post = await tx.currentAffairs.create({
+        data: {
+          title,
+          slug,
+          summary,
+          topic,
+          image,
+          alt,
+          keywords,
+          description,
+          editorHtml,
+          timeToRead,
+          toc,
+        },
+      });
+
+      // 2. Create notification
+      const path = `/current-affairs/${slug}`; // ✅ fixed typo
+
+      await tx.notification.create({
+        data: {
+          title: `New Current Affair: ${title}`, // optional but better UX
+          path,
+          type: "CURRENT_AFFAIR",
+          entityId: post.id,
+        },
+      });
+
+      return post;
     });
 
-    // for notification panel
+    return NextResponse.json({ success: true, post: result });
 
-    const path = `current-affaris/${slug}`;
-
-    const notiRes = await db.notification.create({
-      data: {
-        title,
-        path,
-        currentAffairId: post.id,
-      },
-    });
-
-    console.log("✅ Post created:", post);
-    return NextResponse.json({ success: true, post });
   } catch (error: any) {
-    console.error(" POST error:", error.message || error);
+    console.error("POST error:", error.message || error);
+
+    // Optional: handle unique slug error
+    if (error.code === "P2002") {
+      return NextResponse.json(
+        { error: "Slug already exists" },
+        { status: 400 }
+      );
+    }
+
     return NextResponse.json(
       { error: error.message || "Internal Server Error" },
       { status: 500 }
@@ -126,30 +139,50 @@ export async function POST(req: NextRequest) {
 
 export async function DELETE(req: NextRequest) {
   try {
-    const session = await requireAdmin();
-    if (session instanceof NextResponse) return session;
+    await requireAdmin(); //
 
     const url = new URL(req.url);
     const slug = url.searchParams.get("slug");
+
     if (!slug) {
       return NextResponse.json({ error: "Missing slug" }, { status: 400 });
     }
 
-    // const notiRes = await db.notification.delete({
-    //   where:{
-    //     title:slug
-    //   }
-    // })
+    const result = await db.$transaction(async (tx) => {
+      // 1. find post
+      const post = await tx.currentAffairs.findUnique({
+        where: { slug },
+      });
 
-    const post = await db.currentAffairs.delete({
-      where: { slug },
+      if (!post) {
+        throw new Error("Not found");
+      }
+
+      // 2. delete notifications
+      await tx.notification.deleteMany({
+        where: {
+          type: "CURRENT_AFFAIR",
+          entityId: post.id,
+        },
+      });
+
+      // 3. delete post
+      return tx.currentAffairs.delete({
+        where: { slug },
+      });
     });
 
-    return NextResponse.json({ success: true, post });
+    return NextResponse.json({ success: true, post: result });
+
   } catch (error: any) {
-    console.error("DELETE error:", error.message || error);
+    if (error.message === "Not found") {
+      return NextResponse.json({ error: "Not Found" }, { status: 404 });
+    }
+
+    console.error("DELETE error:", error);
+
     return NextResponse.json(
-      { error: error.message || "Internal Server Error" },
+      { error: "Internal Server Error" },
       { status: 500 }
     );
   }

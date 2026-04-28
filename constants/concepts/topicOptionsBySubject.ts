@@ -104,7 +104,7 @@ export const topicOptionsBySubject: Record<string, TopicOption[]> = {
     { label: "Miscellaneous GK", value: "miscellaneous-gk" },
   ],
 
-  "mathematics-ability": [
+  "mathematical-abilities": [
     { label: "Arithmetic", value: "arithmetic" },
     { label: "Data Interpretation", value: "data-interpretation" },
     { label: "Area & Volume", value: "area-volume" },

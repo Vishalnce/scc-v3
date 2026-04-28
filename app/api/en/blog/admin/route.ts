@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import db from "@/lib/db";
+import { requireAdmin } from "@/lib/adminCheck";
 
 // GET handler: Fetch all posts or a single post by `slug`
 export async function GET(req: NextRequest) {
@@ -20,7 +21,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ success: true, post });
     }
 
-    const posts = await db.post.findMany({
+    const posts = await db.blog.findMany({
       orderBy: { id: "desc" },
     });
 
@@ -54,6 +55,8 @@ export async function PATCH(req: NextRequest) {
 // POST handler: Create a new post
 export async function POST(req: NextRequest) {
   try {
+    await requireAdmin();
+
     const body = await req.json();
 
     const {
@@ -69,27 +72,57 @@ export async function POST(req: NextRequest) {
       toc,
     } = body;
 
-    const post = await db.blog.create({
-      data: {
-        title,
-        slug,
-        summary,
-        topic,
-        image,
-        alt,
-        keywords,
-        description,
-        editorHtml,
-        toc,
-      },
+    if (!title || !slug) {
+      return NextResponse.json(
+        { error: "Title and slug are required" },
+        { status: 400 }
+      );
+    }
+
+    const result = await db.$transaction(async (tx) => {
+      // 1. create blog
+      const post = await tx.blog.create({
+        data: {
+          title,
+          slug,
+          summary,
+          topic,
+          image,
+          alt,
+          keywords,
+          description,
+          editorHtml,
+          toc,
+        },
+      });
+
+      // 2. create notification
+      await tx.notification.create({
+        data: {
+          title: `New Blog: ${title}`,
+          path: `/blog/${slug}`,
+          type: "BLOG",
+          entityId: post.id,
+        },
+      });
+
+      return post;
     });
 
-    console.log("✅ Post created:", post);
-    return NextResponse.json({ success: true, post });
+    return NextResponse.json({ success: true, post: result });
+
   } catch (error: any) {
-    console.error(" POST error:", error.message || error);
+    console.error("POST error:", error);
+
+    if (error.code === "P2002") {
+      return NextResponse.json(
+        { error: "Slug already exists" },
+        { status: 400 }
+      );
+    }
+
     return NextResponse.json(
-      { error: error.message || "Internal Server Error" },
+      { error: "Internal Server Error" },
       { status: 500 }
     );
   }
@@ -99,21 +132,50 @@ export async function POST(req: NextRequest) {
 
 export async function DELETE(req: NextRequest) {
   try {
+    await requireAdmin();
+
     const url = new URL(req.url);
     const slug = url.searchParams.get("slug");
+
     if (!slug) {
       return NextResponse.json({ error: "Missing slug" }, { status: 400 });
     }
 
-    const post = await db.blog.delete({
-      where: { slug },
+    const result = await db.$transaction(async (tx) => {
+      // 1. find blog
+      const post = await tx.blog.findUnique({
+        where: { slug },
+      });
+
+      if (!post) {
+        throw new Error("NOT_FOUND");
+      }
+
+      // 2. delete notifications
+      await tx.notification.deleteMany({
+        where: {
+          type: "BLOG",
+          entityId: post.id,
+        },
+      });
+
+      // 3. delete blog
+      return tx.blog.delete({
+        where: { slug },
+      });
     });
 
-    return NextResponse.json({ success: true, post });
+    return NextResponse.json({ success: true, post: result });
+
   } catch (error: any) {
-    console.error("DELETE error:", error.message || error);
+    if (error.message === "NOT_FOUND") {
+      return NextResponse.json({ error: "Blog not found" }, { status: 404 });
+    }
+
+    console.error("DELETE error:", error);
+
     return NextResponse.json(
-      { error: error.message || "Internal Server Error" },
+      { error: "Internal Server Error" },
       { status: 500 }
     );
   }

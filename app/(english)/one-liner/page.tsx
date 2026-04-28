@@ -21,8 +21,8 @@ export default async function ({
   const page = params.page || "1";
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/one-liner/client/?date=${date || ""}&page=${page}&limit=10`,
-    { cache: "no-store" }
+    `/api/en/one-liner/client/?date=${date || ""}&page=${page}&limit=10`,
+    { cache: "no-store" },
   );
 
   const data = await res.json();
@@ -38,8 +38,18 @@ export default async function ({
     const year = date.getFullYear();
 
     const months = [
-      "January","February","March","April","May","June",
-      "July","August","September","October","November","December"
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
     ];
 
     const month = months[date.getMonth()];
@@ -47,10 +57,14 @@ export default async function ({
     const getSuffix = (d: number) => {
       if (d >= 11 && d <= 13) return "th";
       switch (d % 10) {
-        case 1: return "st";
-        case 2: return "nd";
-        case 3: return "rd";
-        default: return "th";
+        case 1:
+          return "st";
+        case 2:
+          return "nd";
+        case 3:
+          return "rd";
+        default:
+          return "th";
       }
     };
 
@@ -81,7 +95,6 @@ export default async function ({
       {/* Main */}
       <div className="dark:bg-[#191919]">
         <div className="flex w-[80%] max-md:flex-col mx-auto">
-
           {/* Sidebar */}
           <div className="w-[20%] max-md:w-full max-md:pb-4 ">
             <DateWise />
@@ -89,10 +102,8 @@ export default async function ({
 
           {/* Content */}
           <div className="w-[70%] max-sm:w-full">
-
             {/* LIST */}
             <div className="flex flex-col gap-4">
-
               {contents.length > 0 ? (
                 contents.map((item: postType, index: number) => {
                   const formattedIndex = String(index + 1).padStart(2, "0");
@@ -126,43 +137,39 @@ export default async function ({
                   No data found
                 </p>
               )}
-
             </div>
 
             {/* PAGINATION */}
-          <div className="flex justify-center items-center gap-4 mt-6">
+            <div className="flex justify-center items-center gap-4 mt-6">
+              {/* Prev */}
+              <Link
+                href={`?date=${date || ""}&page=${Number(page) - 1}`}
+                className={`px-4 py-2 border rounded-md ${
+                  Number(page) <= 1
+                    ? "pointer-events-none opacity-50"
+                    : "hover:bg-gray-100 dark:hover:bg-[#222]"
+                }`}
+              >
+                ← Prev
+              </Link>
 
-  {/* Prev */}
-  <Link
-    href={`?date=${date || ""}&page=${Number(page) - 1}`}
-    className={`px-4 py-2 border rounded-md ${
-      Number(page) <= 1
-        ? "pointer-events-none opacity-50"
-        : "hover:bg-gray-100 dark:hover:bg-[#222]"
-    }`}
-  >
-    ← Prev
-  </Link>
+              {/* Page Info */}
+              <p className="text-sm dark:text-white">
+                Page {page} of {totalPages}
+              </p>
 
-  {/* Page Info */}
-  <p className="text-sm dark:text-white">
-    Page {page} of {totalPages}
-  </p>
-
-  {/* Next */}
-  <Link
-    href={`?date=${date || ""}&page=${Number(page) + 1}`}
-    className={`px-4 py-2 border rounded-md ${
-      Number(page) >= totalPages
-        ? "pointer-events-none opacity-50"
-        : "hover:bg-gray-100 dark:hover:bg-[#222]"
-    }`}
-  >
-    Next →
-  </Link>
-
-</div>
-
+              {/* Next */}
+              <Link
+                href={`?date=${date || ""}&page=${Number(page) + 1}`}
+                className={`px-4 py-2 border rounded-md ${
+                  Number(page) >= totalPages
+                    ? "pointer-events-none opacity-50"
+                    : "hover:bg-gray-100 dark:hover:bg-[#222]"
+                }`}
+              >
+                Next →
+              </Link>
+            </div>
           </div>
         </div>
       </div>

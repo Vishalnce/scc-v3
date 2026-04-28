@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 
 import EnglishMobMenu from "./EnglishMobMenu";
 import SmallNav from "@/Components/layout/Nav/SmallNav";
+import EnglishNoti from "./Notification/EnglishNoti";
 
 function Nav() {
   const router = useRouter();
@@ -96,10 +97,10 @@ function Nav() {
 
             <div className="flex flex-row justify-around items-center space-x-2 mx-2">
               {/* bell button */}
-
+                  <EnglishNoti/>
               <ThemeToggle />
               {/* pro and basic */}
-              <div className=" rounded-full px-4 flex flex-row gap-4 bg-[#FFE5F4] py-2 max-md:hidden">
+              <div className="  rounded-full px-4 flex flex-row gap-4 bg-[#FFE5F4] py-1.5 max-lg:hidden">
                 <button className="flex text-xl  rounded-full px-4 bg-gradient-to-r from-[#9F38D6] to-[#D63895] space-x-2 py-1">
                   {" "}
                   <LuCrown className="my-auto text-white  size-5" />{" "}
@@ -174,7 +175,7 @@ function Nav() {
       <div className="w-full  bg-[image:var(--color-my-gradient)] fixed z-50 bottom-0 md:hidden  rounded-t-2xl  ">
         <div className="flex flex-row  max-md:w-[90%] mx-auto justify-between py-1  ">
           <div className="flex flex-col">
-            <Link href={"/current-affaris"}>
+            <Link href={"/current-affairs"}>
               <IoHome className="size-7 dark:text-white text-[#6C6C6C] " />
               <p className="text-my-text-color text-[12px] text-center">Home</p>
             </Link>
@@ -195,7 +196,7 @@ function Nav() {
           </div>
 
           <div className="flex flex-col">
-            <Link href={"/current-affaris"}>
+            <Link href={"/current-affairs"}>
               <LuNewspaper className="size-7 dark:text-white text-[#6C6C6C] " />
               <p className="text-my-text-color text-[12px] text-center">News</p>
             </Link>

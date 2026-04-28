@@ -48,11 +48,11 @@ export default function Page({ post }: { post?: PostType }) {
   );
   const [selectedTopic, setSelectedTopic] = useState<OptionType | null>(null);
 
-  const [imageFile, setImageFile] = useState<File | null>(null);
-  const [uploadedImageUrl, setUploadedImageUrl] = useState<string>("");
+  // const [imageFile, setImageFile] = useState<File | null>(null);
+  // const [uploadedImageUrl, setUploadedImageUrl] = useState<string>("");
 
   const [filteredTopics, setFilteredTopics] = useState<OptionType[]>([]);
-  const [isUploading, setIsUploading] = useState(false);
+  // const [isUploading, setIsUploading] = useState(false);
 
   const [isEditorTouched, setIsEditorTouched] = useState(false);
   const router = useRouter();
@@ -60,7 +60,7 @@ export default function Page({ post }: { post?: PostType }) {
   const handleSubjectChange = (option: OptionType | null) => {
     setSelectedSubject(option);
     setValue("subject", option?.value ?? "");
-    // 🔄 Filter topic options
+    //  Filter topic options
     const relevantTopics = topicOptions.filter(
       (topic) => topic.subject === option?.value,
     );

@@ -1,4 +1,3 @@
-
 export const categoryOptions = [
   { value: "pre", label: "Pre" },
   { value: "mains", label: "Mains" },
@@ -14,7 +13,6 @@ export const subjectOptions = [
 
   { value: "computer-knowledge", label: "Computer Knowledge" },
   { value: "pyq", label: "PYQs" },
-
 ];
 
 export const topicOptions = [
@@ -218,6 +216,81 @@ export const topicOptions = [
     value: "coding",
   },
 
+   // Quantitative Aptitude
+  {
+    subject: "mathematical-abilities",
+    label: "Arithmetic",
+    value: "arithmetic",
+  },
+  {
+    subject: "mathematical-abilities",
+    label: "Data Interpretation",
+    value: "data-interpretation",
+  },
+  {
+    subject: "mathematical-abilities",
+    label: "Area & Volume",
+    value: "area-volume",
+  },
+  {
+    subject: "mathematical-abilities",
+    label: "Simple Interest (SI) & Compound Interest (CI)",
+    value: "si-ci",
+  },
+  {
+    subject: "mathematical-abilities",
+    label: "Time, Speed, Distance",
+    value: "time-speed-distance",
+  },
+  {
+    subject: "mathematical-abilities",
+    label: "Time & Work",
+    value: "time-work",
+  },
+  {
+    subject: "mathematical-abilities",
+    label: "Ratio & Proportion",
+    value: "ratio-proportion",
+  },
+  {
+    subject: "mathematical-abilities",
+    label: "Profit & Loss",
+    value: "profit-loss",
+  },
+  {
+    subject: "mathematical-abilities",
+    label: "Percentages",
+    value: "percentages",
+  },
+  { subject: "mathematical-abilities", label: "Averages", value: "averages" },
+  { subject: "mathematical-abilities", label: "Numbers", value: "numbers" },
+  {
+    subject: "mathematical-abilities",
+    label: "Mixture and Allegation",
+    value: "mixture-allegation",
+  },
+  {
+    subject: "mathematical-abilities",
+    label: "Advanced Mathematics",
+    value: "advanced-mathematics",
+  },
+  {
+    subject: "mathematical-abilities",
+    label: "Mensuration",
+    value: "mensuration",
+  },
+  {
+    subject: "qmathematical-abilities",
+    label: "Trigonometry",
+    value: "trigonometry",
+  },
+  {
+    subject: "mathematical-abilities",
+    label: "Statistics",
+    value: "statistics",
+  },
+  { subject: "mathematical-abilities", label: "Geometry", value: "geometry" },
+
   // Computer Knowledge
   {
     subject: "computer-knowledge",
@@ -332,18 +405,18 @@ export const topicOptions = [
     label: "Reasoning & General Intelligence",
     value: "reasoning-general",
   },
-  
-    {
+
+  {
     subject: "pyq",
     label: "General Awareness",
     value: "general-awareness",
   },
-      {
+  {
     subject: "pyq",
     label: "Mathematical Abilities",
     value: "mathematical-abilities",
   },
-        {
+  {
     subject: "pyq",
     label: "Computer Knowledge",
     value: "computer-knowledge",
@@ -352,5 +425,5 @@ export const topicOptions = [
     subject: "pyq",
     label: "English Comprehension",
     value: "english-comprehension",
-  }
+  },
 ];
