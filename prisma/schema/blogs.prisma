@@ -8,6 +8,7 @@ model Blog {
   summary     String
   keywords    String
   description String
+  timetoread String
   editorHtml  String
   toc         String
   createdAt   DateTime @default(now())

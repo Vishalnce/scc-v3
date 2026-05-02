@@ -76,22 +76,23 @@ const BlogFilter = () => {
       <div className="max-md:w-full max-md:flex-wrap flex flex-row items-center max-md:justify-around gap-4 max-sm:gap-1   ">
         {/* date  */}
        
-        <div className="relative w-[160px]">
-          <DatePicker
-          isClearable
-            className="w-full pl-8 pr-4 py-2 text-md border-2 rounded-full bg-transparent placeholder:text-[#6C6C6C] dark:placeholder:text-[#C2C2C2] focus:outline-none focus:ring-0 dark:border-white"
-            selected={date}
-            onChange={handleDateChange}
-            closeOnScroll={false}
-            placeholderText="DD/MM/YYYY"
-            dateFormat="dd/MM/yyyy"
-            showMonthDropdown
-            showYearDropdown
-            scrollableYearDropdown
-            calendarClassName="z-50 "
-          />
-          <FiCalendar className="absolute left-3 top-1/2 -translate-y-1/2 dark:text-white text-gray-600 pointer-events-none" />
-        </div>
+        <div className="relative w-[160px] max-md:w-[110px] shrink-0">
+                <DatePicker
+                  popperPlacement="bottom-start"
+                  isClearable
+                  className="w-full pl-7 pr-8 py-1.5 text-sm 
+            max-md:text-xs max-md:pl-6 max-md:pr-8 max-md:py-2
+            border rounded-full bg-transparent 
+            placeholder:text-[#6C6C6C] dark:placeholder:text-[#C2C2C2] 
+            focus:outline-none focus:ring-0 dark:border-white"
+                  selected={date}
+                  onChange={handleDateChange}
+                  placeholderText="Date"
+                  dateFormat="dd/MM/yyyy"
+                />
+      
+                <FiCalendar className="absolute left-3 max-md:left-2 top-1/2 -translate-y-1/2 text-gray-600 dark:text-white text-xs pointer-events-none" />
+              </div>
         
 
         {/*  selection */}
@@ -99,9 +100,11 @@ const BlogFilter = () => {
 
         <button
           onClick={handleSubmit}
-          className="px-7  rounded-4xl  py-2 text-[#FFFFFF] my-auto  max-sm:mt-3 max-md: bg-[#007076]"
+          className="px-7 py-2 text-white  rounded-4xl 
+               max-md:px-2 max-md:py-2 max-md:rounded-full shrink-0 md:bg-[#047077]"
         >
-          Submmit
+          <span className=" max-md:hidden">Submit</span>
+          <span className="hidden max-md:block">🔍</span>
         </button>
       </div>
 

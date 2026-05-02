@@ -13,4 +13,5 @@ enum NotificationType {
   EXAM
   CONCEPT
   CURRENT_AFFAIR
+  EDITORIAL
 }

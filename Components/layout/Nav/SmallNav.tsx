@@ -168,6 +168,22 @@ function SmallNav() {
                 </p>
               </Link>
             </div>
+
+            <div className="w-[20%] ml-24 mt-2 p-2   hover:bg-[#E6F1F1] dark:hover:bg-black rounded-xl ">
+              <Link href={"/editorial"} onClick={() => setActiveTag(null)}>
+                <div className="flex flex-row items-center gap-2">
+                  <p className=" text-sm text-my-text-color ">
+                    {" "}
+                    Editorial{" "}
+                  </p>{" "}
+                  <MdKeyboardArrowRight className="text-my-text-color" />
+                </div>
+
+                <p className="text-my-text-color text-sm py-2">
+                  Get Full Details here
+                </p>
+              </Link>
+            </div>
           </div>
         </div>
       )}

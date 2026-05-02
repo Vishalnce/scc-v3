@@ -89,7 +89,7 @@ const handleShare = async () => {
       </div>
       <div className=" mx-auto  w-[90%] max-w-[1400px]  flex rounded-xl flex-col border-1 border-[#DADADA] md:px-8 py-2">
         <div
-          className=" w-full flex  flex-col my-4 border-2
+          className=" w-full flex  flex-col my-4 
           md:px-8"
         >
           {/* heading */}

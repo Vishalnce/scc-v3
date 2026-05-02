@@ -44,7 +44,7 @@ export default function Current() {
         if (!res.ok) throw new Error("Failed to fetch current affairs");
         const data = await res.json();
 
-        setAffairs(data.posts); // ✅ adjust based on API shape
+        setAffairs(data.posts); // adjust based on API shape
       } catch (err) {
         console.error(err);
       } finally {
@@ -135,7 +135,7 @@ export default function Current() {
         >
           <div className="flex">
             {loading ? (
-              // ✅ Skeleton Loading
+              //  Skeleton Loading
               Array.from({ length: 3 }).map((_, index) => (
                 <div
                   key={index}
@@ -171,10 +171,10 @@ export default function Current() {
                 </div>
               ))
             ) : affairs.length === 0 ? (
-              // ✅ Empty state
+              //  Empty state
               <p className="p-4 text-gray-500">No current affairs available</p>
             ) : (
-              // ✅ Actual Data
+              //  Actual Data
               affairs.map((item, index) => {
                 const color = colorObject[index % colorObject.length];
 

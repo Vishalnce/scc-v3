@@ -44,7 +44,7 @@ async function fetchPosts(
   if (category) params.append("category", category);
   if (subject) params.append("subject", subject);
 
-  const res = await fetch(`/api/en/concept/client?${params.toString()}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/concept/client?${params.toString()}`, {
     cache: "no-store",
   });
 
@@ -196,7 +196,7 @@ export default async function Page({
         <div className="flex justify-center items-center gap-4 mt-6 mb-8">
           <Link
             href={{
-              pathname: "",
+              pathname: "/concept",
               query: { page: page - 1, topic, date, category, subject },
             }}
             className={`px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 ${
@@ -212,7 +212,7 @@ export default async function Page({
 
           <Link
             href={{
-              pathname: "",
+              pathname: "/concept",
               query: { page: page + 1, topic, date, category, subject },
             }}
             className={`px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 ${

@@ -28,7 +28,7 @@ type PostType = {
   keywords: string;
   description: string;
   editorHtml: string;
-  timeToRead: number;
+  timeToRead: string;
   toc: string;
 };
 

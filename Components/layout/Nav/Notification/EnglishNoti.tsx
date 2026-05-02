@@ -61,71 +61,73 @@ function EnglishNoti() {
       </div>
 
       {/* 🔽 Dropdown */}
-      <div
-        className={`
+<div
+  className={`
     fixed sm:absolute
     top-16 sm:top-auto
     left-1/2 sm:left-auto
     right-auto sm:right-0
     -translate-x-1/2 sm:translate-x-0
 
-    w-[92vw] sm:w-80 max-w-md
+    w-[94vw] sm:w-96 max-w-md
 
     rounded-2xl border border-gray-200 dark:border-[#3a3a3a]
     bg-white dark:bg-[#1f1f1f]
-    shadow-[0_10px_30px_rgba(0,0,0,0.25)]
+    shadow-[0_12px_35px_rgba(0,0,0,0.3)]
 
     transition-all duration-200 z-50
     ${open ? "opacity-100 visible" : "opacity-0 invisible"}
   `}
-      >
-        {/* Header */}
-        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-[#3a3a3a]">
-          <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200">
-            Notifications
-          </h3>
-          <span className="text-xs text-gray-400">{notifications.length}</span>
-        </div>
+>
+  {/* Header */}
+  <div className="flex items-center justify-between px-5 py-3 border-b border-gray-200 dark:border-[#3a3a3a]">
+    <h3 className="text-base font-semibold text-gray-800 dark:text-gray-200">
+      Notifications
+    </h3>
+    <span className="text-sm text-gray-400">{notifications.length}</span>
+  </div>
 
-        {/* List */}
-        <div className="max-h-80 overflow-y-auto">
-          {notifications.length === 0 ? (
-            <p className="p-4 text-sm text-gray-500 dark:text-gray-400 text-center">
-              No notifications
-            </p>
-          ) : (
-            notifications.map((n) => (
-              <div
-                key={n.id}
-                onClick={() => {
-                  setOpen(false); // close on click
-                  router.push(n.path);
-                }}
-                className="px-4 py-3 border-b border-gray-100 dark:border-[#2a2a2a] hover:bg-gray-50 dark:hover:bg-[#2a2a2a] cursor-pointer transition"
-              >
-                <p className="text-sm font-medium text-gray-800 dark:text-gray-200 truncate">
-                  {n.title}
-                </p>
-
-                <p className="text-xs text-gray-400 mt-1">
-                  {new Date(n.createdAt).toLocaleString()}
-                </p>
-              </div>
-            ))
-          )}
-        </div>
-
-        {/* Footer */}
+  {/* List */}
+  <div className="max-h-80 overflow-y-auto">
+    {notifications.length === 0 ? (
+      <p className="p-5 text-sm text-gray-500 dark:text-gray-400 text-center">
+        No notifications
+      </p>
+    ) : (
+      notifications.map((n) => (
         <div
+          key={n.id}
           onClick={() => {
             setOpen(false);
-            router.push("/notification");
+            router.push(n.path);
           }}
-          className="px-4 py-3 text-center text-sm font-medium text-blue-500 hover:bg-gray-50 dark:hover:bg-[#2a2a2a] rounded-b-2xl cursor-pointer"
+          className="px-5 py-4 border-b border-gray-100 dark:border-[#2a2a2a] hover:bg-gray-50 dark:hover:bg-[#2a2a2a] cursor-pointer transition"
         >
-          View All Notifications →
+          {/* Bigger Title */}
+          <p className="text-[15px] font-semibold text-gray-900 dark:text-gray-100 leading-snug">
+            {n.title}
+          </p>
+
+          {/* Only Date */}
+          <p className="text-xs text-gray-400 mt-1">
+            {new Date(n.createdAt).toLocaleDateString()}
+          </p>
         </div>
-      </div>
+      ))
+    )}
+  </div>
+
+  {/* Footer */}
+  <div
+    onClick={() => {
+      setOpen(false);
+      router.push("/notification");
+    }}
+    className="px-5 py-3 text-center text-sm font-medium text-blue-500 hover:bg-gray-50 dark:hover:bg-[#2a2a2a] rounded-b-2xl cursor-pointer"
+  >
+    View All Notifications →
+  </div>
+</div>
     </div>
   );
 }

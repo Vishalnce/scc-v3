@@ -14,6 +14,7 @@ import ProCard from "@/Components/ui/client/ProCard/ProCard";
 import TestSeriesCard from "@/Components/ui/client/TestSeriesCard/TestSeriesCard";
 import QuizIntro from "@/Components/ui/client/home/smallQuiz/QuizIntro";
 import QuizContainer from "@/Components/ui/client/home/smallQuiz/QuizContainer";
+import Editorial from "@/Components/ui/client/home/Editorial";
 
 function Page() {
   return (
@@ -23,7 +24,8 @@ function Page() {
       
       <Current />
     <QuizContainer/>
-      <QuizCard />
+      <QuizCard />\
+      <Editorial/>
       <ProCard />
       <TestSeriesCard />
       <Concept />

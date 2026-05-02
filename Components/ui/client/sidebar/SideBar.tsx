@@ -31,7 +31,7 @@ type FetchResponse = {
 export default async function SideBar() {
   async function fetchOneLiner() {
     try {
-      const res = await fetch(`/api/en/one-liner/client/?limit=5`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/one-liner/client/?limit=5`, {
         cache: "no-store",
       });
 
@@ -49,7 +49,7 @@ export default async function SideBar() {
 
   async function fetchCurrentAffairs(): Promise<FetchResponse> {
     try {
-      const res = await fetch(`/api/en/current-affairs/client/?limit=5`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/current-affairs/client/?limit=5`, {
         cache: "no-store",
       });
 

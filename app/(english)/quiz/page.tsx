@@ -41,7 +41,7 @@ async function fetchPosts(
   if (category) params.append("category", category);
   if (subject) params.append("subject", subject);
 
-  const res = await fetch(`/api/en/quiz/client?${params.toString()}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/quiz/client?${params.toString()}`, {
     cache: "no-store",
   });
 

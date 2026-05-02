@@ -37,7 +37,7 @@ type FetchResponse = {
 // only fetch by slug
 async function fetchPost(slug: string) {
   try {
-    const res = await fetch(`/api/en/blog-page/client/${slug}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/blog-page/client/${slug}`, {
       cache: "no-store",
     });
 
@@ -53,7 +53,7 @@ async function fetchPost(slug: string) {
 // fetch all current affaris by number return posts and current page number
 async function fetchBlog(pageNumber: number): Promise<FetchResponse> {
   try {
-    const res = await fetch(`/api/en/blog/client/?page=${pageNumber}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/blog/client/?page=${pageNumber}`, {
       cache: "no-store",
     });
 
@@ -81,7 +81,7 @@ export async function generateMetadata({
 }) {
   const { slug } = await params;
 
-  const res = await fetch(`/api/en/blog-page/client/${slug}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/blog-page/client/${slug}`, {
     cache: "no-store",
   });
 

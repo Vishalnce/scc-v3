@@ -21,13 +21,13 @@ export default async function ({
   const page = params.page || "1";
 
   const res = await fetch(
-    `/api/en/one-liner/client/?date=${date || ""}&page=${page}&limit=10`,
+    `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/one-liner/client/?date=${date || ""}&page=${page}&limit=10`,
     { cache: "no-store" },
   );
 
   const data = await res.json();
 
-  // ✅ SAFE FALLBACKS (IMPORTANT)
+  // SAFE FALLBACKS (IMPORTANT)
   const contents: postType[] = data.contents || [];
   const totalPages: number = data.totalPages || 1;
 

@@ -36,9 +36,12 @@ type FetchResponse = {
 // only fetch by slug
 async function fetchPost(slug: string) {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/upcoming-exam-page/client/${slug}`, {
-      cache: "no-store",
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/upcoming-exam-page/client/${slug}`,
+      {
+        cache: "no-store",
+      },
+    );
 
     if (!res.ok) return null;
 
@@ -81,9 +84,12 @@ export async function generateMetadata({
 }) {
   const { slug } = await params;
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/upcoming-exam-page/client/${slug}`, {
-    cache: "no-store",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/upcoming-exam-page/client/${slug}`,
+    {
+      cache: "no-store",
+    },
+  );
 
   if (!res.ok) {
     return {
@@ -156,9 +162,12 @@ export default async function UpcomingExamPage({
   // fetchon next is null and return post and cext current page number
   async function fetchNextUpcomingExam(page: number) {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/upcoming-exam/client/?page=${page}`, {
-        cache: "no-store",
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/upcoming-exam/client/?page=${page}`,
+        {
+          cache: "no-store",
+        },
+      );
 
       if (!res.ok) {
         return { posts: [], page: 1 }; // fallback
@@ -297,7 +306,7 @@ export default async function UpcomingExamPage({
               </div>
             )}
 
-            <div className="px-2 pt-6 text-my-text-color">
+            <div className="sm:px-2 pt-6 text-my-text-color max-sm:text-xl  max-sm:w-[100%] mt-8 rounded-2xl dark:bg-[#313131] border-white relative border-2 px-2">
               <div
                 dangerouslySetInnerHTML={{ __html: post?.editorHtml || "" }}
               />

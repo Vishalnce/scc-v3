@@ -1,0 +1,39 @@
+model Editorial {
+  id          Int      @id @default(autoincrement())
+  title       String
+  slug        String   @unique
+  image       String
+  alt         String
+  topic       String
+  summary     String
+  keywords    String
+  description String
+  editorHtml  String
+  toc         String
+  timetoread  String
+  createdAt   DateTime @default(now())
+  comments Comment[]
+  blogQuizzes EditorialQuiz[]
+}
+
+
+
+
+model EditorialQuiz {
+
+  
+  id            String   @id @default(uuid())
+  editorialId        Int
+  editorial     Editorial @relation(fields: [editorialId], references: [id],onDelete: Cascade)
+  questionText  String?  
+
+  options       Json     // Example: [{ text: "Option 1", image: "url" }, { text: "Option 2"// }]
+
+  solutionText  String?
+
+  correctOption Int
+
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}

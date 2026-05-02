@@ -7,6 +7,8 @@ import { FaRegCalendarMinus } from "react-icons/fa6";
 import { getServerSession } from "next-auth";
 import { NEXT_AUTH } from "@/lib/auth";
 import UpcomingFilter from "@/Components/ui/client/upcomingfilter/UpcomingFilter";
+import { SlCalender } from "react-icons/sl";
+import { CiClock2 } from "react-icons/ci";
 
 type Post = {
   id: number;
@@ -19,6 +21,7 @@ type Post = {
   keywords: string;
   description: string;
   editorHtml: string;
+  timetoread: string;
   toc: string;
   createdAt: string;
 };
@@ -37,7 +40,7 @@ async function fetchPosts(
   if (topic) params.append("topic", topic);
   if (date) params.append("date", date);
 
-  const res = await fetch(`/api/en/upcoming-exam/client?${params.toString()}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/upcoming-exam/client?${params.toString()}`, {
     cache: "no-store",
   });
 
@@ -65,6 +68,29 @@ export default async function Page({
   const { posts, totalCount } = await fetchPosts(page, limit, topic, date);
   const totalPages = Math.ceil(totalCount / limit);
   const session = await getServerSession(NEXT_AUTH);
+
+    const colorObject = [
+    {
+      border: "border-[#87D5E2]",
+      bg: "bg-[#F8FBFF]",
+      tagbg: "bg-[#E9F3FF]",
+      bgButton: "bg-[#24B3CB]",
+    },
+
+    {
+      border: "border-[#93E4A6]",
+      bg: "bg-[#F6FFF3]",
+      tagbg: "bg-[#EBFFE4]",
+      bgButton: "bg-[#11C352]",
+    },
+
+    {
+      border: "border-[#E6C69C]",
+      bg: "bg-[#FFFDFA]",
+      tagbg: "bg-[#FFF1DF]",
+      bgButton: "bg-[#F89716]",
+    },
+  ];
   return (
     <>
       {/* Header */}
@@ -107,68 +133,115 @@ export default async function Page({
 
         {/* post boady */}
         <div className="flex flex-col w-[90%] mx-auto">
-          {posts.map((post) => (
-            <div
-              key={post.id}
-              className="flex flex-row  rounded-2xl  md:max-h-[288px] m-3 justify-center dark:bg-[#313131]"
-            >
-              {/* Image */}
-              <Link
-                href={{
-                  pathname: `/upcoming-exam-page/${post.slug}`,
-                  query: { page: page },
-                }}
-                className="flex flex-row w-full max-md:flex-col"
-              >
-                {/* images */}
-                <div className="w-[35%] max-md:w-[90%] max-md:h-[200px] max-md:mx-auto  relative  rounded-xl  m-2  h-[224px] ">
-                  {post.image && (
-                    <Image
-                      src={post.image}
-                      alt={post.alt || "ssc"}
-                      fill
-                      className="object-cover rounded-xl"
-                    />
+          {posts.map((post, index) => {
+              const color = colorObject[index % colorObject.length];
+
+              return (
+                <div
+                  key={post.id}
+                  className={`flex flex-row rounded-2xl m-3 border ${color.bg} ${color.border} hover:scale-[1.01] transition-all duration-300`}
+                >
+                  <Link
+                    href={{
+                      pathname: `/upcoming-exam-page/${post.slug}`,
+                      query: { page: page },
+                    }}
+                    className="flex flex-row w-full max-md:flex-col"
+                  >
+                    {/* Image */}
+                    <div className="w-[35%] max-md:w-[90%] max-md:h-[200px] max-md:mx-auto relative m-3 h-[224px]">
+                      {post.image && (
+                        <Image
+                          src={post.image}
+                          alt={post.alt || "post"}
+                          fill
+                          className="object-cover rounded-xl"
+                        />
+                      )}
+                    </div>
+
+                    {/* Content */}
+                    <div className="flex flex-col w-[65%] m-3 justify-between max-md:w-[90%] max-md:mx-auto">
+                      {/* Title */}
+                      <p className="text-xl font-semibold leading-snug line-clamp-2 min-h-[56px]">
+                        {post.title}
+                      </p>
+
+                      {/* Tag */}
+                      <div className="mt-2">
+                        <p
+                          className={`text-sm px-3 py-1 rounded-full inline-flex whitespace-nowrap ${color.tagbg}`}
+                        >
+                          {post.topic}
+                        </p>
+                      </div>
+
+                      {/* Divider */}
+                      <span className={`border mt-3 mb-3 ${color.border}`} />
+
+                      {/* Summary */}
+                      <p className="line-clamp-2 text-[#6F6F6F] text-sm">
+                        {post.summary}
+                      </p>
+
+                      {/* Date + Time */}
+                      <div className="flex flex-row  justify-between items-center mt-3 flex-wrap gap-2 ">
+                        <div className="flex flex-row gap-3  max-md:mx-auto">
+                          {/* Date */}
+                          <div
+                            className={`flex items-center gap-2 px-3 py-1 rounded-full ${color.tagbg}`}
+                          >
+                            <SlCalender />
+                            <p className="text-xs">
+                              {new Date(post.createdAt).toLocaleDateString(
+                                "en-US",
+                                {
+                                  month: "long",
+                                  day: "numeric",
+                                  year: "numeric",
+                                },
+                              )}
+                            </p>
+                          </div>
+
+                          {/* Time */}
+                          <div
+                            className={`flex items-center gap-2 px-3 py-1 rounded-full ${color.tagbg}`}
+                          >
+                            <CiClock2 className="size-4" />
+                            <p className="text-xs">
+                              {post.timetoread} min read
+                            </p>
+                          </div>
+                        </div>
+
+                        <div>
+                          <p className="max-md:hidden block font-bold">
+                            Read More
+                          </p>
+                        </div>
+                      </div>
+
+                      <button
+                        className={`mt-3 text-sm rounded-lg py-2 text-white md:hidden max-md:block ${color.bgButton}`}
+                      >
+                        Read More
+                      </button>
+
+                      {/* Button */}
+                    </div>
+                  </Link>
+
+                  {/* Admin Controls */}
+                  {session?.user?.role === "ADMIN" && (
+                    <div className="grid items-center justify-center px-2 max-md:hidden">
+                      <EditButton slug={post.slug} />
+                      <DeleteButton slug={post.slug} />
+                    </div>
                   )}
                 </div>
-
-                {/* Info */}
-                <div className="flex flex-col  w-[60%] m-2 justify-start   max-md:mx-auto max-md:w-[90%]">
-                  <h2 className="text-2xl max-sm:text-lg font-bold dark:text-[#FFFFFF]  min-h-[64px]">
-                    {post.title}
-                  </h2>
-                  <p className="text-my-text-color  mt-3  text-fade h-[100px]  overflow-hidden">
-                    Summary: {post.summary}
-                  </p>
-
-                  <div className="flex flex-row justify-between mt-3">
-                    <p className="text-sm dark:text-[#FFFFFF]">Read More</p>
-                    <div className="flex flex-row gap-1">
-                      <FaRegCalendarMinus className="dark:text-my-text-color" />
-                      <p className="font-semibold text-sm  dark:text-[#FFFFFF]">
-                        {new Date(post.createdAt).toLocaleDateString("en-US", {
-                          day: "2-digit",
-                          month: "long",
-                          year: "numeric",
-                        })}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-
-              {/* Edit & Delete */}
-
-              {session?.user?.role === "ADMIN" ? (
-                <div className="grid grid-col-1 items-center  justify-center max-md:hidden">
-                  <EditButton slug={post.slug} />
-                  <DeleteButton slug={post.slug} />
-                </div>
-              ) : (
-                ""
-              )}
-            </div>
-          ))}
+              );
+            })}
         </div>
         {/* Pagination */}
         <div className="flex  justify-center items-center gap-4 mt-6 mb-8  ">

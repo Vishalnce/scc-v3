@@ -34,7 +34,7 @@ async function fetchPosts(
   if (topic) params.append("topic", topic);
   if (date) params.append("date", date);
 
-  const res = await fetch(`/api/en/syllabus/client?${params.toString()}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/syllabus/client?${params.toString()}`, {
     cache: "no-store",
   });
 

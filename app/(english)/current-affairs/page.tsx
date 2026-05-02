@@ -55,15 +55,7 @@ async function fetchPosts(
   return res.json();
 }
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: Promise<{
-    page?: string;
-    topic?: string;
-    date?: string;
-    limit?: string;
-  }>;
+export default async function Page({searchParams,}: {searchParams: Promise<{page?: string;topic?: string;date?: string;limit?: string;}>;
 }) {
   const params = await searchParams;
   const page = Number(params.page) || 1;

@@ -20,4 +20,8 @@ model Comment {
   blog   Blog? @relation(fields: [blogId], references: [id], onDelete: Cascade)
   // Relation to Liner (optional)
 
+editorialId Int?
+  editorial   Editorial? @relation(fields: [editorialId], references: [id], onDelete: Cascade)
+  // Relation to Liner (optional)
+
 }

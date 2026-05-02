@@ -118,7 +118,7 @@ function Nav() {
               {status === "authenticated" ? (
                 <div>
                   <button
-                    className="px-6 py-0.5 pb-1 border-2 border-[#007076] rounded-lg bg-my-green text-white max-lg:text-md max-sm:px-2  max-md:hidden "
+                    className="px-6 py-0.5 pb-1  border-[#007076] rounded-lg bg-my-green text-white max-lg:text-md max-sm:px-2  max-md:hidden "
                     onClick={() => {
                       signOut();
                     }}
@@ -127,20 +127,20 @@ function Nav() {
                   </button>
                 </div>
               ) : (
-                <div className="flex flex-row gap-2 border-2 py-2">
+                <div className="flex flex-row gap-2  py-2">
                   <Link href={"/login"}>
                     <button
                       onClick={() => {
                         signIn();
                       }}
-                      className=" px-6 py-0.5 pb-1 border-2  max-sm:px-2 dark:border-white dark:text-white transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg rounded-full max-md:hidden "
+                      className=" px-6 py-0.5 pb-1   max-sm:px-2 dark:border-white dark:text-white transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg rounded-full max-md:hidden "
                     >
                       Login
                     </button>
                   </Link>
 
                   <Link href={"/signup"}>
-                    <button className="px-6 py-0.5 pb-1 border-2 border-[#007076] rounded-full bg-my-green text-white  max-lg:hidden transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg ">
+                    <button className="px-6 py-0.5 pb-1  border-[#007076] rounded-full bg-my-green text-white  max-lg:hidden transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg ">
                       Signup
                     </button>
                   </Link>

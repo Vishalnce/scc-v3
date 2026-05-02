@@ -11,7 +11,7 @@ export async function GET(
   console.log("Slug:", slug);
 
   try {
-    const post = await db.syllabus.findUnique({
+    const post = await db.blog.findUnique({
       where: { slug },
     });
 

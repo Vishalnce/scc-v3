@@ -23,6 +23,7 @@ type PostType = {
   keywords: string;
   description: string;
   editorHtml: string;
+  timetoread: string;
   toc: string;
 };
 const options = [
@@ -56,18 +57,15 @@ export default function Page({ post }: { post?: PostType }) {
   const { register, handleSubmit, setValue, watch } = useForm<PostType>({
     defaultValues: post || {},
   });
-const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [selectedOption, setSelectedOption] = useState<OptionType | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string>("");
   const [isUploading, setIsUploading] = useState(false);
 
-
   const [isEditorTouched, setIsEditorTouched] = useState(false);
 
-
   const router = useRouter();
-
 
   const [editorData, setEditorData] = useState<{
     html: string;
@@ -77,15 +75,14 @@ const fileInputRef = useRef<HTMLInputElement | null>(null);
     toc: [],
   });
 
-
   useEffect(() => {
-  if (post) {
-    setEditorData({
-      html: post.editorHtml || "",
-      toc: JSON.parse(post.toc || "[]"),
-    });
-  }
-}, [post]);
+    if (post) {
+      setEditorData({
+        html: post.editorHtml || "",
+        toc: JSON.parse(post.toc || "[]"),
+      });
+    }
+  }, [post]);
 
   const title = watch("title"); // 👈 watch the title field
   // const { theme } = useTheme();
@@ -109,7 +106,7 @@ const fileInputRef = useRef<HTMLInputElement | null>(null);
   const isEdit = !!post;
 
   const [isLoading, setIsLoading] = useState(false);
-   const onSubmit = async (data: PostType) => {
+  const onSubmit = async (data: PostType) => {
     if (isLoading) return; // prevent double submit
     setIsLoading(true);
 
@@ -143,12 +140,9 @@ const fileInputRef = useRef<HTMLInputElement | null>(null);
         body: JSON.stringify(data),
       });
 
-   
-
       if (res.ok) {
-      
         alert(isEdit ? "Upcoming Exam updated!" : "Upcoming  Exam created!");
-    router.push("/upcoming-exam")
+        router.push("/upcoming-exam");
       } else {
         alert("Failed to save post");
       }
@@ -167,7 +161,7 @@ const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   // image upload
 
-    const { data: session } = useSession();
+  const { data: session } = useSession();
   const handleImageUpload = async () => {
     if (uploadedImageUrl) {
       alert("Please delete the existing image before uploading a new one.");
@@ -236,7 +230,6 @@ const fileInputRef = useRef<HTMLInputElement | null>(null);
     }
   };
 
-
   const handleCancelUpload = async () => {
     if (!uploadedImageUrl || isDeleting) return;
 
@@ -291,10 +284,9 @@ const fileInputRef = useRef<HTMLInputElement | null>(null);
   };
 
   useEffect(() => {
-  setValue("editorHtml", editorData.html);
-  setValue("toc", JSON.stringify(editorData.toc));
-}, [editorData, setValue]);
-
+    setValue("editorHtml", editorData.html);
+    setValue("toc", JSON.stringify(editorData.toc));
+  }, [editorData, setValue]);
 
   // for editor
   useEffect(() => {
@@ -307,53 +299,75 @@ const fileInputRef = useRef<HTMLInputElement | null>(null);
   }, [post]);
   const [isDeleting, setIsDeleting] = useState(false);
   return (
- <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 p-6 max-w-[95%] mx-auto bg-white border border-gray-300 rounded-lg shadow-sm">
-  
-  <div>
-    <label htmlFor="title" className="block mb-2 font-semibold text-gray-700">Title</label>
-    <input
-      id="title"
-      {...register("title")}
-      placeholder="Title"
-      className="border border-gray-300 p-3 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-    />
-  </div>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="space-y-6 p-6 max-w-[95%] mx-auto bg-white border border-gray-300 rounded-lg shadow-sm"
+    >
+      <div>
+        <label
+          htmlFor="title"
+          className="block mb-2 font-semibold text-gray-700"
+        >
+          Title
+        </label>
+        <input
+          id="title"
+          {...register("title")}
+          placeholder="Title"
+          className="border border-gray-300 p-3 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+        />
+      </div>
 
-  <div>
-    <label htmlFor="slug" className="block mb-2 font-semibold text-gray-700">Slug</label>
-    <input
-      id="slug"
-      {...register("slug", { required: true })}
-      placeholder="Slug"
-      className="border border-gray-300 p-3 w-full bg-gray-100 rounded-md cursor-not-allowed focus:outline-none"
-      readOnly
-    />
-  </div>
+      <div>
+        <label
+          htmlFor="slug"
+          className="block mb-2 font-semibold text-gray-700"
+        >
+          Slug
+        </label>
+        <input
+          id="slug"
+          {...register("slug", { required: true })}
+          placeholder="Slug"
+          className="border border-gray-300 p-3 w-full bg-gray-100 rounded-md cursor-not-allowed focus:outline-none"
+          readOnly
+        />
+      </div>
 
-  <div>
-    <label htmlFor="summary" className="block mb-2 font-semibold text-gray-700">Summary</label>
-    <textarea
-      id="summary"
-      {...register("summary")}
-      placeholder="Summary"
-      className="border border-gray-300 p-3 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-    />
-  </div>
+      <div>
+        <label
+          htmlFor="summary"
+          className="block mb-2 font-semibold text-gray-700"
+        >
+          Summary
+        </label>
+        <textarea
+          id="summary"
+          {...register("summary")}
+          placeholder="Summary"
+          className="border border-gray-300 p-3 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+        />
+      </div>
 
-  <div>
-    <label htmlFor="topic-select" className="block mb-2 font-semibold text-gray-700">Select a topic</label>
-    <Select<OptionType>
-      options={options}
-      value={selectedOption}
-      onChange={handleChange}
-      instanceId="topic-select"
-      placeholder="Select a topic"
-      className="w-full"
-    />
-    <input type="hidden" {...register("topic")} />
-  </div>
+      <div>
+        <label
+          htmlFor="topic-select"
+          className="block mb-2 font-semibold text-gray-700"
+        >
+          Select a topic
+        </label>
+        <Select<OptionType>
+          options={options}
+          value={selectedOption}
+          onChange={handleChange}
+          instanceId="topic-select"
+          placeholder="Select a topic"
+          className="w-full"
+        />
+        <input type="hidden" {...register("topic")} />
+      </div>
 
-     <div>
+      <div>
         <label className="block mb-2 font-semibold text-gray-700">
           Upload Image <span className="text-red-500"> *</span>
         </label>
@@ -402,41 +416,68 @@ const fileInputRef = useRef<HTMLInputElement | null>(null);
             </div>
           </div>
         )}
-    <input type="hidden" {...register("image")} value={uploadedImageUrl} />
-  </div>
+        <input type="hidden" {...register("image")} value={uploadedImageUrl} />
+      </div>
 
-  <div>
-    <label htmlFor="alt" className="block mb-2 font-semibold text-gray-700">Alt tag for image</label>
-    <input
-      id="alt"
-      {...register("alt")}
-      placeholder="Alt tag for image"
-      className="border border-gray-300 p-3 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-    />
-  </div>
+      <div>
+        <label htmlFor="alt" className="block mb-2 font-semibold text-gray-700">
+          Alt tag for image
+        </label>
+        <input
+          id="alt"
+          {...register("alt")}
+          placeholder="Alt tag for image"
+          className="border border-gray-300 p-3 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+        />
+      </div>
 
-  <div className="space-y-2">
-    <label htmlFor="keywords" className="block mb-2 font-semibold text-gray-700">Keywords</label>
-    <input
-      id="keywords"
-      {...register("keywords")}
-      placeholder="keywords"
-      className="border border-gray-300 p-3 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-    />
-    <label htmlFor="description" className="block mb-2 font-semibold text-gray-700">Description</label>
-    <textarea
-      id="description"
-      {...register("description")}
-      placeholder="Description"
-      className="border border-gray-300 p-3 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-    />
-  </div>
+      <div className="space-y-2">
+        <label
+          htmlFor="keywords"
+          className="block mb-2 font-semibold text-gray-700"
+        >
+          Keywords
+        </label>
+        <input
+          id="keywords"
+          {...register("keywords")}
+          placeholder="keywords"
+          className="border border-gray-300 p-3 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+        />
+        <label
+          htmlFor="description"
+          className="block mb-2 font-semibold text-gray-700"
+        >
+          Description
+        </label>
+        <textarea
+          id="description"
+          {...register("description")}
+          placeholder="Description"
+          className="border border-gray-300 p-3 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+        />
+        <label
+          htmlFor="timetoread"
+          className="block mb-2 font-semibold text-gray-700"
+        >
+          Time to Read
+        </label>
+        <input
+          id="timetoread"
+          {...register("timetoread")}
+          placeholder="Time to read (in minutes)"
+          className="border border-gray-300 p-3 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+        />
+      </div>
 
-  <Editor value={value} onSync={setEditorData}  setIsEditorChange={setIsEditorTouched} />
+      <Editor
+        value={value}
+        onSync={setEditorData}
+        setIsEditorChange={setIsEditorTouched}
+      />
 
-  <input type="hidden" {...register("editorHtml")} />
-  <input type="hidden" {...register("toc")} />
-
+      <input type="hidden" {...register("editorHtml")} />
+      <input type="hidden" {...register("toc")} />
 
       <button
         type="submit"
@@ -450,7 +491,6 @@ const fileInputRef = useRef<HTMLInputElement | null>(null);
       >
         {isLoading ? "Saving..." : "Save"}
       </button>
-</form>
-
+    </form>
   );
 }

@@ -16,6 +16,7 @@ type PostType = {
   keywords: string;
   description: string;
   editorHtml: string;
+  timetoread: string;
   toc: string;
 };
 

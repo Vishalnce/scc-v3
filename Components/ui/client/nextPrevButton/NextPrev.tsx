@@ -88,7 +88,7 @@ export default function NextPrev({
 
         <div className=" flex flex-row items-center gap-2">
           <Image
-            src="/ui/client/currentaffairs--page/icons.png"
+            src="/ui/client/current-affairs-page/icons.png"
             alt="ssc"
             width={150}
             height={150}

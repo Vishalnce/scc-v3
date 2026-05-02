@@ -103,6 +103,21 @@ function EnglishMobMenu() {
                   </p>
                 </button>
               </Link>
+
+                 <Link href={"/editorial"} className="w-full shadow pl-9 py-1">
+                <button
+                  onClick={() => {
+                    setIsOpen(!isOpen);
+                  }}
+                  className=" hover:text-[#007076]    rounded-xl "
+                >
+                  {" "}
+                  <p className=" text-sm text-[#6F6F6F]">
+                    {" "}
+                    Editorials{" "}
+                  </p>
+                </button>
+              </Link>
             </div>
           )}
         </div>

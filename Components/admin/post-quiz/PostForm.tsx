@@ -22,7 +22,7 @@ type PostType = {
   description: string;
   editorHtml: string;
   timeLimit: number;
-  timeToRead: number;
+  timeToRead: string;
   toc: string;
 };
 const options = [

@@ -73,6 +73,7 @@ export async function POST(req: NextRequest) {
       description,
       editorHtml,
       toc,
+      timetoread
     } = body;
 
     if (!title || !slug) {
@@ -96,6 +97,7 @@ export async function POST(req: NextRequest) {
           description,
           editorHtml,
           toc,
+          timetoread
         },
       });
 
