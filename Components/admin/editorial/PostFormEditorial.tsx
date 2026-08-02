@@ -13,7 +13,6 @@ import { useRouter } from "next/navigation";
 import { extractImages } from "../shared-admin-code/ExtractHTML";
 import { deleteImage } from "../shared-admin-code/DeleteURL";
 
-
 type PostType = {
   title: string;
   slug: string;
@@ -55,8 +54,13 @@ const options = [
 type OptionType = { value: string; label: string };
 type SetPostId = (id: number | null) => void;
 
-
-export default function Page({ post,setPostId }: { post?: PostType; setPostId: SetPostId }) {
+export default function Page({
+  post,
+  setPostId,
+}: {
+  post?: PostType;
+  setPostId: SetPostId;
+}) {
   const { data: session } = useSession();
   const { register, handleSubmit, setValue, watch } = useForm<PostType>({
     defaultValues: post || {},
@@ -66,7 +70,7 @@ export default function Page({ post,setPostId }: { post?: PostType; setPostId: S
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string>("");
   const [isUploading, setIsUploading] = useState(false);
-   const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [isEditorTouched, setIsEditorTouched] = useState(false);
 
@@ -112,7 +116,6 @@ export default function Page({ post,setPostId }: { post?: PostType; setPostId: S
 
   const isEdit = !!post;
 
-
   const onSubmit = async (data: PostType) => {
     if (isLoading) return; // prevent double submit
     setIsLoading(true);
@@ -154,7 +157,6 @@ export default function Page({ post,setPostId }: { post?: PostType; setPostId: S
       if (res.ok) {
         setPostId(result.post.id);
         alert(isEdit ? "Post updated successfully!" : "Post created!");
-
       } else {
         alert("Failed to save post");
       }
@@ -165,7 +167,6 @@ export default function Page({ post,setPostId }: { post?: PostType; setPostId: S
       setIsLoading(false);
     }
   };
-
 
   const handleChange = (option: OptionType | null) => {
     setSelectedOption(option);
@@ -187,7 +188,7 @@ export default function Page({ post,setPostId }: { post?: PostType; setPostId: S
 
     try {
       //  get presigned URL
-      const presignRes = await fetch("/api/aws/upload", {
+      const presignRes = await fetch("/api/cloudflare/upload", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -249,7 +250,7 @@ export default function Page({ post,setPostId }: { post?: PostType; setPostId: S
 
     try {
       //  get presigned delete URL
-      const res = await fetch("/api/aws/delete", {
+      const res = await fetch("/api/cloudflare/delete", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -492,7 +493,7 @@ export default function Page({ post,setPostId }: { post?: PostType; setPostId: S
       <input type="hidden" {...register("editorHtml")} />
 
       <input type="hidden" {...register("toc")} />
-      
+
       <button
         type="submit"
         disabled={isLoading}

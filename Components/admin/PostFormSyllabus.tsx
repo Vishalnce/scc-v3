@@ -154,7 +154,6 @@ export default function Page({ post }: { post?: PostType }) {
     }
   };
 
-
   const handleChange = (option: OptionType | null) => {
     setSelectedOption(option);
     setValue("topic", option?.value || ""); // 👈 sets the category field
@@ -177,7 +176,7 @@ export default function Page({ post }: { post?: PostType }) {
 
     try {
       //  get presigned URL
-      const presignRes = await fetch("/api/aws/upload", {
+      const presignRes = await fetch("/api/cloudflare/upload", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -239,7 +238,7 @@ export default function Page({ post }: { post?: PostType }) {
 
     try {
       //  get presigned delete URL
-      const res = await fetch("/api/aws/delete", {
+      const res = await fetch("/api/cloudflare/delete", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -286,11 +285,11 @@ export default function Page({ post }: { post?: PostType }) {
   };
 
   useEffect(() => {
-  if (post?.image) {
-    setUploadedImageUrl(post.image);
-    setValue("image", post.image);
-  }
-}, [post, setValue]);
+    if (post?.image) {
+      setUploadedImageUrl(post.image);
+      setValue("image", post.image);
+    }
+  }, [post, setValue]);
   useEffect(() => {
     setValue("editorHtml", editorData.html);
     setValue("toc", JSON.stringify(editorData.toc));

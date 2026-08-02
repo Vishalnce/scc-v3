@@ -20,11 +20,12 @@ export default async function ({
   const date = params.date;
   const page = params.page || "1";
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/one-liner/client/?date=${date || ""}&page=${page}&limit=10`,
-    { cache: "no-store" },
-  );
+ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
+const res = await fetch(
+  `${baseUrl}/api/en/one-liner/client/?date=${date || ""}&page=${page}&limit=10`,
+  { cache: "no-store" }
+);
   const data = await res.json();
 
   // SAFE FALLBACKS (IMPORTANT)

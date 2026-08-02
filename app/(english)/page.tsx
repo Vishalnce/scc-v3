@@ -23,12 +23,13 @@ function Page() {
       <MasterConcepts />
       
       <Current />
-    <QuizContainer/>
-      <QuizCard />\
+      <QuizContainer/>
+      <QuizCard />
       <Editorial/>
       <ProCard />
-      <TestSeriesCard />
       <Concept />
+      <TestSeriesCard />
+   
       <DataEntry />
       <OneLiner />
 

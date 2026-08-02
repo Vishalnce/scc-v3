@@ -90,15 +90,15 @@ export default function OneLiner() {
 
   return (
     <div className="bg-white dark:bg-black">
-      <div className="max-w-[1400px] pt-12 flex flex-col mx-auto w-[90%] relative">
+      <div className="max-w-[1400px]  flex flex-col mx-auto w-[90%] relative">
         {/* heading */}
         <header className="flex justify-between py-4 ">
-          <p className="text-3xl max-sm:text-2xl font-bold dark:text-white">
+          <p className="text-3xl max-sm:text-2xl font-bold dark:text-white max-sm:w-[70%]">
             One-Liner Current Affairs
           </p>
 
          <Link href={"/current-affairs"}>
-              <p className="p-2 px-6 text-lg max-sm:text-sm  text-[#007076] rounded-full  underline">
+              <p className=" text-lg max-sm:text-sm  text-[#007076]   underline border-2">
                 View All
               </p>
             </Link>

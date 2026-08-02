@@ -120,6 +120,13 @@ input[type="password"]::-webkit-textfield-decoration-container {
   /* change for font size global = 17px */
 }
 
+/* Mobile only */
+@media (max-width: 768px) {
+  .PlaygroundEditorTheme__textBase {
+    font-size: 17px;
+  }
+}
+
 .list-circle {
   list-style-type: circle;
 }

@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import db from "@/lib/db";
+import { requireAdmin } from "@/lib/adminCheck";
 
 // GET handler: Fetch all posts or a single post by `slug`
 export async function GET(req: NextRequest) {
   try {
+    await requireAdmin();
     const url = new URL(req.url);
     const slug = url.searchParams.get("slug");
 
@@ -20,7 +22,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ success: true, post });
     }
 
-    const posts = await db.post.findMany({
+    const posts = await db.syllabus.findMany({
       orderBy: { id: "desc" },
     });
 
@@ -56,6 +58,7 @@ export async function PATCH(req: NextRequest) {
 // POST handler: Create a new post
 export async function POST(req: NextRequest) {
   try {
+    await requireAdmin();
     const body = await req.json();
     console.log("🔍 Incoming body:", body);
 
@@ -103,6 +106,7 @@ export async function POST(req: NextRequest) {
 
 export async function DELETE(req: NextRequest) {
   try {
+    await requireAdmin();
     const url = new URL(req.url);
     const slug = url.searchParams.get("slug");
     if (!slug) {

@@ -5,6 +5,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 // get all or single concept
 export async function GET(req: NextRequest) {
+
+  await requireAdmin(); // secure
   const { searchParams } = new URL(req.url);
   const slug = searchParams.get("slug");
 
@@ -25,7 +27,7 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    await requireAdmin(); // ✅ secure
+    await requireAdmin(); // 
 
     const data = await req.json();
 
@@ -46,7 +48,7 @@ export async function POST(req: NextRequest) {
       await tx.notification.create({
         data: {
           title: `New Concept: ${concept.title}`,
-          path: `/concept/${concept.id}`, // adjust if using slug
+          path: `/concept-page/${concept.id}`, // adjust if using slug
           type: "CONCEPT",
           entityId: concept.id,
         },
@@ -72,6 +74,7 @@ export async function POST(req: NextRequest) {
 
 export async function PATCH(req: NextRequest) {
   try {
+    await requireAdmin(); // secure
     const body = await req.json();
 
     const updated = await db.concept.update({

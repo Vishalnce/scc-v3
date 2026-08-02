@@ -18,16 +18,19 @@ async function main() {
     if (!admin.email || !admin.password) continue;
 
     await prisma.user.upsert({
-      where: { email: admin.email },
-      update: { role: "ADMIN" },
-      create: {
-        email: admin.email,
-        password: admin.password, // plain text
-        first: "Admin",
-        last: "User",
-        role: "ADMIN",
-      },
-    });
+  where: { email: admin.email },
+  update: {
+    role: "ADMIN",
+    password: admin.password,
+  },
+  create: {
+    email: admin.email,
+    password: admin.password,
+    first: "Admin",
+    last: "User",
+    role: "ADMIN",
+  },
+});
 
     console.log("✅ Admin ensured:", admin.email);
   }

@@ -177,7 +177,7 @@ export default function Page({ post }: { post?: PostType }) {
 
     try {
       //  get presigned URL
-      const presignRes = await fetch("/api/aws/upload", {
+      const presignRes = await fetch("/api/cloudflare/upload", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -237,7 +237,7 @@ export default function Page({ post }: { post?: PostType }) {
 
     try {
       //  get presigned delete URL
-      const res = await fetch("/api/aws/delete", {
+      const res = await fetch("/api/cloudflare/delete", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

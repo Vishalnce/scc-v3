@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-"use client"
+"use client";
 import type { JSX } from "react";
 import { useSession } from "next-auth/react";
 
@@ -101,63 +101,61 @@ export function InsertImageUploadedDialogBody({
   const [uploading, setUploading] = useState(false);
   const { data: session } = useSession();
 
-
   const isDisabled = src === "" || uploading;
 
-const loadImage = async (files: FileList | null) => {
-  if (!files || files.length === 0) return;
+  const loadImage = async (files: FileList | null) => {
+    if (!files || files.length === 0) return;
 
-  const file = files[0];
+    const file = files[0];
 
-  try {
-    setUploading(true);
+    try {
+      setUploading(true);
 
-    //  get presigned URL
-    const presignRes = await fetch("/api/aws/upload", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${session?.accessToken}`,
-      },
-      body: JSON.stringify({
-        fileName: file.name,
-        fileType: file.type,
-      }),
-    });
+      //  get presigned URL
+      const presignRes = await fetch("/api/cloudflare/upload", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session?.accessToken}`,
+        },
+        body: JSON.stringify({
+          fileName: file.name,
+          fileType: file.type,
+        }),
+      });
 
-    if (!presignRes.ok) {
-      throw new Error("Failed to get upload URL");
+      if (!presignRes.ok) {
+        throw new Error("Failed to get upload URL");
+      }
+
+      const { uploadUrl, fileUrl } = await presignRes.json();
+
+      if (!uploadUrl || !fileUrl) {
+        throw new Error("Invalid presign response");
+      }
+
+      //  upload directly to S3
+      const uploadRes = await fetch(uploadUrl, {
+        method: "PUT",
+        headers: {
+          "Content-Type": file.type,
+        },
+        body: file,
+      });
+
+      if (!uploadRes.ok) {
+        throw new Error("Upload to S3 failed");
+      }
+
+      //  set Lexical image src
+      setSrc(fileUrl);
+      console.log("File uploaded successfully. Accessible at:", fileUrl);
+    } catch (error) {
+      console.error("Upload error:", error);
+    } finally {
+      setUploading(false);
     }
-
-    const { uploadUrl, fileUrl } = await presignRes.json();
-
-    if (!uploadUrl || !fileUrl) {
-      throw new Error("Invalid presign response");
-    }
-
-    //  upload directly to S3
-    const uploadRes = await fetch(uploadUrl, {
-      method: "PUT",
-      headers: {
-        "Content-Type": file.type,
-      },
-      body: file,
-    });
-
-    if (!uploadRes.ok) {
-      throw new Error("Upload to S3 failed");
-    }
-
-    //  set Lexical image src
-    setSrc(fileUrl);
-    console.log("File uploaded successfully. Accessible at:", fileUrl);
-
-  } catch (error) {
-    console.error("Upload error:", error);
-  } finally {
-    setUploading(false);
-  }
-};
+  };
 
   return (
     <>
@@ -174,7 +172,7 @@ const loadImage = async (files: FileList | null) => {
         value={altText}
         data-test-id="image-modal-alt-text-input"
       />
-     <DialogActions>
+      <DialogActions>
         <Button
           data-test-id="image-modal-file-upload-btn"
           disabled={isDisabled}
@@ -260,29 +258,29 @@ export default function ImagesPlugin({
 
           return true;
         },
-        COMMAND_PRIORITY_EDITOR
+        COMMAND_PRIORITY_EDITOR,
       ),
       editor.registerCommand<DragEvent>(
         DRAGSTART_COMMAND,
         (event) => {
           return $onDragStart(event);
         },
-        COMMAND_PRIORITY_HIGH
+        COMMAND_PRIORITY_HIGH,
       ),
       editor.registerCommand<DragEvent>(
         DRAGOVER_COMMAND,
         (event) => {
           return $onDragover(event);
         },
-        COMMAND_PRIORITY_LOW
+        COMMAND_PRIORITY_LOW,
       ),
       editor.registerCommand<DragEvent>(
         DROP_COMMAND,
         (event) => {
           return $onDrop(event, editor);
         },
-        COMMAND_PRIORITY_HIGH
-      )
+        COMMAND_PRIORITY_HIGH,
+      ),
     );
   }, [captionsEnabled, editor]);
 
@@ -319,7 +317,7 @@ function $onDragStart(event: DragEvent): boolean {
         width: node.__width,
       },
       type: "image",
-    })
+    }),
   );
 
   return true;

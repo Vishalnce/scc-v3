@@ -13,20 +13,20 @@ export default function QuizIntro({ total, onStart }: Props) {
 
         {/*  card  banner */}
 
-        <div className="w-[70%] bg-white  my-4 flex flex-col justify-center px-4">
+        <div className="w-[70%] bg-white  my-4 flex flex-col justify-center px-4  max-md:w-full">
           <div className=" flex flex-row justify-between gap-2  my-4">
             <div className="flex flex-row gap-4 ">
-              <div className="bg-[#047077] rounded-xl p-auto">
+              <div className="bg-[#047077] rounded-xl p-auto max-sm:h-16">
                 <AiOutlineThunderbolt className=" size-14 pt-3 pb-2 text-white" />
               </div>
 
               <div className="flex flex-col text-start">
                 <p className="font-bold text-2xl ">Quick Quiz </p>
-                <p className="text-[#6F6F6F] "> Test Your Knowledge </p>
+                <p className="text-[#6F6F6F] max-md:text-sm"> Knowledge Check </p>
               </div>
             </div>
 
-            <div className="bg-[#F4F4FC] px-4 py-1 rounded-xl flex items-center gap-2">
+            <div className="bg-[#F4F4FC] px-4 py-1 rounded-xl flex items-center gap-2 h-8">
               <span className="w-3 h-3 rounded-full bg-[#11C352] inline-block"></span>
               Live
             </div>

@@ -170,7 +170,7 @@ export default function MasterConcepts() {
 
   return (
     <>
-      <div className="  dark:bg-[#1F1F1F] 2">
+      <div className="  dark:bg-[#1F1F1F] ">
         <div className="max-w-[1400px]  flex flex-col mx-auto w-[90%]">
           {/* heading */}
 
@@ -188,7 +188,7 @@ export default function MasterConcepts() {
               <div>
                 <button
                   onClick={() => setTierChange("for-tier1")}
-                  className={`px-6 py-1  rounded-xl text-lg max-md:py-1 max-md:px-10 max-sm:text-sm whitespace-nowrap min-w-[100px] flex flex-row gap-2  ${tierChange === "for-tier1" ? "bg-[#047077] border-[#047077] border-2" : "border-2 border-[text-[#6F6F6F] dark:text-white dark:border-white"}`}
+                  className={`px-4 py-1  rounded-xl text-lg max-md:py-1 max-md:px-10 max-sm:text-sm whitespace-nowrap min-w-[100px] flex flex-row gap-2  ${tierChange === "for-tier1" ? "bg-[#047077] border-[#047077] border-2" : "border-2 border-[text-[#6F6F6F] dark:text-white dark:border-white"}`}
                 >
                   <div
                     className={`${tierChange === "for-tier1" ? "text-white" : "text-[#6F6F6F]"}`}

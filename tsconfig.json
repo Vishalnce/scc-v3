@@ -23,6 +23,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "utils/date-picker/DateFilter"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "utils/date-picker/DateFilter", "Components/client/pricing-plan/pricing-plan.tsx"],
   "exclude": ["node_modules"]
 }

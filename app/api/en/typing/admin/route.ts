@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import db from "@/lib/db";
+import { requireAdmin } from "@/lib/adminCheck";
 
 export async function GET(req: NextRequest) {
   try {
+    await requireAdmin();
     const url = new URL(req.url);
     const id = url.searchParams.get("id");
     console.log("ID from query params:", id);
@@ -34,7 +36,7 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    
+    await requireAdmin();
     const body = await req.json();
     console.log(body);
     const post = await db.typing.create({
@@ -58,6 +60,7 @@ export async function POST(req: NextRequest) {
 
 export async function PATCH(req: NextRequest) {
   try {
+    await requireAdmin();
     const body = await req.json();
     const id = body.id;
 
@@ -75,6 +78,7 @@ export async function PATCH(req: NextRequest) {
 
 export async function DELETE(req: NextRequest) {
   try {
+    await requireAdmin();
     const url = new URL(req.url);
 
     const id = url.searchParams.get("id");

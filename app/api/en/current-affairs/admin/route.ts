@@ -7,6 +7,7 @@ import { requireAdmin } from "@/lib/adminCheck";
 // GET handler: Fetch all posts or a single post by `slug`
 export async function GET(req: NextRequest) {
   try {
+    await requireAdmin();
     const session = await requireAdmin();
     if (session instanceof NextResponse) return session;
 
@@ -42,6 +43,7 @@ export async function GET(req: NextRequest) {
 // Edit handlere
 export async function PATCH(req: NextRequest) {
   try {
+    await requireAdmin();
     const session = await requireAdmin();
     if (session instanceof NextResponse) return session;
 
@@ -64,6 +66,7 @@ export async function PATCH(req: NextRequest) {
 // POST handler: Create a new post
 export async function POST(req: NextRequest) {
   try {
+    await requireAdmin();
     const session = await requireAdmin();
 
     const body = await req.json();
@@ -101,7 +104,7 @@ export async function POST(req: NextRequest) {
       });
 
       // 2. Create notification
-      const path = `/current-affairs/${slug}`; // ✅ fixed typo
+      const path = `/current-affairs-page/${slug}`; // ✅ fixed typo
 
       await tx.notification.create({
         data: {

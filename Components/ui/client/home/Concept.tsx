@@ -7,7 +7,8 @@ import React from "react";
 export default async function Concept() {
   async function fetchSmallConcept() {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/small-concepts/client`);
+     
+       const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/small-concepts/client`);
       const data = await res.json();
       // Debugging log
       return data;

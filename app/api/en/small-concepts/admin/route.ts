@@ -1,8 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import db from "@/lib/db";
+import { requireAdmin } from "@/lib/adminCheck";
 
 export async function GET() {
   try {
+
+    await requireAdmin();
     const post = await db.smallConcepts.findUnique({
       where: { id: 255 },
     });
@@ -15,6 +18,7 @@ export async function GET() {
 }
 export async function POST(req: NextRequest) {
   try {
+    await requireAdmin();
     const body = await req.json();
 
     if (!body.content) {
@@ -48,6 +52,7 @@ export async function POST(req: NextRequest) {
 
 export async function PATCH(req: NextRequest) {
   try {
+    await requireAdmin();
     const body = await req.json();
 
     const updated = await db.smallConcepts.update({
@@ -68,6 +73,7 @@ export async function PATCH(req: NextRequest) {
 }
 export async function DELETE() {
   try {
+    await requireAdmin();
     const deletedContent = await db.smallConcepts.delete({
       where: { id: 255 },
     });

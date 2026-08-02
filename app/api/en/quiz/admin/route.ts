@@ -3,6 +3,7 @@ import  db  from "@/lib/db";
 import { requireAdmin } from "@/lib/adminCheck";
 
 export async function GET() {
+  await requireAdmin();
   const quizzes = await db.quiz.findMany();
   return NextResponse.json(quizzes);
 }
@@ -40,7 +41,7 @@ export async function POST(req: Request) {
       await tx.notification.create({
         data: {
           title: `New Quiz: ${newQuiz.title}`,
-          path: `/quiz/${newQuiz.id}`,
+          path: `/quiz-test/${newQuiz.id}`,
           type: "QUIZ",
           entityId: newQuiz.id,
         },
@@ -72,6 +73,8 @@ export async function POST(req: Request) {
 
 export async function PATCH(req: Request) {
   try {
+
+    await requireAdmin(); // consistent security
     const { searchParams } = new URL(req.url);
     const idParam = searchParams.get("id");
 

@@ -142,14 +142,12 @@ const Tier2: any = [
 
   const [tierChange, setTierChange] = useState<"for-tier1" | "for-tier2">(
     "for-tier1",
-  );
-
-  return (
+  );  return (
     <>
-      <div className="max-w-[1400px] pt-8 flex flex-col mx-auto w-[90%]">
+      <div className="max-w-[1400px] pt-8 max-md:pt-0 flex flex-col mx-auto w-[90%] ">
         {/* heading */}
 
-        <header className="flex flex-row max-md:flex-col max-md:justify-startw justify-between items-center  p-4 max-sm:px-0  ">
+        <header className="flex flex-row max-md:flex-col max-md:justify-startw justify-between items-center   max-sm:px-0  ">
           <div className="w-[60%] max-sm:w-full ">
             <p className="text-4xl max-sm:text-2xl font-bold dark:text-white">
               Live Quizzes
@@ -163,7 +161,7 @@ const Tier2: any = [
             <div>
               <button
                 onClick={() => setTierChange("for-tier1")}
-                className={`px-6 py-1  rounded-xl text-lg max-md:py-2 max-md:px-10 max-sm:text-sm whitespace-nowrap min-w-[100px] flex flex-row gap-2  ${tierChange === "for-tier1" ? "bg-[#047077] border-[#047077]" : "border-2 border-[text-[#6F6F6F] dark:text-white dark:border-white"}`}
+                className={`px-4 py-1  rounded-xl text-lg max-md:py-1 max-md:px-10 max-sm:text-sm whitespace-nowrap min-w-[100px] flex flex-row gap-2  ${tierChange === "for-tier1" ? "bg-[#047077] border-[#047077] border-2" : "border-2 border-[text-[#6F6F6F] dark:text-white dark:border-white"}`}
               >
                 <div
                   className={`${tierChange === "for-tier1" ? "text-white" : "text-[#6F6F6F]"}`}
@@ -186,7 +184,7 @@ const Tier2: any = [
                 onClick={() => {
                   setTierChange("for-tier2");
                 }}
-                className={`px-6 py-1 border-2 rounded-xl text-lg  max-md:py-2 max-md:px-10  max-sm:text-sm whitespace-nowrap min-w-[100px] flex flex-row gap-2  ${tierChange === "for-tier2" ? "bg-[#047077] border-[#047077]" : "border-2 border-[text-[#6F6F6F] dark:text-white dark:border-white"}`}
+                className={`px-6 py-1 border-2 rounded-xl text-lg  max-md:py-1 max-md:px-10  max-sm:text-sm whitespace-nowrap min-w-[100px] flex flex-row gap-2  ${tierChange === "for-tier2" ? "bg-[#047077] border-2 border-[#047077]" : "border-2 border-[text-[#6F6F6F] dark:text-white dark:border-white"}`}
               >
                 <div
                   className={`${tierChange === "for-tier2" ? "text-white" : "text-[#6F6F6F]"}`}
@@ -216,17 +214,17 @@ const Tier2: any = [
                 return (
                   <div
                     key={index}
-                    className={`flex flex-row border-2 items-center justify-between py-4 rounded-xl px-6 ${item.border} ${item.bg}`}
+                    className={`flex flex-row items-center justify-between py-2 rounded-xl px-6 ${item.border} ${item.bg}`}
                   >
                     {/* Left Section */}
                     <div className="flex flex-row w-[70%] gap-4">
                       <div
                         className={`${item.iconBg} p-3 max-md:p-4 rounded-full flex items-center justify-center`}
                       >
-                        <Icon className="text-white size-6" />
+                        <Icon className="text-white  size-6" />
                       </div>
 
-                      <p className="my-auto text-xl">{item.title}</p>
+                      <p className="my-auto font-semibold text-md">{item.title}</p>
                     </div>
 
                     {/* Right Arrow */}
@@ -242,14 +240,14 @@ const Tier2: any = [
           ) : (
             <div className="  relative   max-sm:min-h-[326]">
               {/* track */}
-              <div className="grid grid-cols-2 gap-4 py-4">
+              <div className="grid grid-cols-2 max-md:grid-cols-1 gap-4 py-4">
                {Tier2.map((item: any, index: number) => {
                 const Icon = item.icon;
 
                 return (
                   <div
                     key={index}
-                    className={`flex flex-row border-2 items-center justify-between py-4 rounded-xl px-6 ${item.border} ${item.bg}`}
+                    className={`flex flex-row items-center justify-between py-2 rounded-xl px-6 ${item.border} ${item.bg}`}
                   >
                     {/* Left Section */}
                     <div className="flex flex-row w-[70%] gap-4">
@@ -259,7 +257,7 @@ const Tier2: any = [
                         <Icon className="text-white size-6" />
                       </div>
 
-                      <p className="my-auto text-xl">{item.title}</p>
+                      <p className="my-auto  font-semibold text-md">{item.title}</p>
                     </div>
 
                     {/* Right Arrow */}

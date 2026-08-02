@@ -6,6 +6,7 @@ import { requireAdmin } from "@/lib/adminCheck";
 // GET handler: Fetch all posts or a single post by `slug`
 export async function GET(req: NextRequest) {
   try {
+    await requireAdmin();
     const url = new URL(req.url);
     const slug = url.searchParams.get("slug");
 
@@ -38,6 +39,7 @@ export async function GET(req: NextRequest) {
 // Edit handlere
 export async function PATCH(req: NextRequest) {
   try {
+    await requireAdmin();
     const body = await req.json();
 
     const updated = await db.editorial.update({

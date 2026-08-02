@@ -4,12 +4,12 @@ export const deleteImage = async (url: string) => {
 
   try {
     // 1. Get presigned delete URL
-    const res = await fetch("/api/aws/delete", {
+    const res = await fetch("/api/cloudflare/delete", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-    body: JSON.stringify({ fileUrl: url }), 
+      body: JSON.stringify({ fileUrl: url }),
       signal: controller.signal,
     });
 
@@ -34,7 +34,6 @@ export const deleteImage = async (url: string) => {
       console.error("S3 delete failed:", s3Res.status);
       return;
     }
-
   } catch (err: any) {
     if (err.name === "AbortError") {
       console.error("Request timed out:", url);

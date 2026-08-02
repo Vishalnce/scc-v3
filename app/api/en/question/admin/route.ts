@@ -1,8 +1,11 @@
 import { NextResponse } from "next/server";
 import db from "@/lib/db"
+import { requireAdmin } from "@/lib/adminCheck";
 
 export async function POST(req: Request) {
   try {
+
+    await requireAdmin();
     const body = await req.json();
 
     const { quizId, ...rest } = body;
@@ -25,6 +28,7 @@ export async function POST(req: Request) {
 
 export async function GET(req: Request) {
   try {
+    await requireAdmin();
     const { searchParams } = new URL(req.url);
 
     const quizIdParam = searchParams.get("quizId");
@@ -72,6 +76,7 @@ export async function GET(req: Request) {
 
 export async function DELETE(req: Request) {
   try {
+    await requireAdmin();
     const { searchParams } = new URL(req.url);
     const quesIdParam = searchParams.get("quesId");
 
@@ -98,6 +103,8 @@ export async function DELETE(req: Request) {
 
 export async function PATCH(req: Request) {
   try {
+
+    await requireAdmin();
     const body = await req.json();
 
     const { quesId, ...rawData } = body;
@@ -109,7 +116,7 @@ export async function PATCH(req: Request) {
       );
     }
 
-    // ✅ Clean undefined values
+    //  Clean undefined values
     const updateData = Object.fromEntries(
       Object.entries(rawData).filter(([_, v]) => v !== undefined)
     );

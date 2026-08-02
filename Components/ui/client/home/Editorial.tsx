@@ -40,7 +40,7 @@ export default function Editorial() {
   useEffect(() => {
     const fetchAffairs = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/editorial/client`);
+        const res = await fetch(`/api/en/editorial/client`);
         if (!res.ok) throw new Error("Failed to fetch editorial posts");
         const data = await res.json();
 

@@ -132,8 +132,8 @@ function SmallNav() {
 
       {/* DropDown for current affairs */}
       {activeTag === "current-affairs" && (
-        <div className="  z-50 w-full  flex py-4 flex-col fixed top-34 bg-white  border-2">
-          <div className="w-[90%] border-2 mx-auto">
+        <div className="  z-50 w-full  flex py-4 flex-col fixed top-34 bg-white  ">
+          <div className="w-[90%]  mx-auto">
             <div className="w-[20%] ml-24  p-2  hover:bg-[#E6F1F1] dark:hover:bg-black rounded-xl">
               <Link
                 href={"/current-affairs"}
@@ -190,8 +190,8 @@ function SmallNav() {
 
       {/* DropDown for concepts */}
       {activeTag === "concepts" && (
-        <div className="  z-50 w-full  flex flex-col fixed  top-34 bg-white border-2  ">
-          <div className="border-2 w-[85%] mx-auto">
+        <div className="  z-50 w-full  flex flex-col fixed  top-34 bg-white   ">
+          <div className=" w-[85%] mx-auto">
             <div className=" w-full flex flex-row justify-between">
               {/* heading */}
               <div className="w-[25%] flex flex-row  justify-center  border-fuchsia-700 mt-10 p-3 ">
@@ -364,8 +364,8 @@ function SmallNav() {
 
       {/* DropDown for quiz */}
       {activeTag === "quiz" && (
-        <div className="  z-50 w-full  flex flex-col fixed  top-34 bg-white border-2   ">
-          <div className="border-2 w-[85%] mx-auto">
+        <div className="  z-50 w-full  flex flex-col fixed  top-34 bg-white    ">
+          <div className=" w-[85%] mx-auto">
             <div className=" w-full flex flex-row justify-between">
               {/* heading */}
               <div className="w-[25%] flex flex-row  justify-center  border-fuchsia-700 mt-10 p-3 ">

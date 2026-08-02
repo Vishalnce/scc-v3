@@ -6,7 +6,7 @@ function Card1() {
     <>
     
         {/* main div */}
-        <div className=" bg-gradient-to-r from-[#289AA2] to-[#8CD6DB]  relative rounded-2xl shadow lg:pb-6  md:min-h-[380px]  ">
+        <div className=" bg-gradient-to-r from-[#289AA2] to-[#8CD6DB]  relative rounded-2xl shadow lg:pb-6  md:min-h-[380px]   ">
           <div className="flex flex-row items-start justify-start md:justify-start md:pt-6 py-2  md:px-6 px-3 ">
             {/* text  */}
             <div className="  flex flex-col  justify-between r items-start md:gap-6 max-md:py-4 w-[70%] max-md:w-[85%] md:mt-8  max-md:pr-4  md:py-4  md:pl-12">

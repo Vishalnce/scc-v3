@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import db from "@/lib/db"
+import { requireAdmin } from "@/lib/adminCheck";
 
 export async function POST(req: Request) {
   try {
+    await requireAdmin();
     const body = await req.json(); // ✅ await here
 
     const quiz = await db.smallQuiz.create({
@@ -19,6 +21,7 @@ export async function POST(req: Request) {
 
 export async function GET(req: Request) {
   try {
+    await requireAdmin();
     const { searchParams } = new URL(req.url);
 
     const quizIdParam = searchParams.get("quizId");
@@ -55,6 +58,7 @@ export async function GET(req: Request) {
 
 export async function DELETE(req: Request) {
   try {
+    await requireAdmin();
     const { searchParams } = new URL(req.url);
     const quesIdParam = searchParams.get("quesId");
 
@@ -81,6 +85,7 @@ export async function DELETE(req: Request) {
 
 export async function PATCH(req: Request) {
   try {
+    await requireAdmin();
     const body = await req.json();
 
     // Expect quesId and other fields in body

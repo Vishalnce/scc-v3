@@ -88,7 +88,7 @@ function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
       }
 
       const result = await res.json();
-      
+
       // Optionally reset form here or show success message
 
       onSuccess();
@@ -182,94 +182,93 @@ function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
       .catch(console.error);
   }, [quesId, resetQ]);
 
-async function updateQuestion(e: React.MouseEvent<HTMLButtonElement>) {
-  e.preventDefault();
+  async function updateQuestion(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
 
-  if (!quesId) {
-    console.error("No question selected to update");
-    return;
-  }
-
-  if (id === null) {
-    console.error("Quiz ID is missing");
-    return;
-  }
-
-  const data = getValues();
-
-  const payload = {
-    ...data,
-    solution: editorData.html,
-  };
-
-  const fullData = {
-    ...payload,
-    quizId: id,
-    quesId,
-  };
-
-  try {
-    const res = await fetch("/api/en/question/admin", {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(fullData),
-    });
-
-    if (!res.ok) throw new Error("Update failed");
-
-    // ✅ DELETE ONLY AFTER SUCCESS
-    const oldSolution = initialSolutionRef.current;
-    const newSolution = editorData.html;
-
-    if (oldSolution !== newSolution) {
-      const oldImgs = extractImages(oldSolution);
-      const newImgs = extractImages(newSolution);
-
-      for (const img of oldImgs) {
-        if (!newImgs.includes(img)) {
-          await deleteImage(img);
-        }
-      }
+    if (!quesId) {
+      console.error("No question selected to update");
+      return;
     }
 
-    // ✅ IMPORTANT: update reference for next edit cycle
-    initialSolutionRef.current = newSolution;
+    if (id === null) {
+      console.error("Quiz ID is missing");
+      return;
+    }
 
-    // ✅ RESTORE YOUR ORIGINAL FUNCTIONALITY
-    onSuccess();
+    const data = getValues();
 
-    resetQ({
-      questionText: "",
-      questionImage: "",
-      options: [
-        { text: "", image: "" },
-        { text: "", image: "" },
-        { text: "", image: "" },
-        { text: "", image: "" },
-      ],
-      solution: "",
-      correctOption: undefined,
-      marksPositive: undefined,
-      marksNegative: undefined,
-      level: "easy",
-    });
+    const payload = {
+      ...data,
+      solution: editorData.html,
+    };
 
-    setQuestionImageFile(null);
-    setQuestionImageUrl("");
-    setOptionImageFiles([null, null, null, null]);
-    setOptionImageUrls(["", "", "", ""]);
+    const fullData = {
+      ...payload,
+      quizId: id,
+      quesId,
+    };
 
-    setEditorData({
-      html: "",
-      toc: [],
-    });
+    try {
+      const res = await fetch("/api/en/question/admin", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(fullData),
+      });
 
-    setQuesId(null);
+      if (!res.ok) throw new Error("Update failed");
 
-  } catch (err) {
-    console.error(err);
+      // ✅ DELETE ONLY AFTER SUCCESS
+      const oldSolution = initialSolutionRef.current;
+      const newSolution = editorData.html;
+
+      if (oldSolution !== newSolution) {
+        const oldImgs = extractImages(oldSolution);
+        const newImgs = extractImages(newSolution);
+
+        for (const img of oldImgs) {
+          if (!newImgs.includes(img)) {
+            await deleteImage(img);
+          }
+        }
+      }
+
+      // ✅ IMPORTANT: update reference for next edit cycle
+      initialSolutionRef.current = newSolution;
+
+      // ✅ RESTORE YOUR ORIGINAL FUNCTIONALITY
+      onSuccess();
+
+      resetQ({
+        questionText: "",
+        questionImage: "",
+        options: [
+          { text: "", image: "" },
+          { text: "", image: "" },
+          { text: "", image: "" },
+          { text: "", image: "" },
+        ],
+        solution: "",
+        correctOption: undefined,
+        marksPositive: undefined,
+        marksNegative: undefined,
+        level: "easy",
+      });
+
+      setQuestionImageFile(null);
+      setQuestionImageUrl("");
+      setOptionImageFiles([null, null, null, null]);
+      setOptionImageUrls(["", "", "", ""]);
+
+      setEditorData({
+        html: "",
+        toc: [],
+      });
+
+      setQuesId(null);
+    } catch (err) {
+      console.error(err);
+    }
   }
-}
 
   const [questionImageFile, setQuestionImageFile] = useState<File | null>(null);
   const [questionImageUrl, setQuestionImageUrl] = useState("");
@@ -319,7 +318,7 @@ async function updateQuestion(e: React.MouseEvent<HTMLButtonElement>) {
 
     try {
       // 1️ Get pre-signed URL from backend
-      const res = await fetch("/api/aws/upload", {
+      const res = await fetch("/api/cloudflare/upload", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -385,7 +384,7 @@ async function updateQuestion(e: React.MouseEvent<HTMLButtonElement>) {
 
     try {
       // 1️⃣ Get delete presigned URL from backend
-      const res = await fetch("/api/aws/delete", {
+      const res = await fetch("/api/cloudflare/delete", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -439,7 +438,7 @@ async function updateQuestion(e: React.MouseEvent<HTMLButtonElement>) {
 
     try {
       // 1️⃣ get presigned URL from backend
-      const res = await fetch("/api/aws/upload", {
+      const res = await fetch("/api/cloudflare/upload", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -494,7 +493,7 @@ async function updateQuestion(e: React.MouseEvent<HTMLButtonElement>) {
 
     try {
       // 1️⃣ CALL YOUR API (POST, not DELETE)
-      const res = await fetch("/api/aws/delete", {
+      const res = await fetch("/api/cloudflare/delete", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

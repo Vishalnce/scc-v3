@@ -194,8 +194,7 @@ function QuestionForm({ id, onSuccess, quesId, setQuesId }: QuestionFormProps) {
       }
 
       const result = await res.json();
-      console.log("Question updated successfully:", result);
-
+  
       onSuccess();
       resetQ({
         questionText: "",

@@ -6,7 +6,7 @@ export default function DataEntry() {
   return (
     <>
        {/* main div */}
-             <div className=" relative  rounded-2xl shadow border-1 border-[#CDE2E4] bg-[#CDE2E4] md:py-4 w-[90%] mx-auto max-w-[1400px]  my-4  ">
+             <div className=" relative  rounded-2xl shadow border-1 border-[#CDE2E4] bg-[#CDE2E4] md:py-4 w-[90%] mx-auto max-w-[1400px] mt-10  ">
                <div className="flex flex-row items-start justify-start md:justify-start md:pt-6 py-2  md:px-6 px-3 ">
                  {/* text  */}
                  <div className="  flex flex-col  justify-between  items-start md:gap-6 max-md:py-4 w-[70%] max-md:w-[70%] md:mt-8  max-md:pr-4  md:py-4  md:pl-12 ">

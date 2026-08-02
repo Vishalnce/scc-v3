@@ -1,7 +1,10 @@
+import { requireAdmin } from "@/lib/adminCheck";
 import db from "@/lib/db";
 import { NextResponse } from "next/server";
 
 export async function GET() {
+
+  await requireAdmin();
   const popups = await db.popup.findMany({
     orderBy: { type: "asc" },
   });
@@ -10,6 +13,7 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
+  await requireAdmin();
   const body = await req.json();
 
   const {

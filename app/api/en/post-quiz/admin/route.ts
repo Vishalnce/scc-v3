@@ -1,35 +1,48 @@
 import { NextResponse } from "next/server";
 import db from "@/lib/db";
+import { requireAdmin } from "@/lib/adminCheck";
 
 /**
  * CREATE QUESTION
  */
 export async function POST(req: Request) {
   try {
+
+    await requireAdmin();
     const body = await req.json();
 
     const {
-      blogId,
+      postId,
       questionText,
       options,
       solutionText,
       correctOption,
+      marksPositive,
+      marksNegative,
+      level,
     } = body;
 
-    if (!blogId) {
-      return NextResponse.json({ error: "blogId is required" }, { status: 400 });
+    if (!postId) {
+      return NextResponse.json(
+        { error: "postId is required" },
+        { status: 400 }
+      );
     }
 
-    const quiz = await db.blogQuiz.create({
+    const quiz = await db.postQuiz.create({
       data: {
         questionText,
         options,
         solutionText,
         correctOption,
+        marksPositive,
+        marksNegative,
+        level,
 
-        // ✅ FIX: relation handling
-        blog: {
-          connect: { id: blogId },
+        post: {
+          connect: {
+            id: Number(postId),
+          },
         },
       },
     });
@@ -37,7 +50,11 @@ export async function POST(req: Request) {
     return NextResponse.json(quiz);
   } catch (error) {
     console.error("Create quiz error:", error);
-    return NextResponse.json({ error: "Create failed" }, { status: 500 });
+
+    return NextResponse.json(
+      { error: "Create failed" },
+      { status: 500 }
+    );
   }
 }
 
@@ -45,48 +62,66 @@ export async function POST(req: Request) {
  * GET QUESTIONS
  */
 export async function GET(req: Request) {
+
+  await requireAdmin();
   try {
     const { searchParams } = new URL(req.url);
 
-    const blogIdParam = searchParams.get("blogId");
+    const postIdParam = searchParams.get("postId");
     const quesId = searchParams.get("quesId");
 
-    // 👉 Get single question
+    // GET SINGLE QUESTION
     if (quesId) {
-      const question = await db.blogQuiz.findUnique({
-        where: { id: quesId },
+      const question = await db.postQuiz.findUnique({
+        where: {
+          id: quesId,
+        },
       });
 
       if (!question) {
-        return NextResponse.json({ error: "Question not found" }, { status: 404 });
+        return NextResponse.json(
+          { error: "Question not found" },
+          { status: 404 }
+        );
       }
 
       return NextResponse.json(question);
     }
 
-    // 👉 Get all questions for a blog
-    if (blogIdParam) {
-      const blogId = parseInt(blogIdParam, 10);
+    // GET ALL QUESTIONS
+    if (postIdParam) {
+      const postId = Number(postIdParam);
 
-      if (isNaN(blogId)) {
-        return NextResponse.json({ error: "Invalid blogId" }, { status: 400 });
+      if (isNaN(postId)) {
+        return NextResponse.json(
+          { error: "Invalid postId" },
+          { status: 400 }
+        );
       }
 
-      const questions = await db.blogQuiz.findMany({
-        where: { blogId },
-        orderBy: { createdAt: "desc" },
+      const questions = await db.postQuiz.findMany({
+        where: {
+          postId,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
       });
 
       return NextResponse.json(questions);
     }
 
     return NextResponse.json(
-      { error: "Provide blogId or quesId" },
+      { error: "Provide postId or quesId" },
       { status: 400 }
     );
   } catch (error) {
     console.error("Fetch questions error:", error);
-    return NextResponse.json({ error: "Fetch failed" }, { status: 500 });
+
+    return NextResponse.json(
+      { error: "Fetch failed" },
+      { status: 500 }
+    );
   }
 }
 
@@ -95,21 +130,34 @@ export async function GET(req: Request) {
  */
 export async function DELETE(req: Request) {
   try {
+    await requireAdmin();
     const { searchParams } = new URL(req.url);
+
     const quesId = searchParams.get("quesId");
 
     if (!quesId) {
-      return NextResponse.json({ error: "quesId is required" }, { status: 400 });
+      return NextResponse.json(
+        { error: "quesId is required" },
+        { status: 400 }
+      );
     }
 
-    await db.blogQuiz.delete({
-      where: { id: quesId },
+    await db.postQuiz.delete({
+      where: {
+        id: quesId,
+      },
     });
 
-    return NextResponse.json({ message: "Deleted successfully" });
+    return NextResponse.json({
+      message: "Deleted successfully",
+    });
   } catch (error) {
     console.error("Delete error:", error);
-    return NextResponse.json({ error: "Delete failed" }, { status: 500 });
+
+    return NextResponse.json(
+      { error: "Delete failed" },
+      { status: 500 }
+    );
   }
 }
 
@@ -118,33 +166,46 @@ export async function DELETE(req: Request) {
  */
 export async function PATCH(req: Request) {
   try {
+    await requireAdmin();
     const body = await req.json();
 
     const {
       quesId,
-      blogId,
+      postId,
       questionText,
       options,
       solutionText,
       correctOption,
+      marksPositive,
+      marksNegative,
+      level,
     } = body;
 
     if (!quesId) {
-      return NextResponse.json({ error: "quesId is required" }, { status: 400 });
+      return NextResponse.json(
+        { error: "quesId is required" },
+        { status: 400 }
+      );
     }
 
-    const updatedQuestion = await db.blogQuiz.update({
-      where: { id: quesId },
+    const updatedQuestion = await db.postQuiz.update({
+      where: {
+        id: quesId,
+      },
       data: {
         questionText,
         options,
         solutionText,
         correctOption,
+        marksPositive,
+        marksNegative,
+        level,
 
-        //FIX: relation update
-        ...(blogId && {
-          blog: {
-            connect: { id: blogId },
+        ...(postId && {
+          post: {
+            connect: {
+              id: Number(postId),
+            },
           },
         }),
       },
@@ -153,6 +214,10 @@ export async function PATCH(req: Request) {
     return NextResponse.json(updatedQuestion);
   } catch (error) {
     console.error("Update question error:", error);
-    return NextResponse.json({ error: "Update failed" }, { status: 500 });
+
+    return NextResponse.json(
+      { error: "Update failed" },
+      { status: 500 }
+    );
   }
 }

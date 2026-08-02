@@ -40,7 +40,7 @@ export default function Current() {
   useEffect(() => {
     const fetchAffairs = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/current-affairs/client`);
+        const res = await fetch(`/api/en/current-affairs/client`);
         if (!res.ok) throw new Error("Failed to fetch current affairs");
         const data = await res.json();
 

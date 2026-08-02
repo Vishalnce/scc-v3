@@ -5,7 +5,7 @@ function Card2() {
   return (
 
     
-    <div className="bg-gradient-to-r from-[#289AA2] to-[#8CD6DB] rounded-2xl shadow pb-5 relative  md:min-h-[380px] ">
+    <div className="bg-gradient-to-r from-[#289AA2] to-[#8CD6DB] rounded-2xl shadow pb-5 relative  md:min-h-[400px] border-gradient-to-r">
       {/* main div */}
 
       <div className="flex flex-row items-center justify-center max-md:justify-start md:pt-10 pt-6 md:px-6 px-3">

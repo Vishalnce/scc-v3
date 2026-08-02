@@ -23,7 +23,7 @@ export default function QuizContainer() {
       try {
         setLoading(true);
 
-        const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/small-quiz/client`);
+        const res = await fetch(`/api/en/small-quiz/client`);
         if (!res.ok) throw new Error("Failed to fetch");
 
         const data: QuizAPI[] = await res.json();
@@ -60,7 +60,7 @@ export default function QuizContainer() {
   return (
     <>
       <div>
-        <div className="p-6 max-md:px-2 text-center max-w-[1400px] w-[90%] mx-auto flex flex-col items-center justify-center bg-[#F8FAFC]">
+        <div className="p-6 max-md:px-2 text-center max-w-[1400px] w-[90%] mx-auto flex flex-col items-center justify-center bg-[#F8FAFC] ">
           {/* gor heading */}
           <div>
             <p className="text-2xl font-bold"> Live Quiz</p>
