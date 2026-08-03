@@ -21,17 +21,20 @@ function Page() {
     <>
       <Hero />
       <MasterConcepts />
-      
+
       <Current />
-      <QuizContainer/>
-      <QuizCard />
-      <Editorial/>
-      <ProCard />
-      <Concept />
-      <TestSeriesCard />
-   
-      <DataEntry />
+
       <OneLiner />
+      <QuizContainer />
+      <QuizCard />
+      <Editorial />
+
+      <Concept />
+      <ProCard />
+
+      <TestSeriesCard />
+
+      <DataEntry />
 
       <AnnounceUpcoming />
       <Banner />

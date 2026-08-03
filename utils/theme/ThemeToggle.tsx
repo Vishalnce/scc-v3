@@ -7,12 +7,12 @@ export default function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
   return (
-    <div className=" rounded-full px-4 flex gap-4 py-2 bg-[#F4F4FC] max-md:hidden">
+    <div className=" rounded-full px-4 flex gap-4 py-2 bg-[#F4F4FC] max-md:hidden dark:bg-[#2A2829] ">
 
   {/* Light Button */}
   <button
     onClick={() => setTheme("light")}
-    className={`flex text-xl  rounded-full px-4 gap-2 items-center
+    className={`flex text-xl  rounded-full px-4 gap-2 items-center  dark:bg-[#2A2829] dark:text-white
     ${theme === "light" ? "bg-white" : ""}`}
   >
     <FaCircle className="text-amber-300" />
@@ -22,8 +22,8 @@ export default function ThemeToggle() {
   {/* Dark Button */}
   <button
     onClick={() => setTheme("dark")}
-    className={`flex text-xl  rounded-full px-4  gap-2 items-center 
-    ${theme === "dark" ? "bg-white" : ""}`}
+    className={`flex text-xl  rounded-full px-4  gap-2 items-center  
+    ${theme === "dark" ? "bg-white" : "dark:bg-[#141212] dark:text-white"}  `}
   >
     <IoMoon className="size-6" />
     <p>Dark</p>

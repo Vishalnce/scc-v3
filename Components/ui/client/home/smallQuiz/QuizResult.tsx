@@ -65,7 +65,7 @@ export default function QuizResult({ quizData, answers, onRestart }: Props) {
   const selectedMessage = messageShow[messageIndex];
 
   return (
-    <div className="md:p-6 max-md:py-4 max-md:px-4 mx-auto shadow-[0_0_12px_rgba(0,0,0,0.3)] max-md:w-[100%] w-[70%] bg-white rounded-2xl my-4">
+    <div className="md:p-6 max-md:py-4 max-md:px-4 mx-auto shadow-[0_0_12px_rgba(0,0,0,0.3)] max-md:w-[100%] w-[70%] bg-white dark:bg-[#141212] rounded-2xl my-4">
       {/* Ecellent good job and ineed imoprovement  */}
       <div className="flex flex-col items-center py-4">
         <div className="w-[4%]">
@@ -119,25 +119,25 @@ export default function QuizResult({ quizData, answers, onRestart }: Props) {
           <p className={`text-2xl font-bold ${color}`}>
             {correct}/{total}
           </p>
-          <p className="text-sm text-gray-500">{percentage}%</p>
+          <p className="text-sm text-gray-500 dark:text-white">{percentage}%</p>
         </div>
       </div>
 
       {/* 📊 Stats */}
       <div className="grid grid-cols-3 gap-4 mb-6 ">
-        <div className="bg-[#F8FAFC]  shadow-[0_0_4px_rgba(0,0,0,0.3)] rounded md:py-8 py-2  pt-4">
+        <div className="bg-[#F8FAFC] dark:bg-[#2D2B2B] shadow-[0_0_4px_rgba(0,0,0,0.3)] rounded md:py-8 py-2  pt-4">
           <p className="font-extrabold text-green-600 text-3xl">{correct}</p>
-          <p className="text-lg text-[#6F6F6F] max-md:text-sm">Correct</p>
+          <p className="text-lg text-[#6F6F6F] dark:text-white max-md:text-sm">Correct</p>
         </div>
 
-        <div className="bg-[#F8FAFC] shadow-[0_0_4px_rgba(0,0,0,0.3)] md:py-8  py-2  pt-4 rounded">
+        <div className="bg-[#F8FAFC] dark:bg-[#2D2B2B] shadow-[0_0_4px_rgba(0,0,0,0.3)] md:py-8  py-2  pt-4 rounded">
           <p className="font-bold text-3xl text-red-600 ">{incorrect}</p>
-          <p className="text-lg text-[#6F6F6F] max-md:text-sm">Incorrect</p>
+          <p className="text-lg text-[#6F6F6F] dark:text-white max-md:text-sm">Incorrect</p>
         </div>
 
-        <div className="bg-[#F8FAFC] shadow-[0_0_4px_rgba(0,0,0,0.3)] md:py-8  py-2 pt-2 rounded">
-          <p className="font-bold text-3xl text-gray-600">{notAttempted}</p>
-          <p className="text-lg text-[#6F6F6F] max-md:text-sm">Not Attempted</p>
+        <div className="bg-[#F8FAFC] dark:bg-[#2D2B2B] shadow-[0_0_4px_rgba(0,0,0,0.3)] md:py-8  py-2 pt-2 rounded">
+          <p className="font-bold text-3xl text-gray-600 dark:text-white">{notAttempted}</p>
+          <p className="text-lg text-[#6F6F6F] dark:text-white max-md:text-sm">Not Attempted</p>
         </div>
       </div>
 

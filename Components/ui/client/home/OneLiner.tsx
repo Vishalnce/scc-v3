@@ -5,6 +5,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { PiCircleBold } from "react-icons/pi";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 type Item = {
   id: number;
@@ -18,6 +19,8 @@ export default function OneLiner() {
     containScroll: "trimSnaps",
     align: "start",
   });
+
+  const { data: session, status } = useSession();
 
   const [items, setItems] = useState<Item[]>([]);
   const [canNext, setCanNext] = useState(false);
@@ -89,31 +92,49 @@ export default function OneLiner() {
   }
 
   return (
-    <div className="bg-white dark:bg-black">
-      <div className="max-w-[1400px]  flex flex-col mx-auto w-[90%] relative">
+    <div className="bg-white dark:bg-[#1f1f1f]">
+      <div className="max-w-[1400px]  flex flex-col mx-auto w-[90%] relative md:pb-12 ">
         {/* heading */}
         <header className="flex justify-between py-4 ">
-          <p className="text-3xl max-sm:text-2xl font-bold dark:text-white max-sm:w-[70%]">
+
+          <div className="flex flex-row gap-2">
+             <p className="text-3xl max-sm:text-2xl font-bold dark:text-white max-sm:w-[70%]  ">
             One-Liner Current Affairs
           </p>
 
+            {session?.user?.role === "ADMIN" ? (
+          <div className="w-[90%] dark:bg-[#191919] mx-auto m-6 max-md:hidden">
+            <Link href="/admin/one-liner ">
+              <div className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
+                Add One-Liner
+              </div>
+            </Link>
+          </div>
+        ) : (
+          ""
+        )}
+          </div>
+         
+
          <Link href={"/current-affairs"}>
-              <p className=" text-lg max-sm:text-sm  text-[#007076]   underline border-2">
+              <p className=" text-lg max-sm:text-sm  text-[#007076]   underline ">
                 View All
               </p>
+
+            
             </Link>
         </header>
 
         {/* carousel */}
         <div className="overflow-hidden mt-6" ref={emblaRef}>
-          <div className="flex gap-4">
+          <div className="flex gap-4 ">
             {loading ? (
               <p>Loading...</p>
             ) : (
               items.map((item, index) => (
                 <div
                   key={item.id}
-                  className="min-w-[40.333%] max-sm:min-w-[85%] pt-4  px-2 border-2 rounded-xl bg-[#F8FAFC] border-[#DADADA] flex flex-row gap-4 "
+                  className="min-w-[40.333%] max-sm:min-w-[85%] pt-4  px-2 border-2 rounded-xl bg-[#F8FAFC] border-[#DADADA] flex flex-row gap-4  dark:bg-[#474849] dark:text-white"
                 >
                   <div className="flex gap-3 items-start">
                     <span className="font-semibold text-3xl text-white bg-[#007076] px-2 py-2 rounded-xl">
@@ -124,7 +145,7 @@ export default function OneLiner() {
                   <div className="">
                     {" "}
                     <p className=" font-medium md:text-lg line-clamp-2">{item.content}</p>
-                    <p className="text-[#6F6F6F] max-md:text-sm mt-2 mb-4">
+                    <p className="text-[#6F6F6F] dark:text-white max-md:text-sm mt-2 mb-4">
                       {formatDate(item.createdAt)}
                     </p>
                   </div>

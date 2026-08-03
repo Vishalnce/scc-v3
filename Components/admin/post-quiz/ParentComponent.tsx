@@ -15,7 +15,7 @@ type PostType = {
   description: string;
   editorHtml: string;
   timeLimit:number;
-  timeToRead : string;
+  timeToRead : number;
   toc: string;
 };
 
@@ -36,11 +36,14 @@ function ParentComponent({
   }
 }, [postId]);
 
+
   return (
 
 
   <>
   <PostForm  post={post} setPostId={setPostId} />
+
+  
 
   <QuestionWarpper id={postId ?? editPostId ?? null} />
 

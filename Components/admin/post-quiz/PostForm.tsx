@@ -22,7 +22,7 @@ type PostType = {
   description: string;
   editorHtml: string;
   timeLimit: number;
-  timeToRead: string;
+  timeToRead: number;
   toc: string;
 };
 const options = [
@@ -366,6 +366,8 @@ export default function Page({
     setValue("editorHtml", editorData.html);
     setValue("toc", JSON.stringify(editorData.toc));
   }, [editorData, setValue]);
+
+  // console.log("Editor Data:", editorData.html);
 
   // for editor
   useEffect(() => {

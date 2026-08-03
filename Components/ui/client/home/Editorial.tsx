@@ -106,7 +106,7 @@ export default function Editorial() {
   ];
 
   return (
-    <div className="">
+    <div className=" dark:bg-[#1f1f1f]">
       <div className="max-w-[1400px]  md:pt-8 flex flex-col mx-auto  w-[90%]  relative">
         {/* heading */}
         <header className="flex flex-row justify-between items-center  ">
@@ -129,8 +129,8 @@ export default function Editorial() {
         </header>
 
         {/* main body */}
-        <div
-          className="overflow-hidden my-2 md:my-16 dark:bg-black pb-6   "
+         <div
+          className="overflow-hidden my-2 md:my-16  pb-6   "
           ref={emblaRef}
         >
           <div className="flex">
@@ -139,7 +139,7 @@ export default function Editorial() {
               Array.from({ length: 3 }).map((_, index) => (
                 <div
                   key={index}
-                  className="min-w-[33.333%] max-sm:min-w-[90%] px-2 max-sm:pr-8"
+                  className="min-w-[33.333%] max-sm:min-w-[90%] px-2 max-sm:pr-8  "
                 >
                   <div className="border-2 px-6 py-4 flex flex-col animate-pulse">
                     {/* image */}
@@ -180,12 +180,12 @@ export default function Editorial() {
 
                 return (
                   <Link
-                    href={`/editorial-page/${item.slug}`}
-                    className="min-w-[33.333%] max-sm:min-w-[90%] px-2 max-sm:pr-3 "
+                    href={`/current-affairs-page/${item.slug}`}
+                    className="min-w-[33.333%] max-sm:min-w-[90%] px-2 max-sm:pr-3  "
                     key={index}
                   >
                     <div
-                      className={`border-2 px-6 max-md:px-3 py-4 flex flex-col transition-all duration-300  ${color.border} ${color.bg} rounded-xl`}
+                      className={`border-2 px-6 max-md:px-3 py-4 flex flex-col transition-all duration-300  ${color.border} ${color.bg} rounded-xl dark:text-white  dark:bg-[#2A2829]`}
                     >
                       {/* image */}
                       <div className="w-full h-48 relative ">
@@ -198,14 +198,14 @@ export default function Editorial() {
                       </div>
 
                       {/* heading */}
-                      <p className="text-lg sm:text-xl font-semibold py-3 sm:py-4 leading-snug  max-md:min-h-[100px] overflow-hidden">
+                      <p className="text-lg sm:text-xl font-semibold py-3 sm:py-4 leading-snug  max-md:min-h-[100px] overflow-hidden ">
                         {item.title}
                       </p>
 
                       {/* tag */}
                       <div>
                         <p
-                          className={`text-lg py-1 px-4 rounded-full inline-flex whitespace-nowrap max-md:text-sm ${color.tagbg}`}
+                          className={`text-lg py-1 px-4 rounded-full inline-flex whitespace-nowrap max-md:text-sm ${color.tagbg} dark:bg-[#474849]`}
                         >
                           {item.topic}
                         </p>
@@ -217,14 +217,14 @@ export default function Editorial() {
                       ></span>
 
                       {/* summary */}
-                      <p className="line-clamp-2 max-md:line-clamp-3 max-md:text-sm text-lg text-[#6F6F6F]">
+                      <p className="line-clamp-2 max-md:line-clamp-3 max-md:text-sm text-lg text-[#6F6F6F] dark:text-white">
                         {item.summary}
                       </p>
 
                       {/* date & time */}
                       <div className="flex justify-between py-2">
                         <div
-                          className={`flex items-center gap-2 rounded-3xl px-4 py-2 ${color.tagbg} whitespace-nowrap`}
+                          className={`flex items-center gap-2 rounded-3xl px-4 py-2 ${color.tagbg} whitespace-nowrap dark:bg-[#474849]`}
                         >
                           <SlCalender />
                           <p className="max-md:text-xs">
@@ -240,7 +240,7 @@ export default function Editorial() {
                         </div>
 
                         <div
-                          className={`flex items-center gap-2 rounded-3xl px-4 py-2 ${color.tagbg} whitespace-nowrap`}
+                          className={`flex items-center gap-2 rounded-3xl px-4 py-2 ${color.tagbg} whitespace-nowrap dark:bg-[#474849]`}
                         >
                           <CiClock2 className="size-5" />
                           <p className="max-md:text-xs whitespace-nowrap">

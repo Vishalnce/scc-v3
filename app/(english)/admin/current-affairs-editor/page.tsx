@@ -23,5 +23,7 @@ export default async function AdminEditorPage({
   editPostId = post?.id || null;
   // trhis is editor for post
 
+
+
   return <ParentComponent post={post} editPostId={editPostId} />;
 }

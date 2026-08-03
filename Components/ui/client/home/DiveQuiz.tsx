@@ -143,8 +143,8 @@ const Tier2: any = [
   const [tierChange, setTierChange] = useState<"for-tier1" | "for-tier2">(
     "for-tier1",
   );  return (
-    <>
-      <div className="max-w-[1400px] pt-8 max-md:pt-0 flex flex-col mx-auto w-[90%] ">
+    <>  <div className="bg-[#F4F4FC] dark:bg-[#1f1f1f] dark:text-white ">
+        <div className="max-w-[1400px] pt-8 max-md:pt-0 flex flex-col mx-auto w-[90%]  ">
         {/* heading */}
 
         <header className="flex flex-row max-md:flex-col max-md:justify-startw justify-between items-center   max-sm:px-0  ">
@@ -214,7 +214,7 @@ const Tier2: any = [
                 return (
                   <div
                     key={index}
-                    className={`flex flex-row items-center justify-between py-2 rounded-xl px-6 ${item.border} ${item.bg}`}
+                    className={`flex flex-row items-center justify-between py-2 rounded-xl px-6 ${item.border} ${item.bg} dark:bg-[#353535]`}
                   >
                     {/* Left Section */}
                     <div className="flex flex-row w-[70%] gap-4">
@@ -229,7 +229,7 @@ const Tier2: any = [
 
                     {/* Right Arrow */}
                     <div
-                      className={`bg-white rounded-full p-3  flex items-center justify-center`}
+                      className={`bg-white dark:bg-[#141212] rounded-full p-3  flex items-center justify-center`}
                     >
                       <RiArrowRightWideLine className={`${item.textbg} size-6 `} />
                     </div>
@@ -247,7 +247,7 @@ const Tier2: any = [
                 return (
                   <div
                     key={index}
-                    className={`flex flex-row items-center justify-between py-2 rounded-xl px-6 ${item.border} ${item.bg}`}
+                    className={`flex flex-row items-center justify-between py-2 rounded-xl px-6 ${item.border} ${item.bg} dark:bg-[#353535]`}
                   >
                     {/* Left Section */}
                     <div className="flex flex-row w-[70%] gap-4">
@@ -262,7 +262,7 @@ const Tier2: any = [
 
                     {/* Right Arrow */}
                     <div
-                      className={`bg-white rounded-full p-3  flex items-center justify-center`}
+                      className={`bg-white dark:bg-[#141212] rounded-full p-3  flex items-center justify-center`}
                     >
                       <RiArrowRightWideLine className={`${item.textbg} size-6 `} />
                     </div>
@@ -274,6 +274,9 @@ const Tier2: any = [
           )}
         </main>
       </div>
+
+    </div>
+    
     </>
   );
 }

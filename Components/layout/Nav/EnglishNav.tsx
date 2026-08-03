@@ -44,7 +44,7 @@ function Nav() {
 
   return (
     <>
-      <nav className="bg-white  w-full sticky z-50   top-0   ">
+      <nav className="bg-white  w-full sticky z-50   top-0 dark:bg-[#141212]  ">
         <div className=" px-4 py-2">
           <div className="  flex flex-row justify-between items-center mx-auto  py-1  md:w-[95%] ">
             {/* small screen toggle menu button */}
@@ -69,25 +69,26 @@ function Nav() {
                   unstyled
                   classNames={{
                     control: () =>
-                      "flex items-center rounded-full border border-gray-300 bg-[#F4F4FC] px-3 py-1",
+                      "flex items-center rounded-full border border-gray-300 bg-[#F4F4FC] dark:border-gray-700 dark:bg-[#1F1F1F] px-3 py-1",
 
-                    valueContainer: () => " text-[#4E4E4E] font-semibold",
+                    valueContainer: () =>
+                      "text-[#4E4E4E] dark:text-gray-200 font-semibold",
 
                     menu: () =>
-                      "mt-1 rounded-md border border-gray-200 bg-white shadow-lg",
+                      "mt-1 rounded-md border border-gray-200 bg-white dark:border-gray-700 dark:bg-[#1F1F1F] shadow-lg",
 
                     option: ({ isFocused, isSelected }) =>
-                      `px-3 py-2 text-sm cursor-pointer ${
+                      `px-3 py-2 text-sm cursor-pointer text-black dark:text-white ${
                         isSelected
-                          ? "bg-gray-200"
+                          ? "bg-gray-200 dark:bg-gray-700"
                           : isFocused
-                            ? "bg-gray-100"
+                            ? "bg-gray-100 dark:bg-gray-800"
                             : ""
                       }`,
 
                     indicatorSeparator: () => "hidden",
 
-                    dropdownIndicator: () => " ",
+                    dropdownIndicator: () => "text-black dark:text-white",
                   }}
                 />
               </div>
@@ -97,7 +98,7 @@ function Nav() {
 
             <div className="flex flex-row justify-around items-center space-x-2 mx-2">
               {/* bell button */}
-                  <EnglishNoti/>
+              <EnglishNoti />
               <ThemeToggle />
               {/* pro and basic */}
               <div className="  rounded-full px-4 flex flex-row gap-4 bg-[#FFE5F4] py-1.5 max-lg:hidden">

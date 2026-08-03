@@ -59,12 +59,12 @@ export default function QuizContainer() {
 
   return (
     <>
-      <div>
-        <div className="p-6 max-md:px-2 text-center max-w-[1400px] w-[90%] mx-auto flex flex-col items-center justify-center bg-[#F8FAFC] ">
+      <div className=" dark:bg-[#353535]">
+        <div className="p-6 max-md:px-2 text-center max-w-[1400px] w-[90%] mx-auto flex flex-col items-center justify-center  dark:bg-[#353535] ">
           {/* gor heading */}
-          <div>
+          <div className = " dark:text-white">
             <p className="text-2xl font-bold"> Live Quiz</p>
-            <p className="text-[#6F6F6F]">Your Daily Exam Prep Partner</p>
+            <p className="text-[#6F6F6F] dark:text-white">Your Daily Exam Prep Partner</p>
           </div>
           {step === "intro" && (
             <QuizIntro total={quizData.length} onStart={handleStart} />

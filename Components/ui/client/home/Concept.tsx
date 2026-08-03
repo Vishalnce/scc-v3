@@ -19,25 +19,38 @@ export default async function Concept() {
   }
   const conceptData = await fetchSmallConcept();
   const item = conceptData?.post?.[0] ?? null;
+  const session = await getServerSession(NEXT_AUTH);
 
   return (
     <>
-      <div className="bg-[#F8FAFC] py-8">
+      <div className="bg-[#F8FAFC] dark:bg-[#353535]  py-10">
         <div className="max-w-[1400px] mx-auto w-[70%] max-md:w-[90%] flex flex-col items-center md:gap-4 ">
-          <p className="text-2xl font-bold max-md:mt-4">
+          <p className="text-2xl font-bold max-md:mt-4 dark:text-white">
             Today's Concepts for SSC
           </p>
-          <p className="text-[#6F6F6F]">Stay Updated with all the Concepts</p>
+          <p className="text-[#6F6F6F] dark:text-white">Stay Updated with all the Concepts</p>
 
-          <div className="w-full bg-white md:px-4 max-md:px-2 py-6 rounded-lg shadow-sm flex flex-col gap-4">
+          <div className="w-full bg-white md:px-4 dark:bg-[#141212] max-md:px-2 py-6 rounded-lg shadow-sm flex flex-col gap-4">
             <div
-              className="prose max-w-none"
+              className="prose max-w-none dark:text-white dark:bg-[#141212]"
               dangerouslySetInnerHTML={{ __html: item?.content || "" }}
             />
 
             <button className="w-full bg-[#047077] rounded-full py-2 text-white">
               Read More
             </button>
+
+            {session?.user?.role === "ADMIN" ? (
+          <div className="w-[90%] dark:bg-[#191919] mx-auto m-6 max-md:hidden">
+            <Link href="/admin/small-concepts ">
+              <div className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
+                Add Concept
+              </div>
+            </Link>
+          </div>
+        ) : (
+          ""
+        )}
           </div>
         </div>
       </div>

@@ -40,12 +40,12 @@ const handleSelect = (option: string) => {
   };
 
   return (
-    <div className="md:p-6 max-md:py-4 max-md:px-2 mx-auto shadow-[0_0_12px_rgba(0,0,0,0.3)] max-md:w-[100%] w-[70%] bg-white rounded-2xl my-4">
+    <div className="md:p-6 max-md:py-4 max-md:px-2 mx-auto shadow-[0_0_12px_rgba(0,0,0,0.3)] max-md:w-[100%] w-[70%] bg-white dark:bg-[#141212] dark:text-white rounded-2xl my-4">
       {/* Progress */}
       <p className="text-sm text-left text-gray-500 mb-2">
         {current + 1} / {quizData.length}
       </p>
-      <div className=" bg-gray-200 h-2 w-[60%] rounded mb-4 mx-auto">
+      <div className=" bg-gray-200 dark:bg-[#F8FAFC1A] h-2 w-[60%] rounded mb-4 mx-auto">
         <div
           className="bg-[#047077] h-2 rounded"
           style={{
@@ -66,7 +66,7 @@ const handleSelect = (option: string) => {
       <button
         key={index}
         onClick={() => handleSelect(option)}
-        className="w-full flex justify-between items-center px-4 py-3 border-1 border-[#DADADA]  shadow-[0_0_2px_rgba(0,0,0,0.3)]  rounded-xl transition hover:bg-gray-50"
+        className="w-full flex justify-between items-center px-4 py-3 border-1 border-[#DADADA]  shadow-[0_0_2px_rgba(0,0,0,0.3)]  rounded-xl transition hover:bg-gray-50 dark:hover:bg-[#2D2B2B]"
       >
         {/* Option text */}
         <span className="text-left">{option}</span>

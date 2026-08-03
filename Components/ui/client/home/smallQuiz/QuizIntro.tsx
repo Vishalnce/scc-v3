@@ -1,3 +1,5 @@
+import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { AiOutlineThunderbolt } from "react-icons/ai";
 
 type Props = {
@@ -8,12 +10,13 @@ type Props = {
 export default function QuizIntro({ total, onStart }: Props) {
   const duration = 10; // minutes (dummy)
 
+  const { data: session, status } = useSession();
   return (
     <>
 
         {/*  card  banner */}
 
-        <div className="w-[70%] bg-white  my-4 flex flex-col justify-center px-4  max-md:w-full">
+        <div className="w-[80%] bg-white dark:bg-[#141212] dark:text-white  my-4 flex flex-col justify-center rounded-xl p-10 max-md:w-full">
           <div className=" flex flex-row justify-between gap-2  my-4">
             <div className="flex flex-row gap-4 ">
               <div className="bg-[#047077] rounded-xl p-auto max-sm:h-16">
@@ -22,33 +25,53 @@ export default function QuizIntro({ total, onStart }: Props) {
 
               <div className="flex flex-col text-start">
                 <p className="font-bold text-2xl ">Quick Quiz </p>
-                <p className="text-[#6F6F6F] max-md:text-sm"> Knowledge Check </p>
+                <p className="text-[#6F6F6F] dark:text-white max-md:text-sm"> Knowledge Check </p>
               </div>
+
+              
             </div>
 
-            <div className="bg-[#F4F4FC] px-4 py-1 rounded-xl flex items-center gap-2 h-8">
+
+            <div className="bg-[#F4F4FC] px-4 py-1 rounded-xl flex items-center dark:bg-[#353535] gap-2 h-8">
               <span className="w-3 h-3 rounded-full bg-[#11C352] inline-block"></span>
               Live
             </div>
           </div>
 
-          <div className="flex flex-row justify-start my-4">
-            <p>
-              {" "}
-              <span className="font-semibold p-2 bg-[#EEF5FF] text-[#24B3CB] rounded-full">
-                {total}
-              </span>{" "}
-              Questions
+          <div className="flex flex-row justify-start my-4   ">
+            <p className =" flex flex-row gap-4">
+           
+             <div className="w-8 h-8 flex items-center justify-center rounded-full bg-[#EEF5FF] text-[#24B3CB] font-semibold">
+  {total}
+</div>
+              <p className = "my-auto">     Questions </p>
+             
+         
             </p>
           </div>
 
-          <div className="">
+          <div className=" ">
             <button
               onClick={onStart}
               className="bg-[#047077] text-white rounded-2xl py-2 px-4 w-full"
             >
               Start Quiz
             </button>
+
+             {/* Admin Button */}
+        {session?.user?.role === "ADMIN" ? (
+          <div className="w-[90%] dark:bg-[#191919] mx-auto m-6 max-md:hidden">
+            <Link href="/admin/small-quiz ">
+              <div className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
+                Add quiz
+              </div>
+            </Link>
+          </div>
+        ) : (
+          ""
+        )}
+
+           
           </div>
         </div>
         {/* <h2 className="text-2xl font-bold">Quiz</h2>
