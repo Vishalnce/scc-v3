@@ -5,7 +5,7 @@ function ProCard() {
   return (
     <>
       <div className="bg-[#F8FAFC] dark:bg-[#353535]  py-10">
-        <div className=" mx-auto  bg-[#353535] w-[90%] max-w-[1400px]  flex rounded-xl flex-col my-4 border-1 pb-4 border-[#DADADA] dark:border-0">
+        <div className=" mx-auto  dark:bg-[#353535] w-[90%] max-w-[1400px]  flex rounded-xl flex-col my-4 border-1 pb-4 border-[#DADADA] dark:border-0">
           {/* head */}
           <div className="w-full flex items-center px-8 py-2 bg-[#E6F1F2] dark:bg-[#292828]  rounded-t-xl gap-6 max-md:gap-4">
             {/* icon */}

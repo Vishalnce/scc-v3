@@ -98,7 +98,7 @@ export default function Footer() {
 
   return (
     <>
-      <div className="bg-[#E6F1F2]">
+      <div className="bg-[#E6F1F2] dark:bg-[#333434]">
         <div className="max-w-[1400px] mx-auto  w-[90%] ">
           <div className="flex flex-row justify-between max-md:flex-col items-start py-12 max-md:py-8  ">
             {/* 1st box */}
@@ -115,7 +115,7 @@ export default function Footer() {
               </div>
 
               {/* description  */}
-              <div className="text-[#6F6F6F] ">
+              <div className="text-[#6F6F6F] dark:text-white ">
                 <p className="py-6  text-md  w-[70%] font-normal  max-md:w-[90%]">
                   SSC ExamLife is a part of the ExamLife Series. Your complete
                   prepration platform for ssc cgl Exam..
@@ -146,11 +146,11 @@ export default function Footer() {
             <div className=" flex flex-row max-md:flex-col max-md:w-[100%] justify-between items-start  gap-4  w-[60%]">
               {/*  */}
               <div className="flex flex-col">
-                <p className="py-2 font-bold"> Concepts </p>
+                <p className="py-2 font-bold dark:text-white"> Concepts </p>
 
                 {concepts.map((items, index) => (
                   <Link key={index} href={items.link}>
-                    <p className=" text-[#6F6F6F]  py-1">{items.topic}</p>
+                    <p className=" text-[#6F6F6F] dark:text-white  py-1">{items.topic}</p>
                   </Link>
                 ))}
               </div>
@@ -158,11 +158,11 @@ export default function Footer() {
               {/* quiz  */}
 
               <div className="flex flex-col">
-                <p className="py-2 font-bold">Quiz</p>
+                <p className="py-2 font-bold dark:text-white">Quiz</p>
 
                 {quiz.map((items, index) => (
                   <Link key={index} href={items.link}>
-                    <p className=" text-[#6F6F6F] py-1">{items.topic}</p>
+                    <p className=" text-[#6F6F6F] dark:text-white py-1">{items.topic}</p>
                   </Link>
                 ))}
               </div>
@@ -170,11 +170,11 @@ export default function Footer() {
               {/* Quick LInks  */}
 
               <div className="flex flex-col">
-                <p className="py-2 font-bold">Quick Links</p>
+                <p className="py-2 font-bold dark:text-white">Quick Links</p>
 
                 {quickLinks.map((items, index) => (
                   <Link key={index} href={items.link}>
-                    <p className=" text-[#6F6F6F] py-1">{items.topic}</p>
+                    <p className=" text-[#6F6F6F] dark:text-white py-1">{items.topic}</p>
                   </Link>
                 ))}
               </div>

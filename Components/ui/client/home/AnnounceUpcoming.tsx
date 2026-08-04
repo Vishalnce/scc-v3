@@ -39,20 +39,15 @@ export default async function AnnounceUpcoming() {
 
   return (
     <>
-      <div className="bg-white dark:bg-black">
+      <div className="bg-white dark:bg-[#303333]">
         <div className="max-w-[1400px]  w-[90%] mx-auto py-16 max-md:py-12">
           <div className="flex flex-row justify-between items-center max-md:flex-col max-md:gap-8">
             {/* announcment card */}
             <div className=" w-[46%] max-md:w-[100%] border-1 border-[#DADADA] rounded-xl pb-6 md:px-6 px-2">
               {/* heading */}
               <div className="   rounded-t-xl flex flex-row  gap-4  py-2  w-full">
-                <p className=" text-2xl font-semibold"> Announcement</p>
-              </div>
-
-              {/* body  */}
-
-              <div className="  space-y-3 max-h-[210px] overflow-y-auto  md:px-6 rounded-b-lg dark:bg-[#313131]  ">
-                {/* {session?.user?.role === "ADMIN" ? (
+                <p className=" text-2xl dark:text-white font-semibold"> Announcement</p>
+                  {session?.user?.role === "ADMIN" ? (
                   <div className="w-[90%]  max-md:hidden">
                     <Link href="/admin/announcement ">
                       <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
@@ -62,11 +57,17 @@ export default async function AnnounceUpcoming() {
                   </div>
                 ) : (
                   ""
-                )} */}
+                )}
+              </div>
+
+              {/* body  */}
+
+              <div className="  space-y-3 max-h-[280px] overflow-y-auto  md:px-6 rounded-b-lg dark:bg-[#313131]  ">
+              
                 {post.map((item: any, index: number) => (
                   <div
                     key={item.id}
-                    className="flex flex-row justify-between gap-3 w-full my-4 px-2 md:px-4 py-2 rounded-2xl shadow "
+                    className="flex flex-row justify-between gap-3 w-full my-4 px-2 md:px-4 py-2 rounded-2xl shadow dark:bg-[#141212]  dark:text-white"
                   >
                     <p className=" my-auto flex items-center justify-center  font-bold dark:border-white text-xl md:text-3xl text-white bg-[#047077] md:p-3 p-2 rounded-full">
                       {(index + 1).toString().padStart(2, "0")}
@@ -91,30 +92,31 @@ export default async function AnnounceUpcoming() {
             </div>
 
             {/* upcoming exam as notice */}
-            <div className=" w-[46%] max-md:w-[100%] border-1 border-[#DADADA] rounded-xl pb-6 md:px-6 px-2">
+            <div className=" w-[46%] max-md:w-[100%] border-1 border-[#DADADA] rounded-xl pb-6 md:px-6 px-2 dark:bg-[#313131] ">
               {/* heading */}
               <div className="   rounded-t-xl flex flex-row  gap-4  py-2  w-full">
-                <p className=" text-2xl font-semibold">Upcoming Exam</p>
-              </div>
-
-              {/* body  */}
-
-              <div className="  space-y-3 max-h-[210px] overflow-y-auto  md:px-6 rounded-b-lg dark:bg-[#313131]  ">
-                {/* {session?.user?.role === "ADMIN" ? (
+                <p className=" text-2xl font-semibold dark:text-white">Upcoming Exam</p>
+                  {session?.user?.role === "ADMIN" ? (
                   <div className="w-[90%]  max-md:hidden">
-                    <Link href="/admin/announcement ">
+                    <Link href="/admin/notice ">
                       <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
-                        Edit Announcements
+                        Edit Upcoming Exam
                       </button>
                     </Link>
                   </div>
                 ) : (
                   ""
-                )} */}
+                )}
+              </div>
+
+              {/* body  */}
+
+              <div className="  space-y-3 max-h-[280px] overflow-y-auto  md:px-6 rounded-b-lg dark:bg-[#313131]  ">
+              
                 {noticePost.map((item: any, index: number) => (
                   <div
                     key={item.id}
-                    className="flex flex-row justify-between gap-3 w-full my-4 px-2 md:px-4 py-2 rounded-2xl shadow "
+                    className="flex flex-row justify-between gap-3 w-full my-4 px-2 md:px-4 py-2 rounded-2xl shadow dark:bg-[#141212]  dark:text-white"
                   >
                     <p className=" my-auto flex items-center justify-center  font-bold dark:border-white text-xl md:text-3xl text-white bg-[#047077] md:p-3 p-2 rounded-full">
                       {(index + 1).toString().padStart(2, "0")}

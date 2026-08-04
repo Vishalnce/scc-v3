@@ -102,17 +102,7 @@ export default function OneLiner() {
             One-Liner Current Affairs
           </p>
 
-            {session?.user?.role === "ADMIN" ? (
-          <div className="w-[90%] dark:bg-[#191919] mx-auto m-6 max-md:hidden">
-            <Link href="/admin/one-liner ">
-              <div className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
-                Add One-Liner
-              </div>
-            </Link>
-          </div>
-        ) : (
-          ""
-        )}
+            
           </div>
          
 
