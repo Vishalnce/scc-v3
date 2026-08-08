@@ -102,7 +102,7 @@ function Nav() {
               <ThemeToggle />
               {/* pro and basic */}
               <div className="  rounded-full px-4 flex flex-row gap-4 bg-[#FFE5F4] py-1.5 max-lg:hidden">
-                <button className="flex text-xl  rounded-full px-4 bg-gradient-to-r from-[#9F38D6] to-[#D63895] space-x-2 py-1">
+                <button className="flex text-xl  rounded-full px-4 bg-linear-to-r from-[#9F38D6] to-[#D63895] space-x-2 py-1">
                   {" "}
                   <LuCrown className="my-auto text-white  size-5" />{" "}
                   <p className="my-auto text-white "> Pro Pass</p>
@@ -119,7 +119,7 @@ function Nav() {
               {status === "authenticated" ? (
                 <div>
                   <button
-                    className="px-6 py-0.5 pb-1  border-[#007076] rounded-lg bg-my-green text-white max-lg:text-md max-sm:px-2  max-md:hidden "
+                    className="px-6 py-0.5 pb-1  border-my-green rounded-lg bg-my-green text-white max-lg:text-md max-sm:px-2  max-md:hidden "
                     onClick={() => {
                       signOut();
                     }}
@@ -213,7 +213,7 @@ function Nav() {
       </div>
 
       {/* side menu for small screen  */}
-      {isOpen ? <> </> : <EnglishMobMenu />}
+      {isOpen ? <> </> : <EnglishMobMenu setIsOpenMobile={setIsOpen} />}
     </>
   );
 }

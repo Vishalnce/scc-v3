@@ -9,12 +9,12 @@ function EnglishHindi() {
   const isHindi = pathname.startsWith("/hi");
 
   return (
-    <div className="rounded-full  flex  justify-between gap-2 bg-[#F4F4FC] py-2 px-6">
+    <div className="rounded-full  flex  justify-between gap-2 bg-[#F4F4FC] py-2 px-6 dark:bg-black dark:text-white ">
 
       {/* English */}
       <Link
         href="/"
-        className={`px-10 py-1 rounded-full text-sm transition
+        className={`px-10 py-1 rounded-full text-sm transition dark:bg-black
         ${!isHindi ? "bg-white" : "text-black"}`}
       >
         English
@@ -23,7 +23,7 @@ function EnglishHindi() {
       {/* Hindi */}
       <Link
         href="/hi"
-        className={`px-10 py-1 rounded-full text-sm transition
+        className={`px-10 py-1 rounded-full text-sm transition dark:bg-black dark:text-white
         ${isHindi ? "bg-white" : "text-black"}`}
       >
         हिंदी

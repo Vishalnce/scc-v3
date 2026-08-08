@@ -37,8 +37,8 @@ import MobileThemeToggle from "./MobileThemeToggle";
 import EnglishHindi from "./EnglishHindi";
 
 
-function EnglishMobMenu() {
-  const [isOpen, setIsOpen] = useState(true);
+function EnglishMobMenu( { setIsOpenMobile } : { setIsOpenMobile: (isOpen: boolean) => void })  {
+
   const [activeTag, setActiveTag] = useState<string | null>(null);
 
   const [subMenu, setSubMenu] = useState<string | null>(null);
@@ -52,9 +52,9 @@ function EnglishMobMenu() {
 
   return (
     <>
-      <div className="fixed top-[65px] left-0 w-full h-[100vh] border-2 bg-white z-50 flex flex-col items-center gap-2  ">
+      <div className="fixed dark:bg-[#262626] top-[65px] pt-2 left-0 w-full h-[100vh]  bg-white z-50 flex flex-col items-center gap-2  ">
         {/* cureent affais */}
-        <div className=" w-[85%] ">
+        <div className=" w-[85%] dark:bg-black dark:text-white rounded-xl px-2 ">
           <div
             className=" rounded-xl  shadow flex flex-row justify-between py-2 px-2 "
             onClick={() => handleClick("mini-current-affairs")}
@@ -70,19 +70,24 @@ function EnglishMobMenu() {
           </div>
 
           {activeTag === "mini-current-affairs" && (
-            <div className="flex flex-col items-center  w-[100%] togle py-4 space-y-2">
+            <div className="flex flex-col items-center  w-[100%] togle py-4 space-y-2 ">
               <Link
                 href={"/current-affairs"}
                 className="w-full shadow pl-9 py-1"
               >
                 <button
-                  onClick={() => {
-                    setIsOpen(!isOpen);
+                  onClick={(e) => {
+              
+                 
+                    setIsOpenMobile(true);
                   }}
+
+
+
                   className=" hover:text-[#007076]    rounded-xl  "
                 >
                   {" "}
-                  <p className=" text-sm text-[#6F6F6F]">
+                  <p className=" text-sm text-[#6F6F6F] dark:text-white">
                     {" "}
                     Details Current Affairs{" "}
                   </p>
@@ -91,13 +96,14 @@ function EnglishMobMenu() {
 
               <Link href={"/one-liner"} className="w-full shadow pl-9 py-1">
                 <button
-                  onClick={() => {
-                    setIsOpen(!isOpen);
+                  onClick={(e) => {
+               
+                     setIsOpenMobile(true);
                   }}
                   className=" hover:text-[#007076]    rounded-xl "
                 >
                   {" "}
-                  <p className=" text-sm text-[#6F6F6F]">
+                  <p className=" text-sm text-[#6F6F6F] dark:text-white">
                     {" "}
                     One Liner Current Affairs{" "}
                   </p>
@@ -106,13 +112,15 @@ function EnglishMobMenu() {
 
                  <Link href={"/editorial"} className="w-full shadow pl-9 py-1">
                 <button
-                  onClick={() => {
-                    setIsOpen(!isOpen);
+                  onClick={(e) => {
+                
+              
+                     setIsOpenMobile(true);
                   }}
                   className=" hover:text-[#007076]    rounded-xl "
                 >
                   {" "}
-                  <p className=" text-sm text-[#6F6F6F]">
+                  <p className=" text-sm text-[#6F6F6F] dark:text-white">
                     {" "}
                     Editorials{" "}
                   </p>
@@ -123,13 +131,13 @@ function EnglishMobMenu() {
         </div>
 
         {/* MIni-Concepts */}
-        <div className=" w-[85%] space-y-2 ">
+        <div className=" w-[85%] space-y-2  dark:bg-black dark:text-white rounded-xl px-2">
           <div
             className=" rounded-xl  shadow flex flex-row justify-between py-2 px-2 "
             onClick={() => handleClick("mini-pre-concepts")}
           >
             <div className="flex flex-row gap-2 ">
-              <div className="bg-white p-1 rounded-full shadow-[0_0_6px_rgba(0,0,0,0.4)] my-auto ">
+              <div className=" p-1  my-auto ">
                    <LuBookOpen className="my-auto size-5" />
               </div>
            
@@ -169,7 +177,7 @@ function EnglishMobMenu() {
                           subject: "quantitative-apptitude",
                         },
                       }}
-                      onClick={() => setIsOpen(!isOpen)}
+                onClick={() => setIsOpenMobile(true)}
                       className=" shadow rounded-xl py-4 pl-16  w-full"
                     >
                       {" "}
@@ -184,7 +192,7 @@ function EnglishMobMenu() {
                           subject: "reasoning-general",
                         },
                       }}
-                      onClick={() => setIsOpen(!isOpen)}
+                  
                       className=" shadow rounded-xl py-4 pl-14  w-full"
                     >
                       <p className=""> Reasoning & General Intelligence</p>
@@ -198,7 +206,7 @@ function EnglishMobMenu() {
                           subject: "english-comprehension",
                         },
                       }}
-                      onClick={() => setIsOpen(!isOpen)}
+                        onClick={() => setIsOpenMobile(true)}
                       className=" shadow rounded-xl py-4 pl-14  w-full"
                     >
                       <p className=" ">English Comprehension </p>
@@ -212,7 +220,7 @@ function EnglishMobMenu() {
                           subject: "general-awareness",
                         },
                       }}
-                      onClick={() => setIsOpen(!isOpen)}
+                        onClick={() => setIsOpenMobile(true)}
                       className=" shadow rounded-xl py-4 pl-14  w-full"
                     >
                       <p className=" ">General Awareness </p>
@@ -248,7 +256,7 @@ function EnglishMobMenu() {
                           subject: "mathematical-abilities",
                         },
                       }}
-                      onClick={() => setIsOpen(!isOpen)}
+                        onClick={() => setIsOpenMobile(true)}
                       className=" shadow rounded-xl py-4 pl-14  w-full"
                     >
                       <p className="">Mathematical Abilities </p>
@@ -262,7 +270,7 @@ function EnglishMobMenu() {
                           subject: "reasoning-general",
                         },
                       }}
-                      onClick={() => setIsOpen(!isOpen)}
+                        onClick={() => setIsOpenMobile(true)}
                       className=" shadow rounded-xl py-4 pl-14  w-full"
                     >
                       <p className=""> Reasoning & General Intelligence</p>
@@ -276,7 +284,7 @@ function EnglishMobMenu() {
                           subject: "english-comprehension",
                         },
                       }}
-                      onClick={() => setIsOpen(!isOpen)}
+                       onClick={() => setIsOpenMobile(true)}
                       className=" shadow rounded-xl py-4 pl-14  w-full"
                     >
                       <p className="">English Comprehension </p>
@@ -289,7 +297,7 @@ function EnglishMobMenu() {
                           subject: "general-awareness",
                         },
                       }}
-                      onClick={() => setIsOpen(!isOpen)}
+                 onClick={() => setIsOpenMobile(true)}
                       className=" shadow rounded-xl py-4 pl-14  w-full"
                     >
                       <p className="">General Awareness </p>
@@ -303,7 +311,7 @@ function EnglishMobMenu() {
                           subject: "computer-knowledge",
                         },
                       }}
-                      onClick={() => setIsOpen(!isOpen)}
+                       onClick={() => setIsOpenMobile(true)}
                       className=" shadow rounded-xl py-4 pl-14  w-full"
                     >
                       <p className="">Computer Knowledge </p>
@@ -311,7 +319,7 @@ function EnglishMobMenu() {
 
                     <Link
                       href={"/typing-test/intro"}
-                      onClick={() => setIsOpen(!isOpen)}
+                       onClick={() => setIsOpenMobile(true)}
                     >
                       <p className="p-2 hover:bg-[#E6F1F1] dark:hover:bg-[#313131]">
                         Data Entry Speed Test{" "}
@@ -325,7 +333,7 @@ function EnglishMobMenu() {
         </div>
 
         {/* Mini- quiz */}
-        <div className=" w-[85%] space-y-2  ">
+        <div className=" w-[85%] space-y-2 dark:bg-black dark:text-white rounded-xl px-2 ">
           <div
             className="rounded-xl  shadow flex flex-row justify-between py-2 px-2 "
             onClick={() => handleClick("mini-quiz")}
@@ -334,7 +342,7 @@ function EnglishMobMenu() {
               <MdOutlineLightbulb className="my-auto size-5" />
               <p className="py-1  font-bold text-center ">Quiz</p>
             </div>
-            <MdKeyboardArrowRight className="my-auto  font-bold size-6" />
+            <MdKeyboardArrowDown className="my-auto  font-bold size-6" />
           </div>
 
           {/* pre  */}
@@ -353,7 +361,7 @@ function EnglishMobMenu() {
                       Tier 1
                     </p>
                   </div>
-                  <MdKeyboardArrowRight className="my-auto" />
+                  <MdKeyboardArrowRight className="my-auto font-bold size-6" />
                 </div>
 
                 {subMenu === "pre-quiz" && (
@@ -366,7 +374,7 @@ function EnglishMobMenu() {
                           subject: "quantitative-apptitude",
                         },
                       }}
-                      onClick={() => setIsOpen(!isOpen)}
+                     onClick={() => setIsOpenMobile(true)}
                       className=" shadow rounded-xl py-4 pl-16  w-full"
                     >
                       <p className="">Quantitative Apptitude </p>
@@ -379,7 +387,7 @@ function EnglishMobMenu() {
                           subject: "reasoning-general",
                         },
                       }}
-                      onClick={() => setIsOpen(!isOpen)}
+                     onClick={() => setIsOpenMobile(true)}
                       className=" shadow rounded-xl py-4 pl-16  w-full"
                     >
                       <p className=""> Reasoning & General Intelligence</p>
@@ -393,7 +401,7 @@ function EnglishMobMenu() {
                           subject: "english-comprehension",
                         },
                       }}
-                      onClick={() => setIsOpen(!isOpen)}
+                       onClick={() => setIsOpenMobile(true)}
                       className=" shadow rounded-xl py-4 pl-16  w-full"
                     >
                       <p className="">English Comprehension </p>
@@ -407,7 +415,7 @@ function EnglishMobMenu() {
                           subject: "general-awareness",
                         },
                       }}
-                      onClick={() => setIsOpen(!isOpen)}
+                      onClick={() => setIsOpenMobile(true)}
                       className=" shadow rounded-xl py-4 pl-16  w-full"
                     >
                       <p className="">General Awareness </p>
@@ -418,7 +426,7 @@ function EnglishMobMenu() {
                         pathname: "/quiz",
                         query: { category: "pre", subject: "pyq" },
                       }}
-                      onClick={() => setIsOpen(!isOpen)}
+                     onClick={() => setIsOpenMobile(true)}
                       className=" shadow rounded-xl py-4 pl-16  w-full"
                     >
                       <p className="">PYQs </p>
@@ -451,7 +459,7 @@ function EnglishMobMenu() {
                           subject: "mathematical-abilities",
                         },
                       }}
-                      onClick={() => setIsOpen(!isOpen)}
+                     onClick={() => setIsOpenMobile(true)}
                       className=" shadow rounded-xl py-4 pl-14  w-full"
                     >
                       <p className="">Mathematical Abilities </p>
@@ -465,7 +473,7 @@ function EnglishMobMenu() {
                           subject: "reasoning-general",
                         },
                       }}
-                      onClick={() => setIsOpen(!isOpen)}
+             
                       className=" shadow rounded-xl py-4 pl-14  w-full"
                     >
                       <p className=""> Reasoning & General Intelligence</p>
@@ -479,7 +487,7 @@ function EnglishMobMenu() {
                           subject: "english-comprehension",
                         },
                       }}
-                      onClick={() => setIsOpen(!isOpen)}
+                       onClick={() => setIsOpenMobile(true)}
                       className=" shadow rounded-xl py-4 pl-14  w-full"
                     >
                       <p className="">English Comprehension </p>
@@ -492,7 +500,7 @@ function EnglishMobMenu() {
                           subject: "general-awareness",
                         },
                       }}
-                      onClick={() => setIsOpen(!isOpen)}
+                       onClick={() => setIsOpenMobile(true)}
                       className=" shadow rounded-xl py-4 pl-14  w-full"
                     >
                       {" "}
@@ -507,7 +515,7 @@ function EnglishMobMenu() {
                           subject: "computer-knowledge",
                         },
                       }}
-                      onClick={() => setIsOpen(!isOpen)}
+                       onClick={() => setIsOpenMobile(true)}
                       className=" shadow rounded-xl py-4 pl-14  w-full"
                     >
                       {" "}
@@ -516,7 +524,7 @@ function EnglishMobMenu() {
 
                     <Link
                       href={"/typing-test/intro"}
-                      onClick={() => setIsOpen(!isOpen)}
+                  
                       className=" shadow rounded-xl py-4 pl-14  w-full"
                     >
                       <p className="">Data Entry Speed Test </p>
@@ -526,7 +534,7 @@ function EnglishMobMenu() {
                         pathname: "/quiz",
                         query: { category: "main", subject: "pyq" },
                       }}
-                      onClick={() => setIsOpen(!isOpen)}
+                       onClick={() => setIsOpenMobile(true)}
                       className=" shadow rounded-xl py-4 pl-14  w-full"
                     >
                       <p className="">PYQs </p>
@@ -539,13 +547,11 @@ function EnglishMobMenu() {
         </div>
 
         {/* mini Syllabus */}
-        <div className="w-[85%] ">
+        <div className="w-[85%] dark:bg-black dark:text-white rounded-xl px-2 ">
           <Link href={"/syllabus-page/client?slug=syllabus-for-ssc-cgl"}>
             {" "}
             <button
-              onClick={() => {
-                setIsOpen(!isOpen);
-              }}
+               onClick={() => setIsOpenMobile(true)}
               className="rounded-xl  shadow flex flex-row justify-between py-2 px-2  w-full "
             >
               <div className="flex flex-row gap-2">
@@ -559,13 +565,11 @@ function EnglishMobMenu() {
         </div>
 
         {/* Test Series */}
-        <div className="w-[85%]">
+        <div className="w-[85%] dark:bg-black dark:text-white rounded-xl px-2">
           <Link href={"/test-series"}>
             {" "}
             <button
-              onClick={() => {
-                setIsOpen(!isOpen);
-              }}
+               onClick={() => setIsOpenMobile(true)}
               className="rounded-xl  shadow flex flex-row justify-between py-2 px-2  w-full "
             >
               <div className="flex flex-row gap-2">
@@ -578,13 +582,11 @@ function EnglishMobMenu() {
           </Link>
         </div>
         {/* Upcoming Exams */}
-        <div className="w-[85%]">
+        <div className="w-[85%] dark:bg-black dark:text-white rounded-xl px-2">
           <Link href={"/upcoming-exam"}>
             {" "}
             <button
-              onClick={() => {
-                setIsOpen(!isOpen);
-              }}
+              onClick={() => setIsOpenMobile(true)}
               className="rounded-xl  shadow flex flex-row justify-between py-2 px-2  w-full "
             >
                 <div className="flex flex-row gap-2">
@@ -598,13 +600,11 @@ function EnglishMobMenu() {
           </Link>
         </div>
         {/* Blogs */}
-        <div className="w-[85%]">
+        <div className="w-[85%] dark:bg-black dark:text-white rounded-xl px-2 ">
           <Link href={"/blog"}>
             {" "}
             <button
-              onClick={() => {
-                setIsOpen(!isOpen);
-              }}
+              onClick={() => setIsOpenMobile(true)}
               className="rounded-xl  shadow flex flex-row justify-between py-2 px-2  w-full "
             >
               
@@ -630,7 +630,7 @@ function EnglishMobMenu() {
           <MobileThemeToggle/>
         </div>
 
-        <div className="w-[85%] "> 
+        <div className="w-[85%]  "> 
 
               <EnglishHindi/>
         </div>

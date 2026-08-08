@@ -55,7 +55,7 @@ function EnglishSubNav() {
             </div>
 
             {activeTag === "mini-current-affairs" && (
-              <div className="flex flex-col items-center w-[90%] mt-2 togle">
+              <div className="flex flex-col  items-center w-[90%] mt-2 togle">
                 <div className="w-[80%] text-sm  ">
                   <Link href={"/current-affairs"}>
                     <button

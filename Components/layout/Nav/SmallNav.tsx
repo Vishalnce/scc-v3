@@ -37,7 +37,7 @@ function SmallNav() {
       <div className="flex flex-row gap-2 items-center justify-between  w-[70%]  mx-auto my-4 text-[#6F6F6F] max-sm:hidden">
         <div
           onClick={() => handleClick("current-affairs")}
-          className={` rounded-xl flex flex-row gap-2 px-2 py-1 cursor-pointer 
+          className={` dark:text-white rounded-xl flex flex-row gap-2 px-2 py-1 cursor-pointer 
       ${activeTag === "current-affairs" ? "border-green-500 border-2" : ""}
     `}
         >
@@ -48,7 +48,7 @@ function SmallNav() {
           />
 
           <div
-            className={`flex flex-row items-center justify-center gap-1
+            className={`flex flex-row items-center justify-center gap-1 
         ${activeTag === "current-affairs" ? "text-my-green" : ""}
       `}
           >
@@ -61,7 +61,7 @@ function SmallNav() {
 
         <div
           onClick={() => handleClick("concepts")}
-          className={` rounded-xl flex flex-row gap-2 px-2 py-1 cursor-pointer 
+          className={` dark:text-white rounded-xl flex flex-row gap-2 px-2 py-1 cursor-pointer 
       ${activeTag === "concepts" ? "border-green-500 border-2" : ""}
     `}
         >
@@ -85,7 +85,7 @@ function SmallNav() {
 
         <div
           onClick={() => handleClick("quiz")}
-          className={` rounded-xl flex flex-row gap-2 px-2 py-1 cursor-pointer 
+          className={` dark:text-white   rounded-xl flex flex-row gap-2 px-2 py-1 cursor-pointer 
       ${activeTag === "quiz" ? "border-green-500 border-2" : ""}
     `}
         >
@@ -109,30 +109,30 @@ function SmallNav() {
 
         <Link href="/syllabus-page/client?slug=syllabus-for-ssc-cgl">
           <div className="flex flex-row items-center justify-center   rounded-xl px-2 py-1  ">
-            <p className="">Syllabus</p>
+            <p className="dark:text-white">Syllabus</p>
           </div>
         </Link>
 
         <Link href="/test-series">
           <div className="flex flex-row items-center justify-center  rounded-xl px-2 py-1  ">
-            <p className="">Test Series</p>
+            <p className="dark:text-white">Test Series</p>
           </div>
         </Link>
         <Link href="/upcoming-exam">
           <div className="flex flex-row items-center justify-center  rounded-xl px-2 py-1 ">
-            <p className="">Upcoming Exam</p>
+            <p className="dark:text-white">Upcoming Exam</p>
           </div>
         </Link>
         <Link href="/blog">
           <div className="flex flex-row items-center justify-center  rounded-xl px-2 py-1">
-            <p className="">Blogs</p>
+            <p className="dark:text-white">Blogs</p>
           </div>
         </Link>
       </div>
 
       {/* DropDown for current affairs */}
       {activeTag === "current-affairs" && (
-        <div className="  z-50 w-full  flex py-4 flex-col fixed top-34 bg-white  ">
+        <div className="  z-50 w-full  dark:bg-[#1F1F1F]  flex py-4 flex-col fixed top-34 bg-white  ">
           <div className="w-[90%]  mx-auto">
             <div className="w-[20%] ml-24  p-2  hover:bg-[#E6F1F1] dark:hover:bg-black rounded-xl">
               <Link
@@ -190,7 +190,7 @@ function SmallNav() {
 
       {/* DropDown for concepts */}
       {activeTag === "concepts" && (
-        <div className="  z-50 w-full  flex flex-col fixed  top-34 bg-white   ">
+        <div className="  z-50 w-full dark:bg-[#1F1F1F] flex flex-col fixed  top-34 bg-white   ">
           <div className=" w-[85%] mx-auto">
             <div className=" w-full flex flex-row justify-between">
               {/* heading */}
@@ -364,7 +364,7 @@ function SmallNav() {
 
       {/* DropDown for quiz */}
       {activeTag === "quiz" && (
-        <div className="  z-50 w-full  flex flex-col fixed  top-34 bg-white    ">
+        <div className=" dark:bg-[#1F1F1F] z-50 w-full  flex flex-col fixed  top-34 bg-white    ">
           <div className=" w-[85%] mx-auto">
             <div className=" w-full flex flex-row justify-between">
               {/* heading */}
