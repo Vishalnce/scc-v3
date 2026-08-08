@@ -24,7 +24,7 @@ type Post = {
   description: string;
   editorHtml: string;
   toc: string;
-  timeLimit: string;
+  timeLimit: number;
   createdAt: string;
   quizposts: QuizPostItem[];
 };
@@ -37,6 +37,7 @@ type FetchResponse = {
 // only fetch by slug
 async function fetchPost(slug: string) {
   try {
+  
     const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/editorial-page/client/${slug}`, {
       cache: "no-store",
     });
@@ -44,6 +45,7 @@ async function fetchPost(slug: string) {
     if (!res.ok) return null;
 
     const post: Post = await res.json();
+    console.log("Fetched Post:", post); // Log the fetched post for debugging
     return post;
   } catch (error) {
     console.log(`erronwhile fetching ${error}`);
@@ -211,15 +213,7 @@ export default async function CurrentAffairsPage({
       {/* header */}
       <header className="bg-[image:var(--color-my-gradient)] ">
         <div className="flex flex-col justify-center items-center  min-h-[150px] mx-auto max-w-[1400px] max-sm:w-[90%] text-center">
-          <p className="text-sm text-gray-600">
-            <span className="hover:underline cursor-pointer text-[#007076]">
-              Home
-            </span>
-            <span className="mx-1 text-[#007076]"> &gt; </span>
-            <span className="hover:underline cursor-pointer text-[#007076]">
-              Current Affairs
-            </span>{" "}
-          </p>
+         
 
           <h1 className="text-3xl font-bold max-sm:text-2xl">
             <p className="text-center dark:text-white py-2"> {post?.title} </p>
@@ -312,6 +306,7 @@ export default async function CurrentAffairsPage({
       {post?.id && (
         <QuizWrapper
           postId={post.id}
+          timeLimit={post.timeLimit}
          
           topic={post.topic}
         />

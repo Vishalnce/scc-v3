@@ -86,7 +86,7 @@ const correctAnswerIndex = q.correctOption;
   return (
     <>
       {/* RESULT CARD  */}
-      <div className="md:p-6 max-md:py-4 max-md:px-4 shadow-[0_0_12px_rgba(0,0,0,0.3)] w-full bg-white rounded-2xl my-4 ">
+      <div className="md:p-6 max-md:py-4 max-md:px-4 shadow-[0_0_12px_rgba(0,0,0,0.3)] w-full bg-white dark:bg-[#343435] rounded-2xl my-4 ">
         {/* Header */}
         <div className="flex flex-col items-center py-4">
           <div className="w-12 mb-2">
@@ -103,7 +103,7 @@ const correctAnswerIndex = q.correctOption;
             {selectedMessage.mess}
           </p>
 
-          <p className="text-[#6F6F6F]">Quiz Completed!</p>
+          <p className="text-[#6F6F6F] dark:text-white ">Quiz Completed!</p>
         </div>
 
         {/* 🎯 Circle Score */}
@@ -142,17 +142,17 @@ const correctAnswerIndex = q.correctOption;
 
         {/* 📊 Stats */}
         <div className="grid grid-cols-3 gap-4 mb-6">
-          <div className="bg-[#F8FAFC] shadow rounded py-4 text-center">
+          <div className="bg-[#F8FAFC] dark:bg-[#343435] shadow rounded py-4 text-center">
             <p className="text-2xl font-bold text-green-600">{correct}</p>
             <p className="text-sm text-gray-500">Correct</p>
           </div>
 
-          <div className="bg-[#F8FAFC] shadow rounded py-4 text-center">
+          <div className="bg-[#F8FAFC] dark:bg-[#343435] shadow rounded py-4 text-center">
             <p className="text-2xl font-bold text-red-600">{incorrect}</p>
             <p className="text-sm text-gray-500">Incorrect</p>
           </div>
 
-          <div className="bg-[#F8FAFC] shadow rounded py-4 text-center">
+          <div className="bg-[#F8FAFC] dark:bg-[#343435] shadow rounded py-4 text-center">
             <p className="text-2xl font-bold text-gray-600">{notAttempted}</p>
             <p className="text-sm text-gray-500">Not Attempted</p>
           </div>
@@ -174,15 +174,15 @@ const correctAnswerIndex = q.correctOption;
       </div>
 
       {/*  REVIEW SECTION  */}
-      <div className="w-full mx-auto mt-10 bg-white shadow-[0_0_12px_rgba(0,0,0,0.3)]  rounded-2xl  p-6">
+      <div className="w-full mx-auto mt-10 bg-white dark:bg-[#343435] shadow-[0_0_12px_rgba(0,0,0,0.3)]  rounded-2xl  p-6">
         {/* Question */}
         <div className="flex justify-between mb-4">
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-gray-500 dark:text-white">
             Question {current + 1} / {total}
           </p>
         </div>
 
-        <h3 className="font-semibold mb-4">{q.questionText}</h3>
+        <h3 className="font-semibold mb-4 dark:text-white ">{q.questionText}</h3>
 
         {/* Options */}
         <div className="space-y-3">
@@ -194,7 +194,7 @@ const correctAnswerIndex = q.correctOption;
             return (
               <div
                 key={idx}
-                className={`px-4 py-3 rounded-xl border flex justify-between
+                className={`px-4 dark:bg-black dark:text-white py-3 rounded-xl border flex justify-between
                 ${
                   isCorrect
                     ? "bg-green-100 border-green-400"
@@ -216,7 +216,7 @@ const correctAnswerIndex = q.correctOption;
         <div className="mt-6 space-y-2">
           {/* Chosen Answer */}
           <div
-            className={`px-4 py-2 rounded-lg text-sm font-medium
+            className={`px-4 dark:bg-black  py-2 rounded-lg text-sm font-medium
     ${
       userAnswerIndex === correctAnswerIndex
         ? "bg-green-50 text-green-700 border border-green-200"
@@ -232,15 +232,15 @@ const correctAnswerIndex = q.correctOption;
           </div>
 
           {/* Correct Answer */}
-          <div className="px-4 py-2 rounded-lg text-sm font-medium bg-green-50 text-green-700 border border-green-200">
+          <div className="px-4 dark:bg-black py-2 rounded-lg text-sm font-medium bg-green-50 text-green-700 border border-green-200">
             Correct Answer: {q.options[correctAnswerIndex]?.text}
           </div>
         </div>
 
         {/* Explanation */}
         <div className="mt-4">
-          <p className="text-gray-600">
-            {q.solutionText || "No explanation provided."}
+          <p className="text-gray-600 dark:text-white">
+            Solution: {q.solutionText || "No explanation provided."}
           </p>
         </div>
 
@@ -251,7 +251,11 @@ const correctAnswerIndex = q.correctOption;
             disabled={current === 0}
             className="px-4 py-2 bg-[#047077] text-white rounded disabled:opacity-50"
           >
-            <MdKeyboardArrowLeft /> Prev
+            <div className="flex flex-row items-center gap-1">
+                <MdKeyboardArrowLeft /> Prev
+
+            </div>
+          
           </button>
 
           <button
@@ -259,7 +263,10 @@ const correctAnswerIndex = q.correctOption;
             disabled={current === total - 1}
             className="px-4 py-2 bg-[#047077] text-white rounded disabled:opacity-50"
           >
-            Next <MdKeyboardArrowRight />
+            <div className="flex flex-row items-center gap-1">
+     Next <MdKeyboardArrowRight />
+            </div>
+       
           </button>
         </div>
       </div>

@@ -65,13 +65,13 @@ export default function QuizQuestion({
 
   return (
     <>
-      <div className="md:p-6 max-md:py-4 max-md:px-4 mx-auto shadow-[0_0_12px_rgba(0,0,0,0.3)] max-md:w-full  w-[100%] bg-white rounded-2xl my-4 px-2">
+      <div className="md:p-6 max-md:py-4 max-md:px-4 mx-auto shadow-[0_0_12px_rgba(0,0,0,0.3)] max-md:w-full  w-[100%] dark:bg-[#343435] dark:text-white bg-white rounded-2xl my-4 px-2">
         {/* Progress */}
         <div className=" flex flex-row justify-between">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2 text-sm text-gray-500">
               <span className="w-2 h-2 bg-[#047077] rounded-full"></span>
-              <span className="pr-2">Question </span>
+              <span className="pr-2 dark:text-white">Question </span>
             </div>
 
             <div className="text-sm font-semibold text-[#047077]">

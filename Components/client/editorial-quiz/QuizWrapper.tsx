@@ -7,11 +7,11 @@ import QuizResult from "./QuizResult";
 
 export default function QuizSection({
   postId,
-
+  timeLimit,
   topic,
 }: {
   postId: number;
-  
+  timeLimit: number;
   topic: string;
 }) {
   const [stage, setStage] = useState<"intro" | "quiz" | "login" | "result">(
@@ -55,7 +55,7 @@ export default function QuizSection({
   if (stage === "intro") {
     content = (
       <QuizIntro
-   
+        timeLimit={timeLimit}
         totalQuestion={totalQuestion}
         onStart={() => setStage("quiz")}
       />
@@ -67,6 +67,9 @@ export default function QuizSection({
       <QuizQuestion
         questions={questions}
         topic={topic}
+        timeLimit={timeLimit}
+        
+
       
         setTimeTaken={setTimeTaken}
         onFinish={(a) => {

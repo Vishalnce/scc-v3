@@ -107,7 +107,7 @@ export default async function Page({searchParams,}: {searchParams: Promise<{page
       <header className="bg-[image:var(--color-my-gradient)] ">
         <div className="flex flex-col justify-center items-center  max-md:min-h-[80px] md:min-h-[150px] mx-auto max-w-[1400px] max-sm:w-[90%] text-center">
           <h1 className="text-4xl font-bold max-sm:text-2xl">
-            <p className="text-center">
+            <p className="text-center dark:text-white">
               Editorial <span className="max-md:hidden"> for </span>
               <span className="text-my-green dark:text-my-green max-md:hidden">
                 SSC CGL
@@ -125,7 +125,7 @@ export default async function Page({searchParams,}: {searchParams: Promise<{page
         </div>
       </header>
 
-      <div className="dark:bg-[#191919]">
+       <div className="dark:bg-[#191919]">
         {/* Filter + Alert */}
         <div className="flex dark:bg-[#191919] flex-row justify-between items-center mx-auto w-[90%] pt-2">
           <CurrentAffairsFilter />
@@ -154,13 +154,13 @@ export default async function Page({searchParams,}: {searchParams: Promise<{page
           {fetchError ? (
             <div className="flex flex-col items-center justify-center py-20 text-center">
               <p className="text-xl font-semibold text-red-500">
-                Failed to load current affairs
+                Failed to load editorial affairs
               </p>
               <p className="text-sm text-gray-500 mt-2">
                 Please try refreshing the page.
               </p>
 
-              <Link href="/editorial">
+              <Link href="/editorial-page">
                 <button>Refresh Page</button>
               </Link>
             </div>
@@ -173,7 +173,7 @@ export default async function Page({searchParams,}: {searchParams: Promise<{page
               return (
                 <div
                   key={post.id}
-                  className={`flex flex-row rounded-2xl m-3 border ${color.bg} ${color.border} hover:scale-[1.01] transition-all duration-300`}
+                  className={`flex flex-row rounded-2xl m-3 border ${color.bg} dark:bg-[#353535] ${color.border} hover:scale-[1.01] transition-all duration-300`}
                 >
                   <Link
                     href={{
@@ -195,7 +195,7 @@ export default async function Page({searchParams,}: {searchParams: Promise<{page
                     </div>
 
                     {/* Content */}
-                    <div className="flex flex-col w-[65%] m-3 justify-between max-md:w-[90%] max-md:mx-auto">
+                    <div className="flex flex-col w-[65%] m-3 justify-between max-md:w-[90%] max-md:mx-auto dark:text-white">
                       {/* Title */}
                       <p className="text-xl font-semibold leading-snug line-clamp-2 min-h-[56px]">
                         {post.title}
@@ -204,17 +204,17 @@ export default async function Page({searchParams,}: {searchParams: Promise<{page
                       {/* Tag */}
                       <div className="mt-2">
                         <p
-                          className={`text-sm px-3 py-1 rounded-full inline-flex whitespace-nowrap ${color.tagbg}`}
+                          className={`text-sm px-3 py-1 rounded-full inline-flex whitespace-nowrap ${color.tagbg} dark:bg-[#474849]`}
                         >
                           {post.topic}
                         </p>
                       </div>
 
                       {/* Divider */}
-                      <span className={`border mt-3 mb-3 ${color.border}`} />
+                      <span className={`border mt-3 mb-3 ${color.border} `} />
 
                       {/* Summary */}
-                      <p className="line-clamp-2 text-[#6F6F6F] text-sm">
+                      <p className="line-clamp-2 text-[#6F6F6F] dark:text-white text-sm">
                         {post.summary}
                       </p>
 
@@ -223,7 +223,7 @@ export default async function Page({searchParams,}: {searchParams: Promise<{page
                         <div className="flex flex-row gap-3  max-md:mx-auto">
                           {/* Date */}
                           <div
-                            className={`flex items-center gap-2 px-3 py-1 rounded-full ${color.tagbg}`}
+                            className={`flex items-center gap-2 px-3 py-1 rounded-full ${color.tagbg} dark:bg-[#474849]`}
                           >
                             <SlCalender />
                             <p className="text-xs">
@@ -240,7 +240,7 @@ export default async function Page({searchParams,}: {searchParams: Promise<{page
 
                           {/* Time */}
                           <div
-                            className={`flex items-center gap-2 px-3 py-1 rounded-full ${color.tagbg}`}
+                            className={`flex items-center gap-2 px-3 py-1 rounded-full ${color.tagbg} dark:bg-[#474849]`}
                           >
                             <CiClock2 className="size-4" />
                             <p className="text-xs">
@@ -283,7 +283,7 @@ export default async function Page({searchParams,}: {searchParams: Promise<{page
         <div className="flex justify-center items-center gap-4 pt-6 pb-8">
           <Link
             href={{
-              pathname: "/editorial",
+              pathname: "",
               query: { page: page - 1, topic, date },
             }}
             className={`px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 ${
@@ -299,7 +299,7 @@ export default async function Page({searchParams,}: {searchParams: Promise<{page
 
           <Link
             href={{
-              pathname: "/editorial",
+              pathname: "",
               query: { page: page + 1, topic, date },
             }}
             className={`px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 ${

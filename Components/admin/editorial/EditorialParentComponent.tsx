@@ -8,6 +8,7 @@ import BlogQuizWrapper from './EditorialQuizWrapper';
 import PostFormEditorial from './PostFormEditorial';
 import EditorialQuizWrapper from './EditorialQuizWrapper';
 
+
 type PostType = {
   title: string;
   slug: string;
@@ -18,9 +19,11 @@ type PostType = {
   keywords: string;
   description: string;
   editorHtml: string;
-  timetoread: string;
+  timeLimit:number;
+  timeToRead : number;
   toc: string;
 };
+
 
 function EditorialParentComponent({
   post,

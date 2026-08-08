@@ -3,19 +3,21 @@ import { useState, useRef, useCallback } from "react";
 
 import { FaRegCircle } from "react-icons/fa";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
+import CountdownTimer from "../post-quiz/CountdownTimer";
 
 export default function QuizQuestion({
   questions,
   topic,
-
+  timeLimit,
   setTimeTaken,
   onFinish,
 }: {
   questions: any[];
   topic: string;
+  timeLimit: number;
   
   setTimeTaken: (second: number) => void;
-  onFinish: (answers: { questionId: string; answer: number | null }[]) => void;
+   onFinish: (answers: { questionId: string; answer: number | null }[]) => void;
 }) {
   const [current, setCurrent] = useState(0);
   const [answers, setAnswers] = useState<
@@ -65,19 +67,27 @@ export default function QuizQuestion({
 
   return (
     <>
-      <div className="md:p-6 max-md:py-4 max-md:px-4 mx-auto shadow-[0_0_12px_rgba(0,0,0,0.3)] max-md:w-full  w-[100%] bg-white rounded-2xl my-4 px-2">
+      <div className="md:p-6 max-md:py-4 max-md:px-4 mx-auto shadow-[0_0_12px_rgba(0,0,0,0.3)] max-md:w-full  w-[100%] dark:bg-[#343435] bg-white rounded-2xl my-4 px-2">
         {/* Progress */}
         <div className=" flex flex-row justify-between">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2 text-sm text-gray-500">
               <span className="w-2 h-2 bg-[#047077] rounded-full"></span>
-              <span className="pr-2">Question </span>
+              <span className="pr-2 dark:text-white">Question </span>
             </div>
 
             <div className="text-sm font-semibold text-[#047077]">
               {current + 1} of {questions.length}
             </div>
           </div>
+
+           <div className="">
+                      <CountdownTimer
+                        minutes={timeLimit}
+                        onFinish={handleTimerFinish}
+                        setTimeTaken={setTimeTaken}
+                      />
+                    </div>
          
         </div>
 
@@ -91,7 +101,7 @@ export default function QuizQuestion({
         </div>
 
         {/* Question */}
-        <h3 className="text-lg font-semibold mb-4">{q.questionText}</h3>
+        <h3 className="text-lg font-semibold mb-4 dark:text-white">{q.questionText}</h3>
 
         {/* Options */}
         <div className="space-y-3">
@@ -106,7 +116,7 @@ export default function QuizQuestion({
           ${isSelected ? "bg-[#E6F7F8]" : "hover:bg-gray-50"}`}
               >
                 {/* Option text */}
-                <span className="text-left text-sm">{opt.text}</span>
+                <span className="text-left text-sm dark:text-white  ">{opt.text}</span>
 
                 {/* Dot indicator */}
                 <span
@@ -130,7 +140,7 @@ export default function QuizQuestion({
           <button
             disabled={current === 0}
             onClick={handlePrev}
-            className="px-4 py-2 bg-[#047077] text-white rounded disabled:opacity-50"
+            className="px-4 py-2 bg-[#047077] text-white rounded disabled:opacity-50 dark:text-white"
           >
             Prev
           </button>
@@ -139,7 +149,7 @@ export default function QuizQuestion({
             onClick={
               current === questions.length - 1 ? handleSubmit : handleNext
             }
-            className="px-6 py-2 bg-[#047077] text-white rounded-xl"
+            className="px-6 py-2 bg-[#047077] text-white rounded-xl dark:text-white "
           >
             {current === questions.length - 1 ? "Submit" : "Next"}
           </button>

@@ -10,7 +10,8 @@ model Editorial {
   description String
   editorHtml  String
   toc         String
-  timetoread  String
+    timeToRead   Float
+  timeLimit Float     @default(15)
   createdAt   DateTime @default(now())
   comments Comment[]
   blogQuizzes EditorialQuiz[]

@@ -23,7 +23,7 @@ function DateWise() {
       const date = new Date();
       date.setDate(today.getDate() - i);
 
-      // ✅ Format: DD-MM-YYYY
+      // Format: DD-MM-YYYY
       const day = String(date.getDate()).padStart(2, "0");
       const month = String(date.getMonth() + 1).padStart(2, "0");
       const year = date.getFullYear();
@@ -47,7 +47,7 @@ function DateWise() {
   const last10Dates = getLast10Dates();
 
   return (
-<div className="w-full dark:bg-[#313131]">
+<div className="w-full dark:bg-[#343434]">
 
   <div className="flex flex-col max-md:flex-row max-md:overflow-x-auto  justify-start items-center gap-2 max-md:items-stretch px-2 max-md:py-2 no-scrollbar">
 
@@ -63,17 +63,17 @@ function DateWise() {
           
           ${
             selectedDate === date
-              ? "bg-gradient-to-r from-[#289AA2] to-[#8CD6DB] dark:bg-black scale-[0.97]"
-              : "dark:bg-[#313131] hover:bg-gradient-to-r from-[#289AA2] to-[#8CD6DB] dark:hover:bg-[#191919]"
+              ? "bg-gradient-to-r from-[#289AA2] to-[#8CD6DB] dark:bg-[#343434] scale-[0.97]"
+              : "dark:bg-black  hover:bg-gradient-to-r from-[#289AA2] to-[#8CD6DB] dark:hover:bg-[#191919]"
           }
         `}
         >
           <div className="flex flex-row md:gap-2  max-md:flex-col">
-            <p className="font-bold text-lg">
+            <p className="font-bold text-lg dark:text-white">
               {formatted.split(" ")[0]}
             </p>
 
-            <p className="font-bold dark:text-gray-400">
+            <p className="font-bold  dark:text-white">
               {formatted.split(" ")[1]}
             </p>
           </div>

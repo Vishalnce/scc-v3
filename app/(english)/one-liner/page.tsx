@@ -75,26 +75,26 @@ const res = await fetch(
   return (
     <>
       {/* Header */}
-      <header className="bg-[image:var(--color-my-gradient)]">
-        <div className="flex flex-col justify-center items-center min-h-[150px] mx-auto max-w-[1400px] max-sm:w-[90%] text-center">
+      <header className=" dark:bg-[#343434]">
+        <div className="flex flex-col justify-center items-center md:min-h-[150px] min-h-[100px] mx-auto max-w-[1400px] max-sm:w-[90%] text-center">
           <h1 className="text-3xl font-bold max-sm:text-2xl dark:text-white">
             One-Liner Current Affairs
           </h1>
-          <p className="mt-1 text-sm text-my-text-color">
+          <p className="mt-1 text-sm  dark:text-white">
             Stay Ahead with Daily Updates
           </p>
         </div>
       </header>
 
       {/* Filter */}
-      <div className="dark:bg-[#191919] md:py-8 py-4">
+      <div className="dark:bg-[#343434] md:py-8 py-4">
         <div className="flex justify-between items-center mx-auto w-[90%] pt-2">
           <FilterOneLiner />
         </div>
       </div>
 
       {/* Main */}
-      <div className="dark:bg-[#191919]">
+      <div className="dark:bg-[#343434]">
         <div className="flex w-[80%] max-md:flex-col mx-auto">
           {/* Sidebar */}
           <div className="w-[20%] max-md:w-full max-md:pb-4 ">
@@ -102,9 +102,9 @@ const res = await fetch(
           </div>
 
           {/* Content */}
-          <div className="w-[70%] max-sm:w-full">
+          <div className="w-[70%] max-sm:w-full ">
             {/* LIST */}
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 ">
               {contents.length > 0 ? (
                 contents.map((item: postType, index: number) => {
                   const formattedIndex = String(index + 1).padStart(2, "0");
@@ -112,7 +112,7 @@ const res = await fetch(
                   return (
                     <div
                       key={item.id}
-                      className="flex gap-3 border-[#DADADA] border rounded-lg p-3 dark:bg-[#313131]"
+                      className="flex gap-3 dark:bg-black border-[#DADADA] border rounded-lg p-3 dark:bg-[#313131]"
                     >
                       {/* Number */}
                       <div className="w-[50px] h-[40px] bg-gradient-to-b rounded-lg from-[#047077] to-[#2FC6C7] shrink-0">
@@ -141,7 +141,7 @@ const res = await fetch(
             </div>
 
             {/* PAGINATION */}
-            <div className="flex justify-center items-center gap-4 mt-6">
+            <div className="flex justify-center  items-center gap-4 mt-6">
               {/* Prev */}
               <Link
                 href={`?date=${date || ""}&page=${Number(page) - 1}`}
