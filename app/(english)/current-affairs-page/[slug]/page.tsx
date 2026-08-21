@@ -211,15 +211,7 @@ export default async function CurrentAffairsPage({
       {/* header */}
       <header className="bg-[image:var(--color-my-gradient)] ">
         <div className="flex flex-col justify-center items-center  min-h-[150px] mx-auto max-w-[1400px] max-sm:w-[90%] text-center">
-          <p className="text-sm text-gray-600">
-            <span className="hover:underline cursor-pointer text-[#007076]">
-              Home
-            </span>
-            <span className="mx-1 text-[#007076]"> &gt; </span>
-            <span className="hover:underline cursor-pointer text-[#007076]">
-              Current Affairs
-            </span>{" "}
-          </p>
+       
 
           <h1 className="text-3xl font-bold max-sm:text-2xl">
             <p className="text-center dark:text-white py-2"> {post?.title} </p>

@@ -218,15 +218,7 @@ export default async function UpcomingExamPage({
       {/* header */}
       <header className="bg-[image:var(--color-my-gradient)] ">
         <div className="flex flex-col justify-center items-center  min-h-[150px] mx-auto max-w-[1400px] max-sm:w-[90%] text-center">
-          <p className="text-sm text-gray-600">
-            <span className="hover:underline cursor-pointer text-[#007076]">
-              Home
-            </span>
-            <span className="mx-1 text-[#007076]"> &gt; </span>
-            <span className="hover:underline cursor-pointer text-[#007076]">
-              Current Affairs
-            </span>{" "}
-          </p>
+        
 
           <h1 className="text-3xl font-bold max-sm:text-2xl">
             <p className="text-center dark:text-white py-2"> {post?.title} </p>
@@ -289,29 +281,29 @@ export default async function UpcomingExamPage({
           </div>
 
           {/* right box  */}
-          <div className="w-[70%] max-md:w-[90%] max-md:mx-auto ">
-            {/* <div className="h-[100vh]">
-
-
-            </div> */}
-            {post && (
-              <div className="w-full  flex justify-center items-center">
-                <Image
-                  src={post.image}
-                  alt={post.alt}
-                  width={520}
-                  height={485}
-                  className="object-contain w-full h-auto rounded-2xl"
-                />
-              </div>
-            )}
-
-            <div className="sm:px-2 pt-6 text-my-text-color max-sm:text-xl  max-sm:w-[100%] mt-8 rounded-2xl dark:bg-[#313131] border-white relative border-2 px-2">
-              <div
-                dangerouslySetInnerHTML={{ __html: post?.editorHtml || "" }}
-              />
-            </div>
-          </div>
+            <div className="w-[70%]  max-md:w-[100%] max-md:mx-auto   ">
+                      {/* <div className="h-[100vh]">
+          
+          
+                      </div> */}
+                      {post && (
+                        <div className="w-full  flex justify-center items-center">
+                          <Image
+                            src={post.image}
+                            alt={post.alt}
+                            width={520}
+                            height={485}
+                            className="object-contain w-full h-auto rounded-2xl"
+                          />
+                        </div>
+                      )}
+          
+                      <div className="sm:px-2 pt-6 text-my-text-color max-sm:text-xl  max-sm:w-[100%] mt-8 rounded-2xl dark:bg-[#313131] border-white relative border-2 px-2">
+                        <div
+                          dangerouslySetInnerHTML={{ __html: post?.editorHtml || "" }}
+                        />
+                      </div>
+                    </div>
         </div>
       </div>
 

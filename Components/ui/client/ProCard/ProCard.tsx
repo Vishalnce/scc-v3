@@ -4,8 +4,8 @@ import { IoLockClosedOutline, IoRocketOutline } from "react-icons/io5";
 function ProCard() {
   return (
     <>
-      <div className="bg-[#F8FAFC] dark:bg-[#353535]  py-10">
-        <div className=" mx-auto  dark:bg-[#353535] w-[90%] max-w-[1400px]  flex rounded-xl flex-col my-4 border-1 pb-4 border-[#DADADA] dark:border-0">
+      <div className="bg-[#F8FAFC] dark:bg-[#353535] max-md:py-10">
+        <div className=" mx-auto  dark:bg-[#353535] w-[90%] max-w-[1400px]  flex rounded-xl flex-col  border-1 pb-4 border-[#DADADA] dark:border-0">
           {/* head */}
           <div className="w-full flex items-center px-8 py-2 bg-[#E6F1F2] dark:bg-[#292828]  rounded-t-xl gap-6 max-md:gap-4">
             {/* icon */}
@@ -34,7 +34,7 @@ function ProCard() {
                 </p>
               </button>
 
-              <p className="text-sm sm:text-lg leading-snug">
+              <p className=" text-[#6F6F6F] text-md sm:text-lg leading-snug">
                 Score, Accuracy & Attempts Summary
               </p>
             </div>
@@ -47,7 +47,7 @@ function ProCard() {
                 </p>
               </button>
 
-              <p className="text-sm sm:text-lg leading-snug">
+              <p className="text-md text-[#6F6F6F] sm:text-lg leading-snug">
                 Basic Performance Trend
               </p>
             </div>
@@ -59,7 +59,7 @@ function ProCard() {
                 <p className="text-white text-xs sm:text-sm font-medium">Pro</p>
               </button>
 
-              <p className="text-sm sm:text-lg text-[#6F6F6F] leading-snug dark:text-white">
+              <p className="text-md sm:text-lg text-[#6F6F6F] leading-snug dark:text-white">
                 Topic-wise Strength & Weakness Analysis
               </p>
             </div>
@@ -71,7 +71,7 @@ function ProCard() {
                 <p className="text-white text-xs sm:text-sm font-medium">Pro</p>
               </button>
 
-              <p className="text-sm sm:text-lg text-[#6F6F6F] leading-snug dark:text-white">
+              <p className="text-md sm:text-lg text-[#6F6F6F] leading-snug dark:text-white">
                 Time Wastage & Overthinking Detection
               </p>
             </div>
@@ -95,7 +95,7 @@ function ProCard() {
                 <p className="text-white text-xs sm:text-sm font-medium">Pro</p>
               </button>
 
-              <p className="text-sm sm:text-lg text-[#6F6F6F] leading-snug dark:text-white">
+              <p className="text-md sm:text-lg text-[#6F6F6F] leading-snug dark:text-white">
                 Exam Readiness & Improvement Guidance
               </p>
             </div>

@@ -341,11 +341,11 @@ useEffect(() => {
 
           {/*--------------- right question and submit box ----------------  */}
 
-          <div    className=" shadow-[0_0_9px_rgba(0,0,0,0.2)] top-2 rounded-2xl my-2 w-[70%] py-2 max-md:w-full">
+          <div    className=" shadow-[0_0_9px_rgba(0,0,0,0.2)] top-2 rounded-2xl my-2 w-[70%] dark:bg-[#313131]   py-2 max-md:w-full">
             {/* topic name and  and timer */}
 
-            <div className="flex flex-row justify-between py-2 my-2 px-4 ">
-              <p className="capitalize bg-[#FFE5F4] px-2  "> {topic}</p>
+            <div className="flex flex-row justify-between py-2  my-2 px-4 ">
+              <p className="capitalize bg-[#FFE5F4] px-2  rounded-xl  "> {topic}</p>
               <CountdownTimer
                 minutes={timeLimit}
                 onFinish={handleTimerFinish}
@@ -355,7 +355,7 @@ useEffect(() => {
 
             {/* question div and nav */}
 
-            <div   className="flex flex-col justify-start items-center  max-sm:w-full dark:bg-[#313131]     rounded-2xl max-sm:pb-4">
+            <div   className="flex flex-col justify-start items-center  max-sm:w-full     rounded-2xl max-sm:pb-4">
               {/* top heaeding */}
               <div className="  flex flex-row   justify-between items-center  w-full   px-4">
                 {/* level */}
@@ -373,11 +373,11 @@ useEffect(() => {
                 {/*  level and marks  */}
                 <div className="flex flex-row justify-between items-center  ">
                   <div className=" flex flex-row  gap-2">
-                    <p className="w-[50px] text-center text-sm font-semibold bg-[#EBFFE4] text-[#11C352] border-2 p-2 ">
+                    <p className="w-[50px] text-center text-sm font-semibold  rounded-xl bg-[#EBFFE4] text-[#11C352] border-2 p-2 ">
                       + {q.marksPositive}
                     </p>
 
-                    <p className="w-[50px] text-center text-sm font-semibold bg-[#FDE9E9] text-[#F14343] border-2 p-2  ">
+                    <p className="w-[50px] text-center text-sm font-semibold  rounded-xl bg-[#FDE9E9] text-[#F14343] border-2 p-2  ">
                       - {q.marksNegative}
                     </p>
                   </div>
@@ -412,7 +412,7 @@ useEffect(() => {
 
                   {/* option */}
 
-                  <p className="text-lg font-bold px-4"> Options:-</p>
+                  <p className="text-lg font-bold px-4 dark:text-white"> Options:-</p>
 
                   <div className="flex flex-row justify-between items-stretch  w-full px-4 ">
                     <div
@@ -549,93 +549,131 @@ useEffect(() => {
         </div>
       </div>
 
-      {showSubmitModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 ">
-          <div className="bg-white dark:bg-[#1e1e1e] rounded-2xl p-6  w-[50%] max-md:w-[90%] shadow-lg">
-            <div className="w-full flex items-center  py-2  rounded-t-xl gap-4 max-md:gap-4">
-              {/* icon */}
-              <div className="rounded-xl bg-gradient-to-r p-2 sm:p-3 from-[#047077] to-[#2FC6C7] flex items-center justify-center">
-                <CgDanger className="text-white size-8 md:size-5" />
-              </div>
+     {showSubmitModal && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
 
-              {/* text */}
-              <div>
-                <p className="font-semibold text-xl max-md:text-lg">
-                  Submit Quiz ?
-                </p>
-                <p className="text-[#6F6F6F] max-md:text-sm">
-                  Once submitted, answers cannot be changed
-                </p>
-              </div>
-            </div>
+    <div className="w-full max-w-md rounded-2xl bg-white dark:bg-[#242424] shadow-xl p-5 sm:p-6">
 
-            {/* Stats */}
-            <div className="py-4">
-              <div className="grid grid-cols-2 gap-3 text-sm">
-                <div className="border border-[#24B3CB] bg-[#E9F3FF] rounded-lg p-3 text-center">
-                <div>
-                  <p className="text-3xl text-[#24B3CB]">  {questions.length} </p>
-                  <p className="text-my-text-color font-medium"> Total Question </p>
-                </div>
-                  
-                </div>
+      {/* Header */}
+      <div className="flex items-center gap-3">
 
-                <div className="border border-[#11C352] bg-[#EBFFE4] rounded-lg p-3 text-green-600 dark:text-green-400 text-center">
-                  <div>
-                  <p className="text-3xl text-[#11C352]">  {counts.answered} </p>
-                  <p className="text-my-text-color font-medium"> Attempted </p>
-                </div>
-          
-                </div>
-
-                <div className="border border-[#F89716] bg-[#FFF1DF] rounded-lg p-3 text-yellow-600 dark:text-yellow-400 text-center">
-
-                    <div>
-                  <p className="text-3xl text-[#F89716]">  {counts.notAnswered + counts.notVisited}</p>
-                  <p className="text-my-text-color font-medium"> Skipped </p>
-                </div>
-               
-                </div>
-
-                <div className="border  border-[#D63895] bg-[#FFE5F4] rounded-lg p-3 text-cyan-600 dark:text-cyan-400 text-center">
-                     <div>
-                  <p className="text-3xl text-[#D63895]">  {formatTime(remainingTime)}</p>
-                  <p className="text-my-text-color font-medium"> Time Left</p>
-                </div>
-             
-                </div>
-              </div>
-
-              {counts.notAnswered + counts.notVisited > 0 && (
-                <p className="text-red-500 text-sm mt-3 text-center">
-                  ⚠ You still have unanswered questions
-                </p>
-              )}
-            </div>
-
-            {/* Buttons */}
-            <div className="flex gap-4 mt-6">
-               <button
-                onClick={() => setShowSubmitModal(false)}
-                className="w-full border-[#047077] text-[#047077] border-2 py-2 rounded-lg"
-              >
-              <p>Continue</p>
-              </button>
-              <button
-                onClick={() => {
-                  setShowSubmitModal(false);
-                  handleSubmit(); // 🔥 final submit
-                }}
-                className="w-full bg-[#047077] border-[#047077] border-2 text-white py-2 rounded-lg"
-              >
-                  <p>Submit</p>
-              </button>
-
-             
-            </div>
-          </div>
+        {/* icon */}
+        <div className="shrink-0">
+          {/* Your icon here */}
         </div>
-      )}
+
+        {/* text */}
+        <div>
+          <p className="font-semibold text-xl max-md:text-lg text-gray-900 dark:text-white">
+            Submit Quiz ?
+          </p>
+
+          <p className="text-[#6F6F6F] dark:text-gray-300 max-md:text-sm mt-1">
+            Once submitted, answers cannot be changed
+          </p>
+        </div>
+
+      </div>
+
+
+      {/* Stats */}
+      <div className="mt-5">
+
+        <div className="grid grid-cols-2 gap-3">
+
+          {/* Total Questions */}
+          <div className="border border-[#24B3CB] bg-[#E9F3FF] rounded-xl p-3 sm:p-4 text-center">
+
+            <p className="text-2xl sm:text-3xl text-[#24B3CB] font-semibold">
+              {questions.length}
+            </p>
+
+            <p className="text-my-text-color font-medium text-sm mt-1">
+              Total Questions
+            </p>
+
+          </div>
+
+
+          {/* Attempted */}
+          <div className="border border-[#11C352] bg-[#EBFFE4] rounded-xl p-3 sm:p-4 text-center">
+
+            <p className="text-2xl sm:text-3xl text-[#11C352] font-semibold">
+              {counts.answered}
+            </p>
+
+            <p className="text-my-text-color font-medium text-sm mt-1">
+              Attempted
+            </p>
+
+          </div>
+
+
+          {/* Skipped */}
+          <div className="border border-[#F89716] bg-[#FFF1DF] rounded-xl p-3 sm:p-4 text-center">
+
+            <p className="text-2xl sm:text-3xl text-[#F89716] font-semibold">
+              {counts.notAnswered + counts.notVisited}
+            </p>
+
+            <p className="text-my-text-color font-medium text-sm mt-1">
+              Skipped
+            </p>
+
+          </div>
+
+
+          {/* Time Left */}
+          <div className="border border-[#D63895] bg-[#FFE5F4] rounded-xl p-3 sm:p-4 text-center">
+
+            <p className="text-2xl sm:text-3xl text-[#D63895] font-semibold">
+              {formatTime(remainingTime)}
+            </p>
+
+            <p className="text-my-text-color font-medium text-sm mt-1">
+              Time Left
+            </p>
+
+          </div>
+
+        </div>
+
+
+        {/* Warning */}
+        {counts.notAnswered + counts.notVisited > 0 && (
+          <p className="text-red-500 text-sm mt-4 text-center">
+            ⚠ You still have unanswered questions
+          </p>
+        )}
+
+      </div>
+
+
+      {/* Buttons */}
+      <div className="flex gap-3 sm:gap-4 mt-6">
+
+        <button
+          onClick={() => setShowSubmitModal(false)}
+          className="w-full border-2 border-[#047077] text-[#047077] dark:text-[#5fd1d7] py-2.5 rounded-lg font-medium hover:bg-[#047077]/5 transition"
+        >
+          Continue
+        </button>
+
+        <button
+          onClick={() => {
+            setShowSubmitModal(false);
+            handleSubmit();
+          }}
+          className="w-full bg-[#047077] border-2 border-[#047077] text-white py-2.5 rounded-lg font-medium hover:bg-[#035c62] transition"
+        >
+          Submit
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+)}
     </>
   );
 }

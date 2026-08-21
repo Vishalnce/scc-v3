@@ -101,7 +101,7 @@ export default async function Page({
       {/* Header */}
       <header className="bg-[image:var(--color-my-gradient)]">
         <div className="flex flex-col justify-center items-center min-h-[150px] mx-auto max-w-[1400px] max-sm:w-[90%] text-center">
-          <h1 className="text-4xl font-bold max-sm:text-2xl">
+          <h1 className="text-4xl font-bold max-sm:text-2xl dark:text-white">
             Concept for <span className="text-my-green">SSC CGL</span> Success
           </h1>
           <p className="mt-1 text-lg max-md:text-sm text-my-text-color">
@@ -118,82 +118,88 @@ export default async function Page({
 
         {/* Add Post Button */}
         <div className="w-[90%] dark:bg-[#191919] mx-auto m-6">
-          <Link href="/admin/concept-editor">
-            <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
-              Add Concept
-            </button>
-          </Link>
+            {session?.user?.role === "ADMIN" ? (
+          <div className="w-[90%] dark:bg-[#191919] mx-auto m-6 max-md:hidden">
+            <Link href="/admin/concept-editor ">
+              <div className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
+                Add Concept
+              </div>
+            </Link>
+          </div>
+        ) : (
+          ""
+        )}
         </div>
 
         {/* Post List */}
         <div className="flex md:flex-wrap  max-md:flex-col max-md:items-center justify-around   w-[90%] mx-auto   gap-9">
-          {posts.map((post: any, index: number) => {
-            const color = colors[index % colors.length];
+         {posts.map((post: any, index: number) => {
+  const color = colors[index % colors.length];
 
-            return (
-              <div
-                key={post.id}
-                className="flex flex-col w-[30%] max-md:w-[90%] rounded-2xl bg-white shadow-[0_0_6px_rgba(0,0,0,0.2)]"
-              >
-                {/* Header */}
-                <div
-                  className={`flex flex-col items-start ${color.bg} px-8 pt-4 rounded-t-2xl min-h-[93px]`}
-                >
-                  <p className="bg-[#FFFFFF80] text-sm px-3 rounded-full py-1 inline-block capitalize">
-                    {post.subject}
-                  </p>
+  return (
+    <div
+      key={post.id}
+      className="flex flex-col w-[30%] max-md:w-[90%] rounded-2xl bg-white dark:bg-[#242424] shadow-[0_0_6px_rgba(0,0,0,0.2)] dark:shadow-[0_0_8px_rgba(0,0,0,0.5)]"
+    >
+      {/* Header */}
+      <div
+        className={`flex flex-col items-start ${color.bg} dark:bg-[#303030] px-8 pt-4 rounded-t-2xl min-h-[93px]`}
+      >
+        <p className="bg-[#FFFFFF80] dark:bg-[#ffffff15] text-sm px-3 rounded-full py-1 inline-block capitalize text-gray-800 dark:text-gray-200">
+          {post.subject}
+        </p>
 
-                  <p className="text-lg font-bold py-4 line-clamp-2">
-                    {post.title}
-                  </p>
-                </div>
+        <p className="text-lg font-bold py-4 line-clamp-2 text-gray-900 dark:text-white">
+          {post.title}
+        </p>
+      </div>
 
-                {/* Footer */}
-                <div className="flex flex-row gap-4 relative bg-white py-4 px-8 rounded-2xl">
-                  <div className="flex items-center gap-2 text-my-text-color">
-                    <SlCalender />
-                    <p>
-                      {new Date(post.createdAt).toLocaleDateString("en-US", {
-                        month: "long",
-                        day: "numeric",
-                        year: "numeric",
-                      })}
-                    </p>
-                  </div>
+      {/* Footer */}
+      <div className="flex flex-row gap-4 relative bg-white dark:bg-[#242424] py-4 px-8 rounded-2xl">
+        <div className="flex items-center gap-2 text-my-text-color dark:text-gray-300">
+          <SlCalender />
+          <p>
+            {new Date(post.createdAt).toLocaleDateString("en-US", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            })}
+          </p>
+        </div>
 
-                  <div className="flex items-center gap-1 text-my-text-color">
-                    <CiClock2 />
-                    <p>{Math.ceil(post.timeToRead)} Min</p>
-                  </div>
+        <div className="flex items-center gap-1 text-my-text-color dark:text-gray-300">
+          <CiClock2 />
+          <p>{Math.ceil(post.timeToRead)} Min</p>
+        </div>
 
-                  {/* Floating Icon */}
+        {/* Floating Icon */}
 
-                  <Link href={`/concept-page/${post.slug}`}>
-                    <div className="absolute -top-5 right-8 p-2 bg-white shadow-[0_0_6px_rgba(0,0,0,0.2)] rounded-full">
-                      <GoChevronRight
-                        className={`my-auto size-6 ${color.icon}`}
-                      />
-                    </div>
-                  </Link>
-                </div>
-                {/* Edit and delte button for admin  */}
+        <Link href={`/concept-page/${post.slug}`}>
+          <div className="absolute -top-5 right-8 p-2 bg-white dark:bg-[#303030] shadow-[0_0_6px_rgba(0,0,0,0.2)] dark:shadow-[0_0_6px_rgba(0,0,0,0.6)] rounded-full">
+            <GoChevronRight
+              className={`my-auto size-6 ${color.icon}`}
+            />
+          </div>
+        </Link>
+      </div>
 
-                {session?.user?.role === "ADMIN" ? (
-                  <div className="flex flex-row items-center  justify-around max-md:hidden border-2">
-                    <EditButton slug={post.slug} />
+      {/* Edit and delete button for admin */}
+      {session?.user?.role === "ADMIN" ? (
+        <div className="flex flex-row items-center justify-around max-md:hidden">
+          <EditButton slug={post.slug} />
 
-                    <DeleteButton slug={post.slug} />
-                  </div>
-                ) : (
-                  ""
-                )}
-              </div>
-            );
-          })}
+          <DeleteButton slug={post.slug} />
+        </div>
+      ) : (
+        ""
+      )}
+    </div>
+  );
+})}
         </div>
 
         {/* Pagination */}
-        <div className="flex justify-center items-center gap-4 mt-6 mb-8">
+        <div className="flex justify-center items-center gap-4 py-8">
           <Link
             href={{
               pathname: "/concept",

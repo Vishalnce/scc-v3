@@ -155,11 +155,12 @@ export default function Page({
 
       const result = await res.json();
 
-      console.log("API response:", result);
+   
 
       if (res.ok) {
         setPostId(result.post.id);
         alert(isEdit ? "Post updated successfully!" : "Post created!");
+        router.push("/editorial")
       } else {
         alert("Failed to save post");
       }

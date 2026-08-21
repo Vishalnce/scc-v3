@@ -12,7 +12,7 @@ export default async function DataEntry() {
   return (
     <>
        {/* main div */}
-       <div className="dark:bg-[#1f1f1f] py-8">
+       <div className="dark:bg-[#1f1f1f] md:py-8">
          <div className=" relative  rounded-2xl shadow border-1 border-[#CDE2E4] bg-[#CDE2E4] dark:bg-[#303333] md:py-4 w-[90%] mx-auto max-w-[1400px]   ">
                <div className="flex flex-row items-start justify-start md:justify-start md:pt-6 py-2  md:px-6 px-3 ">
                  {/* text  */}
@@ -24,7 +24,7 @@ export default async function DataEntry() {
                
                    </p>
      
-                   <button className=" px-8 mt-4 bg-[#047077] max-md:text-xs  text-xl md:px-16 py-2 rounded-2xl font-semibold text-white">Start Typing</button>
+                   <Link href="/typing-test/intro"  className=" px-8 mt-4 bg-[#047077] max-md:text-xs  text-xl md:px-16 py-2 rounded-2xl font-semibold text-white">Start Typing</Link>
 
                     {session?.user?.role === "ADMIN" ? (
                   <div className="w-[90%]  max-md:hidden">

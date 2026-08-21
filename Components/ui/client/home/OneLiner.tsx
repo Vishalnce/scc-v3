@@ -93,12 +93,12 @@ export default function OneLiner() {
 
   return (
     <div className="bg-white dark:bg-[#1f1f1f]">
-      <div className="max-w-[1400px]  flex flex-col mx-auto w-[90%] relative md:pb-12 ">
+      <div className="max-w-[1400px]  flex flex-col mx-auto w-[90%] relative md:pb-10  max-md:pb-8  ">
         {/* heading */}
-        <header className="flex justify-between py-4 ">
+        <header className="flex justify-between py-4 max-md:py-1 ">
 
           <div className="flex flex-row gap-2">
-             <p className="text-3xl max-sm:text-2xl font-bold dark:text-white max-sm:w-[70%]  ">
+             <p className="text-3xl max-md:text-2xl font-bold dark:text-white max-sm:w-[70%]  ">
             One-Liner Current Affairs
           </p>
 
@@ -106,7 +106,7 @@ export default function OneLiner() {
           </div>
          
 
-         <Link href={"/current-affairs"}>
+         <Link href={"/one-liner"}>
               <p className=" text-lg max-sm:text-sm  text-[#007076]   underline ">
                 View All
               </p>
@@ -116,7 +116,7 @@ export default function OneLiner() {
         </header>
 
         {/* carousel */}
-        <div className="overflow-hidden mt-6" ref={emblaRef}>
+        <div className="overflow-hidden relative mt-6 " ref={emblaRef}>
           <div className="flex gap-4 ">
             {loading ? (
               <p>Loading...</p>
@@ -124,7 +124,7 @@ export default function OneLiner() {
               items.map((item, index) => (
                 <div
                   key={item.id}
-                  className="min-w-[40.333%] max-sm:min-w-[85%] pt-4  px-2 border-2 rounded-xl bg-[#F8FAFC] border-[#DADADA] flex flex-row gap-4  dark:bg-[#474849] dark:text-white"
+                  className="min-w-[40.333%] shadow-[0_0_10px_rgba(0,0,0,0.1)] max-sm:min-w-[85%] pt-4  px-2 border-2 rounded-xl bg-[#F8FAFC] border-[#DADADA] flex flex-row gap-4  dark:bg-[#474849] dark:text-white"
                 >
                   <div className="flex gap-3 items-start">
                     <span className="font-semibold text-3xl text-white bg-[#007076] px-2 py-2 rounded-xl">
@@ -146,14 +146,7 @@ export default function OneLiner() {
         </div>
 
         {/* right scroll button */}
-        <button
-          onClick={scrollNext}
-          disabled={!canNext}
-          className={`absolute right-0 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white shadow text-[#007076] text-xl
-          ${!canNext ? "opacity-50 cursor-not-allowed" : ""}`}
-        >
-          <MdKeyboardArrowRight />
-        </button>
+     
       </div>
     </div>
   );

@@ -27,9 +27,12 @@ type FetchResponse = {
 };
 
 async function fetchPost(slug: string) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/concept-page/client/${slug}`, {
-    cache: "no-store",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/concept-page/client/${slug}`,
+    {
+      cache: "no-store",
+    },
+  );
 
   if (!res.ok) return null;
 
@@ -39,9 +42,12 @@ async function fetchPost(slug: string) {
 
 async function fetchConceptAll(pageNumber: number): Promise<FetchResponse> {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/concept/client/?page=${pageNumber}`, {
-      cache: "no-store",
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/concept/client/?page=${pageNumber}`,
+      {
+        cache: "no-store",
+      },
+    );
 
     if (!res.ok) {
       return { posts: [], page: 1 }; // fallback
@@ -68,9 +74,12 @@ export async function generateMetadata({
 }) {
   const { slug } = await params;
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/concept-page/client/${slug}`, {
-    cache: "no-store",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/concept-page/client/${slug}`,
+    {
+      cache: "no-store",
+    },
+  );
 
   if (!res.ok) {
     return {
@@ -139,9 +148,12 @@ export default async function ConceptPage({
   // fetchon next is null and return post and cext current page number
   async function fetchNextConcept(page: number) {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/concept/client/?page=${page}`, {
-        cache: "no-store",
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/concept/client/?page=${page}`,
+        {
+          cache: "no-store",
+        },
+      );
 
       if (!res.ok) {
         return { posts: [], page: 1 }; // fallback
@@ -189,16 +201,6 @@ export default async function ConceptPage({
     <>
       <header className="bg-[image:var(--color-my-gradient)] ">
         <div className="flex flex-col justify-center items-center  min-h-[150px] mx-auto max-w-[1400px] max-sm:w-[90%] text-center">
-          <p className="text-sm text-gray-600">
-            <span className="hover:underline cursor-pointer text-[#007076]">
-              <Link href={"/"}>Home</Link>
-            </span>
-            <span className="mx-1 text-[#007076]"> &gt; </span>
-            <span className="hover:underline cursor-pointer text-[#007076]">
-              <Link href="/concept">Concept</Link>
-            </span>{" "}
-          </p>
-
           <h1 className="text-3xl font-bold max-sm:text-2xl">
             <p className="text-center dark:text-white py-2"> {post?.title} </p>
           </h1>
@@ -260,13 +262,8 @@ export default async function ConceptPage({
           </div>
 
           {/* right box  */}
-          <div className="w-[70%] max-md:w-[90%] max-md:mx-auto  ">
-            {/* <div className="h-[100vh]">
-
-
-            </div> */}
-
-            <div className="px-2 pt-6 text-my-text-color">
+          <div className="w-[70%]  max-md:w-[100%] max-md:mx-auto   ">
+            <div className="sm:px-2 pt-6 text-my-text-color max-sm:text-xl  max-sm:w-[100%] mt-8 rounded-2xl dark:bg-[#313131] border-white relative border-2 px-2">
               <div
                 dangerouslySetInnerHTML={{ __html: post?.editorHtml || "" }}
               />

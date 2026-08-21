@@ -97,7 +97,7 @@ export default async function Page({
       {/* Header */}
       <header className="bg-[image:var(--color-my-gradient)] ">
         <div className="flex flex-col justify-center items-center min-h-[150px] mx-auto max-w-[1400px] max-sm:w-[90%] text-center">
-          <h1 className="text-4xl font-bold max-sm:text-2xl ">
+          <h1 className="text-4xl font-bold max-sm:text-2xl dark:text-white ">
             Blogs for <span className="text-my-green">SSC CGL</span> Success
           </h1>
           <p className="mt-1 text-sm max-md:text-sm text-my-text-color">
@@ -137,9 +137,9 @@ export default async function Page({
               const color = colorObject[index % colorObject.length];
 
               return (
-                <div
+                    <div
                   key={post.id}
-                  className={`flex flex-row rounded-2xl m-3 border ${color.bg} ${color.border} hover:scale-[1.01] transition-all duration-300`}
+                  className={`flex flex-row rounded-2xl m-3 border ${color.bg} dark:bg-[#353535] ${color.border} hover:scale-[1.01] transition-all duration-300`}
                 >
                   <Link
                     href={{
@@ -161,7 +161,7 @@ export default async function Page({
                     </div>
 
                     {/* Content */}
-                    <div className="flex flex-col w-[65%] m-3 justify-between max-md:w-[90%] max-md:mx-auto">
+                    <div className="flex flex-col w-[65%] m-3 justify-between max-md:w-[90%] max-md:mx-auto dark:text-white">
                       {/* Title */}
                       <p className="text-xl font-semibold leading-snug line-clamp-2 min-h-[56px]">
                         {post.title}
@@ -170,17 +170,17 @@ export default async function Page({
                       {/* Tag */}
                       <div className="mt-2">
                         <p
-                          className={`text-sm px-3 py-1 rounded-full inline-flex whitespace-nowrap ${color.tagbg}`}
+                          className={`text-sm px-3 py-1 rounded-full inline-flex whitespace-nowrap ${color.tagbg} dark:bg-[#474849]`}
                         >
                           {post.topic}
                         </p>
                       </div>
 
                       {/* Divider */}
-                      <span className={`border mt-3 mb-3 ${color.border}`} />
+                      <span className={`border mt-3 mb-3 ${color.border} `} />
 
                       {/* Summary */}
-                      <p className="line-clamp-2 text-[#6F6F6F] text-sm">
+                      <p className="line-clamp-2 text-[#6F6F6F] dark:text-white text-sm">
                         {post.summary}
                       </p>
 
@@ -189,7 +189,7 @@ export default async function Page({
                         <div className="flex flex-row gap-3  max-md:mx-auto">
                           {/* Date */}
                           <div
-                            className={`flex items-center gap-2 px-3 py-1 rounded-full ${color.tagbg}`}
+                            className={`flex items-center gap-2 px-3 py-1 rounded-full ${color.tagbg} dark:bg-[#474849]`}
                           >
                             <SlCalender />
                             <p className="text-xs">
@@ -206,7 +206,7 @@ export default async function Page({
 
                           {/* Time */}
                           <div
-                            className={`flex items-center gap-2 px-3 py-1 rounded-full ${color.tagbg}`}
+                            className={`flex items-center gap-2 px-3 py-1 rounded-full ${color.tagbg} dark:bg-[#474849]`}
                           >
                             <CiClock2 className="size-4" />
                             <p className="text-xs">

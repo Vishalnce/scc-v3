@@ -176,7 +176,7 @@ export default function MasterConcepts() {
 
           <header className="flex flex-row max-md:flex-col max-md:justify-startw justify-between items-center  md:p-4 max-sm:px-0  ">
             <div className="w-[60%] max-sm:w-full ">
-              <p className="text-4xl max-sm:text-2xl font-bold dark:text-white">
+              <p className="text-4xl  max-sm:text-2xl font-bold dark:text-white">
                 Popular Concepts
               </p>
               <p className="text-lg text-my-text-color max-sm:hidden">
@@ -188,13 +188,13 @@ export default function MasterConcepts() {
               <div>
                 <button
                   onClick={() => setTierChange("for-tier1")}
-                  className={`px-4 py-1  rounded-xl text-lg max-md:py-1 max-md:px-10 max-sm:text-sm whitespace-nowrap min-w-[100px] flex flex-row gap-2  ${tierChange === "for-tier1" ? "bg-[#047077] border-[#047077] border-2" : "border-2 border-[text-[#6F6F6F] dark:text-white dark:border-white"}`}
+                  className={`px-4 py-1  rounded-xl text-lg max-md:py-2 max-md:px-10 max-sm:text-sm whitespace-nowrap min-w-[100px] flex flex-row gap-2   ${tierChange === "for-tier1" ? "bg-[#047077] border-[#047077] border-2" : "border-2 border-[text-[#6F6F6F] dark:text-white dark:border-white"}`}
                 >
                   <div
                     className={`${tierChange === "for-tier1" ? "text-white" : "text-[#6F6F6F]"}`}
                   >
                     <HiOutlineChartSquareBar
-                      className={` dark:text-white my-auto size-7 ${tierChange === "for-tier1" ? "text-white" : "text-[#6F6F6F]"}`}
+                      className={` dark:text-white my-auto size-7 max-md:size-6 ${tierChange === "for-tier1" ? "text-white" : "text-[#6F6F6F]"}`}
                     />{" "}
                   </div>
                   <p
@@ -211,13 +211,13 @@ export default function MasterConcepts() {
                   onClick={() => {
                     setTierChange("for-tier2");
                   }}
-                  className={`px-6 py-1 border-2 rounded-xl text-lg  max-md:py-1 max-md:px-10  max-sm:text-sm whitespace-nowrap min-w-[100px] flex flex-row gap-2  ${tierChange === "for-tier2" ? "bg-[#047077] border-2 border-[#047077]" : "border-2 border-[text-[#6F6F6F] dark:text-white dark:border-white"}`}
+                  className={`px-6 py-1 border-2 rounded-xl text-lg  max-md:py-2 max-md:px-10   max-sm:text-sm whitespace-nowrap min-w-[100px] flex flex-row gap-2  ${tierChange === "for-tier2" ? "bg-[#047077] border-2 border-[#047077]" : "border-2 border-[text-[#6F6F6F] dark:text-white dark:border-white"}`}
                 >
                   <div
                     className={`${tierChange === "for-tier2" ? "text-white" : "text-[#6F6F6F]"}`}
                   >
                     <HiOutlineChartSquareBar
-                      className={` dark:text-white my-auto size-7 ${tierChange === "for-tier2" ? "text-white" : "text-[#6F6F6F]"}`}
+                      className={` dark:text-white my-auto size-7 max-md:size-6 ${tierChange === "for-tier2" ? "text-white" : "text-[#6F6F6F]"}`}
                     />
                   </div>
                   <p
@@ -242,7 +242,7 @@ export default function MasterConcepts() {
                   return (
                     <div
                       key={index}
-                      className={`relative flex-shrink-0 w-[25%] md:h-[200px] max-sm:h-[120px] max-lg:h-[180px] lg:max-h-[280px] lg:max-w-[280px] max-sm:w-[28%] rounded-lg border-2 shadow flex items-center flex-col justify-center ${item.border}  overflow-hidden bg-[${item.bg}] dark:bg-[#3a3636] border-2  `}
+                      className={`relative s  shadow-[0_0_6px_rgba(0,0,0,0.3)] flex-shrink-0 w-[25%] md:h-[200px] max-sm:h-[120px] max-lg:h-[180px] lg:max-h-[280px] lg:max-w-[280px] max-sm:w-[28%] rounded-lg border-2 shadow flex items-center flex-col justify-center ${item.border}  overflow-hidden bg-[${item.bg}] dark:bg-[#3a3636] border-2  `}
                     >
                       <svg
                         className={` absolute max-md:top-9 top-3 dark:bg-[#3a3636]  ${item.bg}`}

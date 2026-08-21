@@ -7,8 +7,8 @@ export default function Banner() {
   return (
     <>
       {/* main div */}
-      <div className="dark:bg-[#1f1f1f] py-8">
-        <div className=" relative  rounded-2xl shadow border-1 border-[#CDE2E4] bg-[#CDE2E4] dark:bg-[#303333] md:py-4 w-[90%] mx-auto max-w-[1400px]  my-4  ">
+      <div className="dark:bg-[#1f1f1f]  max-md:pb-4">
+        <div className=" relative  rounded-2xl shadow border-1 border-[#CDE2E4] bg-[#CDE2E4] dark:bg-[#303333] md:py-4 w-[90%] mx-auto max-w-[1400px]   ">
           <div className="flex flex-row items-start justify-start md:justify-between md:pt-6 py-2   w-[90%] mx-auto ">
             {/* text  */}
             <div className="  flex flex-col  justify-between  items-start md:gap-6 max-md:py-4 w-[70%] max-md:w-full md:mt-8  max-md:pr-4  md:py-4   ">

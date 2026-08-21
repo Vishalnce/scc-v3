@@ -63,14 +63,14 @@ function Smart() {
 
   return (
     <>
-      <div className=" mx-auto    flex rounded-xl flex-col shadow-[0_0_9px_rgba(0,0,0,0.2)] md:px-8 py-2">
+      <div className=" mx-auto    flex rounded-xl flex-col md:px-8 py-2 md:mt-4">
         <div className=" grid grid-cols-2 max-md:grid-cols-1 space-x-6">
           {/* card 1 */}
-          <div className=" border-2  ">
+          <div className="   ">
             {/* heafding */}
             <div>
-              <p className="font-bold text-2xl">Smart Performance Reports</p>
-              <p className="text-[#6F6F6F]">
+              <p className="font-bold text-2xl dark:text-white">Smart Performance Reports</p>
+              <p className="text-[#6F6F6F] dark:text-white">
                 Identify gaps and improve accuracy.
               </p>
             </div>
@@ -78,9 +78,9 @@ function Smart() {
 
             <div className=" grid grid-cols-2 gap-3 py-4">
               {data.map((item) => (
-                <div key={item.title}>
+                <div key={item.title} className = " space-y-2">
                   <div
-                    className={`border-2 rounded-2xl ${item.border} flex flex-col items-center py-6 ${item.bg}`}
+                    className={`border-2 rounded-2xl ${item.border} flex flex-col items-center py-6 ${item.bg} dark:bg-[#353534]`}
                   >
                     <p
                       className={`font-bold text-3xl max-md:text-lg ${item.textcolour}`}
@@ -88,7 +88,7 @@ function Smart() {
                       {" "}
                       {item.percentage}
                     </p>
-                    <p className="text-xl text-[#6F6F6F] "> {item.title}</p>
+                    <p className="text-xl text-[#6F6F6F] dark:text-white"> {item.title}</p>
                   </div>
 
                   <div className="flex items-center justify-center gap-2 text-center">
@@ -96,7 +96,7 @@ function Smart() {
                       {item.icon}
                     </div>
 
-                    <p className="text-lg">{item.des}</p>
+                    <p className="text-lg text-[#6F6F6F] dark:text-white">{item.des}</p>
                   </div>
                 </div>
               ))}
@@ -104,7 +104,7 @@ function Smart() {
           </div>
 
           {/* card 2 */}
-          <div className="  border-2">
+          <div className="  shadow-[0_0_9px_rgba(0,0,0,0.2)] dark:bg-black py-4 rounded-xl ">
             <div className="  rounded-3xl px-6 w-full mx-auto">
               {/* Header */}
               <div className="flex items-center gap-4 mb-6">
@@ -113,17 +113,17 @@ function Smart() {
                 </div>
 
                 <div>
-                  <h2 className="text-xl md:text-2xl font-semibold">
+                  <h2 className="text-xl md:text-2xl font-semibold dark:text-white">
                     Conquer SSC CGL Exam
                   </h2>
-                  <p className="text-gray-400 text-sm md:text-base">
+                  <p className="text-gray-400 text-sm md:text-base dark:text-white">
                     With our mock tests and test series
                   </p>
                 </div>
               </div>
 
               {/* Improvement badge */}
-              <div className="inline-block bg-[#F4F4FC] text-green-400 px-4 py-1 rounded-full text-sm mb-6">
+              <div className="inline-block bg-[#F4F4FC] text-green-400 px-4 py-1 rounded-full dark:bg-[#353534] text-sm mb-6">
                 18% Improvement
               </div>
 
@@ -138,13 +138,13 @@ function Smart() {
               </div>
 
               {/* Bottom stats */}
-              <div className="flex justify-between text-center">
+              <div className="flex justify-between text-center dark:text-white">
                 {stats.map((item) => (
                   <div key={item.label}>
                     <p className="text-2xl md:text-4xl font-extrabold">
                       {item.value}
                     </p>
-                    <p className="text-gray-400 text-sm md:text-base">
+                    <p className="text-gray-400 text-sm md:text-base dark:text-white">
                       {item.label}
                     </p>
                   </div>

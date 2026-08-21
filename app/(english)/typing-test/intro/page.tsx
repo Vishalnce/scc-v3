@@ -17,17 +17,7 @@ export default async function page() {
   return (
     <>
       <div className="dark:bg-black ">
-        {session?.user?.role === "ADMIN" ? (
-          <div className="w-[90%] dark:bg-[#191919] mx-auto m-6 max-md:hidden">
-            <Link href="/admin/typing ">
-              <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
-                Add Typing Test
-              </button>
-            </Link>
-          </div>
-        ) : (
-          ""
-        )}
+        
 
         <div className=" w-[90%] mx-auto bg-gradient-to-r from-[#289AA2] to-[#8CD6DB]  relative rounded-2xl shadow lg:pb-6    ">
           <div className="flex flex-row items-start justify-start md:justify-start md:pt-6 py-2  md:px-6 px-3 ">
@@ -70,7 +60,9 @@ export default async function page() {
 
         {/* start card */}
 
-        <div className="w-[90%] my-4 mx-auto bg-white rounded-2xl shadow-lg p-5 md:p-10 ">
+        
+
+        <div className="w-[90%] mt-8 mx-auto bg-white dark:bg-[#1f1f1f] rounded-2xl shadow-lg p-5 md:p-10">
           {/* Header */}
           <div className="flex items-center gap-4 mb-6">
             <div className="bg-[#0F766E] p-3 md:p-4 rounded-xl">
@@ -78,10 +70,11 @@ export default async function page() {
             </div>
 
             <div>
-              <h2 className="text-lg md:text-2xl font-semibold text-gray-800">
+              <h2 className="text-lg md:text-2xl font-semibold text-gray-800 dark:text-white">
                 Typing Speed Test
               </h2>
-              <p className="text-gray-500 text-sm md:text-base">
+
+              <p className="text-gray-500 dark:text-gray-300 text-sm md:text-base">
                 Train your fingers for faster typing
               </p>
             </div>
@@ -91,41 +84,40 @@ export default async function page() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mb-8">
             {features.map((item) => (
               <div key={item} className="flex items-center gap-3">
-                <div className="bg-green-100 p-2 rounded-full">
-                  <IoCheckmark className="text-green-600 text-lg" />
+                <div className="bg-green-100 dark:bg-green-900/30 p-2 rounded-full">
+                  <IoCheckmark className="text-green-600 dark:text-green-400 text-lg" />
                 </div>
 
-                <p className="text-gray-700 text-sm md:text-base">{item}</p>
+                <p className="text-gray-700 dark:text-gray-200 text-sm md:text-base">
+                  {item}
+                </p>
               </div>
             ))}
           </div>
 
-          {/* CTA Button */}
-          <Link href="/typing-test/level ">
-            <button className="w-full bg-[#0F766E] hover:bg-[#0d5f5b] transition-all text-white py-3 md:py-4 rounded-full text-sm md:text-base font-medium">
-              Start Typing
-            </button>
-          </Link>
-        </div>
-
-        {/* <div className="w-[90%] mx-auto flex flex-col  gap-4 py-4">
-        {Array.from({ length: 6 }).map((_, index) => (
-          <div
-            key={index}
-            className="flex flex-row justify-between items-center bg-[image:var(--color-my-gradient)] dark:bg-[#313131] rounded-2xl  "
+          {/* CTA */}
+          <Link
+            href="/typing-test/level"
+            className="block w-full bg-[#0F766E] hover:bg-[#0d5f5b] transition-all text-white text-center py-3 md:py-4 rounded-full text-sm md:text-base font-medium"
           >
-            <div className="py-4 ml-6">
-              <p className="font-bold text-xl dark:text-white">Typing Test {index + 1}</p>
-            </div>
+            Start Typing
+          </Link>
 
-            <Link href="/typing-test/level " >
-              <button className="px-3 py-2  bg-[#007076] rounded-full ml-4 text-white mr-3 cursor-pointer">
-                Start Test
+
+          {session?.user?.role === "ADMIN" ? (
+          <div className="w-[90%] dark:bg-[#191919] mx-auto m-4 max-md:hidden">
+            <Link href="/admin/typing ">
+              <button className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
+                Add Typing Test
               </button>
             </Link>
           </div>
-        ))}
-      </div> */}
+        ) : (
+          ""
+        )}
+        </div>
+
+        
       </div>
     </>
   );

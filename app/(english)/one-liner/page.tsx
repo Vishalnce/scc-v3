@@ -3,6 +3,8 @@ import DateWise from "@/Components/client/one-liner/DateWise";
 import FilterOneLiner from "@/Components/client/one-liner/FilterOneLiner";
 import React from "react";
 import Link from "next/link";
+import { NEXT_AUTH } from "@/lib/auth";
+import { getServerSession } from "next-auth";
 
 type postType = {
   id: number;
@@ -15,6 +17,10 @@ export default async function ({
 }: {
   searchParams: Promise<{ date?: string; page?: string }>;
 }) {
+
+   const session = await getServerSession(NEXT_AUTH);
+
+
   const params = await searchParams;
 
   const date = params.date;
@@ -75,7 +81,7 @@ const res = await fetch(
   return (
     <>
       {/* Header */}
-      <header className=" dark:bg-[#343434]">
+      <header className=" dark:bg-[#343434] bg-[image:var(--color-my-gradient)]">
         <div className="flex flex-col justify-center items-center md:min-h-[150px] min-h-[100px] mx-auto max-w-[1400px] max-sm:w-[90%] text-center">
           <h1 className="text-3xl font-bold max-sm:text-2xl dark:text-white">
             One-Liner Current Affairs
@@ -90,7 +96,20 @@ const res = await fetch(
       <div className="dark:bg-[#343434] md:py-8 py-4">
         <div className="flex justify-between items-center mx-auto w-[90%] pt-2">
           <FilterOneLiner />
+            {/* Admin Button */}
+       
         </div>
+         {session?.user?.role === "ADMIN" ? (
+          <div className="w-[90%]  mx-auto m-6 max-md:hidden">
+            <Link href="/admin/one-liner ">
+              <div className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
+                Add One liner
+              </div>
+            </Link>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
 
       {/* Main */}

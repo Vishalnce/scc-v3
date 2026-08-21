@@ -15,7 +15,7 @@ function So() {
 
           {/* text */}
           <div>
-            <p className="font-semibold text-xl max-md:text-lg">
+            <p className="font-semibold text-xl max-md:text-lg dark:text-white">
               So What you Choose?
             </p>
           </div>
@@ -23,36 +23,34 @@ function So() {
 
         {/* boady  */}
 
-       <div className="px-8 py-4 flex flex-col gap-2">
-  
-  {/* 1 */}
-  <div className="flex gap-2 items-start">
-    <div className="w-9 h-9 flex items-center justify-center bg-[#0470771A] rounded-full flex-shrink-0">
-      <IoShieldOutline className="text-[#047077] size-5" />
-    </div>
-    <p className="text-[#6F6F6F]">Instant access after purchase</p>
-  </div>
+        <div className="px-8 py-4 flex flex-col gap-2 dark:bg-black">
+          {/* 1 */}
+          <div className="flex gap-2 items-start">
+            <div className="w-9 h-9 flex items-center justify-center bg-[#0470771A] rounded-full flex-shrink-0">
+              <IoShieldOutline className="text-[#047077] size-5" />
+            </div>
+            <p className="text-[#6F6F6F] dark:text-white">Instant access after purchase</p>
+          </div>
 
-  {/* 2 */}
-  <div className="flex gap-2 items-start">
-    <div className="w-9 h-9 flex items-center justify-center bg-[#0470771A] rounded-full flex-shrink-0">
-      <GoDeviceMobile className="text-[#047077] size-5" />
-    </div>
-    <p className="text-[#6F6F6F]">Works on mobile & desktop</p>
-  </div>
+          {/* 2 */}
+          <div className="flex gap-2 items-start">
+            <div className="w-9 h-9 flex items-center justify-center bg-[#0470771A] rounded-full flex-shrink-0">
+              <GoDeviceMobile className="text-[#047077] size-5" />
+            </div>
+            <p className="text-[#6F6F6F] dark:text-white  ">Works on mobile & desktop</p>
+          </div>
 
-  {/* 3 */}
-  <div className="flex gap-2 items-start">
-    <div className="w-9 h-9 flex items-center justify-center bg-[#0470771A] rounded-full flex-shrink-0">
-      <IoIosRepeat className="text-[#047077] size-5" />
-    </div>
-    <p className="text-[#6F6F6F]">Updated as per latest SSC changes</p>
-  </div>
-
-</div>
+          {/* 3 */}
+          <div className="flex gap-2 items-start">
+            <div className="w-9 h-9 flex items-center justify-center bg-[#0470771A] rounded-full flex-shrink-0">
+              <IoIosRepeat className="text-[#047077] size-5" />
+            </div>
+            <p className="text-[#6F6F6F] dark:text-white  ">Updated as per latest SSC changes</p>
+          </div>
+        </div>
 
         {/* button */}
-        <div className="grid grid-cols-3 max-md:grid-cols-1 gap-4  px-8 pb-4 ">
+        <div className="grid grid-cols-3 max-md:grid-cols-1 gap-4  dark:bg-black rounded-b-xl px-8 pb-4 ">
           <button className="bg-[#F89716] w-full text-center text-white py-3 rounded-xl">
             Free Mock Test
           </button>

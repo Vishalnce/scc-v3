@@ -57,7 +57,7 @@ export default function Explanation({ questions, answers, topic }: Props) {
         <div className="w-full mx-auto flex flex-row max-sm:flex-col-reverse justify-between   ">
           {/* left div */}
 
-          <div className="w-[32%]  max-sm:w-full flex flex-col border-2 rounded-2xl shadow-[0_0_9px_rgba(0,0,0,0.2)] border-[#E6F1F1] dark:bg-[#313131]">
+          <div className="w-[32%] dark:text-white  max-sm:w-full flex flex-col border-2 rounded-2xl shadow-[0_0_9px_rgba(0,0,0,0.2)] border-[#E6F1F1] dark:bg-[#313131]">
             {/* Header */}
             <div className=" hidden md:flex justify-center  px-4 py-4">
               <p className="font-bold text-lg">
@@ -195,7 +195,7 @@ export default function Explanation({ questions, answers, topic }: Props) {
             </div>
 
             {/* Main Content */}
-            <div className="flex flex-col dark:bg-[#313131] rounded-2xl pb-4">
+            <div className="flex flex-col dark:bg-[#313131] rounded-2xl pb-4 py-4">
               {/* Top Row */}
               <div className="flex justify-between items-center px-4">
                 {/* Level */}
@@ -234,7 +234,7 @@ export default function Explanation({ questions, answers, topic }: Props) {
                   </div>
                 )}
               </div>
-              <p className=" px-4 text-xl "> Options:- </p>
+              <p className=" px-4 text-xl dark:text-white"> Options:- </p>
 
               {/* Options */}
               <div className="w-full px-4 py-4">
@@ -354,7 +354,7 @@ export default function Explanation({ questions, answers, topic }: Props) {
 
       {/* Correct & User Chosen Answer */}
       <div className="w-[90%] py-4 dark:bg-[#313131]  rounded-2xl mx-auto px-6 my-6 shadow-[0_0_9px_rgba(0,0,0,0.2)]">
-        <p className="text-lg font-bold  max-md:py-2">Explanation :- </p>
+        <p className="text-lg font-bold  max-md:py-2 dark:text-white">Explanation :- </p>
         <div className={`flex flex-col  gap-4 `}>
           {/* Correct Answer */}
           <div className="flex flex-row items-center gap-3 dark:text-white font-bold">

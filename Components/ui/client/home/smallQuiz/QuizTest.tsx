@@ -14,30 +14,31 @@ export default function QuizTest({ quizData, onSubmit }: Props) {
     new Array(quizData.length).fill(""),
   );
 
+
+  const [answered, setAnswered] = useState(false);
+
   const currentQuestion = quizData[current];
 
   // Handle option select
 const handleSelect = (option: string) => {
-  const updated = [...answers];
+  if (answered) return;
 
-  // 👉 if already selected → unselect
-  if (updated[current] === option) {
-    updated[current] = "";
-  } else {
-    updated[current] = option;
-  }
+  const updated = [...answers];
+  updated[current] = option;
 
   setAnswers(updated);
+  setAnswered(true);
 };
 
   // Next / Submit
-  const handleNext = () => {
-    if (current < quizData.length - 1) {
-      setCurrent((prev) => prev + 1);
-    } else {
-      onSubmit(answers);
-    }
-  };
+const handleNext = () => {
+  if (current < quizData.length - 1) {
+    setCurrent((prev) => prev + 1);
+    setAnswered(false);
+  } else {
+    onSubmit(answers);
+  }
+};
 
   return (
     <div className="md:p-6 max-md:py-4 max-md:px-2 mx-auto shadow-[0_0_12px_rgba(0,0,0,0.3)] max-md:w-[100%] w-[70%] bg-white dark:bg-[#141212] dark:text-white rounded-2xl my-4">
@@ -58,32 +59,51 @@ const handleSelect = (option: string) => {
       <h3 className="text-lg font-semibold mb-4">{currentQuestion.question}</h3>
 
       {/* Options */}
-      <div className="space-y-3">
+<div className="space-y-3">
   {currentQuestion.options.map((option, index) => {
     const isSelected = answers[current] === option;
+    const isCorrect = option === currentQuestion.answer;
+
+    let borderClass = "border-[#DADADA]";
+
+    if (answered) {
+      if (isCorrect) {
+        borderClass = "border-green-500";
+      } else if (isSelected) {
+        borderClass = "border-red-500";
+      }
+    }
 
     return (
       <button
         key={index}
+        disabled={answered}
         onClick={() => handleSelect(option)}
-        className="w-full flex justify-between items-center px-4 py-3 border-1 border-[#DADADA]  shadow-[0_0_2px_rgba(0,0,0,0.3)]  rounded-xl transition hover:bg-gray-50 dark:hover:bg-[#2D2B2B]"
+        className={`w-full flex justify-between items-center px-4 py-3 border-2 ${borderClass} shadow-[0_0_2px_rgba(0,0,0,0.3)] rounded-xl transition`}
       >
-        {/* Option text */}
         <span className="text-left">{option}</span>
 
-        {/* Dot indicator */}
         <span
           className={`w-4 h-4 rounded-full border-2 flex items-center justify-center
             ${
-              isSelected
-                ? "border-[#047077]"
-                : "border-gray-400"
-            }`}
+              answered && isCorrect
+                ? "border-green-500"
+                : answered && isSelected
+                  ? "border-red-500"
+                  : "border-gray-400"
+            }
+          `}
         >
           <span
-            className={`w-2 h-2 rounded-full ${
-              isSelected ? "bg-[#047077]" : ""
-            }`}
+            className={`w-2 h-2 rounded-full
+              ${
+                answered && isCorrect
+                  ? "bg-green-500"
+                  : answered && isSelected
+                    ? "bg-red-500"
+                    : ""
+              }
+            `}
           />
         </span>
       </button>
@@ -95,7 +115,10 @@ const handleSelect = (option: string) => {
       <div className="mt-6 flex justify-between">
         <button
           disabled={current === 0}
-          onClick={() => setCurrent((prev) => prev - 1)}
+         onClick={() => {
+  setCurrent((prev) => prev - 1);
+  setAnswered(false);
+}}
           className="px-4 py-2 bg-[#047077] text-white rounded disabled:opacity-50"
         >
           Prev

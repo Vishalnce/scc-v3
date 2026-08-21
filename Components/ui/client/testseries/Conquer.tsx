@@ -5,7 +5,7 @@ import { GoChecklist } from "react-icons/go";
 function Conquer() {
   return (
     <>
-      <div className="shadow-[0_0_9px_rgba(0,0,0,0.2)] my-5 rounded-2xl">
+      <div className="shadow-[0_0_9px_rgba(0,0,0,0.2)] dark:bg-[#141212] my-5 rounded-2xl ">
         {/* head */}
 
         <div className="w-full flex items-center px-8 py-6  rounded-t-xl gap-6 max-md:gap-4">
@@ -16,10 +16,10 @@ function Conquer() {
 
           {/* text */}
           <div>
-            <p className="font-semibold text-xl max-md:text-lg">
+            <p className="font-semibold text-xl max-md:text-lg dark:text-white">
               Conquer SSC CGL Exam
             </p>
-            <p className="text-[#6F6F6F] max-md:text-sm">
+            <p className="text-[#6F6F6F] max-md:text-sm dark:text-white">
               With our mock tests and test series
             </p>
           </div>
@@ -33,7 +33,7 @@ function Conquer() {
               <FaCheck className="my-auto text-[#11C352] flex-none " />
             </div>
 
-            <p className=" text-[#6F6F6F]">1000+ Practice Questions </p>
+            <p className=" text-[#6F6F6F] dark:text-white">1000+ Practice Questions </p>
           </div>
 
 
@@ -42,7 +42,7 @@ function Conquer() {
               <FaCheck className="my-auto text-[#11C352] flex-none " />
             </div>
 
-            <p className=" text-[#6F6F6F]">Based on Latest SSC CGL notification </p>
+            <p className=" text-[#6F6F6F] dark:text-white">Based on Latest SSC CGL notification </p>
           </div>
 
 
@@ -51,7 +51,7 @@ function Conquer() {
               <FaCheck className="my-auto text-[#11C352] flex-none " />
             </div>
 
-            <p className=" text-[#6F6F6F]">Subject-wise + Full-length mocks</p>
+            <p className=" text-[#6F6F6F] dark:text-white">Subject-wise + Full-length mocks</p>
           </div>
         </div>
 

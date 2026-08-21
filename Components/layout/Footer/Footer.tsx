@@ -186,33 +186,33 @@ export default function Footer() {
       {/* last banner */}
       <div className="bg-[#047077]">
         <div className="max-w-[1400px] mx-auto  w-[90%] bg-[#047077] ">
-          <div className="   border-white flex flex-row text-white  justify-between items-center py-5 max-md:mb-10 ">
+          <div className="   border-white flex flex-row text-white  justify-between items-center py-5 max-md:pt-3  max-md:mb-10 ">
             <div className="flex flex-row gap-3 ">
-              <div className="">
+              <div className=" max-md:my-auto">
                 <Link href={"/"} className="flex flex-row gap-2">
                   <span className="w-2 h-2 rounded-full bg-white my-auto"></span>
                   <p className=" text-sm font-light max-md:text-xs ">Privacy Policy</p>
                 </Link>
               </div>
 
-              <div>
+              <div className=" max-md:my-auto" >
                 <Link href={"/"} className="flex flex-row gap-2">
                   <span className="w-2 h-2 rounded-full bg-white my-auto"></span>
                   <p className=" text-sm font-light max-md:text-xs ">Terms of Service</p>
                 </Link>
               </div>
 
-              <div>
+              <div className=" max-md:my-auto">
                 <Link href={"/"} className="flex flex-row gap-2">
                   <span className="w-2 h-2 rounded-full bg-white my-auto"></span>
-                  <p className=" text-sm font-light max-md:text-xs">Security</p>
+                  <p className=" text-sm font-light max-md:text-xs max-md:my-auto ">Security</p>
                 </Link>
               </div>
 
-              <div>
+              <div className=" max-md:my-auto">
                 <Link href={"/"} className="flex flex-row gap-2">
                   <span className="w-2 h-2 rounded-full bg-white my-auto"></span>
-                  <p className=" text-sm font-light">Site map</p>
+                  <p className=" text-sm font-light ">Site map</p>
                 </Link>
               </div>
             </div>

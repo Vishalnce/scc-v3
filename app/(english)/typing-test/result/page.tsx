@@ -61,8 +61,8 @@ function Page() {
 
   return (
     <>
-      <div className=" dark:bg-black py-10">
-        <div className="w-[90%]  mx-auto bg-white dark:bg-[#1c1c1c] rounded-3xl shadow-[0_0_9px_rgba(0,0,0,0.2)] p-6 md:p-10">
+      <div className="dark:bg-black py-10">
+        <div className="w-[90%] mx-auto bg-white dark:bg-[#1c1c1c] rounded-3xl shadow-[0_0_9px_rgba(0,0,0,0.2)] p-6 md:p-10">
           {/* Header */}
           <div className="text-center mb-8">
             <div className="text-yellow-400 text-3xl">⭐</div>
@@ -80,13 +80,16 @@ function Page() {
               className={`relative w-36 h-36 md:w-44 md:h-44 rounded-full border-[10px] flex items-center justify-center ${borderColor}`}
             >
               <div className="text-center">
-                <p className="text-3xl md:text-4xl font-bold">{accuracy}%</p>
-                <p className="text-sm text-gray-500">Accuracy</p>
+                <p className="text-3xl md:text-4xl font-bold dark:text-white">
+                  {accuracy}%
+                </p>
+
+                <p className="text-sm text-gray-500 dark:text-gray-300">
+                  Accuracy
+                </p>
               </div>
             </div>
           </div>
-
-          {/* Tabs */}
 
           {/* Stats Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -129,109 +132,114 @@ function Page() {
 
           {/* Button */}
           <div className="flex justify-center mt-8">
-            <Link href="/typing-test/intro">
-              <button className="bg-[#047077] text-white  px-6 py-3 rounded-full ">
-                Retake Test
-              </button>
+            <Link
+              href="/typing-test/intro"
+              className="bg-[#047077] hover:bg-[#035e63] text-white px-6 py-3 rounded-full transition"
+            >
+              Retake Test
             </Link>
           </div>
         </div>
       </div>
 
-      <div className="w-[90%] rounded-2xl  mx-auto shadow-[0_0_9px_rgba(0,0,0,0.2)] py-4">
-        <div className=" flex flex-col w-[95%] mx-auto gap-4">
-          <div className="flex justify-between">
-            {/* left */}
-            <div className="flex flex-row items-center space-x-4">
-              <div className="p-2 bg-[#FDE9E9] rounded-full">
-                <LuTriangleAlert className=" text-[#F14343] size-7" />
+      <div className=" dark:bg-black">
+
+          <div className="w-[90%] mx-auto rounded-2xl shadow-[0_0_9px_rgba(0,0,0,0.2)] py-4 bg-white dark:bg-[#1c1c1c]">
+        <div className="flex flex-col w-[95%] mx-auto gap-4">
+          {/* Error Percentage */}
+          <div className="flex justify-between items-center gap-3">
+            <div className="flex flex-row items-center gap-3 min-w-0">
+              <div className="p-2 bg-[#FDE9E9] dark:bg-[#4a2525] rounded-full shrink-0">
+                <LuTriangleAlert className="text-[#F14343] size-7" />
               </div>
 
-              <p className="bold text-xl font-bold "> Error Percentage</p>
+              <p className="text-lg md:text-xl font-bold dark:text-white">
+                Error Percentage
+              </p>
             </div>
 
-            {/* right */}
-
-            <div className=" flex flex-row items-center text-white bg-gradient-to-r from-[#047077] to-[#2FC6C7] px-4 rounded-full">
-              <CiLock className="size-6 " />
-              <p className="bold text-xl">Pro</p>
+            <div className="flex flex-row items-center gap-1 text-white bg-gradient-to-r from-[#047077] to-[#2FC6C7] px-3 md:px-4 py-1 rounded-full shrink-0">
+              <CiLock className="size-5 md:size-6" />
+              <p className="text-sm md:text-xl">Pro</p>
             </div>
           </div>
 
-          <div className="flex justify-between">
-            {/* left */}
-            <div className="flex flex-row items-center space-x-4">
-              <div className="p-2 bg-[#F3E6FF] rounded-full">
-                <IoSpeedometerOutline className=" text-[#9F38D6] size-7" />
+          {/* Speed */}
+          <div className="flex justify-between items-center gap-3">
+            <div className="flex flex-row items-center gap-3 min-w-0">
+              <div className="p-2 bg-[#F3E6FF] dark:bg-[#3d2848] rounded-full shrink-0">
+                <IoSpeedometerOutline className="text-[#9F38D6] size-7" />
               </div>
 
-              <p className="bold text-xl font-bold ">Speed (WPM)</p>
+              <p className="text-lg md:text-xl font-bold dark:text-white">
+                Speed (WPM)
+              </p>
             </div>
 
-            {/* right */}
-
-            <div className=" flex flex-row items-center text-white bg-gradient-to-r from-[#047077] to-[#2FC6C7] px-4 rounded-full">
-              <CiLock className="size-6 " />
-              <p className="bold text-xl">Pro</p>
+            <div className="flex items-center gap-1 text-white bg-gradient-to-r from-[#047077] to-[#2FC6C7] px-3 md:px-4 py-1 rounded-full shrink-0">
+              <CiLock className="size-5 md:size-6" />
+              <p className="text-sm md:text-xl">Pro</p>
             </div>
           </div>
 
-          <div className="flex justify-between">
-            {/* left */}
-            <div className="flex flex-row items-center space-x-4">
-              <div className="p-2 bg-[#EBFFE4] rounded-full">
-                <IoSpeedometerOutline className=" text-[#11C352] size-7" />
+          {/* Net Typing Speed */}
+          <div className="flex justify-between items-center gap-3">
+            <div className="flex flex-row items-center gap-3 min-w-0">
+              <div className="p-2 bg-[#EBFFE4] dark:bg-[#254524] rounded-full shrink-0">
+                <IoSpeedometerOutline className="text-[#11C352] size-7" />
               </div>
 
-              <p className="bold text-xl font-bold ">Net Typing Speed (WPM)</p>
+              <p className="text-lg md:text-xl font-bold dark:text-white">
+                Net Typing Speed (WPM)
+              </p>
             </div>
 
-            {/* right */}
-
-            <div className=" flex flex-row items-center text-white bg-gradient-to-r from-[#047077] to-[#2FC6C7] px-4 rounded-full">
-              <CiLock className="size-6 " />
-              <p className="bold text-xl">Pro</p>
+            <div className="flex items-center gap-1 text-white bg-gradient-to-r from-[#047077] to-[#2FC6C7] px-3 md:px-4 py-1 rounded-full shrink-0">
+              <CiLock className="size-5 md:size-6" />
+              <p className="text-sm md:text-xl">Pro</p>
             </div>
           </div>
 
-          <div className="flex justify-between">
-            {/* left */}
-            <div className="flex flex-row items-center space-x-4">
-              <div className="p-2 bg-[#FFF1DF] rounded-full">
-                <IoSpeedometerOutline className=" text-[#F89716] size-7" />
+          {/* Gross WPM */}
+          <div className="flex justify-between items-center gap-3">
+            <div className="flex flex-row items-center gap-3 min-w-0">
+              <div className="p-2 bg-[#FFF1DF] dark:bg-[#49391f] rounded-full shrink-0">
+                <IoSpeedometerOutline className="text-[#F89716] size-7" />
               </div>
 
-              <p className="bold text-xl  font-bold">Gross WPM</p>
+              <p className="text-lg md:text-xl font-bold dark:text-white">
+                Gross WPM
+              </p>
             </div>
 
-            {/* right */}
-
-            <div className=" flex flex-row items-center text-white bg-gradient-to-r from-[#047077] to-[#2FC6C7] px-4 rounded-full">
-              <CiLock className="size-6 " />
-              <p className="bold text-xl">Pro</p>
+            <div className="flex items-center gap-1 text-white bg-gradient-to-r from-[#047077] to-[#2FC6C7] px-3 md:px-4 py-1 rounded-full shrink-0">
+              <CiLock className="size-5 md:size-6" />
+              <p className="text-sm md:text-xl">Pro</p>
             </div>
           </div>
 
-
-            <div className="flex justify-between">
-            {/* left */}
-            <div className="flex flex-row items-center space-x-4">
-              <div className="p-2 bg-[#E9F3FF] rounded-full">
-                <IoSpeedometerOutline className=" text-[#24B3CB] size-7" />
+          {/* Keystroke */}
+          <div className="flex justify-between items-center gap-3">
+            <div className="flex flex-row items-center gap-3 min-w-0">
+              <div className="p-2 bg-[#E9F3FF] dark:bg-[#243b4a] rounded-full shrink-0">
+                <IoSpeedometerOutline className="text-[#24B3CB] size-7" />
               </div>
 
-              <p className="bold text-xl font-bold ">Keystroke</p>
+              <p className="text-lg md:text-xl font-bold dark:text-white">
+                Keystroke
+              </p>
             </div>
 
-            {/* right */}
-
-            <div className=" flex flex-row items-center text-white bg-gradient-to-r from-[#047077] to-[#2FC6C7] px-4 rounded-full">
-              <CiLock className="size-6 " />
-              <p className="bold text-xl">Pro</p>
+            <div className="flex items-center gap-1 text-white bg-gradient-to-r from-[#047077] to-[#2FC6C7] px-3 md:px-4 py-1 rounded-full shrink-0">
+              <CiLock className="size-5 md:size-6" />
+              <p className="text-sm md:text-xl">Pro</p>
             </div>
           </div>
         </div>
       </div>
+        </div>
+
+    
     </>
   );
 }
@@ -247,7 +255,7 @@ function StatCard({ value, label, color }: any) {
   };
 
   return (
-    <div className={`p-5 rounded-xl border text-center ${styles[color]}`}>
+    <div className={`p-5 rounded-xl border text-center dark:bg-[#1c1c1c] ${styles[color]}`}>
       <p className="text-2xl font-bold">{value}</p>
       <p className="text-sm">{label}</p>
     </div>

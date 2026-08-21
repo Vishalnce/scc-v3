@@ -84,15 +84,15 @@ function What() {
 
   return (
     <>
-      <div className=" mx-auto    flex rounded-xl flex-col shadow-[0_0_9px_rgba(0,0,0,0.2)] md:px-8 py-2">
+      <div className=" mx-auto    flex rounded-xl flex-col  py-2">
         <div
           className=" w-full flex  flex-col my-4 
-                  md:px-8"
+                "
         >
           {/* heading */}
-          <div className="flex flex-col my-4">
-            <p className="font-bold text-2xl">What You’ll Practice</p>
-            <p className="text-[#6F6F6F]">
+          <div className="flex flex-col my-4 ">
+            <p className="font-bold text-2xl dark:text-white">What You’ll Practice</p>
+            <p className="text-[#6F6F6F] dark:text-white">
               Comprehensive coverage across all SSC CGL subjects
             </p>
           </div>
@@ -105,7 +105,7 @@ function What() {
             {cards.map((item, index) => (
               <div
                 key={item.text1}
-                className={`  max-md:w-[90%] rounded-2xl ${item.bg} ${item.border} border-2 max-md:mx-auto `}
+                className={`  max-md:w-[90%] rounded-2xl ${item.bg} ${item.border} dark:bg-[#353535] border-2 max-md:mx-auto `}
               >
                 {/* heading  */}
                 <div
@@ -120,7 +120,7 @@ function What() {
                   </div>
 
                   <div>
-                    <p className="font-semibold text-xl max-md:text-lg">
+                    <p className="font-semibold text-xl max-md:text-lg dark:text-white">
                       {item.heading}
                     </p>
                   </div>
@@ -128,7 +128,7 @@ function What() {
 
                 {/* boady  */}
 
-                <div className=" px-8 py-4  flex flex-col gap-2">
+                <div className=" px-8 py-4  flex flex-col gap-2 ">
                   <div className=" flex flex-row gap-2">
                     <div className={`p-2  ${item.checkbg} rounded-full`}>
                       <FaCheck
@@ -136,7 +136,7 @@ function What() {
                       />
                     </div>
 
-                    <p className=" text-[#6F6F6F]">{item.text1} </p>
+                    <p className=" text-[#6F6F6F] dark:text-white">{item.text1} </p>
                   </div>
 
                   <div className=" flex flex-row gap-2">
@@ -146,7 +146,7 @@ function What() {
                       />
                     </div>
 
-                    <p className=" text-[#6F6F6F]">{item.text2}</p>
+                    <p className=" text-[#6F6F6F] dark:text-white">{item.text2}</p>
                   </div>
 
                   <div className=" flex flex-row gap-2">
@@ -156,7 +156,7 @@ function What() {
                       />
                     </div>
 
-                    <p className=" text-[#6F6F6F]">{item.text3}</p>
+                    <p className=" text-[#6F6F6F] dark:text-white">{item.text3}</p>
                   </div>
                 </div>
               </div>

@@ -33,17 +33,21 @@ export default function QuizResultNew({ quizData, answers, onRestart }: Props) {
  
   // console.log(answers)
 
-  const correct = quizData.reduce(
-    (acc, q, i) => acc + (answers[i]?.answer === q.correctOption ? 1 : 0),
-    0,
-  );
+const correct = quizData.reduce(
+  (acc, q, i) =>
+    acc + (answers[i]?.answer === q.correctOption - 1 ? 1 : 0),
+  0,
+);
 
-  const incorrect = quizData.reduce(
-    (acc, q, i) =>
-      acc +
-      (answers[i]?.answer !== null && answers[i]?.answer !== q.correctOption ? 1 : 0),
-    0,
-  );
+const incorrect = quizData.reduce(
+  (acc, q, i) =>
+    acc +
+    (answers[i]?.answer !== null &&
+    answers[i]?.answer !== q.correctOption - 1
+      ? 1
+      : 0),
+  0,
+);
 
   const notAttempted = total - correct - incorrect;
 
@@ -51,7 +55,7 @@ export default function QuizResultNew({ quizData, answers, onRestart }: Props) {
 
 const q = quizData[current];
 const userAnswerIndex = answers[current]?.answer;
-const correctAnswerIndex = q.correctOption;
+const correctAnswerIndex = q.correctOption - 1;
 
 
 

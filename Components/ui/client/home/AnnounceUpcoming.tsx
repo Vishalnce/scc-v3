@@ -40,7 +40,7 @@ export default async function AnnounceUpcoming() {
   return (
     <>
       <div className="bg-white dark:bg-[#303333]">
-        <div className="max-w-[1400px]  w-[90%] mx-auto py-16 max-md:py-12">
+        <div className="max-w-[1400px]  w-[90%] mx-auto  md:py-6 max-md:py-4">
           <div className="flex flex-row justify-between items-center max-md:flex-col max-md:gap-8">
             {/* announcment card */}
             <div className=" w-[46%] max-md:w-[100%] border-1 border-[#DADADA] rounded-xl pb-6 md:px-6 px-2">

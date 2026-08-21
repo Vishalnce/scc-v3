@@ -9,15 +9,15 @@ import { TbTargetArrow } from "react-icons/tb";
 
 function Why() {
   return (
-    <div className=" mx-auto    flex rounded-xl flex-col shadow-[0_0_9px_rgba(0,0,0,0.2)] md:px-8 py-2">
+    <div className=" mx-auto  dark:bg-[#141212]   flex rounded-xl flex-col shadow-[0_0_9px_rgba(0,0,0,0.2)] md:px-8 py-2">
       <div
         className=" w-full flex  flex-col my-4 
           md:px-8"
       >
         {/* heading */}
         <div className="flex flex-col my-4">
-          <p className="font-bold text-2xl">Why Choose Us?</p>
-          <p className="text-[#6F6F6F]">Practice with exam-accurate tests, track your progress with detailed analytics</p>
+          <p className="font-bold text-2xl dark:text-white">Why Choose Us?</p>
+          <p className="text-[#6F6F6F] dark:text-white">Practice with exam-accurate tests, track your progress with detailed analytics</p>
         </div>
 
         {/* cards */}
@@ -38,10 +38,10 @@ function Why() {
               </div>
 
               <div>
-                <p className="font-bold  text-xl">
+                <p className="font-bold  text-xl dark:text-white">
                 Exam-Aligned Structure
                 </p>
-                <p className="text-[#6F6F6F] text-base   max-md:text-sm leading-snug">
+                <p className="text-[#6F6F6F] text-base   max-md:text-sm leading-snug dark:text-white">
                  Every Test follows the latest SSC CGL pattern with accurate timing, question distribution, and difficulty level.
                 </p>
               </div>
@@ -57,10 +57,10 @@ function Why() {
               </div>
 
               <div>
-                <p className="font-bold  text-xl">
+                <p className="font-bold  text-xl dark:text-white">
                 Performance Analytics
                 </p>
-                <p className="text-[#6F6F6F] text-base   max-md:text-sm leading-snug">
+                <p className="text-[#6F6F6F] text-base   max-md:text-sm leading-snug dark:text-white">
                   Get detailed insights on your strengths, weak areas, and improvement trajectory with every attempt.
                 </p>
               </div>
@@ -77,10 +77,10 @@ function Why() {
               </div>
 
               <div>
-                <p className="font-bold  text-xl">
+                <p className="font-bold  text-xl dark:text-white">
                Time Management Training
                 </p>
-                <p className="text-[#6F6F6F] text-base    max-md:text-sm leading-snug">
+                <p className="text-[#6F6F6F] text-base    max-md:text-sm leading-snug dark:text-white">
                   Practice under real exam conditions and develop the speed and accuracy needed to crack SSC CGL.
                 </p>
               </div>
@@ -97,10 +97,10 @@ function Why() {
               </div>
 
               <div>
-                <p className="font-bold  text-xl">
+                <p className="font-bold  text-xl dark:text-white">
           Subject-wise Practice
                 </p>
-                <p className="text-[#6F6F6F] text-base max-md:text-sm leading-snug">
+                <p className="text-[#6F6F6F] text-base max-md:text-sm leading-snug dark:text-white">
                   Focus on individual subjects or take full tests. Build concepts first, then test comprehensively.
                 </p>
               </div>

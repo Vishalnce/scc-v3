@@ -54,67 +54,72 @@ export default function LevelWise({ questions, answers }: Props) {
     { key: "incorrect", label: "Incorrect" },
   ];
   return (
-    <div className="w-[90%] mx-auto py-8 rounded-xl shadow-[0_0_12px_rgba(0,0,0,0.2)]">
-      <h2 className="text-lg font-bold dark:text-white mb-4 text-center">
-        Level wise Performance Report Card
-      </h2>
+    <div className="w-[90%] max-md:w-[90%] mx-auto overflow-x-auto">
+  <table className="w-full border-collapse text-center border border-[#DADADA] dark:border-[#444444]">
 
-      <div className=" w-[90%] max-md:w-[90%] mx-auto">
-        <table className="w-full border-collapse border-[#DADADA] text-center">
-          {/* Header */}
-          <thead>
-            <tr className=" dark:bg-[#191919] dark:text-white">
-              <th className="border border-[#DADADA] p-2">Level</th>
-              {levels.map((lvl) => (
-                <th
-                  key={lvl}
-                  className={`border border-[#DADADA] p-2 capitalize ${
-                    lvl === "easy"
-                      ? "text-[#11C352] bg-[#F6FFF3]"
-                      : lvl === "medium"
-                        ? "text-[#F89716] bg-[#FFFDFA]"
-                        : "text-[#F14343] bg-[#FEF5F5]"
-                  }`}
-                >
-                  {lvl}
-                </th>
-              ))}
-            </tr>
-          </thead>
+    {/* Header */}
+    <thead>
+      <tr className="dark:bg-[#191919] dark:text-white">
 
-          {/* Body */}
-          <tbody className="bg-[#FAFCFC] dark:bg-[#313131] dark:text-white">
-            {metrics.map((metric) => (
-              <tr key={metric.key}>
-                {/* Metric Name */}
-                <td className="border border-[#DADADA] p-2 ">
-                  {metric.label}
-                </td>
+        <th className="border border-[#DADADA] dark:border-[#444444] p-2">
+          Level
+        </th>
 
-                {/* Values for each level */}
-                {levels.map((lvl) => {
-                  const value = performanceByLevel[lvl]?.[metric.key] ?? 0;
+        {levels.map((lvl) => (
+          <th
+            key={lvl}
+            className={`border border-[#DADADA] dark:border-[#444444] p-2 capitalize ${
+              lvl === "easy"
+                ? "text-[#11C352] bg-[#F6FFF3] dark:bg-[#17351f]"
+                : lvl === "medium"
+                  ? "text-[#F89716] bg-[#FFFDFA] dark:bg-[#392d1c]"
+                  : "text-[#F14343] bg-[#FEF5F5] dark:bg-[#3a2222]"
+            }`}
+          >
+            {lvl}
+          </th>
+        ))}
+      </tr>
+    </thead>
 
-                  return (
-                    <td
-                      key={lvl}
-                      className={`border border-[#DADADA] p-2 ${
-                        lvl === "easy"
-                          ? "bg-[#F6FFF3]"
-                          : lvl === "medium"
-                            ? "bg-[#FFFDFA]"
-                            : "bg-[#FEF5F5]"
-                      }`}
-                    >
-                      {value}
-                    </td>
-                  );
-                })}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
+    {/* Body */}
+    <tbody className="bg-[#FAFCFC] dark:bg-[#242424] dark:text-white">
+
+      {metrics.map((metric) => (
+        <tr key={metric.key}>
+
+          {/* Metric Name */}
+          <td className="border border-[#DADADA] dark:border-[#444444] p-2 dark:bg-[#242424]">
+            {metric.label}
+          </td>
+
+          {/* Values for each level */}
+          {levels.map((lvl) => {
+            const value =
+              performanceByLevel[lvl]?.[metric.key] ?? 0;
+
+            return (
+              <td
+                key={lvl}
+                className={`border border-[#DADADA] dark:border-[#444444] p-2 ${
+                  lvl === "easy"
+                    ? "bg-[#F6FFF3] dark:bg-[#17351f]"
+                    : lvl === "medium"
+                      ? "bg-[#FFFDFA] dark:bg-[#392d1c]"
+                      : "bg-[#FEF5F5] dark:bg-[#3a2222]"
+                }`}
+              >
+                {value}
+              </td>
+            );
+          })}
+
+        </tr>
+      ))}
+
+    </tbody>
+
+  </table>
+</div>
   );
 }

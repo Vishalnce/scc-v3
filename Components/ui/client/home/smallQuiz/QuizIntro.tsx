@@ -16,64 +16,79 @@ export default function QuizIntro({ total, onStart }: Props) {
 
         {/*  card  banner */}
 
-        <div className="w-[80%] bg-white dark:bg-[#141212] dark:text-white  my-4 flex flex-col justify-center rounded-xl p-10 max-md:w-full">
-          <div className=" flex flex-row justify-between gap-2  my-4">
-            <div className="flex flex-row gap-4 ">
-              <div className="bg-[#047077] rounded-xl p-auto max-sm:h-16">
-                <AiOutlineThunderbolt className=" size-14 pt-3 pb-2 text-white" />
-              </div>
+        <div className="w-[80%] max-md:w-full bg-white dark:bg-[#141212] dark:text-white my-4 flex flex-col justify-center rounded-xl p-10 max-md:p-5">
 
-              <div className="flex flex-col text-start">
-                <p className="font-bold text-2xl ">Quick Quiz </p>
-                <p className="text-[#6F6F6F] dark:text-white max-md:text-sm"> Knowledge Check </p>
-              </div>
+  {/* Header */}
+  <div className="flex flex-row justify-between items-start gap-4 my-4">
 
-              
-            </div>
+    <div className="flex flex-row gap-4 items-center">
+
+      {/* Icon */}
+      <div className="bg-[#047077] rounded-xl flex items-center justify-center w-16 h-16 shrink-0">
+        <AiOutlineThunderbolt className="size-10 text-white" />
+      </div>
+
+      {/* Title */}
+      <div className="flex flex-col text-start">
+        <p className="font-bold text-2xl max-sm:text-xl">
+          Quick Quiz
+        </p>
+
+        <p className="text-[#6F6F6F] dark:text-white max-sm:text-sm">
+          Knowledge Check
+        </p>
+      </div>
+
+    </div>
+
+    {/* Live */}
+    <div className="bg-[#F4F4FC] px-3 py-1 rounded-xl flex items-center dark:bg-[#353535] gap-2 h-8 shrink-0">
+      <span className="w-3 h-3 rounded-full bg-[#11C352] inline-block"></span>
+      <span className="text-sm">Live</span>
+    </div>
+
+  </div>
 
 
-            <div className="bg-[#F4F4FC] px-4 py-1 rounded-xl flex items-center dark:bg-[#353535] gap-2 h-8">
-              <span className="w-3 h-3 rounded-full bg-[#11C352] inline-block"></span>
-              Live
-            </div>
+  {/* Questions */}
+  <div className="flex items-center gap-3 my-4">
+
+    <div className="w-8 h-8 flex items-center justify-center rounded-full bg-[#EEF5FF] text-[#24B3CB] font-semibold shrink-0">
+      {total}
+    </div>
+
+    <p>
+      Questions
+    </p>
+
+  </div>
+
+
+  {/* Buttons */}
+  <div className="w-full">
+
+    <button
+      onClick={onStart}
+      className="bg-[#047077] text-white rounded-2xl py-2 px-4 w-full"
+    >
+      Start Quiz
+    </button>
+
+
+    {/* Admin Button */}
+    {session?.user?.role === "ADMIN" && (
+      <div className="w-[90%] max-sm:w-full mx-auto mt-6">
+        <Link href="/admin/small-quiz">
+          <div className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
+            Add Quiz
           </div>
+        </Link>
+      </div>
+    )}
 
-          <div className="flex flex-row justify-start my-4   ">
-            <p className =" flex flex-row gap-4">
-           
-             <div className="w-8 h-8 flex items-center justify-center rounded-full bg-[#EEF5FF] text-[#24B3CB] font-semibold">
-  {total}
+  </div>
+
 </div>
-              <p className = "my-auto">     Questions </p>
-             
-         
-            </p>
-          </div>
-
-          <div className=" ">
-            <button
-              onClick={onStart}
-              className="bg-[#047077] text-white rounded-2xl py-2 px-4 w-full"
-            >
-              Start Quiz
-            </button>
-
-             {/* Admin Button */}
-        {session?.user?.role === "ADMIN" ? (
-          <div className="w-[90%] dark:bg-[#191919] mx-auto m-6 max-md:hidden">
-            <Link href="/admin/small-quiz ">
-              <div className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
-                Add quiz
-              </div>
-            </Link>
-          </div>
-        ) : (
-          ""
-        )}
-
-           
-          </div>
-        </div>
         {/* <h2 className="text-2xl font-bold">Quiz</h2>
 
       <p className="mt-4 text-lg">

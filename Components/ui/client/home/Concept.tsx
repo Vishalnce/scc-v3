@@ -7,8 +7,9 @@ import React from "react";
 export default async function Concept() {
   async function fetchSmallConcept() {
     try {
-     
-       const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/en/small-concepts/client`);
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SITE_URL}/api/en/small-concepts/client`,
+      );
       const data = await res.json();
       // Debugging log
       return data;
@@ -23,12 +24,16 @@ export default async function Concept() {
 
   return (
     <>
-      <div className="bg-[#F8FAFC] dark:bg-[#353535]  py-10">
+      <div className="bg-[#F8FAFC] dark:bg-[#353535] md:py-8 ">
         <div className="max-w-[1400px] mx-auto w-[70%] max-md:w-[90%] flex flex-col items-center md:gap-4 ">
-          <p className="text-2xl font-bold max-md:mt-4 dark:text-white">
-            Today's Concepts for SSC
-          </p>
-          <p className="text-[#6F6F6F] dark:text-white">Stay Updated with all the Concepts</p>
+          <div className="flex flex-col items-center max-md:pb-4">
+            <p className="max-md:text-2xl text-4xl  font-bold max-md:mt-4 dark:text-white ">
+              Today's Concepts for SSC
+            </p>
+            <p className="text-[#6F6F6F] text-center dark:text-white">
+              Stay Updated with all the Concepts
+            </p>
+          </div>
 
           <div className="w-full bg-white md:px-4 dark:bg-[#141212] max-md:px-2 py-6 rounded-lg shadow-sm flex flex-col gap-4">
             <div
@@ -41,16 +46,16 @@ export default async function Concept() {
             </button>
 
             {session?.user?.role === "ADMIN" ? (
-          <div className="w-[90%] dark:bg-[#191919] mx-auto m-6 max-md:hidden">
-            <Link href="/admin/small-concepts ">
-              <div className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
-                Add Concept
+              <div className="w-[90%] dark:bg-[#191919] mx-auto m-6 max-md:hidden">
+                <Link href="/admin/small-concepts ">
+                  <div className="p-2 px-6 bg-[#007076] rounded-full text-center text-white">
+                    Add Concept
+                  </div>
+                </Link>
               </div>
-            </Link>
-          </div>
-        ) : (
-          ""
-        )}
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>

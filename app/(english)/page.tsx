@@ -15,6 +15,7 @@ import TestSeriesCard from "@/Components/ui/client/TestSeriesCard/TestSeriesCard
 import QuizIntro from "@/Components/ui/client/home/smallQuiz/QuizIntro";
 import QuizContainer from "@/Components/ui/client/home/smallQuiz/QuizContainer";
 import Editorial from "@/Components/ui/client/home/Editorial";
+import PopUp from "@/Components/ui/client/home/PopUpButton/PopUp";
 
 function Page() {
   return (
@@ -31,13 +32,14 @@ function Page() {
 
       <Concept />
       <ProCard />
-
+        
       <TestSeriesCard />
 
       <DataEntry />
 
       <AnnounceUpcoming />
       <Banner />
+      <PopUp/>
     </>
   );
 }

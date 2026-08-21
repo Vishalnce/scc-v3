@@ -130,7 +130,7 @@ export default function Editorial() {
 
         {/* main body */}
          <div
-          className="overflow-hidden my-2 md:my-16  pb-6   "
+          className="overflow-hidden my-2 md:my-10  pb-6   "
           ref={emblaRef}
         >
           <div className="flex">
@@ -180,12 +180,12 @@ export default function Editorial() {
 
                 return (
                   <Link
-                    href={`/current-affairs-page/${item.slug}`}
+                    href={`/editorial-page/${item.slug}`}
                     className="min-w-[33.333%] max-sm:min-w-[90%] px-2 max-sm:pr-3  "
                     key={index}
                   >
                     <div
-                      className={`border-2 px-6 max-md:px-3 py-4 flex flex-col transition-all duration-300  ${color.border} ${color.bg} rounded-xl dark:text-white  dark:bg-[#2A2829]`}
+                      className={`border-2 px-6 max-md:px-3 py-4 flex flex-col transition-all duration-300 shadow-[0_0_10px_rgba(0,0,0,0.3)] ${color.border} ${color.bg} rounded-xl dark:text-white  dark:bg-[#2A2829]`}
                     >
                       {/* image */}
                       <div className="w-full h-48 relative ">
