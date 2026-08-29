@@ -2,58 +2,50 @@
 
 import React from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import Autoplay from "embla-carousel-autoplay";
-import SmallNav from "../../../layout/Nav/SmallNav";
 import Card1 from "./HeroCard/Card1";
-import Card3 from "./HeroCard/Card3";
 import Card2 from "./HeroCard/Card2";
+import Card3 from "./HeroCard/Card3";
 import Card4 from "./HeroCard/Card4";
 
 export default function HeroCarousel() {
-  const slides = [1, 2, 3];
-
-  const [emblaRef] = useEmblaCarousel(
-    { loop: true, align: "center" },
-    // [Autoplay({ delay: 2000, stopOnInteraction: false })]
-  );
+  const [emblaRef] = useEmblaCarousel({
+    loop: true,
+    align: "center",
+  });
 
   return (
-    <div className="w-full  bg-white dark:bg-[#1F1F1F]">
-      <div></div>
-
-      <div className="overflow-hidden md:px-6 px-4  py-4 " ref={emblaRef}>
-        <div className="flex ">
-          <div className="flex-none w-[100%]  md:w-[80%] px-2 ">
-            <Card1 />
-          </div>
-
-          <div className="flex-none w-[100%] md:w-[80%]  px-2 ">
-            <Card2 />
-          </div>
-
-          <div className="flex-none w-[100%] md:w-[80%] px-2">
-            <Card3 />
-          </div>
-
-          <div className="flex-none w-[100%] md:w-[80%] px-2 ">
-            <Card4 />
-          </div>
-        </div>
-
-        {/* container
-        <div className="flex">
-
-          {slides.map((slide) => (
-            <div key={slide} className="flex-none w-[80%] px-8 ">
-
-              <div className="h-[40vh] bg-gray-100 rounded-xl shadow flex items-center justify-center text-3xl font-bold">
-                Card {slide}
-              </div>
-
+    <div className="w-full bg-white dark:bg-[#1F1F1F]">
+      <div
+        className="overflow-hidden px-4 md:px-6 py-4"
+        ref={emblaRef}
+      >
+        <div className="flex items-stretch">
+          
+          <div className="flex-none w-full md:w-[80%] px-2">
+            <div className=" sm:h-[300px] md:h-[380px] lg:h-[400px]">
+              <Card4 />
             </div>
-          ))}
+          </div>
 
-        </div> */}
+          <div className="flex-none w-full md:w-[80%] px-2">
+            <div className=" sm:h-[300px] md:h-[380px] lg:h-[400px]">
+              <Card1 />
+            </div>
+          </div>
+
+          <div className="flex-none w-full md:w-[80%] px-2">
+            <div className=" sm:h-[300px] md:h-[380px] lg:h-[400px]">
+              <Card3 />
+            </div>
+          </div>
+
+          <div className="flex-none w-full md:w-[80%] px-2">
+            <div className=" sm:h-[300px] md:h-[380px] lg:h-[400px]">
+              <Card2 />
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
   );

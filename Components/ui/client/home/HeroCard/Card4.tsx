@@ -5,7 +5,7 @@ function Card4() {
   return (
     <>
       {/* main div */}
-      <div className=" bg-gradient-to-r from-[#289AA2] to-[#8CD6DB] relative  rounded-2xl shadow  max-md:min-h-[160px] max-md:pt-1  md:min-h-[380px]  ">
+      <div className=" bg-gradient-to-r from-[#289AA2] to-[#8CD6DB] relative  rounded-2xl shadow  max-md:min-h-[170px] max-md:pt-1  md:min-h-[380px]  ">
         <div className="flex flex-row items-center max-md:justify-start  max-md:px-2 justify-center md:pt-4  md:px-6">
           {/* text  */}
           <div className="  relative flex flex-col  justify-between  items-start md:gap-6  w-[70%]  md:pr-4 max-md:w-[75%]   max-md:py-4  ">
@@ -31,7 +31,7 @@ function Card4() {
 
           {/* image */}
 
-          <div className="w-[20%] max-md:w-[27%] max-md:absolute right-2 bottom-2">
+          <div className="w-[20%] max-md:w-[28%] max-md:absolute right-2 bottom-4">
             <Image
               src="/ui/client/home/Hero/boy2.png"
               width={300}
