@@ -159,6 +159,13 @@ export default function Page({ post }: { post?: PostType }) {
     setValue("topic", option?.value || ""); // sets the category field
   };
 
+  useEffect(() => {
+    if (post?.image) {
+      setUploadedImageUrl(post.image);
+      setValue("image", post.image);
+    }
+  }, [post, setValue]);
+
   // image upload
 
   const { data: session } = useSession();

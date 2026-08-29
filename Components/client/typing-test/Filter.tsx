@@ -181,14 +181,14 @@ const router = useRouter();
       </div>
 
       {/* Submit Button */}
-      <div className="flex items-center justify-center my-4">
-        <button
-          onClick={handleSubmit}
-          className="px-12 rounded-4xl py-2 text-white bg-[#007076]"
-        >
-          Start Test
-        </button>
-      </div>
+     <div className="flex items-center justify-center my-6">
+  <button
+    onClick={handleSubmit}
+    className="w-full sm:w-auto px-8 sm:px-12 py-3 rounded-full text-white bg-[#007076] hover:bg-[#005f63] active:scale-[0.98] transition-all duration-200 font-medium text-sm sm:text-base shadow-sm"
+  >
+    Start Test
+  </button>
+</div>
     </>
   );
 };

@@ -94,7 +94,8 @@ export default function RelatedConcept({
     <div
       key={post.id}
       onClick={() => router.push(`/concept-page/${post.slug}`)}
-      className="flex flex-col w-[30%] max-md:w-[90%] rounded-2xl bg-white dark:bg-[#1e1e1e] shadow-[0_0_6px_rgba(0,0,0,0.2)] dark:shadow-[0_0_8px_rgba(0,0,0,0.5)] cursor-pointer"
+      className="flex flex-col w-[30%] max-md:w-[90%] rounded-2xl bg-white dark:bg-[#1e1e1e] shadow-[0_0_6px_rgba(0,0,0,0.2)] dark:shadow-[0_0_8px_rgba(0,0,0,0.5)]    hover:-translate-y-2 hover:shadow-[0_10px_25px_rgba(0,0,0,0.15)] dark:hover:shadow-[0_10px_25px_rgba(0,0,0,0.45)]
+                  transition-all duration-300 ease-out cursor-pointer"
     >
       {/* Header */}
       <div

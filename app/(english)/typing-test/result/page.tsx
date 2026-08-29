@@ -23,6 +23,7 @@ function Page() {
     if (storedResults) {
       try {
         const results = JSON.parse(storedResults);
+        console.log("result");
         if (Array.isArray(results) && results.length > 0) {
           setLatestResult(results[results.length - 1]); // only latest
         }
@@ -58,6 +59,15 @@ function Page() {
     textColor = "text-red-600";
     borderColor = "border-red-500";
   }
+
+const formatDuration = (seconds: number | string) => {
+  const totalSeconds = Math.round(Number(seconds));
+
+  const minutes = Math.floor(totalSeconds / 60);
+  const remainingSeconds = totalSeconds % 60;
+
+  return `${minutes}m ${remainingSeconds}s`;
+};
 
   return (
     <>
@@ -106,16 +116,16 @@ function Page() {
             />
 
             <StatCard
-              value={`${latestResult.totalDuration} m`}
+              value={formatDuration(latestResult.totalDuration)}
               label="Total Duration"
               color="blue"
             />
 
             <StatCard
-              value={`${latestResult.timeTaken} m`}
-              label="Time Taken"
-              color="pink"
-            />
+  value={formatDuration(latestResult.timeTaken)}
+  label="Time Taken"
+  color="pink"
+/>
 
             <StatCard
               value={latestResult.totalTypedWords}
@@ -143,103 +153,100 @@ function Page() {
       </div>
 
       <div className=" dark:bg-black">
+        <div className="w-[90%] mx-auto rounded-2xl shadow-[0_0_9px_rgba(0,0,0,0.2)] py-4 bg-white dark:bg-[#1c1c1c]">
+          <div className="flex flex-col w-[95%] mx-auto gap-4">
+            {/* Error Percentage */}
+            <div className="flex justify-between items-center gap-3">
+              <div className="flex flex-row items-center gap-3 min-w-0">
+                <div className="p-2 bg-[#FDE9E9] dark:bg-[#4a2525] rounded-full shrink-0">
+                  <LuTriangleAlert className="text-[#F14343] size-7" />
+                </div>
 
-          <div className="w-[90%] mx-auto rounded-2xl shadow-[0_0_9px_rgba(0,0,0,0.2)] py-4 bg-white dark:bg-[#1c1c1c]">
-        <div className="flex flex-col w-[95%] mx-auto gap-4">
-          {/* Error Percentage */}
-          <div className="flex justify-between items-center gap-3">
-            <div className="flex flex-row items-center gap-3 min-w-0">
-              <div className="p-2 bg-[#FDE9E9] dark:bg-[#4a2525] rounded-full shrink-0">
-                <LuTriangleAlert className="text-[#F14343] size-7" />
+                <p className="text-lg md:text-xl font-bold dark:text-white">
+                  Error Percentage
+                </p>
               </div>
 
-              <p className="text-lg md:text-xl font-bold dark:text-white">
-                Error Percentage
-              </p>
+              <div className="flex flex-row items-center gap-1 text-white bg-gradient-to-r from-[#047077] to-[#2FC6C7] px-3 md:px-4 py-1 rounded-full shrink-0">
+                <CiLock className="size-5 md:size-6" />
+                <p className="text-sm md:text-xl">Pro</p>
+              </div>
             </div>
 
-            <div className="flex flex-row items-center gap-1 text-white bg-gradient-to-r from-[#047077] to-[#2FC6C7] px-3 md:px-4 py-1 rounded-full shrink-0">
-              <CiLock className="size-5 md:size-6" />
-              <p className="text-sm md:text-xl">Pro</p>
-            </div>
-          </div>
+            {/* Speed */}
+            <div className="flex justify-between items-center gap-3">
+              <div className="flex flex-row items-center gap-3 min-w-0">
+                <div className="p-2 bg-[#F3E6FF] dark:bg-[#3d2848] rounded-full shrink-0">
+                  <IoSpeedometerOutline className="text-[#9F38D6] size-7" />
+                </div>
 
-          {/* Speed */}
-          <div className="flex justify-between items-center gap-3">
-            <div className="flex flex-row items-center gap-3 min-w-0">
-              <div className="p-2 bg-[#F3E6FF] dark:bg-[#3d2848] rounded-full shrink-0">
-                <IoSpeedometerOutline className="text-[#9F38D6] size-7" />
+                <p className="text-lg md:text-xl font-bold dark:text-white">
+                  Speed (WPM)
+                </p>
               </div>
 
-              <p className="text-lg md:text-xl font-bold dark:text-white">
-                Speed (WPM)
-              </p>
+              <div className="flex items-center gap-1 text-white bg-gradient-to-r from-[#047077] to-[#2FC6C7] px-3 md:px-4 py-1 rounded-full shrink-0">
+                <CiLock className="size-5 md:size-6" />
+                <p className="text-sm md:text-xl">Pro</p>
+              </div>
             </div>
 
-            <div className="flex items-center gap-1 text-white bg-gradient-to-r from-[#047077] to-[#2FC6C7] px-3 md:px-4 py-1 rounded-full shrink-0">
-              <CiLock className="size-5 md:size-6" />
-              <p className="text-sm md:text-xl">Pro</p>
-            </div>
-          </div>
+            {/* Net Typing Speed */}
+            <div className="flex justify-between items-center gap-3">
+              <div className="flex flex-row items-center gap-3 min-w-0">
+                <div className="p-2 bg-[#EBFFE4] dark:bg-[#254524] rounded-full shrink-0">
+                  <IoSpeedometerOutline className="text-[#11C352] size-7" />
+                </div>
 
-          {/* Net Typing Speed */}
-          <div className="flex justify-between items-center gap-3">
-            <div className="flex flex-row items-center gap-3 min-w-0">
-              <div className="p-2 bg-[#EBFFE4] dark:bg-[#254524] rounded-full shrink-0">
-                <IoSpeedometerOutline className="text-[#11C352] size-7" />
+                <p className="text-lg md:text-xl font-bold dark:text-white">
+                  Net Typing Speed (WPM)
+                </p>
               </div>
 
-              <p className="text-lg md:text-xl font-bold dark:text-white">
-                Net Typing Speed (WPM)
-              </p>
+              <div className="flex items-center gap-1 text-white bg-gradient-to-r from-[#047077] to-[#2FC6C7] px-3 md:px-4 py-1 rounded-full shrink-0">
+                <CiLock className="size-5 md:size-6" />
+                <p className="text-sm md:text-xl">Pro</p>
+              </div>
             </div>
 
-            <div className="flex items-center gap-1 text-white bg-gradient-to-r from-[#047077] to-[#2FC6C7] px-3 md:px-4 py-1 rounded-full shrink-0">
-              <CiLock className="size-5 md:size-6" />
-              <p className="text-sm md:text-xl">Pro</p>
-            </div>
-          </div>
+            {/* Gross WPM */}
+            <div className="flex justify-between items-center gap-3">
+              <div className="flex flex-row items-center gap-3 min-w-0">
+                <div className="p-2 bg-[#FFF1DF] dark:bg-[#49391f] rounded-full shrink-0">
+                  <IoSpeedometerOutline className="text-[#F89716] size-7" />
+                </div>
 
-          {/* Gross WPM */}
-          <div className="flex justify-between items-center gap-3">
-            <div className="flex flex-row items-center gap-3 min-w-0">
-              <div className="p-2 bg-[#FFF1DF] dark:bg-[#49391f] rounded-full shrink-0">
-                <IoSpeedometerOutline className="text-[#F89716] size-7" />
+                <p className="text-lg md:text-xl font-bold dark:text-white">
+                  Gross WPM
+                </p>
               </div>
 
-              <p className="text-lg md:text-xl font-bold dark:text-white">
-                Gross WPM
-              </p>
+              <div className="flex items-center gap-1 text-white bg-gradient-to-r from-[#047077] to-[#2FC6C7] px-3 md:px-4 py-1 rounded-full shrink-0">
+                <CiLock className="size-5 md:size-6" />
+                <p className="text-sm md:text-xl">Pro</p>
+              </div>
             </div>
 
-            <div className="flex items-center gap-1 text-white bg-gradient-to-r from-[#047077] to-[#2FC6C7] px-3 md:px-4 py-1 rounded-full shrink-0">
-              <CiLock className="size-5 md:size-6" />
-              <p className="text-sm md:text-xl">Pro</p>
-            </div>
-          </div>
+            {/* Keystroke */}
+            <div className="flex justify-between items-center gap-3">
+              <div className="flex flex-row items-center gap-3 min-w-0">
+                <div className="p-2 bg-[#E9F3FF] dark:bg-[#243b4a] rounded-full shrink-0">
+                  <IoSpeedometerOutline className="text-[#24B3CB] size-7" />
+                </div>
 
-          {/* Keystroke */}
-          <div className="flex justify-between items-center gap-3">
-            <div className="flex flex-row items-center gap-3 min-w-0">
-              <div className="p-2 bg-[#E9F3FF] dark:bg-[#243b4a] rounded-full shrink-0">
-                <IoSpeedometerOutline className="text-[#24B3CB] size-7" />
+                <p className="text-lg md:text-xl font-bold dark:text-white">
+                  Keystroke
+                </p>
               </div>
 
-              <p className="text-lg md:text-xl font-bold dark:text-white">
-                Keystroke
-              </p>
-            </div>
-
-            <div className="flex items-center gap-1 text-white bg-gradient-to-r from-[#047077] to-[#2FC6C7] px-3 md:px-4 py-1 rounded-full shrink-0">
-              <CiLock className="size-5 md:size-6" />
-              <p className="text-sm md:text-xl">Pro</p>
+              <div className="flex items-center gap-1 text-white bg-gradient-to-r from-[#047077] to-[#2FC6C7] px-3 md:px-4 py-1 rounded-full shrink-0">
+                <CiLock className="size-5 md:size-6" />
+                <p className="text-sm md:text-xl">Pro</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-        </div>
-
-    
     </>
   );
 }
@@ -255,7 +262,9 @@ function StatCard({ value, label, color }: any) {
   };
 
   return (
-    <div className={`p-5 rounded-xl border text-center dark:bg-[#1c1c1c] ${styles[color]}`}>
+    <div
+      className={`p-5 rounded-xl border text-center dark:bg-[#1c1c1c] ${styles[color]}`}
+    >
       <p className="text-2xl font-bold">{value}</p>
       <p className="text-sm">{label}</p>
     </div>

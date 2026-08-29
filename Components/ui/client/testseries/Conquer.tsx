@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import { FaCheck } from "react-icons/fa";
 import { GoChecklist } from "react-icons/go";
@@ -56,14 +57,14 @@ function Conquer() {
         </div>
 
         {/* button */}
-        <div className="px-6 py-6">
-
-
-          <button className="bg-[#047077] w-full text-center text-white py-2 rounded-full">
-Start Typing
-
-          </button>
-        </div>
+       <div className="px-6 py-6 ">
+  <Link
+    href="/typing-test/intro"
+    className="block w-full bg-[#047077] text-center text-white py-2 rounded-full"
+  >
+    Start Typing
+  </Link>
+</div>
       </div>
     </>
   );

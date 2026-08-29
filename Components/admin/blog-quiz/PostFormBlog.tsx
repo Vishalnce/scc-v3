@@ -155,6 +155,7 @@ export default function Page({
       if (res.ok) {
         setPostId(result.id);
         alert(isEdit ? "Post updated successfully!" : "Post created!");
+           router.push("/blog");
       } else {
         alert("Failed to save post");
       }
@@ -170,6 +171,14 @@ export default function Page({
     setSelectedOption(option);
     setValue("topic", option?.value || ""); // 👈 sets the category field
   };
+
+
+    useEffect(() => {
+    if (post?.image) {
+      setUploadedImageUrl(post.image);
+      setValue("image", post.image);
+    }
+  }, [post, setValue]);
 
   const handleImageUpload = async () => {
     if (uploadedImageUrl) {

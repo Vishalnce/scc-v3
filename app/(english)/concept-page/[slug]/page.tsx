@@ -1,4 +1,5 @@
 import CommentWrapper from "@/Components/client/comment/CommentWrapper";
+import RelatedQuiz from "@/Components/client/concept/RelatedQuiz";
 import NextPrev from "@/Components/ui/client/nextPrevButton/NextPrev";
 import SideBar from "@/Components/ui/client/sidebar/SideBar";
 import Image from "next/image";
@@ -271,6 +272,14 @@ export default async function ConceptPage({
           </div>
         </div>
       </div>
+ 
+      
+   <RelatedQuiz topic={post?.topic || ""} />
+      
+      
+
+
+
       <NextPrev
         nextPost={nextPost}
         prevPost={prevPost}

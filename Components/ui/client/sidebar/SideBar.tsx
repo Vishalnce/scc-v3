@@ -75,7 +75,7 @@ export default async function SideBar() {
   // console.log("Posts:", posts);
 
   const oneLiner = await fetchOneLiner();
-  console.log("OneLiner:", oneLiner);
+
 
   return (
     <>
@@ -85,7 +85,7 @@ export default async function SideBar() {
             Latest Current Affairs
           </p>
         </div>
-        <ul className=" marker:text-black dark:marker:text-white space-y-1 text-my-text-color text-sm">
+        <ul className=" marker:text-black dark:marker:text-white space-y-1 text-my-text-color text-md">
           {posts.map((post: any) => (
             <li key={post.id} className="py-1">
               {post.title}
@@ -98,7 +98,7 @@ export default async function SideBar() {
         <div className="">
           <p className="py-2 font-bold dark:text-white">Latest One Liner</p>
         </div>
-        <ul className=" marker:text-black space-y-1 dark:marker:text-white text-my-text-color text-sm">
+        <ul className=" marker:text-black space-y-1 dark:marker:text-white text-my-text-color text-md">
           {oneLiner.map((post: any) => (
             <li key={post.id} className="py-1">
               {post.content}

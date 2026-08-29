@@ -30,7 +30,7 @@ export default function Editor({ value = "", onSync,  setIsEditorChange }: Edito
     onSync({ html: updatedHtml, toc });
     alert("Content synced!");
     // console.log("TOC:", toc);
-    // console.log("HTML:", updatedHtml);
+     console.log("HTML:", updatedHtml);
   };
 
   return (

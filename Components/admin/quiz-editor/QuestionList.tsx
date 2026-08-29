@@ -69,7 +69,7 @@ const QuestionList = ({ id, setQuesId }: QuestionWrapperProps) => {
   if (error) return <div>Error: {error}</div>;
   if (questions.length === 0) return <div>No questions found.</div>;
 
-  console.log("Fetched questions:", questions);
+  
 
   return (
     <div>
@@ -159,15 +159,29 @@ const QuestionList = ({ id, setQuesId }: QuestionWrapperProps) => {
             </div>
 
             {/* Solution Section */}
-            {q.solution && (
-              <div className="mt-2 text-gray-800 dark:text-gray-200">
-                <span className="font-semibold">Solution:</span>
-                <div
-                  className="mt-1 prose dark:prose-invert max-w-none"
-                  dangerouslySetInnerHTML={{ __html: q.solution }}
-                />
-              </div>
-            )}
+           {q.solution && (
+  <div className="mt-2 text-gray-800 dark:text-gray-200">
+    <span className="font-semibold">Solution:</span>
+
+    <div
+      className="
+        mt-1
+        prose
+        dark:prose-invert
+        max-w-none
+        w-full
+        overflow-hidden
+        [&_img]:max-w-full
+        [&_img]:h-auto
+        [&_img]:box-border
+        [&_img]:float-none
+      "
+      dangerouslySetInnerHTML={{ __html: q.solution }}
+    />
+  </div>
+)}
+
+         
           </li>
         ))}
       </ul>

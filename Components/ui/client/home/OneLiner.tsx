@@ -122,24 +122,74 @@ export default function OneLiner() {
               <p>Loading...</p>
             ) : (
               items.map((item, index) => (
-                <div
-                  key={item.id}
-                  className="min-w-[40.333%] shadow-[0_0_10px_rgba(0,0,0,0.1)] max-sm:min-w-[85%] pt-4  px-2 border-2 rounded-xl bg-[#F8FAFC] border-[#DADADA] flex flex-row gap-4  dark:bg-[#474849] dark:text-white"
-                >
-                  <div className="flex gap-3 items-start">
-                    <span className="font-semibold text-3xl text-white bg-[#007076] px-2 py-2 rounded-xl">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                  </div>
+               <div
+  key={item.id}
+  className="
+    relative
+    min-w-[40.333%]
+    max-sm:min-w-[85%]
+    pt-4
+    pb-4
+    pl-2
+    pr-12
+    border-2
+    rounded-xl
+    bg-[#F8FAFC]
+    border-[#DADADA]
+    shadow-[0_0_10px_rgba(0,0,0,0.1)]
+    flex
+    flex-row
+    gap-4
+    dark:bg-[#474849]
+    dark:text-white
+    min-w-0
+  "
+>
+  {/* Number */}
+  <div className="shrink-0">
+    <span className="font-semibold text-3xl text-white bg-[#007076] px-2 py-2 rounded-xl">
+      {String(index + 1).padStart(2, "0")}
+    </span>
+  </div>
 
-                  <div className="">
-                    {" "}
-                    <p className=" font-medium md:text-lg line-clamp-2">{item.content}</p>
-                    <p className="text-[#6F6F6F] dark:text-white max-md:text-sm mt-2 mb-4">
-                      {formatDate(item.createdAt)}
-                    </p>
-                  </div>
-                </div>
+  {/* Content */}
+  <div className="min-w-0 flex-1">
+    <p className="font-medium md:text-lg line-clamp-2 break-words">
+      {item.content}
+    </p>
+
+    <p className="text-[#6F6F6F] dark:text-white max-md:text-sm mt-2">
+      {formatDate(item.createdAt)}
+    </p>
+  </div>
+
+  {/* Bottom-right arrow */}
+  <Link
+    href="/one-liner"
+    aria-label="View one-liners"
+    className="
+      absolute
+      bottom-3
+      right-3
+      w-8
+      h-8
+      max-sm:w-7
+      max-sm:h-7
+      rounded-full
+      bg-[#007076]
+      text-white
+      flex
+      items-center
+      justify-center
+      text-lg
+      leading-none
+      hover:bg-[#005b60]
+      transition-colors
+    "
+  >
+    →
+  </Link>
+</div>
               ))
             )}
           </div>

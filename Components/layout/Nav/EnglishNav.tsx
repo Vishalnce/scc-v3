@@ -55,9 +55,9 @@ function Nav() {
                 <Image
                   src="/layout/logo1.png"
                   alt="Logo"
-                  width={35}
-                  height={35}
-                  className="h-auto w-auto"
+                  width={200}
+                  height={60}
+                  className="h-auto w-28 max-md:w-40 lg:w-52"
                 />
               </Link>
 
@@ -96,7 +96,9 @@ function Nav() {
 
             {/* button and login */}
 
-            <div className="flex flex-row justify-around items-center space-x-2 mx-2">
+            <div className=" max-md:flex-row flex my-auto">
+
+              <div className="flex flex-row justify-around items-center space-x-2 mx-2">
               {/* bell button */}
               <EnglishNoti />
               <ThemeToggle />
@@ -151,7 +153,7 @@ function Nav() {
 
             {/* right menu for small screens   */}
             <div className="flex flex-row md:hidden">
-              <TbLanguageHiragana className="size-7 dark:text-white " />
+              <TbLanguageHiragana className="size-7 dark:text-white my-auto " />
 
               <div
                 className="my-auto m-1 md:hidden "
@@ -164,6 +166,11 @@ function Nav() {
                 )}
               </div>
             </div>
+
+
+            </div>
+
+            
           </div>
         </div>
 

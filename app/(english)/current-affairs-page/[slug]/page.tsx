@@ -247,9 +247,9 @@ export default async function CurrentAffairsPage({
                       if (item.tag === "h2") numbering = `${h1}.${h2}`;
                       if (item.tag === "h3") numbering = `${h1}.${h2}.${h3}`;
                       let indent = "";
-                      if (item.tag === "h1") indent = " my-3 text-xl";
-                      if (item.tag === "h2") indent = "ml-4 my-2 text-md";
-                      if (item.tag === "h3") indent = "ml-8 my-1 text-sm";
+                      if (item.tag === "h1") indent = " my-3 text-2xl";
+                      if (item.tag === "h2") indent = "ml-4 my-2 text-lg";
+                      if (item.tag === "h3") indent = "ml-8 my-1 text-md";
                       return (
                         <div key={index} className={indent}>
                           <a

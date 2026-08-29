@@ -413,11 +413,19 @@ export default function Explanation({ questions, answers, topic }: Props) {
         {/* Explanation Section - KEEP AS IS */}
         <div className="py-4">
           <div
-            className="dark:text-white text-lg prose dark:prose-invert max-w-none"
-            dangerouslySetInnerHTML={{
-              __html: q.solution || "",
-            }}
-          />
+  className="
+    mt-1
+    prose
+    dark:prose-invert
+    max-w-none
+    w-full
+    overflow-hidden
+    [&_img]:max-w-full
+    [&_img]:h-auto
+    [&_img]:box-border
+  "
+  dangerouslySetInnerHTML={{ __html: q.solution }}
+/>
         </div>
       </div>
 

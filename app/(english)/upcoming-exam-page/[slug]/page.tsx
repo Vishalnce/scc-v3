@@ -315,16 +315,8 @@ export default async function UpcomingExamPage({
         parentType="upcoming-exam-page"
       />
 
-      {/* want toadd a componeten that handle quiz from post it is can be fetcher */}
-      {post?.id && (
-        <QuizWrapper
-          postId={post.id}
-          timeLimit={post.timeLimit}
-          topic={post.topic}
-        />
-      )}
-
-      {/* //vcurtial typeerror */}
+    
+  
 
       <CommentWrapper parentId={post?.id} parentType="postId" />
     </>
